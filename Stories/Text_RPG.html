@@ -9,7 +9,7 @@
 </head>
 <body>
 <tw-story><noscript><tw-noscript>JavaScript needs to be enabled to play Text_RPG.</tw-noscript></noscript></tw-story>
-<tw-storydata name="Text_RPG" startnode="9" creator="Twine" creator-version="2.8.1" format="Harlowe" format-version="3.3.8" ifid="DE6514A9-4EA1-4602-AC56-8CFDBBEAB4D6" options="" tags="" zoom="0.6" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css"></style><script role="script" id="twine-user-script" type="text/twine-javascript"></script><tw-tag name="script" color="orange"></tw-tag><tw-tag name="stylesheet" color="purple"></tw-tag><tw-passagedata pid="1" name="Winmose" tags="" position="900,1000" size="100,100">(set: $currentBiome to &quot;forest&quot;)
+<tw-storydata name="Text_RPG" startnode="9" creator="Twine" creator-version="2.8.1" format="Harlowe" format-version="3.3.8" ifid="DE6514A9-4EA1-4602-AC56-8CFDBBEAB4D6" options="" tags="" zoom="0.6" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css"></style><script role="script" id="twine-user-script" type="text/twine-javascript"></script><tw-tag name="script" color="orange"></tw-tag><tw-tag name="stylesheet" color="purple"></tw-tag><tw-tag name="menu" color="blue"></tw-tag><tw-passagedata pid="1" name="Winmose" tags="" position="500,700" size="100,100">(set: $currentBiome to &quot;forest&quot;)
 (set: $lastLocation to (passage:))
 
 You are in the town of Winmose. What would you like to do?
@@ -18,14 +18,14 @@ You are in the town of Winmose. What would you like to do?
 [[Explore the surrounding forest|EnemyEncounter]]
 [[Visit the shop|Winmose Shop]]
 [[Rest]]
-[[Travel East]]</tw-passagedata><tw-passagedata pid="2" name="Winmose Shop" tags="" position="1000,1150" size="100,100">(set: $lastLocation to (passage:))
+[[Travel East]]</tw-passagedata><tw-passagedata pid="2" name="Winmose Shop" tags="" position="600,875" size="100,100">(set: $lastLocation to (passage:))
 
 
 You enter the local shop. It&#39;s a small room, with various items on wooden shelves. The shopkeeper nods at you. On a table, you see a Rusty Sword. It looks old, but it might be useful.
 
 [[Take the Rusty Sword-&gt;Add Rusty Sword to Inventory]]
 [[Leave the shop-&gt;Winmose]]
-</tw-passagedata><tw-passagedata pid="3" name="Rest" tags="" position="725,1150" size="100,100"></tw-passagedata><tw-passagedata pid="4" name="Items" tags="" position="300,100" size="100,100">{
+</tw-passagedata><tw-passagedata pid="3" name="Rest" tags="" position="400,875" size="100,100"></tw-passagedata><tw-passagedata pid="4" name="Items" tags="" position="300,100" size="100,100">{
 (set: $weaponTypeModifiers to (datamap:
 	&quot;sword&quot;, &quot;strength&quot;,
     &quot;blunt&quot;, &quot;strength&quot;,
@@ -75,11 +75,9 @@ You enter the local shop. It&#39;s a small room, with various items on wooden sh
         &quot;value&quot;, 10
     )
 ))
-}</tw-passagedata><tw-passagedata pid="5" name="Inventory" tags="" position="500,100" size="100,100">
+}</tw-passagedata><tw-passagedata pid="5" name="Inventory" tags="menu" position="500,100" size="100,100">
 
 Inventory:
-
-
 
     (for: each _item, ...$inventory)[
         =|=
@@ -111,14 +109,26 @@ Inventory:
         |==|
     ]
 
-(link-goto: &quot;Back&quot;, (history:)&#39;s last)</tw-passagedata><tw-passagedata pid="6" name="GlobalHUD" tags="header" position="800,100" size="100,100">(display: &quot;HUDStatDisplay&quot;)
-(link: &quot;Character Stats&quot;)[ (goto: &quot;StatsMenu&quot;) ]   |   (link: &quot;Inventory&quot;)[ (goto: &quot;Inventory&quot;) ]</tw-passagedata><tw-passagedata pid="7" name="Add Rusty Sword to Inventory" tags="" position="1000,1275" size="100,100">(set: $inventory to it + (a: $weapons&#39;s &quot;Rusty Sword&quot; ))
+(link-goto: &quot;Back&quot;, $returnPassage&#39;s name)</tw-passagedata><tw-passagedata pid="6" name="GlobalHUD" tags="header" position="800,100" size="100,100">{(display: &quot;HUDStatDisplay&quot;)
+
+=|=
+(link: &quot;Character Stats&quot;)[
+	(set: $returnPassage = (passage:))
+    (goto: &quot;StatsMenu&quot;)
+]
+=|=
+(link: &quot;Inventory&quot;)[ 
+	(set: $returnPassage = (passage:))
+    (goto: &quot;Inventory&quot;)
+]
+|==|
+}</tw-passagedata><tw-passagedata pid="7" name="Add Rusty Sword to Inventory" tags="" position="600,1000" size="100,100">(set: $inventory to it + (a: $weapons&#39;s &quot;Rusty Sword&quot; ))
 
 
 You pick up the Rusty Sword and store it in your bag.
 
 [[Go Back-&gt;Winmose Shop]]
-</tw-passagedata><tw-passagedata pid="8" name="Travel East" tags="" position="1200,1000" size="100,100"></tw-passagedata><tw-passagedata pid="9" name="Start" tags="" position="900,800" size="100,100">{(set: $baseStats to (dm: 
+</tw-passagedata><tw-passagedata pid="8" name="Travel East" tags="" position="700,725" size="100,100"></tw-passagedata><tw-passagedata pid="9" name="Start" tags="" position="500,400" size="100,100">{(set: $baseStats to (dm: 
 	&quot;health&quot;, 20, 
     &quot;strength&quot;, 15, 
     &quot;defense&quot;, 10,
@@ -152,6 +162,8 @@ You pick up the Rusty Sword and store it in your bag.
     &quot;outfit&quot;, &quot;&quot;,
     &quot;back&quot;, &quot;&quot;
 ))
+
+(set: $currentEnemy to &quot;&quot;)
 }
 
 Choose your starting location:
@@ -185,6 +197,7 @@ Choose your starting location:
         &quot;intelligence&quot;, 10,
         &quot;awareness&quot;, 12,
         &quot;charisma&quot;, 3,
+        &quot;damage&quot;, &quot;1d4&quot;,
         &quot;gold&quot;, 5
 ),
     &quot;Troll&quot;, (dm: 
@@ -202,17 +215,19 @@ Choose your starting location:
 	&quot;Bandit&quot;, (dm: 
 		&quot;name&quot;, &quot;Bandit&quot;,
         &quot;biomes&quot;, (a: &quot;forest&quot;, &quot;hills&quot;, &quot;grasslands&quot;, &quot;plains&quot;, &quot;savannah&quot;, &quot;urban&quot;),
-        &quot;health&quot;, 40,
+        &quot;health&quot;, 14,
         &quot;strength&quot;, 10,
         &quot;defense&quot;, 14,
         &quot;dexterity&quot;, 10,
         &quot;intelligence&quot;, 10,
         &quot;awareness&quot;, 10,
         &quot;charisma&quot;, 8,
+        &quot;damage&quot;, &quot;1d6&quot;,
         &quot;gold&quot;, 15
 	)
 ))
-&lt;!--Additional Enemies added about the &quot;))&quot;--&gt;</tw-passagedata><tw-passagedata pid="11" name="StatsMenu" tags="" position="900,100" size="100,100">
+&lt;!--Additional Enemies added about the &quot;))&quot;--&gt;</tw-passagedata><tw-passagedata pid="11" name="StatsMenu" tags="menu" position="900,100" size="100,100">&#39;&#39;Equipment&#39;&#39;
+Mainhand: (print: $equipmentSlots&#39;s mainhand)  Offhand: (print: $equipmentSlots&#39;s offhand)
 
 =|=
 (text-style:&quot;bold&quot;,&quot;underline&quot;)[Stat]
@@ -245,71 +260,133 @@ Charisma:
 
 
 
-(link-goto: &quot;Back&quot;, (history:)&#39;s last)</tw-passagedata><tw-passagedata pid="12" name="HUDStatDisplay" tags="" position="800,200" size="100,100">Health: (print: $currentStats&#39;s health) | Gold: (print: $gold)</tw-passagedata><tw-passagedata pid="13" name="EnemyEncounter" tags="" position="1200,200" size="100,100">{(set: $biomeEnemies to (datamap:))
+(link-goto: &quot;Back&quot;, $returnPassage&#39;s name)</tw-passagedata><tw-passagedata pid="12" name="HUDStatDisplay" tags="" position="800,200" size="100,100">Health: (print: $currentStats&#39;s health) | Gold: (print: $gold)</tw-passagedata><tw-passagedata pid="13" name="EnemyEncounter" tags="" position="1200,200" size="100,100">
 
-(for: each _enemyName, ...(datanames: $enemies))[
-    (set: _enemy to $enemies&#39;s (_enemyName))
-    (if: (_enemy&#39;s biomes contains $currentBiome))[
-        (set: $biomeEnemies to it + (datamap: _enemyName, _enemy))
-    ]
+
+{(if: $currentEnemy is not &quot;&quot;)[
+    You encounter a (print: $currentEnemy&#39;s name)! What do you do?&lt;br&gt;&lt;br&gt;
+    [[Engage|EngageEnemy]]&lt;br&gt;
+    [[Flee|FleeEncounter]]
 ]
-(set: $enemyNames to (datanames: $biomeEnemies))
-(set: $randomIndex to (random: 1, $enemyNames&#39;s length))
-(set: $currentEnemy to $biomeEnemies&#39;s ($enemyNames&#39;s $randomIndex))}
+(else:)[
+    (set: $biomeEnemies to (datamap:))
 
+    (for: each _enemyName, ...(datanames: $enemies))[
+        (set: _enemy to $enemies&#39;s (_enemyName))
+        (if: (_enemy&#39;s biomes contains $currentBiome))[
+            (set: $biomeEnemies to it + (datamap: _enemyName, _enemy))
+        ]
+    ]
+    (set: $enemyNames to (datanames: $biomeEnemies))
+    (set: $randomIndex to (random: 1, $enemyNames&#39;s length))
+    (set: $currentEnemy to $biomeEnemies&#39;s ($enemyNames&#39;s $randomIndex))
 
+    You encounter a (print: $currentEnemy&#39;s name)! What do you do?&lt;br&gt;&lt;br&gt;
 
-You encounter a (print: $currentEnemy&#39;s name)! What do you do?
-
-[[Engage|EngageEnemy]]
-[[Flee|FleeEncounter]]
+    [[Engage|EngageEnemy]]&lt;br&gt;
+    [[Flee|FleeEncounter]]
+]}
 </tw-passagedata><tw-passagedata pid="14" name="FleeEncounter" tags="" position="1300,325" size="100,100">
 
 
-(if: $currentStats&#39;s dexterity &gt;= $currentEnemy&#39;s awareness)[
-    You quickly dart away, using your agility to evade the $currentEnemy&#39;s name. 
-    Success! You have managed to flee.
-    (link-goto: &quot;Continue&quot;, $lastLocation)
+{(if: $currentStats&#39;s dexterity &gt;= $currentEnemy&#39;s awareness)[
+    You quickly dart away, using your agility to evade the (print:$currentEnemy&#39;s name). &lt;br&gt;&lt;br&gt;
+    (set: $currentEnemy to &quot;&quot;)
+    (link-goto: &quot;Continue&quot;, $lastLocation&#39;s name)
 ](else:)[
     As you try to flee, the (print: $currentEnemy&#39;s name) anticipates your move and blocks your path. 
     You can&#39;t escape!
     
     [[Fight|EngageEnemy]]
-]</tw-passagedata><tw-passagedata pid="15" name="EngageEnemy" tags="" position="1100,325" size="100,100">
+]}</tw-passagedata><tw-passagedata pid="15" name="EngageEnemy" tags="" position="1100,325" size="100,100">
 
 
 The (print: $currentEnemy&#39;s name) stands before you.
 
 [[Attack|Attack]]
 [[Use Item|UseItem]] &lt;!-- To be implemented later --&gt;
-[[Flee|FleeEncounter]] &lt;!-- Fleeing during combat could have different consequences --&gt;</tw-passagedata><tw-passagedata pid="16" name="Attack" tags="" position="1000,450" size="100,100">{(set: $playerAttack to $currentStats&#39;s strength - $currentEnemy&#39;s defense)
-(if: $playerAttack &lt; 0)[(set: $playerAttack to 0)] &lt;!-- Prevent negative damage --&gt;
-(set: $currentEnemy&#39;s health to $currentEnemy&#39;s health - $playerAttack) &lt;!-- Update the enemy&#39;s health --&gt;}
+[[Flee|FleeEncounter]] &lt;!-- Fleeing during combat could have different consequences --&gt;</tw-passagedata><tw-passagedata pid="16" name="Attack" tags="" position="1000,450" size="100,100">
 
-You attack the (print: $currentEnemy&#39;s name), dealing $playerAttack damage.
 
-{(if: $currentEnemy&#39;s health &gt; 0)[
-    (set: $enemyAttack to $currentEnemy&#39;s strength - $currentStats&#39;s defense)
+{
+    &lt;!-- Initialize $equippedWeapon --&gt;
+    (set: $equippedWeapon to (dm:))
+
+    &lt;!-- Check the &quot;mainhand&quot; slot --&gt;
+    (set: _mainhandItem to $equipmentSlots&#39;s mainhand)
+
+    &lt;!-- Determine if a weapon is equipped --&gt;
+    (if: _mainhandItem is &quot;&quot;)[
+    	&lt;!-- Unarmed attack logic --&gt;
+        (set: $playerAttack to 1 + $modifiers&#39;s strength) &lt;!-- Base damage of 1 + strength modifier --&gt; 
+    ](else:)[
+    	&lt;!-- Weapon is equipped--&gt;
+        (set: $equippedWeapon to $weapons&#39;s (_mainhandItem))
+        
+        &lt;!-- Retrieve the damage property and modifier type for the equipped weapon --&gt;
+        (set: $damageProperty to $equippedWeapon&#39;s damage)
+        (set: $modifierType to $weaponTypeModifiers&#39;s ($equippedWeapon&#39;s type))
+        (set: $modifierValue to $modifiers&#39;s ($modifierType))
+
+        &lt;!-- Parse and roll for player&#39;s damage --&gt;
+        (set: $diceCount to (num: $damageProperty&#39;s 1st))
+        (set: $diceType to (num: $damageProperty&#39;s 3rd))
+        (set: $damageModifier to 0)
+        (if: $damageProperty contains &quot;+&quot;)[
+            (set: $damageModifier to (num: $damageProperty&#39;s 5th))
+        ](elseif: $damageProperty contains &quot;-&quot;)[
+            (set: $damageModifier to 0 - (num: $damageProperty&#39;s 5th))
+        ]
+        (set: $damageRoll to 0)
+        (for: each _i, ...(range: 1, $diceCount))[
+            (set: $damageRoll to $damageRoll + (random: 1, $diceType))
+        ]
+        (set: $playerAttack to $damageRoll + $modifierValue + $damageModifier)
+    ]
+
+    &lt;!-- Prevent negative damage for player --&gt;
+    (if: $playerAttack &lt; 0)[(set: $playerAttack to 0)]
+
+    &lt;!-- Player&#39;s attack logic --&gt;
+    (set: $currentEnemy&#39;s health to $currentEnemy&#39;s health - $playerAttack)
+    You attack the (print: $currentEnemy&#39;s name), dealing $playerAttack damage.&lt;br&gt;&lt;br&gt;
+
+    &lt;!-- Enemy&#39;s counterattack --&gt;
+    (if: $currentEnemy&#39;s health &gt; 0)[
+        &lt;!-- Retrieve and parse the enemy&#39;s damage property --&gt;
+        (set: $enemyDamageProperty to $currentEnemy&#39;s damage)
+        (set: $diceCount to (num: $enemyDamageProperty&#39;s 1st))
+        (set: $diceType to (num: $enemyDamageProperty&#39;s 3rd))
+        (set: $enemyDamageRoll to 0)
+        (for: each _i, ...(range: 1, $diceCount))[
+        (set: $enemyDamageRoll to $enemyDamageRoll + (random: 1, $diceType))
+        ]
+        
+     &lt;!-- Calculate the enemy&#39;s attack --&gt;
+    (set: $enemyAttack to $enemyDamageRoll)
     (if: $enemyAttack &lt; 0)[(set: $enemyAttack to 0)] &lt;!-- Prevent negative damage --&gt;
+
+    &lt;!-- Apply the enemy&#39;s attack --&gt;
     (set: $currentStats&#39;s health to $currentStats&#39;s health - $enemyAttack)
-    The (print: $currentEnemy&#39;s name) attacks back, dealing $enemyAttack damage.
+    The (print: $currentEnemy&#39;s name) attacks back, dealing $enemyAttack damage.&lt;br&gt;&lt;br&gt;
+
+    &lt;!-- Player&#39;s response options --&gt;
     (if: $currentStats&#39;s health &lt;= 0)[
         [[You have been defeated.|GameOver]]
     ](else:)[
-    
-        [[Attack|Attack]]
+        [[Attack|Attack]]&lt;br&gt;
         [[Use Item|UseItem]] &lt;!-- To be implemented later --&gt;
         [[Flee|FleeEncounter]] &lt;!-- Fleeing during combat could have different consequences --&gt;
     ]
 ](else:)[
     [[You have defeated the (print: $currentEnemy&#39;s name)!|Victory]]
-]}</tw-passagedata><tw-passagedata pid="17" name="UseItem" tags="" position="1200,450" size="100,100"></tw-passagedata><tw-passagedata pid="18" name="GameOver" tags="" position="925,575" size="100,100"></tw-passagedata><tw-passagedata pid="19" name="Victory" tags="" position="1075,575" size="100,100">
+]}   
+</tw-passagedata><tw-passagedata pid="17" name="UseItem" tags="" position="1200,450" size="100,100"></tw-passagedata><tw-passagedata pid="18" name="Victory" tags="" position="1075,575" size="100,100">
 
 
-You have defeated the (print: $currentEnemy&#39;s name)!
-
-(link-goto: &quot;Continue&quot;, $lastLocation)</tw-passagedata><tw-passagedata pid="20" name="EquipItem" tags="" position="450,200" size="100,100">:: EquipItem
-{
+You have defeated the (print: $currentEnemy&#39;s name)!&lt;br&gt;&lt;br&gt;
+{(set: $currentEnemy to &quot;&quot;)}
+(link-goto: &quot;Continue&quot;, $lastLocation&#39;s name)</tw-passagedata><tw-passagedata pid="19" name="EquipItem" tags="" position="450,200" size="100,100">{
     &lt;!-- Determine the slots the item should occupy --&gt;
     (set: $itemType to $tempItem&#39;s type)
     (set: $itemSlots to $itemTypeToSlots&#39;s ($itemType))
@@ -332,16 +409,38 @@ You have defeated the (print: $currentEnemy&#39;s name)!
 
     &lt;!-- Return to the Inventory passage --&gt;
     (redirect: &quot;Inventory&quot;)
-}</tw-passagedata><tw-passagedata pid="21" name="UnequipItem" tags="" position="550,200" size="100,100">{
+}</tw-passagedata><tw-passagedata pid="20" name="UnequipItem" tags="" position="550,200" size="100,100">{
+    &lt;!-- Determine the slots the item occupies --&gt;
     (set: $itemType to $tempItem&#39;s type)
     (set: $itemSlots to $itemTypeToSlots&#39;s ($itemType))
 
+    &lt;!-- Unequip the item from its respective slots --&gt;
     (for: each _slot, ...$itemSlots)[
-        (set: $equipmentSlots&#39;s (_slot) to &quot;&quot;)
+        (if: $equipmentSlots&#39;s (_slot) is $tempItem&#39;s name)[
+            (set: $equipmentSlots&#39;s (_slot) to &quot;&quot;)
+        ]
     ]
-    (set: $tempItem&#39;s equipped to false)
-    (goto: &quot;Inventory&quot;)
-}</tw-passagedata></tw-storydata>
+
+    &lt;!-- Find the index of the item within the inventory array --&gt;
+    (set: _position to 0)
+    (for: each _element, ...$inventory)[
+        (set: _position to _position + 1)
+        (if: _element&#39;s name is $tempItem&#39;s name)[
+        ]
+    ]
+
+    &lt;!-- Replace the old item datamap in the inventory with the updated one --&gt;
+    (set: $inventory&#39;s _position&#39;s equipped to false)
+
+    &lt;!-- Return to the Inventory passage --&gt;
+    (redirect: &quot;Inventory&quot;)
+}</tw-passagedata><tw-passagedata pid="21" name="GameOver" tags="" position="925,575" size="100,100">
+
+It appears you have met an untimely demise...
+
+Well then, from the top!
+
+(link: &quot;Play Again&quot;, (restart:))</tw-passagedata></tw-storydata>
 <script title="Twine engine code" data-main="harlowe">(function(){"use strict";
 var require,define;!function(){var e={},r={};require=function(i){var n=e[i];return n&&(r[i]=n[1].apply(void 0,n[0].map(require)),e[i]=void 0),r[i]},(define=function(r,i,n){if("function"==typeof r)return r();e[r]=[i,n]}).amd=!0}();/*!
  * https://github.com/paulmillr/es6-shim
