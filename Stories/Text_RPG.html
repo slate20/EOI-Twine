@@ -59,7 +59,7 @@ You enter the local shop. It&#39;s a small room, with various items on wooden sh
         &quot;class&quot;, &quot;armor&quot;,
         &quot;type&quot;, &quot;shield&quot;,
         &quot;description&quot;, &quot;A sturdy shield made of oak.&quot;,
-        &quot;defense&quot;, 3,
+        &quot;ac&quot;, 3,
         &quot;value&quot;, 8,
         &quot;equipped&quot;, false
     )
@@ -135,7 +135,8 @@ You pick up the Rusty Sword and store it in your bag.
     &quot;dexterity&quot;, 10,
     &quot;intelligence&quot;, 10,
     &quot;awareness&quot;, 10,
-    &quot;charisma&quot;, 10
+    &quot;charisma&quot;, 10,
+    &quot;ac&quot;, 10
 ))
 (set: $currentStats to (dm: 
 	&quot;health&quot;, $baseStats&#39;s health, 
@@ -144,7 +145,8 @@ You pick up the Rusty Sword and store it in your bag.
     &quot;dexterity&quot;, $baseStats&#39;s dexterity,
     &quot;intelligence&quot;, $baseStats&#39;s intelligence,
     &quot;awareness&quot;, $baseStats&#39;s awareness,
-    &quot;charisma&quot;, $baseStats&#39;s charisma
+    &quot;charisma&quot;, $baseStats&#39;s charisma,
+    &quot;ac&quot;, $baseStats&#39;s ac
 ))
 (set: $modifiers to (dm:
 	&quot;strength&quot;, (floor: ($currentStats&#39;s strength -10) / 2),
@@ -162,6 +164,8 @@ You pick up the Rusty Sword and store it in your bag.
     &quot;outfit&quot;, &quot;&quot;,
     &quot;back&quot;, &quot;&quot;
 ))
+
+(set: $playerAC to $currentStats&#39;s ac + $modifiers&#39;s defense)
 
 (set: $currentEnemy to &quot;&quot;)
 }
@@ -227,11 +231,15 @@ Choose your starting location:
 	)
 ))
 &lt;!--Additional Enemies added about the &quot;))&quot;--&gt;</tw-passagedata><tw-passagedata pid="11" name="StatsMenu" tags="menu" position="900,100" size="100,100">&#39;&#39;Equipment&#39;&#39;
-Mainhand: (print: $equipmentSlots&#39;s mainhand)  Offhand: (print: $equipmentSlots&#39;s offhand)
+Mainhand: (print: $equipmentSlots&#39;s mainhand)&lt;br&gt;
+Offhand: (print: $equipmentSlots&#39;s offhand)&lt;br&gt;
+Outfit: (print: $equipmentSlots&#39;s outfit)&lt;br&gt;
+Back: (print: $equipmentSlots&#39;s outfit)&lt;br&gt;
 
 =|=
 (text-style:&quot;bold&quot;,&quot;underline&quot;)[Stat]
 Health:
+AC:
 Strength:
 Defense:
 Dexterity:
@@ -241,6 +249,7 @@ Charisma:
 =|=
 (text-style:&quot;bold&quot;,&quot;underline&quot;)[Current Value]
 (print: $currentStats&#39;s health)
+(print: $playerAC)
 (print: $currentStats&#39;s strength)
 (print: $currentStats&#39;s defense)
 (print: $currentStats&#39;s dexterity)
@@ -250,6 +259,7 @@ Charisma:
 =|=
 (text-style:&quot;bold&quot;,&quot;underline&quot;)[Base Value]
 (print: $baseStats&#39;s health)
+(print: $baseStats&#39;s ac)
 (print: $baseStats&#39;s strength)
 (print: $baseStats&#39;s defense)
 (print: $baseStats&#39;s dexterity)
@@ -347,9 +357,22 @@ The (print: $currentEnemy&#39;s name) stands before you.
     &lt;!-- Prevent negative damage for player --&gt;
     (if: $playerAttack &lt; 0)[(set: $playerAttack to 0)]
 
-    &lt;!-- Player&#39;s attack logic --&gt;
-    (set: $currentEnemy&#39;s health to $currentEnemy&#39;s health - $playerAttack)
-    You attack the (print: $currentEnemy&#39;s name), dealing $playerAttack damage.&lt;br&gt;&lt;br&gt;
+    &lt;!-- Player&#39;s attack roll --&gt;
+    (if: _mainhandItem is &quot;&quot;)[
+    	(set: $attackRoll to (random: 1, 20) + $modifiers&#39;s strength)
+    ](else:)[
+    	(set: $attackRoll to (random: 1, 20) + $modifierValue)
+    ]
+
+    &lt;!-- Check if player&#39;s attack hits --&gt;
+    (if: $attackRoll &gt;= $currentEnemy&#39;s defense)[
+        &lt;!-- Attack hits --&gt;
+        (set: $currentEnemy&#39;s health to $currentEnemy&#39;s health - $playerAttack)
+        You attack the (print: $currentEnemy&#39;s name), dealing $playerAttack damage.&lt;br&gt;&lt;br&gt;
+    ](else:)[
+        &lt;!-- Attack misses --&gt;
+        You miss the (print: $currentEnemy&#39;s name).&lt;br&gt;&lt;br&gt;
+    ]
 
     &lt;!-- Enemy&#39;s counterattack --&gt;
     (if: $currentEnemy&#39;s health &gt; 0)[
@@ -366,21 +389,30 @@ The (print: $currentEnemy&#39;s name) stands before you.
     (set: $enemyAttack to $enemyDamageRoll)
     (if: $enemyAttack &lt; 0)[(set: $enemyAttack to 0)] &lt;!-- Prevent negative damage --&gt;
 
-    &lt;!-- Apply the enemy&#39;s attack --&gt;
-    (set: $currentStats&#39;s health to $currentStats&#39;s health - $enemyAttack)
-    The (print: $currentEnemy&#39;s name) attacks back, dealing $enemyAttack damage.&lt;br&gt;&lt;br&gt;
+    &lt;!-- Enemy&#39;s attack roll --&gt;
+    (set: $enemyAttackRoll to (random: 1, 20))
+
+    &lt;!-- Check if enemy&#39;s attack hits --&gt;
+    (if: $enemyAttackRoll &gt;= $playerAC)[
+        &lt;!-- Enemy attack hits --&gt;
+        (set: $currentStats&#39;s health to $currentStats&#39;s health - $enemyAttack)
+        The (print: $currentEnemy&#39;s name) attacks back, dealing $enemyAttack damage.&lt;br&gt;&lt;br&gt;
+    ](else:)[
+        &lt;!-- Enemy attack misses --&gt;
+        The (print: $currentEnemy&#39;s name) misses.&lt;br&gt;&lt;br&gt;
+    ]
 
     &lt;!-- Player&#39;s response options --&gt;
     (if: $currentStats&#39;s health &lt;= 0)[
         [[You have been defeated.|GameOver]]
     ](else:)[
         [[Attack|Attack]]&lt;br&gt;
-        [[Use Item|UseItem]] &lt;!-- To be implemented later --&gt;
+        [[Use Item|UseItem]]&lt;br&gt; &lt;!-- To be implemented later --&gt;
         [[Flee|FleeEncounter]] &lt;!-- Fleeing during combat could have different consequences --&gt;
     ]
 ](else:)[
     [[You have defeated the (print: $currentEnemy&#39;s name)!|Victory]]
-]}   
+]}  
 </tw-passagedata><tw-passagedata pid="17" name="UseItem" tags="" position="1200,450" size="100,100"></tw-passagedata><tw-passagedata pid="18" name="Victory" tags="" position="1075,575" size="100,100">
 
 
