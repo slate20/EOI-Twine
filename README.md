@@ -1,10 +1,10 @@
-Download Twine Editor here: <br>
-https://github.com/klembot/twinejs/releases
+## Setup<br>
+Download Twine Editor here: https://github.com/klembot/twinejs/releases<br>
 
 Open Twine and at the top select Twine->Set Story Library Folder <br>
-Set this to the 'Stories' folder in the repository<br>
+Set this to the 'Stories' folder in the repository<br><br>
 
-Templates for adding content -> [Code Templates](Code_Templates.md)
+**Templates for adding content** -> [Code Templates](Code_Templates.md)<br><br>
 
 the .map file in 'Assets/Maps' can be opened here: <br>
 https://azgaar.github.io/Fantasy-Map-Generator/
