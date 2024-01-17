@@ -7,7 +7,7 @@ Set this to the 'Stories' folder in the repository
 the .map file in 'Assets/Maps' can be opened here: <br>
 https://azgaar.github.io/Fantasy-Map-Generator/
 
-![image](https://github.com/slate20/Twine_RPG/assets/155096805/27e42004-66b5-4f72-8d0c-6aea6d7466d7)
+![image](https://github.com/slate20/Twine_RPG/assets/155096805/27e42004-66b5-4f72-8d0c-6aea6d7466d7)<br><br>
 
 **Code Templates**<br><br>
 
@@ -29,6 +29,19 @@ equipped = leave as false
         "damage", "1d4+2",
         "tier", 0,
         "value", 10,
+        "equipped", false
+    )
+```
+Armor:<br>
+```
+    "Wooden Shield", (dm: 
+        "name", "Wooden Shield",
+        "class", "armor",
+        "type", "shield",
+        "description", "A sturdy shield made of oak.",
+        "ac", 2,
+        "tier", 1,
+        "value", 8,
         "equipped", false
     )
 ```
