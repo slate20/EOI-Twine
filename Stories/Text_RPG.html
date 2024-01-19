@@ -63,7 +63,7 @@ You enter the local shop. It&#39;s a small room, with various items on wooden sh
         &quot;description&quot;, &quot;A cast iron pan. There&#39;s still some chicken stuck to the bottom...&quot;,
         &quot;damage&quot;, &quot;1d4+0&quot;,
         &quot;tier&quot;, 0,
-        &quot;value&quot;, 6,
+        &quot;value&quot;, 3,
         &quot;equipped&quot;, false
     )
 ))
@@ -236,6 +236,8 @@ Choose your starting location:
         &quot;intelligence&quot;, 6,
         &quot;awareness&quot;, 7,
         &quot;charisma&quot;, 2,
+        &quot;damage&quot;, &quot;1d12&quot;
+        &quot;modifier&quot;, &quot;strength&quot;
         &quot;gold&quot;, 25
 ),    
 	&quot;Bandit&quot;, (dm: 
@@ -588,7 +590,7 @@ Well then, from the top!
         You don&#39;t have enough gold to buy the (print: $selectedItem&#39;s name).&lt;br&gt;&lt;br&gt;
     ]
     (link: &quot;Return to Shop&quot;)[(goto: &quot;Tier1Shop&quot;)]
-}</tw-passagedata><tw-passagedata pid="24" name="Find Frying Pan" tags="" position="400,1025" size="100,100">(set: $hasPan to 1)
+}</tw-passagedata><tw-passagedata pid="24" name="Find Frying Pan" tags="" position="200,900" size="100,100">(set: $hasPan to 1)
 
 You find a frying pan with a small chip in the rim. The cook must have tossed it out...
 
