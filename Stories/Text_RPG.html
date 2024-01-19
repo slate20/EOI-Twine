@@ -23,7 +23,7 @@ You are in the town of Winmose. What would you like to do?
 You enter the local shop. It&#39;s a small room, with various items on wooden shelves. The shopkeeper nods at you. 
 
 
-{(link: &quot;But Items&quot;)[(go-to: &quot;Tier1Shop&quot;)]&lt;br&gt;
+{(link: &quot;Buy Items&quot;)[(go-to: &quot;Tier1Shop&quot;)]&lt;br&gt;
 (link: &quot;Leave the shop&quot;)[
 	(set: $shopVisited to 0)
     (go-to: &quot;Winmose&quot;)]
@@ -39,6 +39,7 @@ You enter the local shop. It&#39;s a small room, with various items on wooden sh
 &lt;!--Which equipment slots each type of item will occupy--&gt;
 (set: $itemTypeToSlots to (datamap:
     &quot;sword&quot;, (a: &quot;mainhand&quot;),
+    &quot;blunt&quot;, (a: &quot;mainhand&quot;),
     &quot;bow&quot;, (a: &quot;mainhand&quot;, &quot;offhand&quot;),
     &quot;shield&quot;, (a: &quot;offhand&quot;),
     &quot;armor&quot;, (a: &quot;outfit&quot;),
@@ -51,16 +52,16 @@ You enter the local shop. It&#39;s a small room, with various items on wooden sh
         &quot;type&quot;, &quot;sword&quot;,
         &quot;description&quot;, &quot;A blunt sword that has seen better days.&quot;,
         &quot;damage&quot;, &quot;1d4+2&quot;,
-        &quot;tier&quot;, 0,
+        &quot;tier&quot;, 1,
         &quot;value&quot;, 10,
         &quot;equipped&quot;, false
     ),
     &quot;Frying Pan&quot;, (dm: 
-        &quot;name&quot;, &quot;Rusty Sword&quot;,
+        &quot;name&quot;, &quot;Frying Pan&quot;,
         &quot;class&quot;, &quot;weapon&quot;,
         &quot;type&quot;, &quot;blunt&quot;,
         &quot;description&quot;, &quot;A cast iron pan. There&#39;s still some chicken stuck to the bottom...&quot;,
-        &quot;damage&quot;, &quot;1d6+0&quot;,
+        &quot;damage&quot;, &quot;1d4+0&quot;,
         &quot;tier&quot;, 0,
         &quot;value&quot;, 6,
         &quot;equipped&quot;, false
@@ -91,7 +92,7 @@ You enter the local shop. It&#39;s a small room, with various items on wooden sh
         &quot;value&quot;, 10
     )
 ))
-}</tw-passagedata><tw-passagedata pid="4" name="Inventory" tags="menu" position="500,100" size="100,100">
+}</tw-passagedata><tw-passagedata pid="4" name="Inventory" tags="menu" position="500,100" size="100,100">(set: $inMenu to 1)
 
 Inventory:
 
@@ -125,21 +126,27 @@ Inventory:
         |==|
     ]
 
-(link-goto: &quot;Back&quot;, $returnPassage&#39;s name)</tw-passagedata><tw-passagedata pid="5" name="GlobalHUD" tags="header System-Logic" position="800,100" size="100,100">{(if: $globalHUD is 0)[](else:)[
+(link: &quot;Back&quot;)[
+	(set: $inMenu to 0)
+    (go-to: $returnPassage&#39;s name)]</tw-passagedata><tw-passagedata pid="5" name="GlobalHUD" tags="header System-Logic" position="800,100" size="100,100">{(if: $globalHUD is 0)[](else:)[
 (display: &quot;HUDStatDisplay&quot;)
 
 =|=
 (link: &quot;Character Stats&quot;)[
-	(set: $returnPassage = (passage:))
+	(if: $inMenu is 0)[
+		(set: $returnPassage = (passage:))
+    ]
     (goto: &quot;StatsMenu&quot;)
 ]
 =|=
-(link: &quot;Inventory&quot;)[ 
-	(set: $returnPassage = (passage:))
+(link: &quot;Inventory&quot;)[
+	(if: $inMenu is 0)[
+		(set: $returnPassage = (passage:))
+        ]
     (goto: &quot;Inventory&quot;)
 ]]
 |==|
-}</tw-passagedata><tw-passagedata pid="6" name="Travel East" tags="" position="700,700" size="100,100"></tw-passagedata><tw-passagedata pid="7" name="Start" tags="" position="500,400" size="100,100">{(set: $globalHUD to 1)
+}</tw-passagedata><tw-passagedata pid="6" name="Travel East" tags="" position="800,700" size="100,100"></tw-passagedata><tw-passagedata pid="7" name="Start" tags="" position="500,400" size="100,100">{(set: $globalHUD to 1)
 
 (set: $baseStats to (dm: 
 	&quot;health&quot;, 20, 
@@ -171,7 +178,7 @@ Inventory:
 ))
 (set: $inventory to (a:))
 
-(set: $playerGold to 0)
+(set: $playerGold to 20)
 
 (set: $equipmentSlots to (dm:
 	&quot;mainhand&quot;, &quot;&quot;,
@@ -245,7 +252,8 @@ Choose your starting location:
         &quot;gold&quot;, 15
 	)
 ))
-&lt;!--Additional Enemies added about the &quot;))&quot;--&gt;</tw-passagedata><tw-passagedata pid="9" name="StatsMenu" tags="menu" position="900,100" size="100,100">&#39;&#39;Equipment&#39;&#39;
+&lt;!--Additional Enemies added about the &quot;))&quot;--&gt;</tw-passagedata><tw-passagedata pid="9" name="StatsMenu" tags="menu" position="900,100" size="100,100">{(set: $inMenu to true)}
+&#39;&#39;Equipment&#39;&#39;
 Mainhand: (print: $equipmentSlots&#39;s mainhand)&lt;br&gt;
 Offhand: (print: $equipmentSlots&#39;s offhand)&lt;br&gt;
 Outfit: (print: $equipmentSlots&#39;s outfit)&lt;br&gt;
@@ -285,7 +293,9 @@ Charisma:
 
 
 
-(link-goto: &quot;Back&quot;, $returnPassage&#39;s name)</tw-passagedata><tw-passagedata pid="10" name="HUDStatDisplay" tags="System-Logic" position="800,200" size="100,100">Health: (print: $currentStats&#39;s health) | Gold: (print: $playerGold)
+(link: &quot;Back&quot;)[
+	(set: $inMenu to 0)
+    (go-to: $returnPassage&#39;s name)]</tw-passagedata><tw-passagedata pid="10" name="HUDStatDisplay" tags="System-Logic" position="800,200" size="100,100">Health: (print: $currentStats&#39;s health) | Gold: (print: $playerGold)
 
 </tw-passagedata><tw-passagedata pid="11" name="EnemyEncounter" tags="System-Logic" position="1200,200" size="100,100">
 
@@ -326,15 +336,13 @@ Charisma:
     
     [[Fight|EngageEnemy]]
 ]}</tw-passagedata><tw-passagedata pid="13" name="EngageEnemy" tags="" position="1100,325" size="100,100">
-
-
+(print: $currentEnemy&#39;s name)&#39;s Health: (print: $currentEnemy&#39;s health)&lt;br&gt;&lt;br&gt;
 The (print: $currentEnemy&#39;s name) stands before you.
 
 [[Attack|Attack]]
 [[Use Item|UseItem]] &lt;!-- To be implemented later --&gt;
 [[Flee|FleeEncounter]] &lt;!-- Fleeing during combat could have different consequences --&gt;</tw-passagedata><tw-passagedata pid="14" name="Attack" tags="" position="1000,450" size="100,100">
-
-
+(print: $currentEnemy&#39;s name)&#39;s Health: (print: $currentEnemy&#39;s health)&lt;br&gt;&lt;br&gt;
 {
     &lt;!-- Initialize $equippedWeapon --&gt;
     (set: $equippedWeapon to (dm:))
@@ -493,6 +501,11 @@ Well then, from the top!
 
 
 
+{
+(if: $hasPan is 0)[
+   [[What&#39;s that sticking out of the trash?|Find Frying Pan]]
+   ]
+}
 (link: &quot;Rent a room (3 gold)&quot;)[(go-to: &quot;RoomRental&quot;)]
 [[Leave the Inn|Winmose]]</tw-passagedata><tw-passagedata pid="21" name="RoomRental" tags="System-Logic" position="100,100" size="100,100">
 
@@ -524,7 +537,7 @@ Well then, from the top!
   (set: $allItems to (a: ...(datavalues: $weapons), ...(datavalues: $armor), ...(datavalues: $consumables)))
   (set: $tier1Items to (a:))
   (for: each _item, ...$allItems)[
-      (if: _item&#39;s tier &lt;= 1)[
+      (if: _item&#39;s tier is 1)[
           (set: $tier1Items to it + (a: _item))
       ]
   ]
@@ -569,12 +582,20 @@ Well then, from the top!
     (if: $playerGold &gt;= $selectedItem&#39;s value)[
          (set: $playerGold to $playerGold - $selectedItem&#39;s value)
          (set: $inventory to it + (a: $selectedItem))
-         You have successfully bought the (print: $selectedItem&#39;s name).&lt;br&gt;&lt;br&gt;
+         (set: $displayItems to it - (a:$selectedItem))
+         You bought the (print: $selectedItem&#39;s name).&lt;br&gt;&lt;br&gt;
     ](else:)[
         You don&#39;t have enough gold to buy the (print: $selectedItem&#39;s name).&lt;br&gt;&lt;br&gt;
     ]
     (link: &quot;Return to Shop&quot;)[(goto: &quot;Tier1Shop&quot;)]
-}</tw-passagedata></tw-storydata>
+}</tw-passagedata><tw-passagedata pid="24" name="Find Frying Pan" tags="" position="400,1025" size="100,100">(set: $hasPan to 1)
+
+You find a frying pan with a small chip in the rim. The cook must have tossed it out...
+
+(link: &quot;Take the pan&quot;)[
+	(set: $inventory to it + (a:$weapons&#39;s &quot;Frying Pan&quot;))
+    (go-to: $lastLocation&#39;s name)
+    ]</tw-passagedata></tw-storydata>
 <script title="Twine engine code" data-main="harlowe">(function(){"use strict";
 var require,define;!function(){var e={},r={};require=function(i){var n=e[i];return n&&(r[i]=n[1].apply(void 0,n[0].map(require)),e[i]=void 0),r[i]},(define=function(r,i,n){if("function"==typeof r)return r();e[r]=[i,n]}).amd=!0}();/*!
  * https://github.com/paulmillr/es6-shim
