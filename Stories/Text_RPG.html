@@ -178,7 +178,7 @@ Inventory:
 ))
 (set: $inventory to (a:))
 
-(set: $playerGold to 20)
+(set: $playerGold to 0)
 
 (set: $equipmentSlots to (dm:
 	&quot;mainhand&quot;, &quot;&quot;,
@@ -200,14 +200,15 @@ Choose your starting location:
 (display: &quot;Enemies&quot;)</tw-passagedata><tw-passagedata pid="8" name="Enemies" tags="Datamaps" position="1200,100" size="100,100">&lt;!-- Enemy Template:
 	&quot;Goblin&quot;, (dm: 
 		&quot;name&quot;, &quot;Goblin&quot;,
-        &quot;biomes&quot;, &quot;forest, grasslands, hills, swamp&quot;,
-        &quot;health&quot;, 30, 
+        &quot;biomes&quot;, (a: &quot;forest&quot;, &quot;grasslands&quot;, &quot;hills&quot;, &quot;swamp&quot;),
+        &quot;health&quot;, 10, 
         &quot;strength&quot;, 12,
         &quot;defense&quot;, 10,
         &quot;dexterity&quot;, 10,
         &quot;intelligence&quot;, 10,
         &quot;awareness&quot;, 12,
         &quot;charisma&quot;, 3,
+        &quot;damage&quot;, &quot;1d4&quot;,
         &quot;gold&quot;, 5
 ),
 --&gt;
@@ -236,8 +237,8 @@ Choose your starting location:
         &quot;intelligence&quot;, 6,
         &quot;awareness&quot;, 7,
         &quot;charisma&quot;, 2,
-        &quot;damage&quot;, &quot;1d12&quot;
-        &quot;modifier&quot;, &quot;strength&quot;
+        &quot;damage&quot;, &quot;1d12&quot;,
+        &quot;modifier&quot;, &quot;strength&quot;,
         &quot;gold&quot;, 25
 ),    
 	&quot;Bandit&quot;, (dm: 
@@ -386,9 +387,9 @@ The (print: $currentEnemy&#39;s name) stands before you.
 
     &lt;!-- Player&#39;s attack roll --&gt;
     (if: _mainhandItem is &quot;&quot;)[
-    	(set: $attackRoll to (random: 1, 20) + $modifiers&#39;s strength)
+    	(set: $attackRoll to (random: 3, 20) + $modifiers&#39;s strength)
     ](else:)[
-    	(set: $attackRoll to (random: 1, 20) + $modifierValue)
+    	(set: $attackRoll to (random: 3, 20) + $modifierValue)
     ]
 
     &lt;!-- Check if player&#39;s attack hits --&gt;
@@ -462,7 +463,13 @@ You gained (print: $currentEnemy&#39;s gold) gold!&lt;br&gt;&lt;br&gt;
         (if: _element&#39;s name is $tempItem&#39;s name)[
         ]
     ]
-
+    
+    &lt;!--Check if item is armor and if so apply to AC--&gt;
+    (if: $tempItem&#39;s class is &quot;armor&quot;)[
+    	(set: $currentStats&#39;s ac to it + $tempItem&#39;s ac)
+        (set: $playerAC to $currentStats&#39;s ac + $modifiers&#39;s defense)
+    ]
+        
    &lt;!-- Replace the old item datamap in the inventory with the updated one --&gt;
     (set: $inventory&#39;s _position&#39;s equipped to true)
 
@@ -486,6 +493,12 @@ You gained (print: $currentEnemy&#39;s gold) gold!&lt;br&gt;&lt;br&gt;
         (set: _position to _position + 1)
         (if: _element&#39;s name is $tempItem&#39;s name)[
         ]
+    ]
+    
+    &lt;!--Check if item is armor and if so remove AC--&gt;
+    (if: $tempItem&#39;s class is &quot;armor&quot;)[
+    	(set: $currentStats&#39;s ac to it - $tempItem&#39;s ac)
+        (set: $playerAC to $currentStats&#39;s ac + $modifiers&#39;s defense)
     ]
 
     &lt;!-- Replace the old item datamap in the inventory with the updated one --&gt;
@@ -590,7 +603,7 @@ Well then, from the top!
         You don&#39;t have enough gold to buy the (print: $selectedItem&#39;s name).&lt;br&gt;&lt;br&gt;
     ]
     (link: &quot;Return to Shop&quot;)[(goto: &quot;Tier1Shop&quot;)]
-}</tw-passagedata><tw-passagedata pid="24" name="Find Frying Pan" tags="" position="200,900" size="100,100">(set: $hasPan to 1)
+}</tw-passagedata><tw-passagedata pid="24" name="Find Frying Pan" tags="" position="300,1000" size="100,100">(set: $hasPan to 1)
 
 You find a frying pan with a small chip in the rim. The cook must have tossed it out...
 
