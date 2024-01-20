@@ -450,28 +450,45 @@ You gained (print: $currentEnemy&#39;s gold) gold!&lt;br&gt;&lt;br&gt;
     &lt;!-- Determine the slots the item should occupy --&gt;
     (set: $itemType to $tempItem&#39;s type)
     (set: $itemSlots to $itemTypeToSlots&#39;s ($itemType))
-
+    
+    &lt;!-- Check for existing equippped item and unequip if found --&gt;
+    (for: each _slot, ...$itemSlots)[
+    	(if: $equipmentSlots&#39;s (_slot) is not &quot;&quot;)[
+        	(set: _equippedItemName to $equipmentSlots&#39;s (_slot))
+            (set: _unequipPosition to 0)
+            (for: each _unequipElement, ...$inventory)[
+            	(set: _unequipPosition to it +1)
+                (if: (_unequipElement&#39;s name is _equippedItemName) and ( _unequipElement&#39;s equipped is true))[
+                		(set: $inventory&#39;s (_unequipPosition)&#39;s equipped to false)
+                		(if: $inventory&#39;s (_unequipPosition)&#39;s class is &quot;armor&quot;)[
+                    		(set: $currentStat&#39;s ac to it - $inventory&#39;s (_unequipPosition)&#39;s ac)
+                       		(set: $playerAC to $currentStats&#39;s ac + $modifier&#39;s defense)
+                        ]
+                    ]
+                ]
+            ]
+            (set: $equipmentSlots&#39;s (_slot) to &quot;&quot;)
+        ]
+    
     &lt;!-- Equip the item to its respective slots --&gt;
     (for: each _slot, ...$itemSlots)[
         (set: $equipmentSlots&#39;s (_slot) to $tempItem&#39;s name)
     ]
 
-    &lt;!-- Find the index of the item within the inventory array --&gt;
-    (set: _position to 0)
-    (for: each _element, ...$inventory)[
-        (set: _position to _position + 1)
-        (if: _element&#39;s name is $tempItem&#39;s name)[
-        ]
-    ]
-    
-    &lt;!--Check if item is armor and if so apply to AC--&gt;
+&lt;!--Check if item is armor and if so apply to AC--&gt;
     (if: $tempItem&#39;s class is &quot;armor&quot;)[
     	(set: $currentStats&#39;s ac to it + $tempItem&#39;s ac)
         (set: $playerAC to $currentStats&#39;s ac + $modifiers&#39;s defense)
     ]
-        
-   &lt;!-- Replace the old item datamap in the inventory with the updated one --&gt;
-    (set: $inventory&#39;s _position&#39;s equipped to true)
+
+    &lt;!-- Find the index of the item within the inventory array --&gt;
+    (set: _position to 0)
+    (for: each _element, ...$inventory)[
+        (set: _position to it + 1)
+        (if: _element&#39;s name is $tempItem&#39;s name)[
+        	(set: $inventory&#39;s _position&#39;s equipped to true)
+        ]
+    ]
 
     &lt;!-- Return to the Inventory passage --&gt;
     (redirect: &quot;Inventory&quot;)
@@ -487,22 +504,20 @@ You gained (print: $currentEnemy&#39;s gold) gold!&lt;br&gt;&lt;br&gt;
         ]
     ]
 
-    &lt;!-- Find the index of the item within the inventory array --&gt;
-    (set: _position to 0)
-    (for: each _element, ...$inventory)[
-        (set: _position to _position + 1)
-        (if: _element&#39;s name is $tempItem&#39;s name)[
-        ]
-    ]
-    
     &lt;!--Check if item is armor and if so remove AC--&gt;
     (if: $tempItem&#39;s class is &quot;armor&quot;)[
     	(set: $currentStats&#39;s ac to it - $tempItem&#39;s ac)
         (set: $playerAC to $currentStats&#39;s ac + $modifiers&#39;s defense)
     ]
 
-    &lt;!-- Replace the old item datamap in the inventory with the updated one --&gt;
-    (set: $inventory&#39;s _position&#39;s equipped to false)
+    &lt;!-- Find the index of the item within the inventory array --&gt;
+    (set: _position to 0)
+    (for: each _element, ...$inventory)[
+        (set: _position to _position + 1)
+        (if: _element&#39;s name is $tempItem&#39;s name)[
+        	(set: $inventory&#39;s _position&#39;s equipped to false)
+        ]
+    ]
 
     &lt;!-- Return to the Inventory passage --&gt;
     (redirect: &quot;Inventory&quot;)
@@ -568,7 +583,7 @@ Well then, from the top!
       (print: _item&#39;s value) gold
       =|=
       (link: &quot;Buy&quot;)[
-          (set: $selectedItem to _item) &lt;!-- Store item temporarily --&gt;
+          (set: $boughtItem to _item) &lt;!-- Store item temporarily --&gt;
           (redirect: &quot;BuyItem&quot;) &lt;!-- Go to the BuyItem passage --&gt;
       ]
       |==|
@@ -583,7 +598,7 @@ Well then, from the top!
       (print: _item&#39;s value) gold
       =|=
       (link: &quot;Buy&quot;)[
-          (set: $selectedItem to _item) &lt;!-- Store item temporarily --&gt;
+          (set: $boughtItem to _item) &lt;!-- Store item temporarily --&gt;
           (redirect: &quot;BuyItem&quot;) &lt;!-- Go to the BuyItem passage --&gt;
       ]
       |==|
@@ -594,13 +609,13 @@ Well then, from the top!
 
 
 {
-    (if: $playerGold &gt;= $selectedItem&#39;s value)[
-         (set: $playerGold to $playerGold - $selectedItem&#39;s value)
-         (set: $inventory to it + (a: $selectedItem))
-         (set: $displayItems to it - (a:$selectedItem))
-         You bought the (print: $selectedItem&#39;s name).&lt;br&gt;&lt;br&gt;
+    (if: $playerGold &gt;= $boughtItem&#39;s value)[
+         (set: $playerGold to $playerGold - $boughtItem&#39;s value)
+         (set: $inventory to it + (a: $boughtItem))
+         (set: $displayItems to it - (a:$boughtItem))
+         You bought the (print: $boughtItem&#39;s name).&lt;br&gt;&lt;br&gt;
     ](else:)[
-        You don&#39;t have enough gold to buy the (print: $selectedItem&#39;s name).&lt;br&gt;&lt;br&gt;
+        You don&#39;t have enough gold to buy the (print: $boughtItem&#39;s name).&lt;br&gt;&lt;br&gt;
     ]
     (link: &quot;Return to Shop&quot;)[(goto: &quot;Tier1Shop&quot;)]
 }</tw-passagedata><tw-passagedata pid="24" name="Find Frying Pan" tags="" position="300,1000" size="100,100">(set: $hasPan to 1)
