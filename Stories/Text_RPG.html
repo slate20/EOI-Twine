@@ -94,7 +94,7 @@ You enter the local shop. It&#39;s a small room, with various items on wooden sh
         &quot;value&quot;, 10
     )
 ))
-}</tw-passagedata><tw-passagedata pid="4" name="Inventory" tags="menu" position="500,100" size="100,100">(set: $inMenu to 1)
+}</tw-passagedata><tw-passagedata pid="4" name="Inventory" tags="menu" position="500,100" size="100,100">
 
 Inventory:
 
@@ -129,25 +129,19 @@ Inventory:
     ]
 
 (link: &quot;Back&quot;)[
-	(set: $inMenu to 0)
-    (go-to: $returnPassage&#39;s name)]</tw-passagedata><tw-passagedata pid="5" name="GlobalHUD" tags="header System-Logic" position="800,100" size="100,100">{(if: $globalHUD is 0)[](else:)[
-(display: &quot;HUDStatDisplay&quot;)
+    (go-to: &quot;MainMenu&quot;)]</tw-passagedata><tw-passagedata pid="5" name="GlobalHUD" tags="header System-Logic" position="800,100" size="100,100">{(if: $globalHUD is 0)[](else:)[
 
 =|=
-(link: &quot;Character Stats&quot;)[
+(display: &quot;HUDStatDisplay&quot;)
+=|=
+(link: &quot;Menu&quot;)[
 	(if: $inMenu is 0)[
 		(set: $returnPassage = (passage:))
     ]
-    (goto: &quot;StatsMenu&quot;)
+    (go-to: &quot;MainMenu&quot;)
 ]
-=|=
-(link: &quot;Inventory&quot;)[
-	(if: $inMenu is 0)[
-		(set: $returnPassage = (passage:))
-        ]
-    (goto: &quot;Inventory&quot;)
-]]
 |==|
+]
 }</tw-passagedata><tw-passagedata pid="6" name="Travel East" tags="" position="700,900" size="100,100"></tw-passagedata><tw-passagedata pid="7" name="Start" tags="" position="500,600" size="100,100">{(set: $globalHUD to 1)
 
 (set: $baseStats to (dm: 
@@ -299,8 +293,7 @@ Charisma:
 
 
 (link: &quot;Back&quot;)[
-	(set: $inMenu to 0)
-    (go-to: $returnPassage&#39;s name)]</tw-passagedata><tw-passagedata pid="10" name="HUDStatDisplay" tags="System-Logic" position="800,200" size="100,100">Health: (print: $currentStats&#39;s health) | Gold: (print: $playerGold)
+    (go-to: &quot;MainMenu&quot;)]</tw-passagedata><tw-passagedata pid="10" name="HUDStatDisplay" tags="System-Logic" position="800,200" size="100,100">Health: (print: $currentStats&#39;s health) | Gold: (print: $playerGold)
 
 </tw-passagedata><tw-passagedata pid="11" name="EnemyEncounter" tags="System-Logic" position="1200,200" size="100,100">
 
@@ -670,7 +663,24 @@ Sell the (print: $sellItem&#39;s name)?
 (link: &quot;Nevermind&quot;)[
 	(go-to: &quot;SellInventory&quot;)
 ]
-}</tw-passagedata></tw-storydata>
+}</tw-passagedata><tw-passagedata pid="27" name="MainMenu" tags="menu" position="700,0" size="100,100">(set: $inMenu to 1)
+
+
+{
+(link: &quot;Character Stats&quot;)[
+    (goto: &quot;StatsMenu&quot;)
+]&lt;br&gt;
+(link: &quot;Inventory&quot;)[
+	&lt;!--(if: $inMenu is 0)[
+		(set: $returnPassage = (passage:))
+        ]--&gt;
+    (goto: &quot;Inventory&quot;)
+    ]
+}
+
+(link: &quot;Back&quot;)[
+	(set: $inMenu to 0)
+    (go-to: $returnPassage&#39;s name)]</tw-passagedata></tw-storydata>
 <script title="Twine engine code" data-main="harlowe">(function(){"use strict";
 var require,define;!function(){var e={},r={};require=function(i){var n=e[i];return n&&(r[i]=n[1].apply(void 0,n[0].map(require)),e[i]=void 0),r[i]},(define=function(r,i,n){if("function"==typeof r)return r();e[r]=[i,n]}).amd=!0}();/*!
  * https://github.com/paulmillr/es6-shim
