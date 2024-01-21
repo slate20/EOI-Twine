@@ -9,7 +9,7 @@
 </head>
 <body>
 <tw-story><noscript><tw-noscript>JavaScript needs to be enabled to play Text_RPG.</tw-noscript></noscript></tw-story>
-<tw-storydata name="Text_RPG" startnode="7" creator="Twine" creator-version="2.8.1" format="Harlowe" format-version="3.3.8" ifid="DE6514A9-4EA1-4602-AC56-8CFDBBEAB4D6" options="" tags="" zoom="0.6" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css"></style><script role="script" id="twine-user-script" type="text/twine-javascript"></script><tw-tag name="script" color="orange"></tw-tag><tw-tag name="stylesheet" color="purple"></tw-tag><tw-tag name="menu" color="blue"></tw-tag><tw-tag name="Location" color="yellow"></tw-tag><tw-tag name="System-Logic" color="orange"></tw-tag><tw-tag name="Datamaps" color="green"></tw-tag><tw-passagedata pid="1" name="Winmose" tags="Location" position="500,700" size="100,100">(set: $currentBiome to &quot;forest&quot;)
+<tw-storydata name="Text_RPG" startnode="7" creator="Twine" creator-version="2.8.1" format="Harlowe" format-version="3.3.8" ifid="DE6514A9-4EA1-4602-AC56-8CFDBBEAB4D6" options="" tags="" zoom="0.6" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css"></style><script role="script" id="twine-user-script" type="text/twine-javascript"></script><tw-tag name="script" color="orange"></tw-tag><tw-tag name="stylesheet" color="purple"></tw-tag><tw-tag name="menu" color="blue"></tw-tag><tw-tag name="Location" color="yellow"></tw-tag><tw-tag name="System-Logic" color="orange"></tw-tag><tw-tag name="Datamaps" color="green"></tw-tag><tw-passagedata pid="1" name="Winmose" tags="Location" position="500,900" size="100,100">(set: $currentBiome to &quot;forest&quot;)
 (set: $lastLocation to (passage:))
 
 You are in the town of Winmose. What would you like to do?
@@ -17,13 +17,15 @@ You are in the town of Winmose. What would you like to do?
 (link: &quot;Explore the surrounding forest&quot;)[(go-to: &quot;EnemyEncounter&quot;)]
 [[Visit the shop|Winmose Shop]]
 [[Visit the Inn|Winmose Inn]]
-[[Travel East]]</tw-passagedata><tw-passagedata pid="2" name="Winmose Shop" tags="" position="600,900" size="100,100">(set: $lastLocation to (passage:))
+[[Travel East]]</tw-passagedata><tw-passagedata pid="2" name="Winmose Shop" tags="" position="600,1100" size="100,100">(set: $lastLocation to (passage:))
 
 
 You enter the local shop. It&#39;s a small room, with various items on wooden shelves. The shopkeeper nods at you. 
 
 
-{(link: &quot;Buy Items&quot;)[(go-to: &quot;Tier1Shop&quot;)]&lt;br&gt;
+{
+(link: &quot;Buy Items&quot;)[(go-to: &quot;Tier1Shop&quot;)]&lt;br&gt;
+(link: &quot;Sell Items&quot;)[(go-to: &quot;SellInventory&quot;)]&lt;br&gt;
 (link: &quot;Leave the shop&quot;)[
 	(set: $shopVisited to 0)
     (go-to: &quot;Winmose&quot;)]
@@ -63,7 +65,7 @@ You enter the local shop. It&#39;s a small room, with various items on wooden sh
         &quot;description&quot;, &quot;A cast iron pan. There&#39;s still some chicken stuck to the bottom...&quot;,
         &quot;damage&quot;, &quot;1d4+0&quot;,
         &quot;tier&quot;, 0,
-        &quot;value&quot;, 6,
+        &quot;value&quot;, 3,
         &quot;equipped&quot;, false
     )
 ))
@@ -92,7 +94,7 @@ You enter the local shop. It&#39;s a small room, with various items on wooden sh
         &quot;value&quot;, 10
     )
 ))
-}</tw-passagedata><tw-passagedata pid="4" name="Inventory" tags="menu" position="500,100" size="100,100">(set: $inMenu to 1)
+}</tw-passagedata><tw-passagedata pid="4" name="Inventory" tags="menu" position="500,100" size="100,100">
 
 Inventory:
 
@@ -127,26 +129,20 @@ Inventory:
     ]
 
 (link: &quot;Back&quot;)[
-	(set: $inMenu to 0)
-    (go-to: $returnPassage&#39;s name)]</tw-passagedata><tw-passagedata pid="5" name="GlobalHUD" tags="header System-Logic" position="800,100" size="100,100">{(if: $globalHUD is 0)[](else:)[
-(display: &quot;HUDStatDisplay&quot;)
+    (go-to: &quot;MainMenu&quot;)]</tw-passagedata><tw-passagedata pid="5" name="GlobalHUD" tags="header System-Logic" position="800,100" size="100,100">{(if: $globalHUD is 0)[](else:)[
 
 =|=
-(link: &quot;Character Stats&quot;)[
+(display: &quot;HUDStatDisplay&quot;)
+=|=
+(link: &quot;Menu&quot;)[
 	(if: $inMenu is 0)[
 		(set: $returnPassage = (passage:))
     ]
-    (goto: &quot;StatsMenu&quot;)
+    (go-to: &quot;MainMenu&quot;)
 ]
-=|=
-(link: &quot;Inventory&quot;)[
-	(if: $inMenu is 0)[
-		(set: $returnPassage = (passage:))
-        ]
-    (goto: &quot;Inventory&quot;)
-]]
 |==|
-}</tw-passagedata><tw-passagedata pid="6" name="Travel East" tags="" position="800,700" size="100,100"></tw-passagedata><tw-passagedata pid="7" name="Start" tags="" position="500,400" size="100,100">{(set: $globalHUD to 1)
+]
+}</tw-passagedata><tw-passagedata pid="6" name="Travel East" tags="" position="700,900" size="100,100"></tw-passagedata><tw-passagedata pid="7" name="Start" tags="" position="500,600" size="100,100">{(set: $globalHUD to 1)
 
 (set: $baseStats to (dm: 
 	&quot;health&quot;, 20, 
@@ -178,7 +174,7 @@ Inventory:
 ))
 (set: $inventory to (a:))
 
-(set: $playerGold to 20)
+(set: $playerGold to 0)
 
 (set: $equipmentSlots to (dm:
 	&quot;mainhand&quot;, &quot;&quot;,
@@ -200,14 +196,15 @@ Choose your starting location:
 (display: &quot;Enemies&quot;)</tw-passagedata><tw-passagedata pid="8" name="Enemies" tags="Datamaps" position="1200,100" size="100,100">&lt;!-- Enemy Template:
 	&quot;Goblin&quot;, (dm: 
 		&quot;name&quot;, &quot;Goblin&quot;,
-        &quot;biomes&quot;, &quot;forest, grasslands, hills, swamp&quot;,
-        &quot;health&quot;, 30, 
+        &quot;biomes&quot;, (a: &quot;forest&quot;, &quot;grasslands&quot;, &quot;hills&quot;, &quot;swamp&quot;),
+        &quot;health&quot;, 10, 
         &quot;strength&quot;, 12,
         &quot;defense&quot;, 10,
         &quot;dexterity&quot;, 10,
         &quot;intelligence&quot;, 10,
         &quot;awareness&quot;, 12,
         &quot;charisma&quot;, 3,
+        &quot;damage&quot;, &quot;1d4&quot;,
         &quot;gold&quot;, 5
 ),
 --&gt;
@@ -236,6 +233,8 @@ Choose your starting location:
         &quot;intelligence&quot;, 6,
         &quot;awareness&quot;, 7,
         &quot;charisma&quot;, 2,
+        &quot;damage&quot;, &quot;1d12&quot;,
+        &quot;modifier&quot;, &quot;strength&quot;,
         &quot;gold&quot;, 25
 ),    
 	&quot;Bandit&quot;, (dm: 
@@ -294,8 +293,7 @@ Charisma:
 
 
 (link: &quot;Back&quot;)[
-	(set: $inMenu to 0)
-    (go-to: $returnPassage&#39;s name)]</tw-passagedata><tw-passagedata pid="10" name="HUDStatDisplay" tags="System-Logic" position="800,200" size="100,100">Health: (print: $currentStats&#39;s health) | Gold: (print: $playerGold)
+    (go-to: &quot;MainMenu&quot;)]</tw-passagedata><tw-passagedata pid="10" name="HUDStatDisplay" tags="System-Logic" position="800,200" size="100,100">Health: (print: $currentStats&#39;s health) | Gold: (print: $playerGold)
 
 </tw-passagedata><tw-passagedata pid="11" name="EnemyEncounter" tags="System-Logic" position="1200,200" size="100,100">
 
@@ -384,9 +382,9 @@ The (print: $currentEnemy&#39;s name) stands before you.
 
     &lt;!-- Player&#39;s attack roll --&gt;
     (if: _mainhandItem is &quot;&quot;)[
-    	(set: $attackRoll to (random: 1, 20) + $modifiers&#39;s strength)
+    	(set: $attackRoll to (random: 3, 20) + $modifiers&#39;s strength)
     ](else:)[
-    	(set: $attackRoll to (random: 1, 20) + $modifierValue)
+    	(set: $attackRoll to (random: 3, 20) + $modifierValue)
     ]
 
     &lt;!-- Check if player&#39;s attack hits --&gt;
@@ -447,22 +445,45 @@ You gained (print: $currentEnemy&#39;s gold) gold!&lt;br&gt;&lt;br&gt;
     &lt;!-- Determine the slots the item should occupy --&gt;
     (set: $itemType to $tempItem&#39;s type)
     (set: $itemSlots to $itemTypeToSlots&#39;s ($itemType))
-
+    
+    &lt;!-- Check for existing equippped item and unequip if found --&gt;
+    (for: each _slot, ...$itemSlots)[
+    	(if: $equipmentSlots&#39;s (_slot) is not &quot;&quot;)[
+        	(set: _equippedItemName to $equipmentSlots&#39;s (_slot))
+            (set: _unequipPosition to 0)
+            (for: each _unequipElement, ...$inventory)[
+            	(set: _unequipPosition to it +1)
+                (if: (_unequipElement&#39;s name is _equippedItemName) and ( _unequipElement&#39;s equipped is true))[
+                		(set: $inventory&#39;s (_unequipPosition)&#39;s equipped to false)
+                		(if: $inventory&#39;s (_unequipPosition)&#39;s class is &quot;armor&quot;)[
+                    		(set: $currentStat&#39;s ac to it - $inventory&#39;s (_unequipPosition)&#39;s ac)
+                       		(set: $playerAC to $currentStats&#39;s ac + $modifier&#39;s defense)
+                        ]
+                    ]
+                ]
+            ]
+            (set: $equipmentSlots&#39;s (_slot) to &quot;&quot;)
+        ]
+    
     &lt;!-- Equip the item to its respective slots --&gt;
     (for: each _slot, ...$itemSlots)[
         (set: $equipmentSlots&#39;s (_slot) to $tempItem&#39;s name)
     ]
 
+&lt;!--Check if item is armor and if so apply to AC--&gt;
+    (if: $tempItem&#39;s class is &quot;armor&quot;)[
+    	(set: $currentStats&#39;s ac to it + $tempItem&#39;s ac)
+        (set: $playerAC to $currentStats&#39;s ac + $modifiers&#39;s defense)
+    ]
+
     &lt;!-- Find the index of the item within the inventory array --&gt;
     (set: _position to 0)
     (for: each _element, ...$inventory)[
-        (set: _position to _position + 1)
+        (set: _position to it + 1)
         (if: _element&#39;s name is $tempItem&#39;s name)[
+        	(set: $inventory&#39;s _position&#39;s equipped to true)
         ]
     ]
-
-   &lt;!-- Replace the old item datamap in the inventory with the updated one --&gt;
-    (set: $inventory&#39;s _position&#39;s equipped to true)
 
     &lt;!-- Return to the Inventory passage --&gt;
     (redirect: &quot;Inventory&quot;)
@@ -478,16 +499,20 @@ You gained (print: $currentEnemy&#39;s gold) gold!&lt;br&gt;&lt;br&gt;
         ]
     ]
 
+    &lt;!--Check if item is armor and if so remove AC--&gt;
+    (if: $tempItem&#39;s class is &quot;armor&quot;)[
+    	(set: $currentStats&#39;s ac to it - $tempItem&#39;s ac)
+        (set: $playerAC to $currentStats&#39;s ac + $modifiers&#39;s defense)
+    ]
+
     &lt;!-- Find the index of the item within the inventory array --&gt;
     (set: _position to 0)
     (for: each _element, ...$inventory)[
         (set: _position to _position + 1)
         (if: _element&#39;s name is $tempItem&#39;s name)[
+        	(set: $inventory&#39;s _position&#39;s equipped to false)
         ]
     ]
-
-    &lt;!-- Replace the old item datamap in the inventory with the updated one --&gt;
-    (set: $inventory&#39;s _position&#39;s equipped to false)
 
     &lt;!-- Return to the Inventory passage --&gt;
     (redirect: &quot;Inventory&quot;)
@@ -497,7 +522,7 @@ It appears you have met an untimely demise...
 
 Well then, from the top!
 
-(link: &quot;Play Again&quot;)[(restart:)]</tw-passagedata><tw-passagedata pid="20" name="Winmose Inn" tags="" position="400,900" size="100,100">(set: $lastLocation to (passage:))
+(link: &quot;Play Again&quot;)[(restart:)]</tw-passagedata><tw-passagedata pid="20" name="Winmose Inn" tags="" position="400,1100" size="100,100">(set: $lastLocation to (passage:))
 
 
 
@@ -519,7 +544,7 @@ Well then, from the top!
  ]
 }
 (link: &quot;Return to the Inn&quot;)[(go-to: $lastLocation&#39;s name)]
-</tw-passagedata><tw-passagedata pid="22" name="Tier1Shop" tags="" position="100,300" size="100,100">
+</tw-passagedata><tw-passagedata pid="22" name="Tier1Shop" tags="" position="300,300" size="100,100">
 
 
 =|=
@@ -553,7 +578,7 @@ Well then, from the top!
       (print: _item&#39;s value) gold
       =|=
       (link: &quot;Buy&quot;)[
-          (set: $selectedItem to _item) &lt;!-- Store item temporarily --&gt;
+          (set: $boughtItem to _item) &lt;!-- Store item temporarily --&gt;
           (redirect: &quot;BuyItem&quot;) &lt;!-- Go to the BuyItem passage --&gt;
       ]
       |==|
@@ -568,34 +593,94 @@ Well then, from the top!
       (print: _item&#39;s value) gold
       =|=
       (link: &quot;Buy&quot;)[
-          (set: $selectedItem to _item) &lt;!-- Store item temporarily --&gt;
+          (set: $boughtItem to _item) &lt;!-- Store item temporarily --&gt;
           (redirect: &quot;BuyItem&quot;) &lt;!-- Go to the BuyItem passage --&gt;
       ]
       |==|
   ]
 ]}
 
-{(link: &quot;Go Back&quot;)[(go-to: $lastLocation&#39;s name)]}</tw-passagedata><tw-passagedata pid="23" name="BuyItem" tags="" position="50,400" size="100,100">
+{(link: &quot;Go Back&quot;)[(go-to: $lastLocation&#39;s name)]}</tw-passagedata><tw-passagedata pid="23" name="BuyItem" tags="" position="300,400" size="100,100">
 
 
 {
-    (if: $playerGold &gt;= $selectedItem&#39;s value)[
-         (set: $playerGold to $playerGold - $selectedItem&#39;s value)
-         (set: $inventory to it + (a: $selectedItem))
-         (set: $displayItems to it - (a:$selectedItem))
-         You bought the (print: $selectedItem&#39;s name).&lt;br&gt;&lt;br&gt;
+    (if: $playerGold &gt;= $boughtItem&#39;s value)[
+         (set: $playerGold to $playerGold - $boughtItem&#39;s value)
+         (set: $inventory to it + (a: $boughtItem))
+         (set: $displayItems to it - (a:$boughtItem))
+         You bought the (print: $boughtItem&#39;s name).&lt;br&gt;&lt;br&gt;
     ](else:)[
-        You don&#39;t have enough gold to buy the (print: $selectedItem&#39;s name).&lt;br&gt;&lt;br&gt;
+        You don&#39;t have enough gold to buy the (print: $boughtItem&#39;s name).&lt;br&gt;&lt;br&gt;
     ]
     (link: &quot;Return to Shop&quot;)[(goto: &quot;Tier1Shop&quot;)]
-}</tw-passagedata><tw-passagedata pid="24" name="Find Frying Pan" tags="" position="400,1025" size="100,100">(set: $hasPan to 1)
+}</tw-passagedata><tw-passagedata pid="24" name="Find Frying Pan" tags="" position="300,1200" size="100,100">(set: $hasPan to 1)
 
 You find a frying pan with a small chip in the rim. The cook must have tossed it out...
 
 (link: &quot;Take the pan&quot;)[
 	(set: $inventory to it + (a:$weapons&#39;s &quot;Frying Pan&quot;))
     (go-to: $lastLocation&#39;s name)
-    ]</tw-passagedata></tw-storydata>
+    ]</tw-passagedata><tw-passagedata pid="25" name="SellInventory" tags="" position="100,300" size="100,100">
+
+
+=|=
+  &#39;&#39;Name&#39;&#39;
+  =|=
+  &#39;&#39;Description&#39;&#39;
+  =|=
+  &#39;&#39;Sell Price&#39;&#39;
+  =|=
+
+  |==|
+  {(for: each _item, ...$inventory)[
+  	=|=
+    (print: _item&#39;s name)
+    =|=
+    (print: _item&#39;s description)
+    =|=
+    (print: (round: _item&#39;s value * 0.5)) gold
+    =|=
+    (link: &quot;Sell&quot;)[
+    	(set: $sellItem to _item)
+        (go-to: &quot;SellItem&quot;)
+    ]
+    |==|
+  ]
+  }
+  
+  (link: &quot;Return to Shop&quot;)[(go-to: $lastLocation&#39;s name)]</tw-passagedata><tw-passagedata pid="26" name="SellItem" tags="" position="100,400" size="100,100">
+
+
+Sell the (print: $sellItem&#39;s name)?
+
+
+{
+(link: &quot;Yes&quot;)[
+	(set: $playerGold to it + (round: $sellItem&#39;s value * 0.5))
+        (set: $inventory to it - (a: $sellItem))
+        (go-to: &quot;SellInventory&quot;)
+]&lt;br&gt;
+(link: &quot;Nevermind&quot;)[
+	(go-to: &quot;SellInventory&quot;)
+]
+}</tw-passagedata><tw-passagedata pid="27" name="MainMenu" tags="menu" position="700,0" size="100,100">(set: $inMenu to 1)
+
+
+{
+(link: &quot;Character Stats&quot;)[
+    (goto: &quot;StatsMenu&quot;)
+]&lt;br&gt;
+(link: &quot;Inventory&quot;)[
+	&lt;!--(if: $inMenu is 0)[
+		(set: $returnPassage = (passage:))
+        ]--&gt;
+    (goto: &quot;Inventory&quot;)
+    ]
+}
+
+(link: &quot;Back&quot;)[
+	(set: $inMenu to 0)
+    (go-to: $returnPassage&#39;s name)]</tw-passagedata></tw-storydata>
 <script title="Twine engine code" data-main="harlowe">(function(){"use strict";
 var require,define;!function(){var e={},r={};require=function(i){var n=e[i];return n&&(r[i]=n[1].apply(void 0,n[0].map(require)),e[i]=void 0),r[i]},(define=function(r,i,n){if("function"==typeof r)return r();e[r]=[i,n]}).amd=!0}();/*!
  * https://github.com/paulmillr/es6-shim
