@@ -9,19 +9,126 @@
 </head>
 <body>
 <tw-story><noscript><tw-noscript>JavaScript needs to be enabled to play Text_RPG.</tw-noscript></noscript></tw-story>
-<tw-storydata name="Text_RPG" startnode="7" creator="Twine" creator-version="2.8.1" format="Harlowe" format-version="3.3.8" ifid="DE6514A9-4EA1-4602-AC56-8CFDBBEAB4D6" options="" tags="" zoom="0.6" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css"></style><script role="script" id="twine-user-script" type="text/twine-javascript"></script><tw-tag name="script" color="orange"></tw-tag><tw-tag name="stylesheet" color="purple"></tw-tag><tw-tag name="menu" color="blue"></tw-tag><tw-tag name="Location" color="yellow"></tw-tag><tw-tag name="System-Logic" color="orange"></tw-tag><tw-tag name="Datamaps" color="green"></tw-tag><tw-passagedata pid="1" name="Winmose" tags="Location" position="500,900" size="100,100">(set: $currentBiome to &quot;forest&quot;)
-(set: $lastLocation to (passage:))
+<tw-storydata name="Text_RPG" startnode="29" creator="Twine" creator-version="2.8.1" format="Harlowe" format-version="3.3.8" ifid="DE6514A9-4EA1-4602-AC56-8CFDBBEAB4D6" options="" tags="" zoom="0.6" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">/* Overall background and font styles for a classic fantasy theme */
+tw-story {
+    background-color: #1b1b1b; /* Dark brown background, reminiscent of old parchment */
+    color: #e4d6a7; /* Parchment-like text color for a classic look */
+    font-family: 'Cambria', serif; /* Serif font for a traditional feel */
+    line-height: 1.6;
+    max-width: 100%;
+    padding: 20px;
+}
 
-You are in the town of Winmose. What would you like to do?
 
-(link: &quot;Explore the surrounding forest&quot;)[(go-to: &quot;EnemyEncounter&quot;)]
-[[Visit the shop|Winmose Shop]]
-[[Visit the Inn|Winmose Inn]]
-[[Travel East]]</tw-passagedata><tw-passagedata pid="2" name="Winmose Shop" tags="" position="600,1100" size="100,100">(set: $lastLocation to (passage:))
+/* Styles for individual passages */
+tw-passage {
+    background-color: #2c2724; /* Deep, earthy background color for passages */
+    color: #f4e4bc; /* Light parchment color for text */
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.6); /* Deeper shadow for an aged effect */
+    max-width: 1000px;
+    margin: 30px auto;
+    border: 2px solid #806c60; /* Subtle, aged border style */
+}
+
+/* Styling links for a fantasy feel */
+tw-link, a {
+    color: #d1a85c; /* Gold color for links, reminiscent of aged brass */
+    text-decoration: none;
+}
+
+tw-link:hover, a:hover {
+    color: #a67c52; /* Darker brown on hover for an antique feel */
+    text-decoration: none;
+}
+
+/* Styling for visited links to look the same as regular links */
+.visited {
+    color: #d1a85c; /* Same color as regular links */
+    text-decoration: none; /* Same text decoration as regular links */
+}
+
+.visited:hover {
+    color: #a67c52; /* Darker brown on hover for an antique feel */
+    text-decoration: none;
+}
+
+/* Header styles if used */
+header {
+    background: #564b47;
+    color: #f4e4bc;
+    padding: 15px 0;
+    text-align: center;
+    border-bottom: 1px solid #806c60;
+}
+
+/* Footer styles if used */
+footer {
+    background: #564b47;
+    color: #f4e4bc;
+    text-align: center;
+    padding: 15px 0;
+    border-top: 1px solid #806c60;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Custom class for important messages */
+.important {
+    color: #d1a85c; /* Gold color for emphasis */
+    font-weight: bold;
+    text-shadow: 0 0 5px #f4e4bc; /* Soft glow for a mystical feel */
+}
+
+/* Additional embellishments for a fantasy theme */
+tw-sidebar {
+    visibility: hidden;
+    background-color: #1b1b1b;
+    color: #e4d6a7;
+}
+
+/* Custom scrollbar for fantasy theme */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #564b47;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #806c60;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #a67c52;
+}
+
+/* BG Location Images*/
+tw-story[tags~="sm-forest-town"] {
+    background-image: url("Assets/Artwork/Locations/sm-forest-town.png");
+  	background-size: cover;
+}
+
+tw-story[tags~="gen-shop"] {
+    background-image: url("Assets/Artwork/Locations/gen-shop.png");
+  	background-size: cover;
+}
+
+tw-story[tags~="wood-inn"] {
+    background-image: url("Assets/Artwork/Locations/wood-inn.png");
+  	background-size: cover;
+}
+
+tw-story[tags~="inn-room"] {
+    background-image: url("Assets/Artwork/Locations/inn-room.png");
+  	background-size: cover;
+}</style><script role="script" id="twine-user-script" type="text/twine-javascript"></script><tw-tag name="script" color="orange"></tw-tag><tw-tag name="stylesheet" color="purple"></tw-tag><tw-tag name="menu" color="blue"></tw-tag><tw-tag name="Location" color="yellow"></tw-tag><tw-tag name="System-Logic" color="orange"></tw-tag><tw-tag name="Datamaps" color="green"></tw-tag><tw-passagedata pid="1" name="Winmose Shop" tags="gen-shop" position="600,1100" size="100,100">(set: $lastLocation to (passage:))
 
 
-You enter the local shop. It&#39;s a small room, with various items on wooden shelves. The shopkeeper nods at you. 
-
+You enter the local shop. It&#39;s modestly sized, with various items on wooden tables and shelves. The shopkeeper nods at you. 
 
 {
 (link: &quot;Buy Items&quot;)[(go-to: &quot;Tier1Shop&quot;)]&lt;br&gt;
@@ -29,7 +136,7 @@ You enter the local shop. It&#39;s a small room, with various items on wooden sh
 (link: &quot;Leave the shop&quot;)[
 	(set: $shopVisited to 0)
     (go-to: &quot;Winmose&quot;)]
-}</tw-passagedata><tw-passagedata pid="3" name="Items" tags="Datamaps" position="300,100" size="100,100">{
+}</tw-passagedata><tw-passagedata pid="2" name="Items" tags="Datamaps" position="1400,100" size="100,100">{
 &lt;!--Stat modifiers that each item type will use--&gt;
 (set: $weaponTypeModifiers to (datamap:
 	&quot;sword&quot;, &quot;strength&quot;,
@@ -94,7 +201,7 @@ You enter the local shop. It&#39;s a small room, with various items on wooden sh
         &quot;value&quot;, 10
     )
 ))
-}</tw-passagedata><tw-passagedata pid="4" name="Inventory" tags="menu" position="500,100" size="100,100">
+}</tw-passagedata><tw-passagedata pid="3" name="Inventory" tags="menu" position="500,100" size="100,100">
 
 Inventory:
 
@@ -129,7 +236,7 @@ Inventory:
     ]
 
 (link: &quot;Back&quot;)[
-    (go-to: &quot;MainMenu&quot;)]</tw-passagedata><tw-passagedata pid="5" name="GlobalHUD" tags="header System-Logic" position="800,100" size="100,100">{(if: $globalHUD is 0)[](else:)[
+    (go-to: &quot;MainMenu&quot;)]</tw-passagedata><tw-passagedata pid="4" name="GlobalHUD" tags="header System-Logic" position="800,0" size="100,100">{(if: $globalHUD is 0)[](else:)[
 
 =|=
 (display: &quot;HUDStatDisplay&quot;)
@@ -142,58 +249,12 @@ Inventory:
 ]
 |==|
 ]
-}</tw-passagedata><tw-passagedata pid="6" name="Travel East" tags="" position="700,900" size="100,100"></tw-passagedata><tw-passagedata pid="7" name="Start" tags="" position="500,600" size="100,100">{(set: $globalHUD to 1)
+}</tw-passagedata><tw-passagedata pid="5" name="Travel East" tags="" position="700,900" size="100,100"></tw-passagedata><tw-passagedata pid="6" name="Start" tags="" position="500,600" size="100,100">{(set: $globalHUD to 1)}
+&lt;img src=&quot;Assets/Artwork/Logo_design_alt.png&quot; width=&quot;400&quot; height=&quot;400&quot;&gt;
+(align:&quot;=&gt;&lt;=&quot;)+(box:&quot;X&quot;)[
+Choose your starting location
 
-(set: $baseStats to (dm: 
-	&quot;health&quot;, 20, 
-    &quot;strength&quot;, 10, 
-    &quot;defense&quot;, 10,
-    &quot;dexterity&quot;, 10,
-    &quot;intelligence&quot;, 10,
-    &quot;awareness&quot;, 10,
-    &quot;charisma&quot;, 10,
-    &quot;ac&quot;, 10
-))
-(set: $currentStats to (dm: 
-	&quot;health&quot;, $baseStats&#39;s health, 
-    &quot;strength&quot;, $baseStats&#39;s strength, 
-    &quot;defense&quot;, $baseStats&#39;s defense,
-    &quot;dexterity&quot;, $baseStats&#39;s dexterity,
-    &quot;intelligence&quot;, $baseStats&#39;s intelligence,
-    &quot;awareness&quot;, $baseStats&#39;s awareness,
-    &quot;charisma&quot;, $baseStats&#39;s charisma,
-    &quot;ac&quot;, $baseStats&#39;s ac
-))
-(set: $modifiers to (dm:
-	&quot;strength&quot;, (floor: ($currentStats&#39;s strength -10) / 2),
-    &quot;defense&quot;, (floor: ($currentStats&#39;s defense -10) / 2),
-    &quot;dexterity&quot;, (floor: ($currentStats&#39;s dexterity -10) / 2),
-    &quot;intelligence&quot;, (floor: ($currentStats&#39;s intelligence -10) / 2),
-    &quot;awareness&quot;, (floor: ($currentStats&#39;s awareness -10) / 2),
-    &quot;charisma&quot;, (floor: ($currentStats&#39;s charisma -10) / 2),
-))
-(set: $inventory to (a:))
-
-(set: $playerGold to 0)
-
-(set: $equipmentSlots to (dm:
-	&quot;mainhand&quot;, &quot;&quot;,
-    &quot;offhand&quot;, &quot;&quot;,
-    &quot;outfit&quot;, &quot;&quot;,
-    &quot;back&quot;, &quot;&quot;
-))
-
-(set: $playerAC to $currentStats&#39;s ac + $modifiers&#39;s defense)
-
-(set: $currentEnemy to &quot;&quot;)
-}
-
-Choose your starting location:
-
-[[Winmose]]
-
-(display: &quot;Items&quot;)
-(display: &quot;Enemies&quot;)</tw-passagedata><tw-passagedata pid="8" name="Enemies" tags="Datamaps" position="1200,100" size="100,100">&lt;!-- Enemy Template:
+[[Winmose]]]</tw-passagedata><tw-passagedata pid="7" name="Enemies" tags="Datamaps" position="1200,100" size="100,100">&lt;!-- Enemy Template:
 	&quot;Goblin&quot;, (dm: 
 		&quot;name&quot;, &quot;Goblin&quot;,
         &quot;biomes&quot;, (a: &quot;forest&quot;, &quot;grasslands&quot;, &quot;hills&quot;, &quot;swamp&quot;),
@@ -251,7 +312,7 @@ Choose your starting location:
         &quot;gold&quot;, 15
 	)
 ))
-&lt;!--Additional Enemies added about the &quot;))&quot;--&gt;</tw-passagedata><tw-passagedata pid="9" name="StatsMenu" tags="menu" position="900,100" size="100,100">{(set: $inMenu to true)}
+&lt;!--Additional Enemies added about the &quot;))&quot;--&gt;</tw-passagedata><tw-passagedata pid="8" name="StatsMenu" tags="menu" position="600,100" size="100,100">{(set: $inMenu to true)}
 &#39;&#39;Equipment&#39;&#39;
 Mainhand: (print: $equipmentSlots&#39;s mainhand)&lt;br&gt;
 Offhand: (print: $equipmentSlots&#39;s offhand)&lt;br&gt;
@@ -293,9 +354,7 @@ Charisma:
 
 
 (link: &quot;Back&quot;)[
-    (go-to: &quot;MainMenu&quot;)]</tw-passagedata><tw-passagedata pid="10" name="HUDStatDisplay" tags="System-Logic" position="800,200" size="100,100">Health: (print: $currentStats&#39;s health) | Gold: (print: $playerGold)
-
-</tw-passagedata><tw-passagedata pid="11" name="EnemyEncounter" tags="System-Logic" position="1200,200" size="100,100">
+    (go-to: &quot;MainMenu&quot;)]</tw-passagedata><tw-passagedata pid="9" name="HUDStatDisplay" tags="System-Logic" position="900,0" size="100,100">Health: (print: $currentStats&#39;s health) | Gold: (print: $playerGold)</tw-passagedata><tw-passagedata pid="10" name="EnemyEncounter" tags="System-Logic" position="1200,200" size="100,100">
 
 
 {(if: $currentEnemy is not &quot;&quot;)[
@@ -321,7 +380,7 @@ Charisma:
     [[Engage|EngageEnemy]]&lt;br&gt;
     [[Flee|FleeEncounter]]
 ]}
-</tw-passagedata><tw-passagedata pid="12" name="FleeEncounter" tags="" position="1300,325" size="100,100">
+</tw-passagedata><tw-passagedata pid="11" name="FleeEncounter" tags="" position="1300,325" size="100,100">
 
 
 {(if: $currentStats&#39;s dexterity &gt;= $currentEnemy&#39;s awareness)[
@@ -333,13 +392,13 @@ Charisma:
     You can&#39;t escape!
     
     [[Fight|EngageEnemy]]
-]}</tw-passagedata><tw-passagedata pid="13" name="EngageEnemy" tags="" position="1100,325" size="100,100">
+]}</tw-passagedata><tw-passagedata pid="12" name="EngageEnemy" tags="" position="1100,325" size="100,100">
 (print: $currentEnemy&#39;s name)&#39;s Health: (print: $currentEnemy&#39;s health)&lt;br&gt;&lt;br&gt;
 The (print: $currentEnemy&#39;s name) stands before you.
 
 [[Attack|Attack]]
 [[Use Item|UseItem]] &lt;!-- To be implemented later --&gt;
-[[Flee|FleeEncounter]] &lt;!-- Fleeing during combat could have different consequences --&gt;</tw-passagedata><tw-passagedata pid="14" name="Attack" tags="" position="1000,450" size="100,100">
+[[Flee|FleeEncounter]] &lt;!-- Fleeing during combat could have different consequences --&gt;</tw-passagedata><tw-passagedata pid="13" name="Attack" tags="" position="1000,450" size="100,100">
 (print: $currentEnemy&#39;s name)&#39;s Health: (print: $currentEnemy&#39;s health)&lt;br&gt;&lt;br&gt;
 {
     &lt;!-- Initialize $equippedWeapon --&gt;
@@ -436,12 +495,12 @@ The (print: $currentEnemy&#39;s name) stands before you.
 ](else:)[
     [[You have defeated the (print: $currentEnemy&#39;s name)!|Victory]]
 ]}  
-</tw-passagedata><tw-passagedata pid="15" name="UseItem" tags="" position="1200,450" size="100,100"></tw-passagedata><tw-passagedata pid="16" name="Victory" tags="" position="1075,575" size="100,100">
+</tw-passagedata><tw-passagedata pid="14" name="UseItem" tags="" position="1200,450" size="100,100"></tw-passagedata><tw-passagedata pid="15" name="Victory" tags="" position="1075,575" size="100,100">
 
 (set: $playerGold to $playerGold + $currentEnemy&#39;s gold)
 You gained (print: $currentEnemy&#39;s gold) gold!&lt;br&gt;&lt;br&gt;
 {(set: $currentEnemy to &quot;&quot;)}
-(link-goto: &quot;Continue&quot;, $lastLocation&#39;s name)</tw-passagedata><tw-passagedata pid="17" name="EquipItem" tags="System-Logic" position="450,200" size="100,100">{
+(link-goto: &quot;Continue&quot;, $lastLocation&#39;s name)</tw-passagedata><tw-passagedata pid="16" name="EquipItem" tags="System-Logic" position="450,200" size="100,100">{
     &lt;!-- Determine the slots the item should occupy --&gt;
     (set: $itemType to $tempItem&#39;s type)
     (set: $itemSlots to $itemTypeToSlots&#39;s ($itemType))
@@ -487,7 +546,7 @@ You gained (print: $currentEnemy&#39;s gold) gold!&lt;br&gt;&lt;br&gt;
 
     &lt;!-- Return to the Inventory passage --&gt;
     (redirect: &quot;Inventory&quot;)
-}</tw-passagedata><tw-passagedata pid="18" name="UnequipItem" tags="System-Logic" position="550,200" size="100,100">{
+}</tw-passagedata><tw-passagedata pid="17" name="UnequipItem" tags="System-Logic" position="550,200" size="100,100">{
     &lt;!-- Determine the slots the item occupies --&gt;
     (set: $itemType to $tempItem&#39;s type)
     (set: $itemSlots to $itemTypeToSlots&#39;s ($itemType))
@@ -516,15 +575,16 @@ You gained (print: $currentEnemy&#39;s gold) gold!&lt;br&gt;&lt;br&gt;
 
     &lt;!-- Return to the Inventory passage --&gt;
     (redirect: &quot;Inventory&quot;)
-}</tw-passagedata><tw-passagedata pid="19" name="GameOver" tags="" position="925,575" size="100,100">
+}</tw-passagedata><tw-passagedata pid="18" name="GameOver" tags="" position="925,575" size="100,100">
 
 It appears you have met an untimely demise...
 
 Well then, from the top!
 
-(link: &quot;Play Again&quot;)[(restart:)]</tw-passagedata><tw-passagedata pid="20" name="Winmose Inn" tags="" position="400,1100" size="100,100">(set: $lastLocation to (passage:))
+(link: &quot;Play Again&quot;)[(restart:)]</tw-passagedata><tw-passagedata pid="19" name="Winmose Inn" tags="wood-inn" position="400,1100" size="100,100">(set: $lastLocation to (passage:))
 
 
+You enter the town&#39;s inn. It&#39;s a cozy place, with a warm atmosphere. Wooden tables are scattered around, and the air is filled with the aroma of food and ale.
 
 {
 (if: $hasPan is 0)[
@@ -532,7 +592,7 @@ Well then, from the top!
    ]
 }
 (link: &quot;Rent a room (3 gold)&quot;)[(go-to: &quot;RoomRental&quot;)]
-[[Leave the Inn|Winmose]]</tw-passagedata><tw-passagedata pid="21" name="RoomRental" tags="System-Logic" position="100,100" size="100,100">
+[[Leave the Inn|Winmose]]</tw-passagedata><tw-passagedata pid="20" name="RoomRental" tags="System-Logic inn-room" position="100,100" size="100,100">
 
 
 {(if: $playerGold &lt; 3)[
@@ -544,7 +604,7 @@ Well then, from the top!
  ]
 }
 (link: &quot;Return to the Inn&quot;)[(go-to: $lastLocation&#39;s name)]
-</tw-passagedata><tw-passagedata pid="22" name="Tier1Shop" tags="" position="300,300" size="100,100">
+</tw-passagedata><tw-passagedata pid="21" name="Tier1Shop" tags="" position="300,300" size="100,100">
 
 
 =|=
@@ -600,7 +660,7 @@ Well then, from the top!
   ]
 ]}
 
-{(link: &quot;Go Back&quot;)[(go-to: $lastLocation&#39;s name)]}</tw-passagedata><tw-passagedata pid="23" name="BuyItem" tags="" position="300,400" size="100,100">
+{(link: &quot;Go Back&quot;)[(go-to: $lastLocation&#39;s name)]}</tw-passagedata><tw-passagedata pid="22" name="BuyItem" tags="" position="300,400" size="100,100">
 
 
 {
@@ -613,14 +673,14 @@ Well then, from the top!
         You don&#39;t have enough gold to buy the (print: $boughtItem&#39;s name).&lt;br&gt;&lt;br&gt;
     ]
     (link: &quot;Return to Shop&quot;)[(goto: &quot;Tier1Shop&quot;)]
-}</tw-passagedata><tw-passagedata pid="24" name="Find Frying Pan" tags="" position="300,1200" size="100,100">(set: $hasPan to 1)
+}</tw-passagedata><tw-passagedata pid="23" name="Find Frying Pan" tags="wood-inn" position="300,1200" size="100,100">(set: $hasPan to 1)
 
 You find a frying pan with a small chip in the rim. The cook must have tossed it out...
 
 (link: &quot;Take the pan&quot;)[
 	(set: $inventory to it + (a:$weapons&#39;s &quot;Frying Pan&quot;))
     (go-to: $lastLocation&#39;s name)
-    ]</tw-passagedata><tw-passagedata pid="25" name="SellInventory" tags="" position="100,300" size="100,100">
+    ]</tw-passagedata><tw-passagedata pid="24" name="SellInventory" tags="" position="100,300" size="100,100">
 
 
 =|=
@@ -648,7 +708,7 @@ You find a frying pan with a small chip in the rim. The cook must have tossed it
   ]
   }
   
-  (link: &quot;Return to Shop&quot;)[(go-to: $lastLocation&#39;s name)]</tw-passagedata><tw-passagedata pid="26" name="SellItem" tags="" position="100,400" size="100,100">
+  (link: &quot;Return to Shop&quot;)[(go-to: $lastLocation&#39;s name)]</tw-passagedata><tw-passagedata pid="25" name="SellItem" tags="" position="100,400" size="100,100">
 
 
 Sell the (print: $sellItem&#39;s name)?
@@ -663,7 +723,7 @@ Sell the (print: $sellItem&#39;s name)?
 (link: &quot;Nevermind&quot;)[
 	(go-to: &quot;SellInventory&quot;)
 ]
-}</tw-passagedata><tw-passagedata pid="27" name="MainMenu" tags="menu" position="700,0" size="100,100">(set: $inMenu to 1)
+}</tw-passagedata><tw-passagedata pid="26" name="MainMenu" tags="menu" position="600,0" size="100,100">(set: $inMenu to 1)
 
 
 {
@@ -680,7 +740,65 @@ Sell the (print: $sellItem&#39;s name)?
 
 (link: &quot;Back&quot;)[
 	(set: $inMenu to 0)
-    (go-to: $returnPassage&#39;s name)]</tw-passagedata><tw-passagedata pid="28" name="LandFill" tags="" position="1000,950" size="100,100"></tw-passagedata></tw-storydata>
+    (go-to: $returnPassage&#39;s name)]</tw-passagedata><tw-passagedata pid="27" name="LandFill" tags="" position="1000,950" size="100,100"></tw-passagedata><tw-passagedata pid="28" name="Winmose" tags="Location sm-forest-town" position="500,900" size="100,100">{(set: $currentBiome to &quot;forest&quot;)
+(set: $lastLocation to (passage:))
+}
+
+You are in the town of Winmose. What would you like to do?
+
+(link: &quot;Explore the surrounding forest&quot;)[(go-to: &quot;EnemyEncounter&quot;)]
+[[Visit the shop|Winmose Shop]]
+[[Visit the Inn|Winmose Inn]]
+[[Travel East]]</tw-passagedata><tw-passagedata pid="29" name="INIT" tags="" position="500,500" size="100,100">{
+(set: $baseStats to (dm: 
+	&quot;health&quot;, 20, 
+    &quot;strength&quot;, 10, 
+    &quot;defense&quot;, 10,
+    &quot;dexterity&quot;, 10,
+    &quot;intelligence&quot;, 10,
+    &quot;awareness&quot;, 10,
+    &quot;charisma&quot;, 10,
+    &quot;ac&quot;, 10
+))
+(set: $currentStats to (dm: 
+	&quot;health&quot;, $baseStats&#39;s health, 
+    &quot;strength&quot;, $baseStats&#39;s strength, 
+    &quot;defense&quot;, $baseStats&#39;s defense,
+    &quot;dexterity&quot;, $baseStats&#39;s dexterity,
+    &quot;intelligence&quot;, $baseStats&#39;s intelligence,
+    &quot;awareness&quot;, $baseStats&#39;s awareness,
+    &quot;charisma&quot;, $baseStats&#39;s charisma,
+    &quot;ac&quot;, $baseStats&#39;s ac
+))
+(set: $modifiers to (dm:
+	&quot;strength&quot;, (floor: ($currentStats&#39;s strength -10) / 2),
+    &quot;defense&quot;, (floor: ($currentStats&#39;s defense -10) / 2),
+    &quot;dexterity&quot;, (floor: ($currentStats&#39;s dexterity -10) / 2),
+    &quot;intelligence&quot;, (floor: ($currentStats&#39;s intelligence -10) / 2),
+    &quot;awareness&quot;, (floor: ($currentStats&#39;s awareness -10) / 2),
+    &quot;charisma&quot;, (floor: ($currentStats&#39;s charisma -10) / 2),
+))
+(set: $inventory to (a:))
+
+(set: $playerGold to 0)
+
+(set: $equipmentSlots to (dm:
+	&quot;mainhand&quot;, &quot;&quot;,
+    &quot;offhand&quot;, &quot;&quot;,
+    &quot;outfit&quot;, &quot;&quot;,
+    &quot;back&quot;, &quot;&quot;
+))
+
+(set: $playerAC to $currentStats&#39;s ac + $modifiers&#39;s defense)
+
+(set: $currentEnemy to &quot;&quot;)
+
+(display: &quot;Items&quot;)
+(display: &quot;Enemies&quot;)
+}
+
+(goto: &quot;Start&quot;)
+</tw-passagedata></tw-storydata>
 <script title="Twine engine code" data-main="harlowe">(function(){"use strict";
 var require,define;!function(){var e={},r={};require=function(i){var n=e[i];return n&&(r[i]=n[1].apply(void 0,n[0].map(require)),e[i]=void 0),r[i]},(define=function(r,i,n){if("function"==typeof r)return r();e[r]=[i,n]}).amd=!0}();/*!
  * https://github.com/paulmillr/es6-shim
