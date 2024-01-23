@@ -1,4 +1,6 @@
-## Setup<br>
+## Setup<br><br>
+To play simply run the html file located in the Stories folder.<br><br>
+To Contribute:<br>
 Download Twine Editor here: https://github.com/klembot/twinejs/releases<br>
 
 Open Twine and at the top select Twine->Set Story Library Folder <br>
