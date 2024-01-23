@@ -106,6 +106,7 @@ tw-sidebar {
     background: #a67c52;
 }
 
+
 /* BG Location Images*/
 tw-story[tags~="sm-forest-town"] {
     background-image: url("Assets/Artwork/Locations/sm-forest-town.png");
@@ -209,7 +210,7 @@ Inventory:
         =|=
         &#39;&#39;Name&#39;&#39;
         (print: _item&#39;s name)
-        =|=
+        =||=
         &#39;&#39;Description&#39;&#39;
         (print: _item&#39;s description)
         =|=
@@ -238,7 +239,7 @@ Inventory:
 (link: &quot;Back&quot;)[
     (go-to: &quot;MainMenu&quot;)]</tw-passagedata><tw-passagedata pid="4" name="GlobalHUD" tags="header System-Logic" position="800,0" size="100,100">{(if: $globalHUD is 0)[](else:)[
 
-=|=
+=|||=
 (display: &quot;HUDStatDisplay&quot;)
 =|=
 (link: &quot;Menu&quot;)[
@@ -249,12 +250,23 @@ Inventory:
 ]
 |==|
 ]
-}</tw-passagedata><tw-passagedata pid="5" name="Travel East" tags="" position="700,900" size="100,100"></tw-passagedata><tw-passagedata pid="6" name="Start" tags="" position="500,600" size="100,100">{(set: $globalHUD to 1)}
-&lt;img src=&quot;Assets/Artwork/Logo_design_alt.png&quot; width=&quot;400&quot; height=&quot;400&quot;&gt;
-(align:&quot;=&gt;&lt;=&quot;)+(box:&quot;X&quot;)[
-Choose your starting location
+}
+&lt;!--biome background logic--&gt;
+{
+(if: $currentBiome is &quot;forest&quot;)[
+    (set: $biomeBG to &quot;Assets/Artwork/Biomes/forest.png&quot;)
+]
+(elseif: $currentBiome is &quot;desert&quot;)[
+    (set: $biomeBG to &quot;background-image: url(&#39;path/to/desert.jpg&quot;)
+]
+&lt;!--Additional conditions for other biomes--&gt;
+}</tw-passagedata><tw-passagedata pid="5" name="Travel East" tags="" position="700,900" size="100,100"></tw-passagedata><tw-passagedata pid="6" name="Start" tags="" position="500,600" size="100,100">{(set: $globalHUD to 1)
+(align:&quot;=&gt;&lt;=&quot;)+(box:&quot;X&quot;)[&lt;img src=&quot;Assets/Artwork/Logo_design_alt.png&quot; width=&quot;400&quot; height=&quot;400&quot;&gt;&lt;br&gt;&lt;br&gt;
 
-[[Winmose]]]</tw-passagedata><tw-passagedata pid="7" name="Enemies" tags="Datamaps" position="1200,100" size="100,100">&lt;!-- Enemy Template:
+Choose your starting location&lt;br&gt;&lt;br&gt;
+
+[[Winmose]]]
+}</tw-passagedata><tw-passagedata pid="7" name="Enemies" tags="Datamaps" position="1200,100" size="100,100">&lt;!-- Enemy Template:
 	&quot;Goblin&quot;, (dm: 
 		&quot;name&quot;, &quot;Goblin&quot;,
         &quot;biomes&quot;, (a: &quot;forest&quot;, &quot;grasslands&quot;, &quot;hills&quot;, &quot;swamp&quot;),
@@ -282,7 +294,8 @@ Choose your starting location
         &quot;awareness&quot;, 12,
         &quot;charisma&quot;, 3,
         &quot;damage&quot;, &quot;1d4&quot;,
-        &quot;gold&quot;, 5
+        &quot;gold&quot;, 5,
+        &quot;img&quot;, &quot;Assets/Artwork/Enemies/goblin.png&quot;
 ),
     &quot;Troll&quot;, (dm: 
 		&quot;name&quot;, &quot;Troll&quot;,
@@ -309,17 +322,18 @@ Choose your starting location
         &quot;awareness&quot;, 10,
         &quot;charisma&quot;, 8,
         &quot;damage&quot;, &quot;1d6&quot;,
-        &quot;gold&quot;, 15
+        &quot;gold&quot;, 15,
+        &quot;img&quot;, &quot;Assets/Artwork/Enemies/bandit.png&quot;
 	)
 ))
-&lt;!--Additional Enemies added about the &quot;))&quot;--&gt;</tw-passagedata><tw-passagedata pid="8" name="StatsMenu" tags="menu" position="600,100" size="100,100">{(set: $inMenu to true)}
+&lt;!--Additional Enemies added above the &quot;))&quot;--&gt;</tw-passagedata><tw-passagedata pid="8" name="StatsMenu" tags="menu" position="600,100" size="100,100">{(set: $inMenu to true)}
 &#39;&#39;Equipment&#39;&#39;
 Mainhand: (print: $equipmentSlots&#39;s mainhand)&lt;br&gt;
 Offhand: (print: $equipmentSlots&#39;s offhand)&lt;br&gt;
 Outfit: (print: $equipmentSlots&#39;s outfit)&lt;br&gt;
 Back: (print: $equipmentSlots&#39;s outfit)&lt;br&gt;
 
-=|=
+=||=
 (text-style:&quot;bold&quot;,&quot;underline&quot;)[Stat]
 Health:
 AC:
@@ -330,7 +344,7 @@ Intelligence:
 Awareness:
 Charisma:
 =|=
-(text-style:&quot;bold&quot;,&quot;underline&quot;)[Current Value]
+(text-style:&quot;bold&quot;,&quot;underline&quot;)[Current]
 (print: $currentStats&#39;s health)
 (print: $playerAC)
 (print: $currentStats&#39;s strength)
@@ -340,7 +354,7 @@ Charisma:
 (print: $currentStats&#39;s awareness)
 (print: $currentStats&#39;s charisma)
 =|=
-(text-style:&quot;bold&quot;,&quot;underline&quot;)[Base Value]
+(text-style:&quot;bold&quot;,&quot;underline&quot;)[Base]
 (print: $baseStats&#39;s health)
 (print: $baseStats&#39;s ac)
 (print: $baseStats&#39;s strength)
@@ -354,10 +368,14 @@ Charisma:
 
 
 (link: &quot;Back&quot;)[
-    (go-to: &quot;MainMenu&quot;)]</tw-passagedata><tw-passagedata pid="9" name="HUDStatDisplay" tags="System-Logic" position="900,0" size="100,100">Health: (print: $currentStats&#39;s health) | Gold: (print: $playerGold)</tw-passagedata><tw-passagedata pid="10" name="EnemyEncounter" tags="System-Logic" position="1200,200" size="100,100">
-
+    (go-to: &quot;MainMenu&quot;)]</tw-passagedata><tw-passagedata pid="9" name="HUDStatDisplay" tags="System-Logic" position="900,0" size="100,100">{
+HP: (css: &quot;border: 3px solid black; display: inline-block; background-color: black; width: 200px&quot;)[
+    (meter: bind $currentStats&#39;s health, $baseStats&#39;s health, &quot;X&quot;, (str: $currentStats&#39;s health) + &quot;/&quot; + (str: $baseStats&#39;s health), red)]   |   Gold: (print: $playerGold)
+}
+</tw-passagedata><tw-passagedata pid="10" name="EnemyEncounter" tags="System-Logic" position="1200,200" size="100,100">(enchant: ?Page, (background: $biomeBG))
 
 {(if: $currentEnemy is not &quot;&quot;)[
+	(align:&quot;=&gt;&lt;=&quot;)[(print: &quot;&lt;img src=&#39;&quot; + $enemyImgPath + &quot;&#39; width=&#39;300&#39; height=&#39;300&#39;&gt;&quot;)]&lt;br&gt;
     You encounter a (print: $currentEnemy&#39;s name)! What do you do?&lt;br&gt;&lt;br&gt;
     [[Engage|EngageEnemy]]&lt;br&gt;
     [[Flee|FleeEncounter]]
@@ -374,13 +392,17 @@ Charisma:
     (set: $enemyNames to (datanames: $biomeEnemies))
     (set: $randomIndex to (random: 1, $enemyNames&#39;s length))
     (set: $currentEnemy to $biomeEnemies&#39;s ($enemyNames&#39;s $randomIndex))
+    (set: $currentEnemyBaseHP to $currentEnemy&#39;s health)
+    (set: $enemyImgPath to $currentEnemy&#39;s img)
+    
+    (align:&quot;=&gt;&lt;=&quot;)[(print: &quot;&lt;img src=&#39;&quot; + $enemyImgPath + &quot;&#39; width=&#39;300&#39; height=&#39;300&#39;&gt;&quot;)]&lt;br&gt;
 
     You encounter a (print: $currentEnemy&#39;s name)! What do you do?&lt;br&gt;&lt;br&gt;
 
     [[Engage|EngageEnemy]]&lt;br&gt;
     [[Flee|FleeEncounter]]
 ]}
-</tw-passagedata><tw-passagedata pid="11" name="FleeEncounter" tags="" position="1300,325" size="100,100">
+</tw-passagedata><tw-passagedata pid="11" name="FleeEncounter" tags="" position="1300,325" size="100,100">(enchant: ?Page, (background: $biomeBG))
 
 
 {(if: $currentStats&#39;s dexterity &gt;= $currentEnemy&#39;s awareness)[
@@ -392,14 +414,19 @@ Charisma:
     You can&#39;t escape!
     
     [[Fight|EngageEnemy]]
-]}</tw-passagedata><tw-passagedata pid="12" name="EngageEnemy" tags="" position="1100,325" size="100,100">
-(print: $currentEnemy&#39;s name)&#39;s Health: (print: $currentEnemy&#39;s health)&lt;br&gt;&lt;br&gt;
+]}</tw-passagedata><tw-passagedata pid="12" name="EngageEnemy" tags="" position="1100,325" size="100,100">{(enchant: ?Page, (background: $biomeBG))
+(align:&quot;=&gt;&lt;=&quot;)[(print: &quot;&lt;img src=&#39;&quot; + $enemyImgPath + &quot;&#39; width=&#39;300&#39; height=&#39;300&#39;&gt;&quot;)&lt;br&gt;
+(print: $currentEnemy&#39;s name)&#39;s HP: (css: &quot;border: 3px solid black; display: inline-block; background-color: black; width: 200px&quot;)[(meter: bind $currentEnemy&#39;s health, $currentEnemyBaseHP, &quot;X&quot;, (str: $currentEnemy&#39;s health), red)]&lt;br&gt;]
+}
 The (print: $currentEnemy&#39;s name) stands before you.
 
 [[Attack|Attack]]
 [[Use Item|UseItem]] &lt;!-- To be implemented later --&gt;
-[[Flee|FleeEncounter]] &lt;!-- Fleeing during combat could have different consequences --&gt;</tw-passagedata><tw-passagedata pid="13" name="Attack" tags="" position="1000,450" size="100,100">
-(print: $currentEnemy&#39;s name)&#39;s Health: (print: $currentEnemy&#39;s health)&lt;br&gt;&lt;br&gt;
+[[Flee|FleeEncounter]] &lt;!-- Fleeing during combat could have different consequences --&gt;
+</tw-passagedata><tw-passagedata pid="13" name="Attack" tags="" position="1000,450" size="100,100">{(enchant: ?Page, (background: $biomeBG))
+(align:&quot;=&gt;&lt;=&quot;)[(print: &quot;&lt;img src=&#39;&quot; + $enemyImgPath + &quot;&#39; width=&#39;300&#39; height=&#39;300&#39;&gt;&quot;)&lt;br&gt;
+(print: $currentEnemy&#39;s name)&#39;s HP: (css: &quot;border: 3px solid black; display: inline-block; background-color: black; width: 200px&quot;)[(meter: bind $currentEnemy&#39;s health, $currentEnemyBaseHP, &quot;X&quot;, (str: $currentEnemy&#39;s health), red)]&lt;br&gt;]
+}
 {
     &lt;!-- Initialize $equippedWeapon --&gt;
     (set: $equippedWeapon to (dm:))
@@ -495,7 +522,7 @@ The (print: $currentEnemy&#39;s name) stands before you.
 ](else:)[
     [[You have defeated the (print: $currentEnemy&#39;s name)!|Victory]]
 ]}  
-</tw-passagedata><tw-passagedata pid="14" name="UseItem" tags="" position="1200,450" size="100,100"></tw-passagedata><tw-passagedata pid="15" name="Victory" tags="" position="1075,575" size="100,100">
+</tw-passagedata><tw-passagedata pid="14" name="UseItem" tags="" position="1200,450" size="100,100"></tw-passagedata><tw-passagedata pid="15" name="Victory" tags="" position="1075,575" size="100,100">(enchant: ?Page, (background: $biomeBG))
 
 (set: $playerGold to $playerGold + $currentEnemy&#39;s gold)
 You gained (print: $currentEnemy&#39;s gold) gold!&lt;br&gt;&lt;br&gt;
@@ -741,6 +768,7 @@ Sell the (print: $sellItem&#39;s name)?
 (link: &quot;Back&quot;)[
 	(set: $inMenu to 0)
     (go-to: $returnPassage&#39;s name)]</tw-passagedata><tw-passagedata pid="27" name="LandFill" tags="" position="1000,950" size="100,100"></tw-passagedata><tw-passagedata pid="28" name="Winmose" tags="Location sm-forest-town" position="500,900" size="100,100">{(set: $currentBiome to &quot;forest&quot;)
+(set: $biomeBG to &quot;forest&quot;)
 (set: $lastLocation to (passage:))
 }
 
