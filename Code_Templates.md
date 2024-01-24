@@ -1,4 +1,6 @@
-**Code Templates**<br>
+## Code Templates<br>
+
+#### _OUTDATED - pending updates, use existing datamap structure within the current passages as reference until this page has been updated_
 
 Weapons:<br>
 Name = name<br>
