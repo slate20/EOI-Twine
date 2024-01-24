@@ -237,7 +237,8 @@ Inventory:
     ]
 
 (link: &quot;Back&quot;)[
-    (go-to: &quot;MainMenu&quot;)]</tw-passagedata><tw-passagedata pid="4" name="GlobalHUD" tags="header System-Logic" position="800,0" size="100,100">{(if: $globalHUD is 0)[](else:)[
+    (go-to: &quot;MainMenu&quot;)]</tw-passagedata><tw-passagedata pid="4" name="GlobalHUD" tags="header System-Logic" position="800,0" size="100,100">
+{(if: $globalHUD is 0)[](else:)[
 
 =|||=
 (display: &quot;HUDStatDisplay&quot;)
@@ -373,7 +374,6 @@ HP: (css: &quot;border: 3px solid black; display: inline-block; background-color
     (meter: bind $currentStats&#39;s health, $baseStats&#39;s health, &quot;X&quot;, (str: $currentStats&#39;s health) + &quot;/&quot; + (str: $baseStats&#39;s health), red)]   |   Gold: (print: $playerGold)
 }
 </tw-passagedata><tw-passagedata pid="10" name="EnemyEncounter" tags="System-Logic" position="1200,200" size="100,100">(enchant: ?Page, (background: $biomeBG))
-
 {(if: $currentEnemy is not &quot;&quot;)[
 	(align:&quot;=&gt;&lt;=&quot;)[(print: &quot;&lt;img src=&#39;&quot; + $enemyImgPath + &quot;&#39; width=&#39;300&#39; height=&#39;300&#39;&gt;&quot;)]&lt;br&gt;
     You encounter a (print: $currentEnemy&#39;s name)! What do you do?&lt;br&gt;&lt;br&gt;
@@ -767,7 +767,8 @@ Sell the (print: $sellItem&#39;s name)?
 
 (link: &quot;Back&quot;)[
 	(set: $inMenu to 0)
-    (go-to: $returnPassage&#39;s name)]</tw-passagedata><tw-passagedata pid="27" name="LandFill" tags="" position="1000,950" size="100,100"></tw-passagedata><tw-passagedata pid="28" name="Winmose" tags="Location sm-forest-town" position="500,900" size="100,100">{(set: $currentBiome to &quot;forest&quot;)
+    (go-to: $returnPassage&#39;s name)]</tw-passagedata><tw-passagedata pid="27" name="LandFill" tags="" position="1100,800" size="100,100">(set: $currentBiome to &quot;dying-forest&quot;)</tw-passagedata><tw-passagedata pid="28" name="Winmose" tags="Location sm-forest-town" position="500,900" size="100,100">{
+(set: $currentBiome to &quot;forest&quot;)
 (set: $biomeBG to &quot;forest&quot;)
 (set: $lastLocation to (passage:))
 }
