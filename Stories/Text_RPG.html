@@ -237,9 +237,8 @@ Inventory:
     ]
 
 (link: &quot;Back&quot;)[
-    (go-to: &quot;MainMenu&quot;)]</tw-passagedata><tw-passagedata pid="4" name="GlobalHUD" tags="header System-Logic" position="800,0" size="100,100">
-{(if: $globalHUD is 0)[](else:)[
-
+    (go-to: &quot;MainMenu&quot;)]</tw-passagedata><tw-passagedata pid="4" name="GlobalHUD" tags="header System-Logic" position="800,0" size="100,100">{(if: $globalHUD is 0)[](else:)[
+(print: $playerName) | Lvl: (print: $playerLvl)
 =|||=
 (display: &quot;HUDStatDisplay&quot;)
 =|=
@@ -263,6 +262,8 @@ Inventory:
 &lt;!--Additional conditions for other biomes--&gt;
 }</tw-passagedata><tw-passagedata pid="5" name="Travel East" tags="" position="700,900" size="100,100"></tw-passagedata><tw-passagedata pid="6" name="Start" tags="" position="500,600" size="100,100">{(set: $globalHUD to 1)
 (align:&quot;=&gt;&lt;=&quot;)+(box:&quot;X&quot;)[&lt;img src=&quot;Assets/Artwork/Logo_design_alt.png&quot; width=&quot;400&quot; height=&quot;400&quot;&gt;&lt;br&gt;&lt;br&gt;
+Enter Character Name:&lt;br&gt;
+(input-box:2bind $playerName,&quot;=XXXXXX=&quot;,1,)&lt;br&gt;
 
 Choose your starting location&lt;br&gt;&lt;br&gt;
 
@@ -369,8 +370,7 @@ Charisma:
 
 
 (link: &quot;Back&quot;)[
-    (go-to: &quot;MainMenu&quot;)]</tw-passagedata><tw-passagedata pid="9" name="HUDStatDisplay" tags="System-Logic" position="900,0" size="100,100">{
-HP: (css: &quot;border: 3px solid black; display: inline-block; background-color: black; width: 200px&quot;)[
+    (go-to: &quot;MainMenu&quot;)]</tw-passagedata><tw-passagedata pid="9" name="HUDStatDisplay" tags="System-Logic" position="900,0" size="100,100">{HP: (css: &quot;border: 3px solid black; display: inline-block; background-color: black; width: 200px&quot;)[
     (meter: bind $currentStats&#39;s health, $baseStats&#39;s health, &quot;X&quot;, (str: $currentStats&#39;s health) + &quot;/&quot; + (str: $baseStats&#39;s health), red)]   |   Gold: (print: $playerGold)
 }
 </tw-passagedata><tw-passagedata pid="10" name="EnemyEncounter" tags="System-Logic" position="1200,200" size="100,100">(enchant: ?Page, (background: $biomeBG))
@@ -808,7 +808,7 @@ You are in the town of Winmose. What would you like to do?
     &quot;charisma&quot;, (floor: ($currentStats&#39;s charisma -10) / 2),
 ))
 (set: $inventory to (a:))
-
+(set: $playerLvl to 1)
 (set: $playerGold to 0)
 
 (set: $equipmentSlots to (dm:
