@@ -779,6 +779,7 @@ You are in the town of Winmose. What would you like to do?
 [[Visit the shop|Winmose Shop]]
 [[Visit the Inn|Winmose Inn]]
 [[Travel East]]</tw-passagedata><tw-passagedata pid="29" name="INIT" tags="" position="500,500" size="100,100">{
+&lt;!-- Initialize and set player stats --&gt;
 (set: $baseStats to (dm: 
 	&quot;health&quot;, 20, 
     &quot;strength&quot;, 10, 
@@ -799,6 +800,7 @@ You are in the town of Winmose. What would you like to do?
     &quot;charisma&quot;, $baseStats&#39;s charisma,
     &quot;ac&quot;, $baseStats&#39;s ac
 ))
+&lt;!-- Function to calculate stat modifier values --&gt;
 (set: $modifiers to (dm:
 	&quot;strength&quot;, (floor: ($currentStats&#39;s strength -10) / 2),
     &quot;defense&quot;, (floor: ($currentStats&#39;s defense -10) / 2),
@@ -807,10 +809,18 @@ You are in the town of Winmose. What would you like to do?
     &quot;awareness&quot;, (floor: ($currentStats&#39;s awareness -10) / 2),
     &quot;charisma&quot;, (floor: ($currentStats&#39;s charisma -10) / 2),
 ))
-(set: $inventory to (a:))
+
+(set: $playerAC to $currentStats&#39;s ac + $modifiers&#39;s defense)
+
+&lt;!-- Initialize player variables --&gt;
 (set: $playerLvl to 1)
+(set: $playerEXP to 0)
+(set: $playerSkillPoints to 0)
+(set: $playerStatPoints to 0)
+(set: $inventory to (a:))
 (set: $playerGold to 0)
 
+&lt;!-- Equipment slots --&gt;
 (set: $equipmentSlots to (dm:
 	&quot;mainhand&quot;, &quot;&quot;,
     &quot;offhand&quot;, &quot;&quot;,
@@ -818,16 +828,14 @@ You are in the town of Winmose. What would you like to do?
     &quot;back&quot;, &quot;&quot;
 ))
 
-(set: $playerAC to $currentStats&#39;s ac + $modifiers&#39;s defense)
-
+&lt;!-- Initialize Item and Enemy datamaps --&gt;
 (set: $currentEnemy to &quot;&quot;)
-
 (display: &quot;Items&quot;)
 (display: &quot;Enemies&quot;)
-}
+
 
 (goto: &quot;Start&quot;)
-</tw-passagedata></tw-storydata>
+}</tw-passagedata></tw-storydata>
 <script title="Twine engine code" data-main="harlowe">(function(){"use strict";
 var require,define;!function(){var e={},r={};require=function(i){var n=e[i];return n&&(r[i]=n[1].apply(void 0,n[0].map(require)),e[i]=void 0),r[i]},(define=function(r,i,n){if("function"==typeof r)return r();e[r]=[i,n]}).amd=!0}();/*!
  * https://github.com/paulmillr/es6-shim
