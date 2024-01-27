@@ -169,6 +169,7 @@ You enter the town&#39;s inn. It&#39;s a cozy place, with a warm atmosphere. Woo
 &lt;&lt;/if&gt;&gt;
 &lt;&lt;link &quot;Rent Room ( 3 Gold )&quot;&gt;&gt;&lt;&lt;goto &quot;RoomRental&quot;&gt;&gt;&lt;&lt;/link&gt;&gt;
 [[Leave the Inn|Winmose]]</tw-passagedata><tw-passagedata pid="6" name="Travel East" tags="" position="625,725" size="100,100"></tw-passagedata><tw-passagedata pid="7" name="PassageHeader" tags="System-Logic" position="700,0" size="100,100">&lt;&lt;if $globalHUD is not 0&gt;&gt;
+
     &lt;&lt;print $playerName&gt;&gt; | Lvl: &lt;&lt;print $playerLvl&gt;&gt;
     &lt;&lt;include &quot;HUDStatDisplay&quot;&gt;&gt;
 	&lt;&lt;link &quot;Menu&quot;&gt;&gt;&lt;&lt;if $inMenu is 0&gt;&gt;&lt;&lt;set $returnPassage = passage()&gt;&gt;&lt;&lt;/if&gt;&gt;&lt;&lt;goto &quot;MainMenu&quot;&gt;&gt;&lt;&lt;/link&gt;&gt;
