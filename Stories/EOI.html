@@ -139,6 +139,7 @@ var LZString={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234
 &lt;&lt;set $globalHUD = 0&gt;&gt;
 &lt;&lt;set $inMenu = 0&gt;&gt;
 &lt;&lt;set $currentEnemy = &quot;&quot;&gt;&gt;
+&lt;&lt;set $hasPan = 0&gt;&gt;
 &lt;&lt;display &quot;Items&quot;&gt;&gt;
 &lt;&lt;display &quot;Enemies&quot;&gt;&gt;
 
@@ -160,12 +161,7 @@ You are in the town of Winmose. What would you like to do?
 [[Visit the shop|Winmose Shop]]
 [[Visit the Inn|Winmose Inn]]
 [[Travel East]]
-&lt;&lt;link &quot;Add Rusty Sword to Inventory&quot;&gt;&gt;
-    &lt;&lt;set $inventory.push(clone($weapons[&quot;Rusty Sword&quot;]))&gt;&gt;
-&lt;&lt;/link&gt;&gt;
-&lt;&lt;link &quot;Add Wooden Shield to Inventory&quot;&gt;&gt;
-    &lt;&lt;set $inventory.push(clone($armor[&quot;Wooden Shield&quot;]))&gt;&gt;
-&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="4" name="Winmose Shop" tags="" position="375,725" size="100,100">&lt;&lt;set $lastLocation = passage()&gt;&gt;
+</tw-passagedata><tw-passagedata pid="4" name="Winmose Shop" tags="" position="375,725" size="100,100">&lt;&lt;set $lastLocation = passage()&gt;&gt;
 
 You enter the local shop. It&#39;s modestly sized, with various items on wooden tables and shelves. The shopkeeper nods at you. 
 
@@ -261,15 +257,19 @@ Back: &lt;&lt;print $equipmentSlots.back&gt;&gt;
             &lt;b&gt;Action&lt;/b&gt;&lt;br&gt;
             &lt;&lt;if _item.equipped !== undefined&gt;&gt;
                 &lt;&lt;if _item.equipped&gt;&gt;
-                    &lt;&lt;link &quot;Unequip&quot;&gt;&gt;
-                        &lt;&lt;set $tempItemIndex to _index&gt;&gt;
-                        &lt;&lt;goto &quot;UnequipItem&quot;&gt;&gt;
-                    &lt;&lt;/link&gt;&gt;
+                    &lt;&lt;capture _index&gt;&gt;
+                        &lt;&lt;link &quot;Unequip&quot;&gt;&gt;
+                            &lt;&lt;set $tempItemIndex to _index&gt;&gt;
+                            &lt;&lt;goto &quot;UnequipItem&quot;&gt;&gt;
+                        &lt;&lt;/link&gt;&gt;
+                    &lt;&lt;/capture&gt;&gt;
                 &lt;&lt;else&gt;&gt;
-                    &lt;&lt;link &quot;Equip&quot;&gt;&gt;
-                        &lt;&lt;set $tempItemIndex to _index&gt;&gt;
-                        &lt;&lt;goto &quot;EquipItem&quot;&gt;&gt;
-                    &lt;&lt;/link&gt;&gt;
+                    &lt;&lt;capture _index&gt;&gt;
+                        &lt;&lt;link &quot;Equip&quot;&gt;&gt;
+                            &lt;&lt;set $tempItemIndex to _index&gt;&gt;
+                            &lt;&lt;goto &quot;EquipItem&quot;&gt;&gt;
+                        &lt;&lt;/link&gt;&gt;
+                    &lt;&lt;/capture&gt;&gt;
                 &lt;&lt;/if&gt;&gt;
             &lt;&lt;/if&gt;&gt;
         &lt;/div&gt;
@@ -279,6 +279,7 @@ Back: &lt;&lt;print $equipmentSlots.back&gt;&gt;
 &lt;&lt;link &quot;Back&quot;&gt;&gt;
     &lt;&lt;goto &quot;MainMenu&quot;&gt;&gt;
 &lt;&lt;/link&gt;&gt;
+
 
 
 </tw-passagedata><tw-passagedata pid="12" name="Items" tags="objects-db" position="1200,0" size="100,100">&lt;&lt;set $weaponTypeModifiers = {
@@ -343,61 +344,57 @@ Back: &lt;&lt;print $equipmentSlots.back&gt;&gt;
         &quot;tier&quot;: 1,
         &quot;value&quot;: 10
     }
-}&gt;&gt;</tw-passagedata><tw-passagedata pid="13" name="EquipItem" tags="" position="650,200" size="100,100">&lt;&lt;set $itemType = $inventory[$tempItemIndex].type&gt;&gt;
+}&gt;&gt;</tw-passagedata><tw-passagedata pid="13" name="EquipItem" tags="" position="650,200" size="100,100">&lt;&lt;set _itemToEquip = $inventory[$tempItemIndex]&gt;&gt;
+&lt;&lt;set $itemType = _itemToEquip.type&gt;&gt;
 &lt;&lt;set $itemSlots = $itemTypeToSlots[$itemType]&gt;&gt;
 
 &lt;&lt;for _slot range $itemSlots&gt;&gt;
     &lt;&lt;if $equipmentSlots[_slot] !== &quot;&quot;&gt;&gt;
         &lt;&lt;set _equippedItemName = $equipmentSlots[_slot]&gt;&gt;
-        &lt;&lt;set _unequippedItemIndex = $inventory.findIndex(item =&gt; item.name === _equippedItemName)&gt;&gt;
-        &lt;&lt;if _unequippedItemIndex !== -1 and $inventory[_unequippedItemIndex].equipped&gt;&gt;
-            &lt;&lt;set $inventory[_unequippedItemIndex].equipped = false&gt;&gt;
-            &lt;&lt;if $inventory[_unequippedItemIndex].class === &quot;armor&quot;&gt;&gt;
-                &lt;&lt;set $currentStats.ac -= $inventory[_unequippedItemIndex].ac&gt;&gt;
+        &lt;&lt;set _equippedItemIndex = $inventory.findIndex(item =&gt; item.name === _equippedItemName)&gt;&gt;
+        &lt;&lt;if _equippedItemIndex !== -1&gt;&gt;
+            &lt;&lt;set $inventory[_equippedItemIndex].equipped = false&gt;&gt;
+            &lt;&lt;if $inventory[_equippedItemIndex].class === &quot;armor&quot;&gt;&gt;
+                &lt;&lt;set $currentStats.ac -= $inventory[_equippedItemIndex].ac&gt;&gt;
                 &lt;&lt;set $playerAC = $currentStats.ac + $modifiers.defense&gt;&gt;
             &lt;&lt;/if&gt;&gt;
         &lt;&lt;/if&gt;&gt;
     &lt;&lt;/if&gt;&gt;
-    &lt;&lt;set $equipmentSlots[_slot] = $inventory[$tempItemIndex].name&gt;&gt;
+    &lt;&lt;set $equipmentSlots[_slot] = _itemToEquip.name&gt;&gt;
 &lt;&lt;/for&gt;&gt;
 
-&lt;&lt;if $inventory[$tempItemIndex].class === &quot;armor&quot;&gt;&gt;
-    &lt;&lt;set $currentStats.ac += $inventory[$tempItemIndex].ac&gt;&gt;
+&lt;&lt;if _itemToEquip.class === &quot;armor&quot;&gt;&gt;
+    &lt;&lt;set $currentStats.ac += _itemToEquip.ac&gt;&gt;
     &lt;&lt;set $playerAC = $currentStats.ac + $modifiers.defense&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;set $inventory[$tempItemIndex].equipped = true&gt;&gt;
 
 &lt;&lt;goto &quot;Inventory&quot;&gt;&gt;
-
-
-
-</tw-passagedata><tw-passagedata pid="14" name="UnequipItem" tags="" position="750,200" size="100,100">&lt;&lt;set $itemType = $tempItem.type&gt;&gt;
+</tw-passagedata><tw-passagedata pid="14" name="UnequipItem" tags="" position="750,200" size="100,100">&lt;&lt;set _itemToUnequip = $inventory[$tempItemIndex]&gt;&gt;
+&lt;&lt;set $itemType = _itemToUnequip.type&gt;&gt;
 &lt;&lt;set $itemSlots = $itemTypeToSlots[$itemType]&gt;&gt;
 
 &lt;&lt;for _slot range $itemSlots&gt;&gt;
-    &lt;&lt;if $equipmentSlots[_slot] === $tempItem.name&gt;&gt;
+    &lt;&lt;if $equipmentSlots[_slot] === _itemToUnequip.name&gt;&gt;
         &lt;&lt;set $equipmentSlots[_slot] = &quot;&quot;&gt;&gt;
     &lt;&lt;/if&gt;&gt;
 &lt;&lt;/for&gt;&gt;
 
-&lt;&lt;if $tempItem.class === &quot;armor&quot;&gt;&gt;
-    &lt;&lt;set $currentStats.ac -= $tempItem.ac&gt;&gt;
+&lt;&lt;if _itemToUnequip.class === &quot;armor&quot;&gt;&gt;
+    &lt;&lt;set $currentStats.ac -= _itemToUnequip.ac&gt;&gt;
     &lt;&lt;set $playerAC = $currentStats.ac + $modifiers.defense&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
-&lt;&lt;set _unequippedItem = $inventory.find(function(item){ return item.name === $tempItem.name; })&gt;&gt;
-&lt;&lt;if _unequippedItem&gt;&gt;
-    &lt;&lt;set _unequippedItem.equipped = false&gt;&gt;
-&lt;&lt;/if&gt;&gt;
+&lt;&lt;set $inventory[$tempItemIndex].equipped = false&gt;&gt;
 
 &lt;&lt;goto &quot;Inventory&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="15" name="Find Frying Pan" tags="" position="500,850" size="100,100">&lt;&lt;set $hasPan = 1&gt;&gt;
 
 You find a frying pan with a small chip in the rim. The cook must have tossed it out...
 
 &lt;&lt;link &quot;Take the pan&quot;&gt;&gt;
-	&lt;&lt;set $inventory to it + (a:$weapons &quot;Frying Pan&quot;)
-    &lt;&lt;go-to: $lastLocation.name&gt;&gt;
+&lt;&lt;set $inventory.push(clone($weapons[&quot;Frying Pan&quot;]))&gt;&gt;
+    &lt;&lt;goto $lastLocation&gt;&gt;
 &lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="16" name="RoomRental" tags="System-Logic inn-room" position="1800,0" size="100,100">&lt;&lt;if $playerGold &lt; 3&gt;&gt;
     &lt;&lt;print &quot;You do not have enough gold!&quot;&gt;&gt;
   &lt;&lt;else&gt;&gt;
