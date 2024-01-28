@@ -251,7 +251,7 @@ Back: &lt;&lt;print $equipmentSlots.back&gt;&gt;
 
 &lt;&lt;link &quot;Back&quot;&gt;&gt;
     &lt;&lt;goto &quot;MainMenu&quot;&gt;&gt;
-&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="11" name="Items" tags="objects-db" position="1200,0" size="100,100">&lt;&lt;set $weaponTypeModifiers = {
+&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="11" name="Items" tags="objects-db" position="1400,0" size="100,100">&lt;&lt;set $weaponTypeModifiers = {
     &quot;sword&quot;: &quot;strength&quot;,
     &quot;blunt&quot;: &quot;strength&quot;,
     &quot;magic&quot;: &quot;intelligence&quot;,
@@ -364,14 +364,14 @@ You find a frying pan with a small chip in the rim. The cook must have tossed it
 &lt;&lt;link &quot;Take the pan&quot;&gt;&gt;
 &lt;&lt;set $inventory.push(clone($weapons[&quot;Frying Pan&quot;]))&gt;&gt;
     &lt;&lt;goto $lastLocation&gt;&gt;
-&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="15" name="RoomRental" tags="System-Logic inn-room" position="1800,0" size="100,100">&lt;&lt;if $playerGold &lt; 3&gt;&gt;
+&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="15" name="RoomRental" tags="System-Logic inn-room" position="1600,0" size="100,100">&lt;&lt;if $playerGold &lt; 3&gt;&gt;
     &lt;&lt;print &quot;You do not have enough gold!&quot;&gt;&gt;
   &lt;&lt;else&gt;&gt;
       &lt;&lt;set $playerGold = $playerGold - 3&gt;&gt;
       &lt;&lt;set $currentStats.health to $baseStats.health&gt;&gt;
       You spend the night at the inn and feel well-rested&lt;br&gt;&lt;br&gt;
 &lt;&lt;/if&gt;&gt;   
-&lt;&lt;link &quot;Return to the Inn&quot;&gt;&gt;&lt;&lt;goto &quot;Winmose Inn&quot;&gt;&gt;&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="16" name="Enemies" tags="objects-db" position="1400,0" size="100,100"></tw-passagedata><tw-passagedata pid="17" name="Tier1Shop" tags="" position="300,300" size="100,100">
+&lt;&lt;link &quot;Return to the Inn&quot;&gt;&gt;&lt;&lt;goto &quot;Winmose Inn&quot;&gt;&gt;&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="16" name="Enemies" tags="objects-db" position="1200,0" size="100,100"></tw-passagedata><tw-passagedata pid="17" name="Tier1Shop" tags="" position="300,300" size="100,100">
 
 Shop Inventory:
 
@@ -464,6 +464,46 @@ Shop Inventory:
 
 
 
+</tw-passagedata><tw-passagedata pid="20" name="SellInventory" tags="" position="200,300" size="100,100">Sell Inventory:
+
+&lt;&lt;nobr&gt;&gt;
+&lt;div style=&quot;display: flex; justify-content: space-between; align-items: center;&quot;&gt;
+    &lt;div style=&quot;flex: 1; text-align: left;&quot;&gt;&lt;b&gt;Name&lt;/b&gt;&lt;/div&gt;
+    &lt;div style=&quot;flex: 3; text-align: left;&quot;&gt;&lt;b&gt;Description&lt;/b&gt;&lt;/div&gt;
+    &lt;div style=&quot;flex: 1; text-align: center;&quot;&gt;&lt;b&gt;Sell Price&lt;/b&gt;&lt;/div&gt;
+    &lt;div style=&quot;flex: 1; text-align: center;&quot;&gt;&lt;b&gt;Action&lt;/b&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;&lt;for _index, _item range $inventory&gt;&gt;
+    &lt;&lt;capture _item _index&gt;&gt; &lt;!-- Capture the current item and its index --&gt;
+        &lt;div style=&quot;display: flex; justify-content: space-between; align-items: center;&quot;&gt;
+            &lt;div style=&quot;flex: 1; text-align: left;&quot;&gt;&lt;&lt;print _item.name&gt;&gt;&lt;/div&gt;
+            &lt;div style=&quot;flex: 3; text-align: left;&quot;&gt;&lt;&lt;print _item.description&gt;&gt;&lt;/div&gt;
+            &lt;div style=&quot;flex: 1; text-align: center;&quot;&gt;&lt;&lt;print Math.round(_item.value * 0.5)&gt;&gt; gold&lt;/div&gt;
+            &lt;div style=&quot;flex: 1; text-align: center;&quot;&gt;
+                &lt;&lt;link &quot;Sell&quot;&gt;&gt;
+                    &lt;&lt;set $sellItem to _item&gt;&gt; &lt;!-- Store item temporarily --&gt;
+                    &lt;&lt;goto &quot;SellItem&quot;&gt;&gt; &lt;!-- Go to the SellItem passage --&gt;
+                &lt;&lt;/link&gt;&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;&lt;/capture&gt;&gt;
+&lt;&lt;/for&gt;&gt;
+&lt;&lt;/nobr&gt;&gt;
+
+&lt;&lt;link &quot;Return to Shop&quot;&gt;&gt;
+    &lt;&lt;goto $lastLocation&gt;&gt;
+&lt;&lt;/link&gt;&gt;
+</tw-passagedata><tw-passagedata pid="21" name="SellItem" tags="" position="200,400" size="100,100">Sell the &lt;&lt;print $sellItem.name&gt;&gt;?
+
+&lt;&lt;link &quot;Yes&quot;&gt;&gt;
+    &lt;&lt;set $playerGold += Math.round($sellItem.value * 0.5)&gt;&gt;
+    &lt;&lt;set $inventory = $inventory.filter(item =&gt; item.name !== $sellItem.name)&gt;&gt;
+    &lt;&lt;goto &quot;SellInventory&quot;&gt;&gt;
+&lt;&lt;/link&gt;&gt;&lt;br&gt;
+
+&lt;&lt;link &quot;Nevermind&quot;&gt;&gt;
+    &lt;&lt;goto &quot;SellInventory&quot;&gt;&gt;
+&lt;&lt;/link&gt;&gt;
 </tw-passagedata></tw-storydata>
 	<script id="script-sugarcube" type="text/javascript">
 	/*! SugarCube JS */
