@@ -153,6 +153,7 @@ var LZString={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234
     Choose your starting location&lt;br&gt;
     &lt;&lt;link &quot;Winmose&quot;&gt;&gt;&lt;&lt;goto &quot;Winmose&quot;&gt;&gt;&lt;&lt;/link&gt;&gt;
 &lt;/div&gt;
+
 </tw-passagedata><tw-passagedata pid="3" name="Winmose" tags="Location" position="500,600" size="100,100">&lt;&lt;set $currentBiome = &quot;forest&quot;&gt;&gt;
 &lt;&lt;set $biomeBG = &quot;forest&quot;&gt;&gt;
 &lt;&lt;set $lastLocation = passage()&gt;&gt;
@@ -592,7 +593,16 @@ The $currentEnemy.name stands before you.
 
 [[Attack|Attack]]
 [[Use Item|UseItem]]
-[[Flee|FleeEncounter]] </tw-passagedata><tw-passagedata pid="24" name="FleeEncounter" tags="" position="1300,225" size="100,100"></tw-passagedata><tw-passagedata pid="25" name="Attack" tags="nobr" position="1000,350" size="100,100">&lt;&lt;print &quot;&lt;img src=&#39;&quot; + $enemyImgPath + &quot;&#39; width=&#39;300&#39; height=&#39;300&#39;&gt;&quot;&gt;&gt;&lt;br&gt;
+[[Flee|FleeEncounter]] </tw-passagedata><tw-passagedata pid="24" name="FleeEncounter" tags="" position="1300,225" size="100,100">&lt;&lt;if $currentStats.dexterity &gt;= $currentEnemy.awareness&gt;&gt;
+	You quickly dart away, using your agility to evade the $currentEnemy.name. 
+   	&lt;&lt;set $currentEnemy to &quot;&quot;&gt;&gt;
+    &lt;&lt;link &quot;Continue&quot;&gt;&gt;&lt;&lt;goto $lastLocation&gt;&gt;&lt;&lt;/link&gt;&gt;
+	&lt;&lt;else&gt;&gt;
+        As you try to flee, the $currentEnemy.name anticipates your move and blocks your path. 
+    You can&#39;t escape!
+    [[Fight|EngageEnemy]]
+    &lt;&lt;/if&gt;&gt;
+    </tw-passagedata><tw-passagedata pid="25" name="Attack" tags="nobr" position="1000,350" size="100,100">&lt;&lt;print &quot;&lt;img src=&#39;&quot; + $enemyImgPath + &quot;&#39; width=&#39;300&#39; height=&#39;300&#39;&gt;&quot;&gt;&gt;&lt;br&gt;
 Enemy HP: $currentEnemy.health&lt;br&gt;&lt;br&gt;
 &lt;!-- Initialize weapon and modifier variables based on equipped weapon --&gt;
 &lt;&lt;if $equipmentSlots.mainhand&gt;&gt; 
@@ -665,7 +675,8 @@ It appears you have met an untimely demise...
 
 Well then, from the top!
 
-Select &quot;Restart&quot; from the side menu</tw-passagedata><tw-passagedata pid="28" name="Victory" tags="" position="1050,475" size="100,100">&lt;&lt;set $playerEXP += $currentEnemy.exp&gt;&gt;
+Either load from save or restart.
+[[Restart|INIT]]</tw-passagedata><tw-passagedata pid="28" name="Victory" tags="" position="1050,475" size="100,100">&lt;&lt;set $playerEXP += $currentEnemy.exp&gt;&gt;
 &lt;&lt;set $playerGold += $currentEnemy.gold&gt;&gt; 
 
 You gained $currentEnemy.gold gold and $currentEnemy.exp EXP!&lt;br&gt;&lt;br&gt;
