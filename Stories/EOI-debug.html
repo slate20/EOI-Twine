@@ -287,17 +287,17 @@ Enemy HP: $currentEnemy.health&lt;br&gt;&lt;br&gt;
     [[Attack|Attack]]&lt;br&gt;
     [[Use Item|UseItem]]&lt;br&gt; &lt;!-- To be implemented later --&gt;
     [[Flee|FleeEncounter]] &lt;!-- Fleeing during combat could have different consequences --&gt;
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="14" name="UseItem" tags="" position="1200,350" size="100,100"></tw-passagedata><tw-passagedata pid="15" name="GameOver" tags="" position="937.5,475" size="100,100">It appears you have met an untimely demise...
-
-Well then, from the top!
-
-Either load from save or restart.</tw-passagedata><tw-passagedata pid="16" name="Victory" tags="" position="1050,475" size="100,100">&lt;&lt;set $playerEXP += $currentEnemy.exp&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="14" name="UseItem" tags="" position="1200,350" size="100,100"></tw-passagedata><tw-passagedata pid="15" name="Victory" tags="" position="1050,475" size="100,100">&lt;&lt;set $playerEXP += $currentEnemy.exp&gt;&gt;
 &lt;&lt;set $playerGold += $currentEnemy.gold&gt;&gt; 
 
 You gained $currentEnemy.gold gold and $currentEnemy.exp EXP!&lt;br&gt;&lt;br&gt;
 &lt;&lt;link &quot;Continue&quot;&gt;&gt;
 	&lt;&lt;goto $lastLocation&gt;&gt;
-&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="17" name="EquipItem" tags="System-Logic" position="650,200" size="100,100">&lt;&lt;set _itemToEquip = $inventory[$tempItemIndex]&gt;&gt;
+&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="16" name="GameOver" tags="" position="937.5,475" size="100,100">It appears you have met an untimely demise...
+
+Well then, from the top!
+
+Either load from save or restart.</tw-passagedata><tw-passagedata pid="17" name="EquipItem" tags="System-Logic" position="650,200" size="100,100">&lt;&lt;set _itemToEquip = $inventory[$tempItemIndex]&gt;&gt;
 &lt;&lt;set $itemType = _itemToEquip.type&gt;&gt;
 &lt;&lt;set $itemSlots = $itemTypeToSlots[$itemType]&gt;&gt;
 
@@ -584,7 +584,7 @@ Back: &lt;&lt;print $equipmentSlots.back&gt;&gt;
         &quot;effect&quot;: &quot;heal&quot;,
         &quot;amount&quot;: 20,
         &quot;tier&quot;: 1,
-        &quot;value&quot;: 10
+        &quot;value&quot;: 8
     }
 }&gt;&gt;</tw-passagedata><tw-passagedata pid="28" name="Enemies" tags="objects-db" position="1200,0" size="100,100">&lt;!-- Enemy Template:
 	&quot;Goblin&quot;, (dm: 

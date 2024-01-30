@@ -111,14 +111,6 @@ Enemy HP: $currentEnemy.health<br><br>
 :: UseItem {"position":"1200,350","size":"100,100"}
 
 
-:: GameOver {"position":"937.5,475","size":"100,100"}
-It appears you have met an untimely demise...
-
-Well then, from the top!
-
-Either load from save or restart.
-
-
 :: Victory {"position":"1050,475","size":"100,100"}
 <<set $playerEXP += $currentEnemy.exp>>
 <<set $playerGold += $currentEnemy.gold>> 
@@ -127,3 +119,12 @@ You gained $currentEnemy.gold gold and $currentEnemy.exp EXP!<br><br>
 <<link "Continue">>
 	<<goto $lastLocation>>
 <</link>>
+
+
+:: GameOver {"position":"937.5,475","size":"100,100"}
+It appears you have met an untimely demise...
+
+Well then, from the top!
+
+Either load from save or restart.
+
