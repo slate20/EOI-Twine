@@ -59,7 +59,7 @@
         "effect": "heal",
         "amount": 20,
         "tier": 1,
-        "value": 10
+        "value": 8
     }
 }>>
 
