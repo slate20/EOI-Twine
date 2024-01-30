@@ -1,0 +1,129 @@
+<!-- Combat System -->
+
+:: EnemyEncounter {"position":"1200,100","size":"100,100"}
+<<nobr>> <!-- Randomly select enemy based on the current biome -->
+<<set $availableEnemies = Object.keys($enemies).filter(e => $enemies[e].biomes.includes($currentBiome))>>
+<<set $randomEnemyKey = $availableEnemies.random()>>
+<<set $currentEnemy = $enemies[$randomEnemyKey]>>
+<<set $enemyImgPath = $currentEnemy.img>>
+<</nobr>>
+
+<<print "<img src='" + $enemyImgPath + "' width='300' height='300'>">>
+You encounter a $currentEnemy.name! What do you do?
+
+[[Engage|EngageEnemy]]
+[[Flee|FleeEncounter]]
+
+
+:: EngageEnemy {"position":"1100,225","size":"100,100"}
+<<print "<img src='" + $enemyImgPath + "' width='300' height='300'>">>
+Enemy HP: $currentEnemy.health
+
+The $currentEnemy.name stands before you.
+
+[[Attack|Attack]]
+[[Use Item|UseItem]]
+[[Flee|FleeEncounter]]
+
+
+:: FleeEncounter {"position":"1300,225","size":"100,100"}
+<<if $currentStats.dexterity >= $currentEnemy.awareness>>
+	You quickly dart away, using your agility to evade the $currentEnemy.name. 
+   	<<set $currentEnemy to "">>
+    <<link "Continue">><<goto $lastLocation>><</link>>
+	<<else>>
+        As you try to flee, the $currentEnemy.name anticipates your move and blocks your path. 
+    You can't escape!
+    [[Fight|EngageEnemy]]
+    <</if>>
+
+
+:: Attack [nobr] {"position":"1000,350","size":"100,100"}
+<<print "<img src='" + $enemyImgPath + "' width='300' height='300'>">><br>
+Enemy HP: $currentEnemy.health<br><br>
+<!-- Initialize weapon and modifier variables based on equipped weapon -->
+<<if $equipmentSlots.mainhand>> 
+    <<set $equippedWeapon to $weapons[$equipmentSlots.mainhand]>>
+    <<set $modifierType to $weaponTypeModifiers[$equippedWeapon.type]>>
+    <<set $modifierValue to $modifiers[$modifierType]>>
+    <<set $diceData to $equippedWeapon.damage.match(/(\d+)d(\d+)([+-]\d+)?/)>>
+    <<set $diceCount to parseInt($diceData[1])>>
+    <<set $diceType to parseInt($diceData[2])>>
+    <<set $damageModifier to $diceData[3] ? parseInt($diceData[3]) : 0>>
+<<else>> 
+    <!-- Unarmed attack logic: base damage of 1 + strength modifier -->
+    <<set $modifierValue to $modifiers.strength>>
+    <<set $playerAttack to 1 + $modifierValue>>
+<</if>>
+
+<!-- Calculate the player's attack damage if a weapon is equipped -->
+<<if $equipmentSlots.mainhand>> 
+    <<set $playerAttack to 0>>
+    <<for _i = 1; _i <= $diceCount; _i++>> 
+        <<set $playerAttack to $playerAttack + random(1, $diceType)>>
+    <</for>>
+    <<set $playerAttack to $playerAttack + $damageModifier>>
+    <<if $playerAttack < 0>> <<set $playerAttack to 0>> <</if>>
+<</if>>
+
+<!-- Determine if the player's attack hits and calculate damage -->
+<<set $attackRoll to random(3, 20) + $modifierValue>>
+<<if $attackRoll >= $currentEnemy.defense>> 
+    <<set $currentEnemy.health to $currentEnemy.health - $playerAttack>>
+    You attack the $currentEnemy.name, dealing $playerAttack damage.<br><br>
+<<else>> 
+    You miss the $currentEnemy.name.<br><br>
+<</if>>
+
+<!-- Enemy counterattack if they're still alive -->
+<<if $currentEnemy.health > 0>> 
+    <!-- Calculate the enemy's attack damage -->
+    <<set $enemyDiceData to $currentEnemy.damage.match(/(\d+)d(\d+)([+-]\d+)?/)>>
+    <<set $enemyDiceCount to parseInt($enemyDiceData[1], 10)>>
+    <<set $enemyDiceType to parseInt($enemyDiceData[2], 10)>>
+    <<set $enemyAttack to 0>>
+    <<for _enemyDieIndex = 1; _enemyDieIndex <= $enemyDiceCount; _enemyDieIndex++>> 
+        <<set $enemyAttack to $enemyAttack + random(1, $enemyDiceType)>>
+    <</for>>
+    <<set $enemyAttackRoll to random(1, 20)>>
+    <!-- Determine if the enemy's attack hits and calculate damage -->
+    <<if $enemyAttackRoll >= $playerAC>> 
+        <<set $currentStats.health to $currentStats.health - $enemyAttack>>
+        The $currentEnemy.name attacks back, dealing $enemyAttack damage.<br><br>
+    <<else>> 
+        The $currentEnemy.name misses.<br><br>
+    <</if>>
+<</if>>
+
+<!-- Provide response options based on the outcomes of the combat -->
+<<if $currentStats.health <= 0>> 
+    [[You have been defeated.|GameOver]]
+<<elseif $currentEnemy.health <= 0>> 
+    You have defeated the $currentEnemy.name!<br>
+    [[Continue|Victory]]
+<<else>> 
+    [[Attack|Attack]]<br>
+    [[Use Item|UseItem]]<br> <!-- To be implemented later -->
+    [[Flee|FleeEncounter]] <!-- Fleeing during combat could have different consequences -->
+<</if>>
+
+
+:: UseItem {"position":"1200,350","size":"100,100"}
+
+
+:: GameOver {"position":"937.5,475","size":"100,100"}
+It appears you have met an untimely demise...
+
+Well then, from the top!
+
+Either load from save or restart.
+
+
+:: Victory {"position":"1050,475","size":"100,100"}
+<<set $playerEXP += $currentEnemy.exp>>
+<<set $playerGold += $currentEnemy.gold>> 
+
+You gained $currentEnemy.gold gold and $currentEnemy.exp EXP!<br><br>
+<<link "Continue">>
+	<<goto $lastLocation>>
+<</link>>

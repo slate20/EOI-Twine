@@ -1,0 +1,49 @@
+:: EquipItem [System-Logic] {"position":"650,200","size":"100,100"}
+<<set _itemToEquip = $inventory[$tempItemIndex]>>
+<<set $itemType = _itemToEquip.type>>
+<<set $itemSlots = $itemTypeToSlots[$itemType]>>
+
+<<for _slot range $itemSlots>>
+    <<if $equipmentSlots[_slot] !== "">>
+        <<set _equippedItemName = $equipmentSlots[_slot]>>
+        <<set _equippedItemIndex = $inventory.findIndex(item => item.name === _equippedItemName)>>
+        <<if _equippedItemIndex !== -1>>
+            <<set $inventory[_equippedItemIndex].equipped = false>>
+            <<if $inventory[_equippedItemIndex].class === "armor">>
+                <<set $currentStats.ac -= $inventory[_equippedItemIndex].ac>>
+                <<set $playerAC = $currentStats.ac + $modifiers.defense>>
+            <</if>>
+        <</if>>
+    <</if>>
+    <<set $equipmentSlots[_slot] = _itemToEquip.name>>
+<</for>>
+
+<<if _itemToEquip.class === "armor">>
+    <<set $currentStats.ac += _itemToEquip.ac>>
+    <<set $playerAC = $currentStats.ac + $modifiers.defense>>
+<</if>>
+
+<<set $inventory[$tempItemIndex].equipped = true>>
+
+<<goto "Inventory">>
+
+
+:: UnequipItem [System-Logic] {"position":"750,200","size":"100,100"}
+<<set _itemToUnequip = $inventory[$tempItemIndex]>>
+<<set $itemType = _itemToUnequip.type>>
+<<set $itemSlots = $itemTypeToSlots[$itemType]>>
+
+<<for _slot range $itemSlots>>
+    <<if $equipmentSlots[_slot] === _itemToUnequip.name>>
+        <<set $equipmentSlots[_slot] = "">>
+    <</if>>
+<</for>>
+
+<<if _itemToUnequip.class === "armor">>
+    <<set $currentStats.ac -= _itemToUnequip.ac>>
+    <<set $playerAC = $currentStats.ac + $modifiers.defense>>
+<</if>>
+
+<<set $inventory[$tempItemIndex].equipped = false>>
+
+<<goto "Inventory">>

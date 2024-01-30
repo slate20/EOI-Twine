@@ -1,0 +1,9 @@
+:: RoomRental [System-Logic inn-room] {"position":"500,0"}
+<<if $playerGold < 3>>
+    <<print "You do not have enough gold!">>
+  <<else>>
+      <<set $playerGold = $playerGold - 3>>
+      <<set $currentStats.health to $baseStats.health>>
+      You spend the night at the inn and feel well-rested<br><br>
+<</if>>   
+<<link "Return to the Inn">><<goto "Winmose Inn">><</link>>

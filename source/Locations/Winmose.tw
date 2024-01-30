@@ -1,0 +1,53 @@
+:: Winmose [Location] {"position":"500,600","size":"100,100"}
+<<set $currentBiome = "forest">>
+<<set $biomeBG = "forest">>
+<<set $lastLocation = passage()>>
+You are in the town of Winmose. What would you like to do?
+
+<<link "Explore the surrounding forest">><<goto "EnemyEncounter">><</link>>
+[[Visit the shop|Winmose Shop]]
+[[Visit the Inn|Winmose Inn]]
+[[Travel East]]
+
+
+:: Winmose Shop {"position":"375,725","size":"100,100"}
+<<set $lastLocation = passage()>>
+
+You enter the local shop. It's modestly sized, with various items on wooden tables and shelves. The shopkeeper nods at you. 
+
+<<link "Buy Items">>
+	<<goto Tier1Shop>>
+<</link>>
+<<link "Sell Items">>
+	<<goto SellInventory>>
+<</link>>
+<<link "Leave the shop">>
+	<<set $shopVisited = 0>>
+    <<goto Winmose>>
+<</link>>
+
+
+:: Winmose Inn {"position":"500,725","size":"100,100"}
+<<set $lastLocation = passage()>>
+
+You enter the town's inn. It's a cozy place, with a warm atmosphere. Wooden tables are scattered around, and the air is filled with the aroma of food and ale.
+
+<<if $hasPan == 0>>
+	[[What is that sticking out of the trash?|Find Frying Pan]]
+<</if>>
+<<link "Rent Room ( 3 Gold )">><<goto "RoomRental">><</link>>
+[[Leave the Inn|Winmose]]
+
+
+:: Travel East {"position":"625,725","size":"100,100"}
+
+
+:: Find Frying Pan {"position":"500,850","size":"100,100"}
+<<set $hasPan = 1>>
+
+You find a frying pan with a small chip in the rim. The cook must have tossed it out...
+
+<<link "Take the pan">>
+<<set $inventory.push(clone($weapons["Frying Pan"]))>>
+    <<goto $lastLocation>>
+<</link>>

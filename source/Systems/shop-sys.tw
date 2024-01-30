@@ -1,0 +1,98 @@
+:: Tier1Shop {"position":"300,300","size":"100,100"}
+Shop Inventory:
+
+<<nobr>>
+<<if $shopVisited is 0>>
+    <<set $shopVisited = 1>>
+    <<set $allItems = []>>
+    <<run Object.values($weapons).forEach(item => $allItems.push(item))>>
+    <<run Object.values($armor).forEach(item => $allItems.push(item))>>
+    <<run Object.values($consumables).forEach(item => $allItems.push(item))>>
+
+    <<set $tier1Items = $allItems.filter(item => item.tier === 1)>>
+    <<set $displayItems = []>>
+    <<run $tier1Items.shuffle().slice(0, 5).forEach(item => $displayItems.push(item))>>
+<</if>>
+<</nobr>>
+<<nobr>>
+<<for _item range $displayItems>>
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div style="flex: 3;"><<print _item.name>></div>
+        <div style="flex: 5;"><<print _item.description>></div>
+        <div style="flex: 2; text-align: right;"><<print _item.value>> gold</div>
+        <div style="flex: 2; text-align: center;">
+            <<capture _item>>
+                <<link "Buy">>
+                    <<set $boughtItem to _item>>
+                    <<goto "BuyItem">>
+                <</link>>
+            <</capture>>
+        </div>
+    </div>
+<</for>>
+<</nobr>>
+
+<<link "Go Back">>
+    <<goto $lastLocation>>
+<</link>>
+
+
+:: BuyItem {"position":"300,400","size":"100,100"}
+<<if $playerGold >= $boughtItem.value>>
+    <<set $playerGold -= $boughtItem.value>>
+    <<set $inventory.push(clone($boughtItem))>>
+
+    <<set $displayItems = $displayItems.filter(item => item.name !== $boughtItem.name)>>
+    You bought the <<print $boughtItem.name>>.<br><br>
+<<else>>
+    You don't have enough gold to buy the <<print $boughtItem.name>>.<br><br>
+<</if>>
+<<link "Return to Shop">>
+    <<goto "Tier1Shop">>
+<</link>>
+
+
+:: SellInventory {"position":"200,300","size":"100,100"}
+Sell Inventory:
+
+<<nobr>>
+<div style="display: flex; justify-content: space-between; align-items: center;">
+    <div style="flex: 1; text-align: left;"><b>Name</b></div>
+    <div style="flex: 3; text-align: left;"><b>Description</b></div>
+    <div style="flex: 1; text-align: center;"><b>Sell Price</b></div>
+    <div style="flex: 1; text-align: center;"><b>Action</b></div>
+</div>
+<<for _index, _item range $inventory>>
+    <<capture _item _index>> <!-- Capture the current item and its index -->
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div style="flex: 1; text-align: left;"><<print _item.name>></div>
+            <div style="flex: 3; text-align: left;"><<print _item.description>></div>
+            <div style="flex: 1; text-align: center;"><<print Math.round(_item.value * 0.5)>> gold</div>
+            <div style="flex: 1; text-align: center;">
+                <<link "Sell">>
+                    <<set $sellItem to _item>> <!-- Store item temporarily -->
+                    <<goto "SellItem">> <!-- Go to the SellItem passage -->
+                <</link>>
+            </div>
+        </div>
+    <</capture>>
+<</for>>
+<</nobr>>
+
+<<link "Return to Shop">>
+    <<goto $lastLocation>>
+<</link>>
+
+
+:: SellItem {"position":"200,400","size":"100,100"}
+Sell the <<print $sellItem.name>>?
+
+<<link "Yes">>
+    <<set $playerGold += Math.round($sellItem.value * 0.5)>>
+    <<set $inventory = $inventory.filter(item => item.name !== $sellItem.name)>>
+    <<goto "SellInventory">>
+<</link>><br>
+
+<<link "Nevermind">>
+    <<goto "SellInventory">>
+<</link>>

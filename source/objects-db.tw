@@ -1,0 +1,133 @@
+:: Items [objects-db] {"position":"1400,0","size":"100,100"}
+<<set $weaponTypeModifiers = {
+    "sword": "strength",
+    "blunt": "strength",
+    "magic": "intelligence",
+    "dagger": "dexterity",
+    "bow": "awareness"
+}>>
+
+<<set $itemTypeToSlots = {
+    "sword": ["mainhand"],
+    "blunt": ["mainhand"],
+    "bow": ["mainhand", "offhand"],
+    "shield": ["offhand"],
+    "armor": ["outfit"]
+}>>
+
+<<set $weapons = {
+    "Rusty Sword": {
+        "name": "Rusty Sword",
+        "class": "weapon",
+        "type": "sword",
+        "description": "A blunt sword that has seen better days.",
+        "damage": "1d4+2",
+        "tier": 1,
+        "value": 10,
+        "equipped": false
+    },
+    "Frying Pan": {
+        "name": "Frying Pan",
+        "class": "weapon",
+        "type": "blunt",
+        "description": "A cast iron pan. There's still some chicken stuck to the bottom...",
+        "damage": "1d4+0",
+        "tier": 0,
+        "value": 3,
+        "equipped": false
+    }
+}>>
+
+<<set $armor = {
+    "Wooden Shield": {
+        "name": "Wooden Shield",
+        "class": "armor",
+        "type": "shield",
+        "description": "A sturdy shield made of oak.",
+        "ac": 2,
+        "tier": 1,
+        "value": 8,
+        "equipped": false
+    }
+}>>
+
+<<set $consumables = {
+    "Health Potion": {
+        "name": "Health Potion",
+        "type": "consumable",
+        "description": "A potion that heals wounds quickly.",
+        "effect": "heal",
+        "amount": 20,
+        "tier": 1,
+        "value": 10
+    }
+}>>
+
+
+:: Enemies [objects-db] {"position":"1200,0","size":"100,100"}
+<!-- Enemy Template:
+	"Goblin", (dm: 
+		"name", "Goblin",
+        "biomes", (a: "forest", "grasslands", "hills", "swamp"),
+        "health", 10, 
+        "strength", 12,
+        "defense", 10,
+        "dexterity", 10,
+        "intelligence", 10,
+        "awareness", 12,
+        "charisma", 3,
+        "damage", "1d4",
+        "gold", 5,
+        "exp", 12,
+        "img", "<path to img>"
+),
+-->
+
+<<set $enemies = {
+    "Goblin": {
+        "name": "Goblin",
+        "biomes": ["forest", "grasslands", "hills", "swamp"],
+        "health": 10,
+        "strength": 12,
+        "defense": 10,
+        "dexterity": 10,
+        "intelligence": 10,
+        "awareness": 12,
+        "charisma": 3,
+        "damage": "1d4",
+        "gold": 5,
+        "exp": 12,
+        "img": "Assets/Artwork/Enemies/goblin.png"
+    },
+    "Troll": {
+        "name": "Troll",
+        "biomes": ["hills", "mountains", "cave"],
+        "health": 60,
+        "strength": 16,
+        "defense": 12,
+        "dexterity": 8,
+        "intelligence": 6,
+        "awareness": 7,
+        "charisma": 2,
+        "damage": "1d12",
+        "modifier": "strength",
+        "gold": 25,
+        "exp": 50,
+        "img": "Assets/Artwork/Enemies/troll.png"
+    },
+    "Bandit": {
+        "name": "Bandit",
+        "biomes": ["forest", "hills", "grasslands", "plains", "savannah", "urban"],
+        "health": 14,
+        "strength": 10,
+        "defense": 14,
+        "dexterity": 10,
+        "intelligence": 10,
+        "awareness": 10,
+        "charisma": 8,
+        "damage": "1d6",
+        "gold": 15,
+        "exp": 20,
+        "img": "Assets/Artwork/Enemies/bandit.png"
+    }
+}>>

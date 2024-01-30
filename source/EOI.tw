@@ -1,0 +1,97 @@
+:: StoryTitle
+Echoes Of Ismia
+
+
+:: StoryData
+{
+	"ifid": "6E96B523-CDC6-4159-A029-C93DAFF1CA9E",
+	"format": "SugarCube",
+	"format-version": "2.36.1",
+	"start": "Start",
+	"tag-colors": {
+		"Location": "yellow",
+		"System-Logic": "orange",
+		"menu": "blue",
+		"objects-db": "green"
+	},
+	"zoom": 0.6
+}
+
+
+:: StoryInit {"position":"100,0"}
+<<set $baseStats = {
+    "health": 20, 
+    "strength": 10, 
+    "defense": 10,
+    "dexterity": 10,
+    "intelligence": 10,
+    "awareness": 10,
+    "charisma": 10,
+    "ac": 10
+}>>
+
+<<set $currentStats = clone($baseStats)>>
+
+<<set $modifiers = {
+    "strength": Math.floor(($currentStats.strength - 10) / 2),
+    "defense": Math.floor(($currentStats.defense - 10) / 2),
+    "dexterity": Math.floor(($currentStats.dexterity - 10) / 2),
+    "intelligence": Math.floor(($currentStats.intelligence - 10) / 2),
+    "awareness": Math.floor(($currentStats.awareness - 10) / 2),
+    "charisma": Math.floor(($currentStats.charisma - 10) / 2)
+}>>
+
+<<set $playerAC = $currentStats.ac + $modifiers.defense>>
+
+<<set $playerLvl = 1>>
+<<set $playerEXP = 0>>
+<<set $playerSkillPoints = 0>>
+<<set $playerStatPoints = 0>>
+<<set $inventory = []>>
+<<set $playerGold = 20>>
+
+<<set $equipmentSlots = {
+    "mainhand": "",
+    "offhand": "",
+    "outfit": "",
+    "back": ""
+}>>
+
+<<set $globalHUD = 0>>
+<<set $inMenu = 0>>
+<<set $currentEnemy = "">>
+<<set $shopVisited = 0>>
+<<set $hasPan = 0>>
+<<include "Items">>
+<<include "Enemies">>
+
+
+:: PassageHeader [System-Logic] {"position":"900,0","size":"100,100"}
+<<if $globalHUD is not 0>>
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div>
+            <<print $playerName>> | Lvl: <<print $playerLvl>>
+            <<include "HUDStatDisplay">>
+        </div>
+        <div>
+            <<link "Menu">><<if $inMenu is 0>><<set $returnPassage = passage()>><</if>><<goto "MainMenu">><</link>>
+        </div>
+    </div>
+<</if>>
+
+
+:: HUDStatDisplay [System-Logic] {"position":"1000,0","size":"100,100"}
+HP: <<print $currentStats.health>> | Gold: <<print $playerGold>>
+
+
+:: Start {"position":"100,100"}
+<<set $globalHUD = 1>>
+
+<div style="text-align: center; border: 2px solid black; padding: 10px; margin: auto;">
+    <img src="Assets/Artwork/Logo_design_alt.png" width="400" height="400"><br><br>
+    Enter Character Name: <<textbox "$playerName" "" autofocus>><br><br>
+    Choose your starting location<br>
+    <<link "Winmose">><<goto "Winmose">><</link>>
+</div>
+
+

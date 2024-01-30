@@ -1,0 +1,103 @@
+:: MainMenu [menu] {"position":"800,0","size":"100,100"}
+<<set $inMenu = 1>>
+<<link "Character Stats">>
+    <<goto "StatsMenu">>
+<</link>>
+<<link "Inventory">>
+    <<goto "Inventory">>
+<</link>>
+<<link "Back">>
+    <<set $inMenu = 0>>
+    <<goto $returnPassage>>
+<</link>>
+
+
+:: StatsMenu [menu] {"position":"800,100","size":"100,100"}
+EXP: <<print $playerEXP>><br>
+''Equipment''
+Mainhand: <<print $equipmentSlots.mainhand>>
+Offhand: <<print $equipmentSlots.offhand>>
+Outfit: <<print $equipmentSlots.outfit>>
+Back: <<print $equipmentSlots.back>>
+
+<div style="display: flex; justify-content: space-between;">
+    <div>
+        <b>Stat</b><br>
+        Health:
+        AC:
+        Strength:
+        Defense:
+        Dexterity:
+        Intelligence:
+        Awareness:
+        Charisma:
+    </div>
+    <div>
+        <b>Current</b><br>
+        <<print $currentStats.health>>
+        <<print $playerAC>>
+        <<print $currentStats.strength>>
+        <<print $currentStats.defense>>
+        <<print $currentStats.dexterity>>
+        <<print $currentStats.intelligence>>
+        <<print $currentStats.awareness>>
+        <<print $currentStats.charisma>>
+    </div>
+    <div>
+        <b>Base</b><br>
+        <<print $baseStats.health>>
+        <<print $baseStats.ac>>
+        <<print $baseStats.strength>>
+        <<print $baseStats.defense>>
+        <<print $baseStats.dexterity>>
+        <<print $baseStats.intelligence>>
+        <<print $baseStats.awareness>>
+        <<print $baseStats.charisma>>
+    </div>
+</div>
+
+<<link "Back">>
+    <<goto "MainMenu">>
+<</link>>
+
+
+:: Inventory [menu] {"position":"700,100","size":"100,100"}
+Inventory:
+
+<<nobr>>
+<div style="display: flex; justify-content: space-between; align-items: center;">
+    <div style="flex: 1; text-align: left;"><b>Name</b></div>
+    <div style="flex: 3; text-align: left;"><b>Description</b></div>
+    <div style="flex: 1; text-align: center;"><b>Value</b></div>
+    <div style="flex: 1; text-align: center;"><b>Action</b></div>
+</div>
+<<for _index, _item range $inventory>>
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div style="flex: 1; text-align: left;"><<print _item.name>></div>
+        <div style="flex: 3; text-align: left;"><<print _item.description>></div>
+        <div style="flex: 1; text-align: center;"><<print _item.value>> gold</div>
+        <div style="flex: 1; text-align: center;">
+            <<if _item.equipped !== undefined>>
+                <<if _item.equipped>>
+                    <<capture _index>>
+                        <<link "Unequip">>
+                            <<set $tempItemIndex to _index>>
+                            <<goto "UnequipItem">>
+                        <</link>>
+                    <</capture>>
+                <<else>>
+                    <<capture _index>>
+                        <<link "Equip">>
+                            <<set $tempItemIndex to _index>>
+                            <<goto "EquipItem">>
+                        <</link>>
+                    <</capture>>
+                <</if>>
+            <</if>>
+        </div>
+    </div>
+<</for>>
+<</nobr>>
+<<link "Back">>
+    <<goto "MainMenu">>
+<</link>>
