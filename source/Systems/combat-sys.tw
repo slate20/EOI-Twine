@@ -1,33 +1,38 @@
 <!-- Combat System -->
 
-:: EnemyEncounter {"position":"1200,100","size":"100,100"}
-<<nobr>> <!-- Randomly select enemy based on the current biome -->
+:: EnemyEncounter [nobr] {"position":"1200,100","size":"100,100"}
+<!-- Randomly select enemy based on the current biome -->
 <<set $availableEnemies = Object.keys($enemies).filter(e => $enemies[e].biomes.includes($currentBiome))>>
 <<set $randomEnemyKey = $availableEnemies.random()>>
 <<set $currentEnemy = $enemies[$randomEnemyKey]>>
 <<set $enemyImgPath = $currentEnemy.img>>
-<</nobr>>
+<br>
 
-<<print "<img src='" + $enemyImgPath + "' width='300' height='300'>">>
-You encounter a $currentEnemy.name! What do you do?
-
-[[Engage|EngageEnemy]]
+<<print "<img src='" + $enemyImgPath + "' style='display: block; margin: auto;' width='300' height='300'>">><br>
+<div style="text-align: center;">
+    You encounter a $currentEnemy.name! What do you do?
+</div>
+<br>
+[[Engage|EngageEnemy]]<br>
 [[Flee|FleeEncounter]]
 
 
-:: EngageEnemy {"position":"1100,225","size":"100,100"}
-<<print "<img src='" + $enemyImgPath + "' width='300' height='300'>">>
-Enemy HP: $currentEnemy.health
+:: EngageEnemy [nobr] {"position":"1100,225","size":"100,100"}
+<br>
+<<print "<img src='" + $enemyImgPath + "' style='display: block; margin: auto;' width='300' height='300'>">><br>
+<div style="text-align: center;">
+    Enemy HP: $currentEnemy.health
+</div><br>
+The $currentEnemy.name stands before you.<br>
 
-The $currentEnemy.name stands before you.
-
-[[Attack|Attack]]
-[[Use Item|UseItem]]
+[[Attack|Attack]]<br>
+[[Use Item|UseItem]]<br>
 [[Flee|FleeEncounter]]
 
 
 :: FleeEncounter {"position":"1300,225","size":"100,100"}
 <<if $currentStats.dexterity >= $currentEnemy.awareness>>
+    
 	You quickly dart away, using your agility to evade the $currentEnemy.name. 
    	<<set $currentEnemy to "">>
     <<link "Continue">><<goto $lastLocation>><</link>>
@@ -39,8 +44,10 @@ The $currentEnemy.name stands before you.
 
 
 :: Attack [nobr] {"position":"1000,350","size":"100,100"}
-<<print "<img src='" + $enemyImgPath + "' width='300' height='300'>">><br>
-Enemy HP: $currentEnemy.health<br><br>
+<<print "<img src='" + $enemyImgPath + "' style='display: block; margin: auto;' width='300' height='300'>">><br>
+<div style="text-align: center;">
+    Enemy HP: $currentEnemy.health
+</div><br>
 <!-- Initialize weapon and modifier variables based on equipped weapon -->
 <<if $equipmentSlots.mainhand>> 
     <<set $equippedWeapon to $weapons[$equipmentSlots.mainhand]>>

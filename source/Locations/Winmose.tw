@@ -1,4 +1,4 @@
-:: Winmose [Location] {"position":"500,600","size":"100,100"}
+:: Winmose [Location sm-forest-town] {"position":"500,600"}
 <<set $currentBiome = "forest">>
 <<set $biomeBG = "forest">>
 <<set $lastLocation = passage()>>
@@ -13,7 +13,8 @@ You are in the town of Winmose. What would you like to do?
 :: Winmose Shop {"position":"375,725","size":"100,100"}
 <<set $lastLocation = passage()>>
 
-You enter the local shop. It's modestly sized, with various items on wooden tables and shelves. The shopkeeper nods at you. 
+You enter the local shop. It's modestly sized, with various items on wooden tables and shelves.
+The shopkeeper nods at you. 
 
 <<link "Buy Items">>
 	<<goto Tier1Shop>>
@@ -30,7 +31,8 @@ You enter the local shop. It's modestly sized, with various items on wooden tabl
 :: Winmose Inn {"position":"500,725","size":"100,100"}
 <<set $lastLocation = passage()>>
 
-You enter the town's inn. It's a cozy place, with a warm atmosphere. Wooden tables are scattered around, and the air is filled with the aroma of food and ale.
+You enter the town's inn. It's a cozy place, with a warm atmosphere. 
+Wooden tables are scattered around, and the air is filled with the aroma of food and ale.
 
 <<if $hasPan == 0>>
 	[[What is that sticking out of the trash?|Find Frying Pan]]

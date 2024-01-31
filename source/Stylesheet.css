@@ -1,0 +1,109 @@
+/* Overall background and font styles for a classic fantasy theme */
+body {
+    background-color: #1b1b1b; /* faded black background */
+    color: #e4d6a7; /* Parchment-like text color for a classic look */
+    font-family: 'Cambria', serif; /* Serif font for a traditional feel */
+    font-size: 20px;
+    line-height: 1.6;
+    max-width: 100%;
+    padding: 20px;
+}
+
+
+/* Styles for individual passages */
+.passage {
+    background-color: #2c2724; /* Deep, earthy background color for passages */
+    color: #f4e4bc; /* Light parchment color for text */
+    padding: 50px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.6); /* Deeper shadow for an aged effect */
+    max-width: 1000px;
+    margin: 30px auto;
+    border: 2px solid #806c60; /* Subtle, aged border style */
+}
+
+/* Styling internal links for a fantasy feel */
+.passage .link-internal {
+    color: #d1a85c; /* Gold color for links, reminiscent of aged brass */
+    text-decoration: none;
+}
+
+.passage .link-internal:hover {
+    color: #a67c52; /* Darker brown on hover for an antique feel */
+    text-decoration: none;
+}
+
+/* Styling external links similarly */
+.passage .link-external {
+    color: #d1a85c; /* Same gold color for external links */
+    text-decoration: none;
+}
+
+.passage .link-external:hover {
+    color: #a67c52; /* Darker brown on hover for external links */
+    text-decoration: none;
+}
+
+/* If you enable .link-visited class */
+.passage .link-visited {
+    color: #d1a85c; /* Optionally, style visited links differently */
+    text-decoration: none;
+}
+
+.passage .link-visited:hover {
+    color: #a67c52; /* Darker brown on hover for visited links */
+    text-decoration: none;
+}
+
+
+/* Header styles if used */
+header, .header {
+    background: #1b1b1b;
+    color: #f4e4bc;
+    padding: 15px 0;
+    text-align: center;
+    border-bottom: 1px solid #806c60;
+}
+
+/* Footer styles if used */
+footer, .footer {
+    background: #564b47;
+    color: #f4e4bc;
+    text-align: center;
+    padding: 15px 0;
+    border-top: 1px solid #806c60;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Custom class for important messages */
+.important {
+    color: #d1a85c; /* Gold color for emphasis */
+    font-weight: bold;
+    text-shadow: 0 0 5px #f4e4bc; /* Soft glow for a mystical feel */
+}
+
+/* Additional embellishments for a fantasy theme */
+#ui-bar {
+
+    background-color: #1b1b1b;
+    color: #e4d6a7;
+}
+
+/* Custom scrollbar for fantasy theme */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #564b47;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #806c60;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #a67c52;
+}

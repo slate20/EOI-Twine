@@ -12,7 +12,23 @@
 <</link>>
 
 
+:: StoryMenu [menu] {"position":"700,0"}
+<<link "Stats">>
+    <<if $inMenu is 0>>
+        <<set $returnPassage = passage()>>
+    <</if>>    
+    <<goto "StatsMenu">>
+<</link>>
+<<link "Inventory">>
+    <<if $inMenu is 0>>
+        <<set $returnPassage = passage()>>
+    <</if>>
+    <<goto "Inventory">>
+<</link>>
+
+
 :: StatsMenu [menu] {"position":"800,100","size":"100,100"}
+<<set $inMenu = 1>>
 EXP: <<print $playerEXP>><br>
 ''Equipment''
 Mainhand: <<print $equipmentSlots.mainhand>>
@@ -57,11 +73,12 @@ Back: <<print $equipmentSlots.back>>
 </div>
 
 <<link "Back">>
-    <<goto "MainMenu">>
+    <<goto $returnPassage>>
 <</link>>
 
 
 :: Inventory [menu] {"position":"700,100","size":"100,100"}
+<<set $inMenu = 1>>
 Inventory:
 
 <<nobr>>
@@ -93,11 +110,20 @@ Inventory:
                         <</link>>
                     <</capture>>
                 <</if>>
+            <<elseif _item.type === "consumable">>
+                <<capture _index>>
+                    <<link "Use">>
+                        <<run useItem(_index)>>
+                        <<goto "Inventory">>
+                    <</link>>
+                <</capture>>
             <</if>>
         </div>
     </div>
 <</for>>
+<div id="inventory"></div>
 <</nobr>>
+
 <<link "Back">>
-    <<goto "MainMenu">>
+    <<goto $returnPassage>>
 <</link>>
