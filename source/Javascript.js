@@ -15,3 +15,29 @@ window.useItem = function(itemIndex) {
         State.variables.inventory.splice(itemIndex, 1);
     }
 };
+
+var biomeClasses = {
+    'forest': 'biome-forest',
+    'desert': 'biome-desert',
+    'mountain': 'biome-mountain'
+    // Add more biomes here as needed
+};
+
+function updateBiomeBackground() {
+    var currentBiome = State.variables.currentBiome;
+    
+    // Remove all biome classes first
+    for (var biome in biomeClasses) {
+        $('body').removeClass(biomeClasses[biome]);
+    }
+
+    // Add the class for the current biome
+    if (biomeClasses[currentBiome]) {
+        $('body').addClass(biomeClasses[currentBiome]);
+    }
+}
+
+$(document).on(':passagerender', function() {
+    updateBiomeBackground();
+});
+

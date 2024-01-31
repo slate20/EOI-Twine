@@ -206,7 +206,39 @@ footer, .footer {
 
 ::-webkit-scrollbar-thumb:hover {
     background: #a67c52;
-}</style><script role="script" id="twine-user-script" type="text/twine-javascript">// Function for using consumable items
+}
+
+/* Menus default to bg color */
+body.menu {
+    background-image: none;
+}
+
+/* Biome backgrounds */
+
+.biome-forest {
+    background-image: url('Assets/Artwork/Biomes/forest.png');
+}
+
+/* Location backgrounds based on tags */
+
+body.sm-forest-town {
+    background-image: url('Assets/Artwork/Locations/sm-forest-town.png');
+}
+
+body.gen-shop {
+    background-image: url('Assets/Artwork/Locations/gen-shop.png');
+}
+
+body.wood-inn {
+    background-image: url('Assets/Artwork/Locations/wood-inn.png');
+}
+
+body.inn-room {
+    background-image: url('Assets/Artwork/Locations/inn-room.png');
+}
+
+/* Add more as needed for different tags */
+</style><script role="script" id="twine-user-script" type="text/twine-javascript">// Function for using consumable items
 window.useItem = function(itemIndex) { 
     var item = State.variables.inventory[itemIndex];
     if (item && item.type === "consumable") {
@@ -223,6 +255,32 @@ window.useItem = function(itemIndex) {
         State.variables.inventory.splice(itemIndex, 1);
     }
 };
+
+var biomeClasses = {
+    'forest': 'biome-forest',
+    'desert': 'biome-desert',
+    'mountain': 'biome-mountain'
+    // Add more biomes here as needed
+};
+
+function updateBiomeBackground() {
+    var currentBiome = State.variables.currentBiome;
+    
+    // Remove all biome classes first
+    for (var biome in biomeClasses) {
+        $('body').removeClass(biomeClasses[biome]);
+    }
+
+    // Add the class for the current biome
+    if (biomeClasses[currentBiome]) {
+        $('body').addClass(biomeClasses[currentBiome]);
+    }
+}
+
+$(document).on(':passagerender', function() {
+    updateBiomeBackground();
+});
+
 </script><tw-tag name="Location" color="yellow"></tw-tag><tw-tag name="System-Logic" color="orange"></tw-tag><tw-tag name="menu" color="blue"></tw-tag><tw-tag name="objects-db" color="green"></tw-tag><tw-passagedata pid="1" name="StoryInit" tags="" position="100,0" size="100,100">&lt;!-- Initialize Player Stats &amp; Modifiers --&gt;
 &lt;&lt;set $baseStats = {
     &quot;health&quot;: 20, 
@@ -304,7 +362,7 @@ You are in the town of Winmose. What would you like to do?
 &lt;&lt;link &quot;Explore the surrounding forest&quot;&gt;&gt;&lt;&lt;goto &quot;EnemyEncounter&quot;&gt;&gt;&lt;&lt;/link&gt;&gt;
 [[Visit the shop|Winmose Shop]]
 [[Visit the Inn|Winmose Inn]]
-[[Travel East]]</tw-passagedata><tw-passagedata pid="7" name="Winmose Shop" tags="" position="375,725" size="100,100">&lt;&lt;set $lastLocation = passage()&gt;&gt;
+[[Travel East]]</tw-passagedata><tw-passagedata pid="7" name="Winmose Shop" tags="gen-shop" position="375,725" size="100,100">&lt;&lt;set $lastLocation = passage()&gt;&gt;
 
 You enter the local shop. It&#39;s modestly sized, with various items on wooden tables and shelves.
 The shopkeeper nods at you. 
@@ -318,7 +376,7 @@ The shopkeeper nods at you.
 &lt;&lt;link &quot;Leave the shop&quot;&gt;&gt;
 	&lt;&lt;set $shopVisited = 0&gt;&gt;
     &lt;&lt;goto Winmose&gt;&gt;
-&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="8" name="Winmose Inn" tags="" position="500,725" size="100,100">&lt;&lt;set $lastLocation = passage()&gt;&gt;
+&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="8" name="Winmose Inn" tags="wood-inn" position="500,725" size="100,100">&lt;&lt;set $lastLocation = passage()&gt;&gt;
 
 You enter the town&#39;s inn. It&#39;s a cozy place, with a warm atmosphere. 
 Wooden tables are scattered around, and the air is filled with the aroma of food and ale.
@@ -327,7 +385,7 @@ Wooden tables are scattered around, and the air is filled with the aroma of food
 	[[What is that sticking out of the trash?|Find Frying Pan]]
 &lt;&lt;/if&gt;&gt;
 &lt;&lt;link &quot;Rent Room ( 3 Gold )&quot;&gt;&gt;&lt;&lt;goto &quot;RoomRental&quot;&gt;&gt;&lt;&lt;/link&gt;&gt;
-[[Leave the Inn|Winmose]]</tw-passagedata><tw-passagedata pid="9" name="Travel East" tags="" position="625,725" size="100,100"></tw-passagedata><tw-passagedata pid="10" name="Find Frying Pan" tags="" position="500,850" size="100,100">&lt;&lt;set $hasPan = 1&gt;&gt;
+[[Leave the Inn|Winmose]]</tw-passagedata><tw-passagedata pid="9" name="Travel East" tags="" position="625,725" size="100,100"></tw-passagedata><tw-passagedata pid="10" name="Find Frying Pan" tags="wood-inn" position="500,850" size="100,100">&lt;&lt;set $hasPan = 1&gt;&gt;
 
 You find a frying pan with a small chip in the rim. The cook must have tossed it out...
 

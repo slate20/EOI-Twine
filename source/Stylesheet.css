@@ -107,3 +107,34 @@ footer, .footer {
 ::-webkit-scrollbar-thumb:hover {
     background: #a67c52;
 }
+
+/* Menus default to bg color */
+body.menu {
+    background-image: none;
+}
+
+/* Biome backgrounds */
+
+.biome-forest {
+    background-image: url('Assets/Artwork/Biomes/forest.png');
+}
+
+/* Location backgrounds based on tags */
+
+body.sm-forest-town {
+    background-image: url('Assets/Artwork/Locations/sm-forest-town.png');
+}
+
+body.gen-shop {
+    background-image: url('Assets/Artwork/Locations/gen-shop.png');
+}
+
+body.wood-inn {
+    background-image: url('Assets/Artwork/Locations/wood-inn.png');
+}
+
+body.inn-room {
+    background-image: url('Assets/Artwork/Locations/inn-room.png');
+}
+
+/* Add more as needed for different tags */

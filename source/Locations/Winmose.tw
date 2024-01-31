@@ -10,7 +10,7 @@ You are in the town of Winmose. What would you like to do?
 [[Travel East]]
 
 
-:: Winmose Shop {"position":"375,725","size":"100,100"}
+:: Winmose Shop [gen-shop] {"position":"375,725","size":"100,100"}
 <<set $lastLocation = passage()>>
 
 You enter the local shop. It's modestly sized, with various items on wooden tables and shelves.
@@ -28,7 +28,7 @@ The shopkeeper nods at you.
 <</link>>
 
 
-:: Winmose Inn {"position":"500,725","size":"100,100"}
+:: Winmose Inn [wood-inn] {"position":"500,725","size":"100,100"}
 <<set $lastLocation = passage()>>
 
 You enter the town's inn. It's a cozy place, with a warm atmosphere. 
@@ -44,7 +44,7 @@ Wooden tables are scattered around, and the air is filled with the aroma of food
 :: Travel East {"position":"625,725","size":"100,100"}
 
 
-:: Find Frying Pan {"position":"500,850","size":"100,100"}
+:: Find Frying Pan [wood-inn] {"position":"500,850","size":"100,100"}
 <<set $hasPan = 1>>
 
 You find a frying pan with a small chip in the rim. The cook must have tossed it out...
