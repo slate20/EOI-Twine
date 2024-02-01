@@ -54,12 +54,21 @@
 <<set $consumables = {
     "Health Potion": {
         "name": "Health Potion",
-        "type": "consumable",
+        "type": "potion",
         "description": "A potion that heals wounds quickly.",
         "effect": "heal",
         "amount": 20,
         "tier": 1,
         "value": 8
+    },
+    "Loaf of Bread": {
+        "name": "Loaf of Bread",
+        "type": "food",
+        "description": "A loaf of buttery bread.",
+        "effect": "replenish",
+        "amount": 20,
+        "tier": 1,
+        "value": 3
     }
 }>>
 

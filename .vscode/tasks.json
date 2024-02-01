@@ -6,7 +6,7 @@
         {
             "label": "Tweego",
             "type": "shell",
-            "command": "tweego -t -w -o Stories/EOI-debug.html source",
+            "command": "tweego -w -t -o Stories/EOI-debug.html source",
             "isBackground": true,
             "problemMatcher": [],
             "group": {

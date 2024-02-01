@@ -44,6 +44,7 @@ The $currentEnemy.name stands before you.<br>
 
 
 :: Attack [nobr] {"position":"1000,350","size":"100,100"}
+<br>
 <<print "<img src='" + $enemyImgPath + "' style='display: block; margin: auto;' width='300' height='300'>">><br>
 <div style="text-align: center;">
     Enemy HP: $currentEnemy.health
@@ -124,14 +125,19 @@ The $currentEnemy.name stands before you.<br>
 
 You gained $currentEnemy.gold gold and $currentEnemy.exp EXP!<br><br>
 <<link "Continue">>
-	<<goto $lastLocation>>
+    <<if $traveling is true>>
+        <<set $traveling to false>>
+        <<goto $travelTo.destination>>
+    <<else>>
+	    <<goto $lastLocation>>
+    <</if>>
 <</link>>
 
 
 :: GameOver {"position":"937.5,475","size":"100,100"}
-It appears you have met an untimely demise...
-
-Well then, from the top!
+<br>
+<div style="text-align: center;">
+It appears you have met an untimely demise...Well then, from the top!
 
 Either load from save or restart.
-
+</div>

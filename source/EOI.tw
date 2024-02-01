@@ -28,7 +28,8 @@ Echoes Of Ismia
     "intelligence": 10,
     "awareness": 10,
     "charisma": 10,
-    "ac": 10
+    "ac": 10,
+    "energy": 100 
 }>>
 
 <<set $currentStats = clone($baseStats)>>
@@ -68,7 +69,7 @@ Echoes Of Ismia
 <<set $hasPan = 0>>
 <<include "Items">>
 <<include "Enemies">>
-
+<<include "TravelInit">>
 
 :: PassageHeader [System-Logic nobr] {"position":"900,0","size":"100,100"}
 <<if $globalHUD is not 0>>
@@ -92,7 +93,7 @@ Echoes Of Ismia
 
 
 :: HUDStatDisplay [System-Logic] {"position":"1000,0","size":"100,100"}
-HP: <<print $currentStats.health>> | Gold: <<print $playerGold>>
+HP: <<print $currentStats.health>> | Energy: <<print $currentStats.energy>>
 
 
 :: Start {"position":"100,100"}

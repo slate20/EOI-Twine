@@ -1,0 +1,50 @@
+:: TravelInit {"position":"1600,0"}
+<<set $traveling to false>>
+<<set $travel = {
+    distance: 0, // The distance to the next location in 'units'.
+    energyCostPerUnit: 5, // The energy cost per 'unit' of distance traveled.
+    chanceOfRandomEvent: 0.1 // 10% chance of a random event per 'unit' of distance.
+}>>
+
+
+:: TravelStart {"position":"1600,100"}
+<br>
+<<if $currentStats.energy >= ($travelTo.distance * $travelTo.energyCostPerUnit)>>
+    <<goto "TravelAction">>
+<<else>>
+    You do not have enough energy to make it to <<print $travelTo.destination>>. You need to rest or eat something.<br>
+    <<link "Go Back">>
+        <<goto $lastLocation>>
+    <</link>>
+<</if>>
+
+
+:: TravelAction [nobr] {"position":"1600,200"}
+<<set $currentStats.energy -= ($travelTo.distance * $travelTo.energyCostPerUnit)>>
+<<set $randomCheck = random(1, 100) / 100>>
+<<if $randomCheck <= $travelTo.eventProbability>>
+    <<goto "RandomTravelEvent">> <!-- Redirect to a random event passage -->
+<<else>>
+    <<goto "SafeTravel">> <!-- No event, so proceed to destination -->
+<</if>>
+
+
+:: RandomTravelEvent {"position":"1700,100"}
+<<set $eventRoll = random(1, 100)>> <!-- Roll a number between 1 and 100 -->
+
+<<if $eventRoll <= 100>> <!-- 100% chance for "Enemy Encounter" -->
+    <<goto "EnemyEncounter">>
+<</if>>
+
+
+:: SafeTravel {"position":"1700,200"}
+<br><br>
+<div style="text-align: center;">
+Despite your expectations, your journey continues without incident.
+You remain on guard, but it seems luck is on your side today.
+</div>
+<br>
+<<link "Continue to $travelTo.destination">>
+    <<set $traveling to false>>
+    <<goto $travelTo.destination>>
+<</link>>

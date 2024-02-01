@@ -1,16 +1,28 @@
-:: Winmose [Location sm-forest-town] {"position":"500,600"}
+:: Winmose [Location sm-forest-town] {"position":"18125,5400"}
+<<nobr>>
 <<set $currentBiome = "forest">>
 <<set $biomeBG = "forest">>
 <<set $lastLocation = passage()>>
-You are in the town of Winmose. What would you like to do?
-
-<<link "Explore the surrounding forest">><<goto "EnemyEncounter">><</link>>
+<</nobr>>
+<div style="text-align: center;">
+You are in the town of <<print passage()>>. What would you like to do?
+</div><br>
+[[Explore the surrounding forest|Winmose Forest]]
 [[Visit the shop|Winmose Shop]]
 [[Visit the Inn|Winmose Inn]]
-[[Travel East]]
+<<link "Travel West">>
+	<<set $traveling to true>>
+	<<set $travelTo = {
+        destination: "Pearldyard",
+        distance: 3, // Example distance
+        energyCostPerUnit: 5, // Example energy cost
+        eventProbability: 0.5 // Example event probability
+    }>>
+    <<goto "TravelStart">>
+<</link>>
 
 
-:: Winmose Shop [gen-shop] {"position":"375,725","size":"100,100"}
+:: Winmose Shop [gen-shop] {"position":"18000,5525"}
 <<set $lastLocation = passage()>>
 
 You enter the local shop. It's modestly sized, with various items on wooden tables and shelves.
@@ -28,12 +40,11 @@ The shopkeeper nods at you.
 <</link>>
 
 
-:: Winmose Inn [wood-inn] {"position":"500,725","size":"100,100"}
+:: Winmose Inn [wood-inn] {"position":"18125,5525"}
 <<set $lastLocation = passage()>>
 
 You enter the town's inn. It's a cozy place, with a warm atmosphere. 
 Wooden tables are scattered around, and the air is filled with the aroma of food and ale.
-
 <<if $hasPan == 0>>
 	[[What is that sticking out of the trash?|Find Frying Pan]]
 <</if>>
@@ -41,10 +52,7 @@ Wooden tables are scattered around, and the air is filled with the aroma of food
 [[Leave the Inn|Winmose]]
 
 
-:: Travel East {"position":"625,725","size":"100,100"}
-
-
-:: Find Frying Pan [wood-inn] {"position":"500,850","size":"100,100"}
+:: Find Frying Pan [wood-inn] {"position":"18125,5650"}
 <<set $hasPan = 1>>
 
 You find a frying pan with a small chip in the rim. The cook must have tossed it out...
@@ -53,3 +61,17 @@ You find a frying pan with a small chip in the rim. The cook must have tossed it
 <<set $inventory.push(clone($weapons["Frying Pan"]))>>
     <<goto $lastLocation>>
 <</link>>
+
+
+:: Winmose Forest {"position":"18125,5275"}
+<br>
+<div style="text-align: center;">
+The woods around Winmose whisper of ancient secrets and untapped bounty. 
+Moss carpets the ground, and the air hums with the quiet life of the forest. 
+
+Today, the forest offers nothing but the peace of its shaded groves and the occasional bird call. 
+Yet, you sense that with the right skills, these woods could provide valuable resources.
+
+<br>
+[[Return to Winmose|Winmose]]
+</div>

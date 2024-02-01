@@ -117,6 +117,7 @@ body.menu {
 
 .biome-forest {
     background-image: url('Assets/Artwork/Biomes/forest.png');
+    background-size: cover;
 }
 
 /* Location backgrounds based on tags */
@@ -127,14 +128,17 @@ body.sm-forest-town {
 
 body.gen-shop {
     background-image: url('Assets/Artwork/Locations/gen-shop.png');
+    background-size: cover;
 }
 
 body.wood-inn {
     background-image: url('Assets/Artwork/Locations/wood-inn.png');
+    background-size: cover;
 }
 
 body.inn-room {
     background-image: url('Assets/Artwork/Locations/inn-room.png');
+    background-size: cover;
 }
 
 /* Add more as needed for different tags */
