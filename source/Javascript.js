@@ -1,12 +1,19 @@
 // Function for using consumable items
-window.useItem = function(itemIndex) { 
+window.useItem = function(itemIndex) {
     var item = State.variables.inventory[itemIndex];
-    if (item && item.type === "consumable") {
+    // Check if the item exists in the $consumables object
+    if (item && State.variables.consumables[item.name]) {
         switch (item.effect) {
             case "heal":
                 State.variables.currentStats.health += item.amount; 
                 if (State.variables.currentStats.health > State.variables.baseStats.health) { 
                     State.variables.currentStats.health = State.variables.baseStats.health;
+                }
+                break;
+            case "replenish":
+                State.variables.currentStats.energy += item.amount;
+                if (State.variables.currentStats.energy > State.variables.baseStats.energy) {
+                    State.variables.currentStats.energy = State.variables.baseStats.energy;
                 }
                 break;
             // Add cases for other effects here

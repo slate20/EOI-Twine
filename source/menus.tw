@@ -73,12 +73,16 @@ Back: <<print $equipmentSlots.back>>
 </div>
 
 <<link "Back">>
+    <<set $inMenu = 0>>
     <<goto $returnPassage>>
 <</link>>
 
 
 :: Inventory [menu] {"position":"700,100","size":"100,100"}
 <<set $inMenu = 1>>
+
+Gold: $playerGold
+
 Inventory:
 
 <<nobr>>
@@ -89,6 +93,7 @@ Inventory:
     <div style="flex: 1; text-align: center;"><b>Action</b></div>
 </div>
 <<for _index, _item range $inventory>>
+    <<set _isConsumable to $consumables.hasOwnProperty(_item.name)>>
     <div style="display: flex; justify-content: space-between; align-items: center;">
         <div style="flex: 1; text-align: left;"><<print _item.name>></div>
         <div style="flex: 3; text-align: left;"><<print _item.description>></div>
@@ -110,7 +115,7 @@ Inventory:
                         <</link>>
                     <</capture>>
                 <</if>>
-            <<elseif _item.type === "consumable">>
+            <<elseif _isConsumable>>
                 <<capture _index>>
                     <<link "Use">>
                         <<run useItem(_index)>>
@@ -125,5 +130,6 @@ Inventory:
 <</nobr>>
 
 <<link "Back">>
+    <<set $inMenu = 0>>
     <<goto $returnPassage>>
 <</link>>

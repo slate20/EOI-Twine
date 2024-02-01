@@ -1,4 +1,4 @@
-:: Tier1Shop {"position":"300,300","size":"100,100"}
+:: Tier1Shop [menu] {"position":"300,300","size":"100,100"}
 Shop Inventory:
 
 <<nobr>>
@@ -37,7 +37,7 @@ Shop Inventory:
 <</link>>
 
 
-:: BuyItem {"position":"300,400","size":"100,100"}
+:: BuyItem [menu] {"position":"300,400","size":"100,100"}
 <<if $playerGold >= $boughtItem.value>>
     <<set $playerGold -= $boughtItem.value>>
     <<set $inventory.push(clone($boughtItem))>>
@@ -52,7 +52,7 @@ Shop Inventory:
 <</link>>
 
 
-:: SellInventory {"position":"200,300","size":"100,100"}
+:: SellInventory [menu] {"position":"200,300","size":"100,100"}
 Sell Inventory:
 
 <<nobr>>
@@ -84,7 +84,7 @@ Sell Inventory:
 <</link>>
 
 
-:: SellItem {"position":"200,400","size":"100,100"}
+:: SellItem [menu] {"position":"200,400","size":"100,100"}
 Sell the <<print $sellItem.name>>?
 
 <<link "Yes">>

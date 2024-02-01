@@ -1,0 +1,20 @@
+:: Pearldyard [Location sm-forest-town] {"position":"17625,5275"}
+<<nobr>>
+<<set $currentBiome = "forest">>
+<<set $biomeBG = "forest">>
+<<set $lastLocation = passage()>>
+<</nobr>>
+<div style="text-align: center;">
+You are in the town of <<print passage()>>. What would you like to do?
+</div><br>
+
+<<link "Travel East">>
+	<<set $traveling to true>>
+	<<set $travelTo = {
+        destination: "Winmose",
+        distance: 3, // Example distance
+        energyCostPerUnit: 5, // Example energy cost
+        eventProbability: 0.5 // Example event probability
+    }>>
+    <<goto "TravelStart">>
+<</link>>
