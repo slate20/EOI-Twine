@@ -1,7 +1,6 @@
 :: Winmose [Location sm-forest-town] {"position":"18125,5400"}
 <<nobr>>
 <<set $currentBiome = "forest">>
-<<set $biomeBG = "forest">>
 <<set $lastLocation = passage()>>
 <</nobr>>
 <div style="text-align: center;">
@@ -14,6 +13,16 @@ You are in the town of <<print passage()>>. What would you like to do?
 	<<set $traveling to true>>
 	<<set $travelTo = {
         destination: "Pearldyard",
+        distance: 3, // Example distance
+        energyCostPerUnit: 5, // Example energy cost
+        eventProbability: 0.5 // Example event probability
+    }>>
+    <<goto "TravelStart">>
+<</link>>
+<<link "Travel South">>
+	<<set $traveling to true>>
+	<<set $travelTo = {
+        destination: "Win-Clay",
         distance: 3, // Example distance
         energyCostPerUnit: 5, // Example energy cost
         eventProbability: 0.5 // Example event probability
@@ -75,3 +84,23 @@ Yet, you sense that with the right skills, these woods could provide valuable re
 <br>
 [[Return to Winmose|Winmose]]
 </div>
+
+:: Win-Clay {"position":"18125,6050"}
+<<set $currentBiome = "plains">>
+<<set $lastLocation = passage()>>
+
+You grow weary from traveling and seek out a place to set up camp for the night.
+
+<<link "Rest and Continue">>
+	<<set $traveling to true>>
+	<<set $travelTo = {
+        destination: "Claypond",
+        distance: 3, // Example distance
+        energyCostPerUnit: 5, // Example energy cost
+        eventProbability: 0.5 // Example event probability
+    }>>
+    <<goto "TravelStart">>
+<</link>>
+
+
+<<set $playerMap = "Assets/Artwork/Maps/Agzan2.png">>
