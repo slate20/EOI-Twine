@@ -113,6 +113,11 @@ body.menu {
     background-image: none;
 }
 
+/* System-Logic default to bg color */
+body.System-Logic {
+    background-image: none;
+}
+
 /* Biome backgrounds */
 
 .biome-forest {

@@ -7,4 +7,4 @@
       <<set $currentStats.energy to $baseStats.energy>>
       You spend the night at the inn and feel well-rested<br><br>
 <</if>>   
-<<link "Return to the Inn">><<goto "Winmose Inn">><</link>>
+<<link "Return to the Inn">><<goto $lastLocation>><</link>>

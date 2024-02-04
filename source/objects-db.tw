@@ -16,11 +16,11 @@
 }>>
 
 <<set $weapons = {
-    "Rusty Sword": {
-        "name": "Rusty Sword",
+    "Worn Iron Sword": {
+        "name": "Worn Iron Sword",
         "class": "weapon",
         "type": "sword",
-        "description": "A blunt sword that has seen better days.",
+        "description": "A heavily used sword that has seen better days.",
         "damage": "1d4+2",
         "tier": 1,
         "value": 10,

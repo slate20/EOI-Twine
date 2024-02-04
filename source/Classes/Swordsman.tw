@@ -1,0 +1,25 @@
+:: EnrollSwordsman {"position":"2700,200"}
+<br><br>
+"Welcome to the Swordsman's fold," the Guildmaster proclaims.
+<br>
+[[Begin your training|SwordsmanTraining]]
+
+:: SwordsmanTraining [nobr] {"position":"2700,325"}
+<<set $playerClass = "Swordsman">>
+<<set $baseStats.strength += 4>>
+<<set $baseStats.defense += 2>>
+<<set $baseStats.dexterity += 2>>
+<<set $currentStats.strength = $baseStats.strength>>
+<<set $currentStats.defense = $baseStats.defense>>
+<<set $currentStats.dexterity = $baseStats.dexterity>>
+<<set $inventory.push(clone($weapons["Worn Iron Sword"]))>>
+<<set $inventory.push(clone($armor["Wooden Shield"]))>>
+<br><br>
+Over the span of several months, your training under the watchful eye of the Guildmaster and seasoned instructors at the Mightvale Mercenaries' Guild transforms you. Each day, you rise at dawn to the clang of steel, dedicating yourself to mastering the art of combat. You learn not just to swing a blade, but to read your opponent, anticipate their moves, and strike with precision. Your muscles grow stronger, your reflexes quicker, and your resolve harder. Yet, as you stand ready to embark on your own path, it's clear that this is but the first step in a lifelong journey of mastery. The real test begins as you venture forth, seeking challenges that will forge you into a true warrior.
+<br><br>
+<<link "Complete your training">>
+    <<run Dialog.setup("Joined Swordsman Class")>>
+    <<run Dialog.wiki("You have unlock the Swordsman skilltree. You have also obtained a Worn Iron Sword and Wooden Shield from your training.")>>
+    <<run Dialog.open()>>
+    <<goto $lastLocation>>
+<</link>>

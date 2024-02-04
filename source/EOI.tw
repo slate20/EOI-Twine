@@ -49,6 +49,7 @@ Echoes Of Ismia
 <<set $playerLvl = 1>>
 <<set $playerEXP = 0>>
 <<set $expThresh = 100>>
+<<set $playerClass = "">>
 <<set $playerSkillPoints = 0>>
 <<set $playerStatPoints = 0>>
 <<set $inventory = []>>
@@ -104,7 +105,7 @@ HP: <<print $currentStats.health>> | Energy: <<print $currentStats.energy>>
     Enter Character Name: <br>
     <<textbox "$playerName" "" autofocus>><br>
     Choose your starting location
-    <<link "Winmose">><<goto "Winmose">><</link>>
+    <<link "Bavenmore">><<goto "Bavenmore">><</link>>
 </div>
 
 
