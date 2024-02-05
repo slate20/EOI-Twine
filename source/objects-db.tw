@@ -114,6 +114,7 @@
         "awareness": 12,
         "charisma": 3,
         "damage": "1d4",
+        "range": "melee",
         "gold": 5,
         "exp": 12,
         "img": "Assets/Artwork/Enemies/goblin.png"
@@ -129,7 +130,7 @@
         "awareness": 7,
         "charisma": 2,
         "damage": "1d12",
-        "modifier": "strength",
+        "range": "melee",
         "gold": 25,
         "exp": 50,
         "img": "Assets/Artwork/Enemies/troll.png"
@@ -145,6 +146,7 @@
         "awareness": 10,
         "charisma": 8,
         "damage": "1d6",
+        "range": "melee",
         "gold": 15,
         "exp": 20,
         "img": "Assets/Artwork/Enemies/bandit.png"

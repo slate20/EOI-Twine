@@ -1,10 +1,14 @@
-:: EnrollSwordsman {"position":"2700,200"}
+:: EnrollSwordsman [nobr] {"position":"2700,200"}
 <br><br>
+<div style="text-align: center;">
 "Welcome to the Swordsman's fold," the Guildmaster proclaims.
-<br>
+</div>
+<br><br>
 [[Begin your training|SwordsmanTraining]]
 
 :: SwordsmanTraining [nobr] {"position":"2700,325"}
+<<set $currentStats.health = $baseStats.health>>
+<<set $currentStats.energy to $baseStats.energy>>
 <<set $playerClass = "Swordsman">>
 <<set $baseStats.strength += 4>>
 <<set $baseStats.defense += 2>>

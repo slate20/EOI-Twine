@@ -6,7 +6,7 @@
 <</nobr>>
 <div style="text-align: center;">
 You are in the town of <<print passage()>>. What would you like to do?
-</div><br>
+</div>
 
 [[Visit the Mightvale Mercenaries' Guild|MV Merc Guild]]
 <<link "Travel East">>
@@ -47,9 +47,10 @@ You are in the town of <<print passage()>>. What would you like to do?
 
 :: MVMGuildMaster [nobr] {"position":"16600,6750"}
 <br><br>
+<div style="text-align: center;">
 The Guildmaster, a figure of respect and authority, assesses you. <br>
 "What brings you to the Mightvale Mercenaries' Guild?"<br><br>
-
+</div>
 <<if $playerClass != "Swordsman">>
     <<link "Ask about becoming a Swordsman">><<goto "SwordsmanInfo">><</link>>
 <</if>><br>

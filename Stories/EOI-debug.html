@@ -297,10 +297,14 @@ $(document).on(':passagerender', function() {
     updateBiomeBackground();
 });
 
-</script><tw-tag name="Location" color="yellow"></tw-tag><tw-tag name="System-Logic" color="orange"></tw-tag><tw-tag name="menu" color="blue"></tw-tag><tw-tag name="objects-db" color="green"></tw-tag><tw-passagedata pid="1" name="EnrollSwordsman" tags="" position="2700,200" size="100,100">&lt;br&gt;&lt;br&gt;
+</script><tw-tag name="menu" color="blue"></tw-tag><tw-tag name="objects-db" color="green"></tw-tag><tw-tag name="Location" color="yellow"></tw-tag><tw-tag name="System-Logic" color="orange"></tw-tag><tw-passagedata pid="1" name="EnrollSwordsman" tags="nobr" position="2700,200" size="100,100">&lt;br&gt;&lt;br&gt;
+&lt;div style=&quot;text-align: center;&quot;&gt;
 &quot;Welcome to the Swordsman&#39;s fold,&quot; the Guildmaster proclaims.
-&lt;br&gt;
-[[Begin your training|SwordsmanTraining]]</tw-passagedata><tw-passagedata pid="2" name="SwordsmanTraining" tags="nobr" position="2700,325" size="100,100">&lt;&lt;set $playerClass = &quot;Swordsman&quot;&gt;&gt;
+&lt;/div&gt;
+&lt;br&gt;&lt;br&gt;
+[[Begin your training|SwordsmanTraining]]</tw-passagedata><tw-passagedata pid="2" name="SwordsmanTraining" tags="nobr" position="2700,325" size="100,100">&lt;&lt;set $currentStats.health = $baseStats.health&gt;&gt;
+&lt;&lt;set $currentStats.energy to $baseStats.energy&gt;&gt;
+&lt;&lt;set $playerClass = &quot;Swordsman&quot;&gt;&gt;
 &lt;&lt;set $baseStats.strength += 4&gt;&gt;
 &lt;&lt;set $baseStats.defense += 2&gt;&gt;
 &lt;&lt;set $baseStats.dexterity += 2&gt;&gt;
@@ -493,7 +497,7 @@ Yet, you sense that with the right skills, these woods could provide valuable re
 &lt;&lt;/nobr&gt;&gt;
 &lt;div style=&quot;text-align: center;&quot;&gt;
 You are in the town of &lt;&lt;print passage()&gt;&gt;. What would you like to do?
-&lt;/div&gt;&lt;br&gt;
+&lt;/div&gt;
 
 [[Visit the Mightvale Mercenaries&#39; Guild|MV Merc Guild]]
 &lt;&lt;link &quot;Travel East&quot;&gt;&gt;
@@ -525,9 +529,10 @@ You are in the town of &lt;&lt;print passage()&gt;&gt;. What would you like to d
     A friendly member notices your interest. &quot;If you&#39;re looking to join, the Guildmaster can help you with that.&quot;&lt;br&gt;&lt;br&gt;
 &lt;&lt;/if&gt;&gt;
 [[Go back to the main hall|MV Merc Guild]]</tw-passagedata><tw-passagedata pid="20" name="MVMGuildMaster" tags="nobr" position="16600,6750" size="100,100">&lt;br&gt;&lt;br&gt;
+&lt;div style=&quot;text-align: center;&quot;&gt;
 The Guildmaster, a figure of respect and authority, assesses you. &lt;br&gt;
 &quot;What brings you to the Mightvale Mercenaries&#39; Guild?&quot;&lt;br&gt;&lt;br&gt;
-
+&lt;/div&gt;
 &lt;&lt;if $playerClass != &quot;Swordsman&quot;&gt;&gt;
     &lt;&lt;link &quot;Ask about becoming a Swordsman&quot;&gt;&gt;&lt;&lt;goto &quot;SwordsmanInfo&quot;&gt;&gt;&lt;&lt;/link&gt;&gt;
 &lt;&lt;/if&gt;&gt;&lt;br&gt;
@@ -549,6 +554,7 @@ The Guildmaster, a figure of respect and authority, assesses you. &lt;br&gt;
 &lt;br&gt;
 [[Engage|EngageEnemy]]&lt;br&gt;
 [[Flee|FleeEncounter]]</tw-passagedata><tw-passagedata pid="23" name="EngageEnemy" tags="nobr" position="1100,225" size="100,100">&lt;&lt;set $playerAP to 3&gt;&gt; &lt;!-- Assuming each turn starts with 3 AP --&gt;
+&lt;&lt;set $enemyAP to 3&gt;&gt;
 &lt;br&gt;
 &lt;&lt;print &quot;&lt;img src=&#39;&quot; + $enemyImgPath + &quot;&#39; style=&#39;display: block; margin: auto;&#39; width=&#39;300&#39; height=&#39;300&#39;&gt;&quot;&gt;&gt;&lt;br&gt;
 &lt;div style=&quot;text-align: center;&quot;&gt;
@@ -578,7 +584,8 @@ You prepare for battle with the $currentEnemy.name.&lt;br&gt;&lt;br&gt;
     &lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="25" name="CombatTurn" tags="nobr" position="600,350" size="100,100">&lt;br&gt;
 &lt;&lt;print &quot;&lt;img src=&#39;&quot; + $enemyImgPath + &quot;&#39; style=&#39;display: block; margin: auto;&#39; width=&#39;300&#39; height=&#39;300&#39;&gt;&quot;&gt;&gt;&lt;br&gt;
 &lt;div style=&quot;text-align: center;&quot;&gt;
-    Enemy HP: $currentEnemy.health
+    Enemy HP: $currentEnemy.health &lt;br&gt;
+    Distance: $playerDistance
 &lt;/div&gt;&lt;br&gt;
 You face the $currentEnemy.name, readying yourself for the next move.&lt;br&gt;
 &lt;&lt;if $playerAP &gt; 0&gt;&gt;
@@ -587,7 +594,7 @@ You face the $currentEnemy.name, readying yourself for the next move.&lt;br&gt;
         &lt;&lt;link &quot;Attack&quot;&gt;&gt;&lt;&lt;goto &quot;PlayerAttack&quot;&gt;&gt;&lt;&lt;set $playerAP -= 2&gt;&gt;&lt;&lt;/link&gt;&gt;&lt;br&gt;
     &lt;&lt;/if&gt;&gt;
     &lt;&lt;if $playerAP &gt;= 1&gt;&gt; &lt;!-- Moving or using an item requires 1 AP --&gt;
-        &lt;&lt;link &quot;Move&quot;&gt;&gt;&lt;&lt;goto &quot;PlayerMove&quot;&gt;&gt;&lt;&lt;set $playerAP -= 1&gt;&gt;&lt;&lt;/link&gt;&gt;&lt;br&gt;
+        &lt;&lt;link &quot;Move&quot;&gt;&gt;&lt;&lt;goto &quot;PlayerMove&quot;&gt;&gt;&lt;&lt;/link&gt;&gt;&lt;br&gt;
         &lt;&lt;link &quot;Use Item&quot;&gt;&gt;&lt;&lt;goto &quot;UseItem&quot;&gt;&gt;&lt;&lt;set $playerAP -= 1&gt;&gt;&lt;&lt;/link&gt;&gt;&lt;br&gt;
     &lt;&lt;/if&gt;&gt;
     &lt;!-- &lt;&lt;if $playerSkills.length &gt; 0&gt;&gt; &lt;!-- Check if player has skills to use and if any can be used within remaining AP 
@@ -595,12 +602,13 @@ You face the $currentEnemy.name, readying yourself for the next move.&lt;br&gt;
     &lt;&lt;/if&gt;&gt; --&gt;
 &lt;&lt;else&gt;&gt;
     You&#39;ve used all your AP for this turn.&lt;br&gt;&lt;br&gt;
-    &lt;&lt;link &quot;End Turn&quot;&gt;&gt;&lt;&lt;goto &quot;EnemyTurn&quot;&gt;&gt;&lt;&lt;/link&gt;&gt;
-&lt;&lt;/if&gt;&gt;&lt;br&gt;
+&lt;&lt;/if&gt;&gt;
+[[End Turn|EnemyTurn]]&lt;&lt;set $playerAP to 3&gt;&gt;&lt;br&gt;
 [[Flee|FleeEncounter]] &lt;!-- Option to flee, regardless of AP --&gt;</tw-passagedata><tw-passagedata pid="26" name="PlayerAttack" tags="nobr" position="725,350" size="100,100">&lt;br&gt;
 &lt;&lt;print &quot;&lt;img src=&#39;&quot; + $enemyImgPath + &quot;&#39; style=&#39;display: block; margin: auto;&#39; width=&#39;300&#39; height=&#39;300&#39;&gt;&quot;&gt;&gt;&lt;br&gt;
 &lt;div style=&quot;text-align: center;&quot;&gt;
-    Enemy HP: $currentEnemy.health
+    Enemy HP: $currentEnemy.health &lt;br&gt;
+    Distance: $playerDistance
 &lt;/div&gt;&lt;br&gt;
 &lt;&lt;set $weaponClass to $weapons[$equipmentSlots.mainhand].class&gt;&gt;
 &lt;&lt;if $weaponClass == &quot;ranged&quot;&gt;&gt;
@@ -623,7 +631,8 @@ You face the $currentEnemy.name, readying yourself for the next move.&lt;br&gt;
 &lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="27" name="AttackResults" tags="nobr" position="850,350" size="100,100">&lt;br&gt;
 &lt;&lt;print &quot;&lt;img src=&#39;&quot; + $enemyImgPath + &quot;&#39; style=&#39;display: block; margin: auto;&#39; width=&#39;300&#39; height=&#39;300&#39;&gt;&quot;&gt;&gt;&lt;br&gt;
 &lt;div style=&quot;text-align: center;&quot;&gt;
-    Enemy HP: $currentEnemy.health
+    Enemy HP: $currentEnemy.health &lt;br&gt;
+    Distance: $playerDistance
 &lt;/div&gt;&lt;br&gt;
 &lt;!-- Initialize weapon and modifier variables based on equipped weapon --&gt;
 &lt;&lt;if $equipmentSlots.mainhand&gt;&gt; 
@@ -658,74 +667,81 @@ You face the $currentEnemy.name, readying yourself for the next move.&lt;br&gt;
 &lt;&lt;else&gt;&gt; 
     You miss the $currentEnemy.name.&lt;br&gt;&lt;br&gt;
 &lt;&lt;/if&gt;&gt;
-
-[[Continue|CombatTurn]]</tw-passagedata><tw-passagedata pid="28" name="PlayerMove" tags="nobr" position="975,350" size="100,100">&lt;br&gt;
+&lt;&lt;if $currentEnemy.health &lt;= 0&gt;&gt;
+    You have defeated the $currentEnemy.name!&lt;br&gt;
+    [[Continue|Victory]]
+&lt;&lt;else&gt;&gt;
+    [[Continue|CombatTurn]]
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="28" name="PlayerMove" tags="nobr" position="975,350" size="100,100">&lt;br&gt;
 &lt;&lt;print &quot;&lt;img src=&#39;&quot; + $enemyImgPath + &quot;&#39; style=&#39;display: block; margin: auto;&#39; width=&#39;300&#39; height=&#39;300&#39;&gt;&quot;&gt;&gt;&lt;br&gt;
 &lt;div style=&quot;text-align: center;&quot;&gt;
-    Enemy HP: $currentEnemy.health
+    Enemy HP: $currentEnemy.health &lt;br&gt;
+    Distance: $playerDistance
 &lt;/div&gt;&lt;br&gt;
 Enemy Distance: &lt;&lt;print $playerDistance&gt;&gt;. What do you want to do?&lt;br&gt;&lt;br&gt;
 &lt;&lt;if $playerDistance == &quot;far&quot;&gt;&gt;
     &lt;&lt;link &quot;Move closer&quot;&gt;&gt;
+        &lt;&lt;set $playerAP -= 1&gt;&gt;
         &lt;&lt;set $playerDistance = &quot;mid-range&quot;&gt;&gt;
         &lt;&lt;goto CombatTurn&gt;&gt;
     &lt;&lt;/link&gt;&gt;
 &lt;&lt;elseif $playerDistance == &quot;mid-range&quot;&gt;&gt;
     &lt;&lt;link &quot;Move closer&quot;&gt;&gt;
+        &lt;&lt;set $playerAP -= 1&gt;&gt;
         &lt;&lt;set $playerDistance = &quot;mid-range&quot;&gt;&gt;
         &lt;&lt;goto CombatTurn&gt;&gt;
     &lt;&lt;/link&gt;&gt;
     &lt;&lt;link &quot;Move further&quot;&gt;&gt;
+        &lt;&lt;set $playerAP -= 1&gt;&gt;
         &lt;&lt;set $playerDistance = &quot;far&quot;&gt;&gt;
         &lt;&lt;goto CombatTurn&gt;&gt;
     &lt;&lt;/link&gt;&gt;
 &lt;&lt;elseif $playerDistance == &quot;close&quot;&gt;&gt;
     &lt;&lt;link &quot;Create distance&quot;&gt;&gt;
+        &lt;&lt;set $playerAP -= 1&gt;&gt;
         &lt;&lt;set $playerDistance = &quot;mid-range&quot;&gt;&gt;
         &lt;&lt;goto CombatTurn&gt;&gt;
     &lt;&lt;/link&gt;&gt;
 &lt;&lt;/if&gt;&gt;&lt;br&gt;
-[[Stay put|CombatTurn]]</tw-passagedata><tw-passagedata pid="29" name="SkillChoice" tags="" position="1100,350" size="100,100"></tw-passagedata><tw-passagedata pid="30" name="EnemyTurn" tags="" position="1225,350" size="100,100"></tw-passagedata><tw-passagedata pid="31" name="Attack" tags="nobr" position="1000,350" size="100,100">&lt;br&gt;
+[[Stay put|CombatTurn]]</tw-passagedata><tw-passagedata pid="29" name="SkillChoice" tags="" position="1100,350" size="100,100"></tw-passagedata><tw-passagedata pid="30" name="EnemyTurn" tags="nobr" position="1225,350" size="100,100">&lt;br&gt;
 &lt;&lt;print &quot;&lt;img src=&#39;&quot; + $enemyImgPath + &quot;&#39; style=&#39;display: block; margin: auto;&#39; width=&#39;300&#39; height=&#39;300&#39;&gt;&quot;&gt;&gt;&lt;br&gt;
 &lt;div style=&quot;text-align: center;&quot;&gt;
-    Enemy HP: $currentEnemy.health
+    Enemy HP: $currentEnemy.health &lt;br&gt;
+    Distance: $playerDistance
 &lt;/div&gt;&lt;br&gt;
-&lt;!-- Initialize weapon and modifier variables based on equipped weapon --&gt;
-&lt;&lt;if $equipmentSlots.mainhand&gt;&gt; 
-    &lt;&lt;set $equippedWeapon to $weapons[$equipmentSlots.mainhand]&gt;&gt;
-    &lt;&lt;set $modifierType to $weaponTypeModifiers[$equippedWeapon.type]&gt;&gt;
-    &lt;&lt;set $modifierValue to $modifiers[$modifierType]&gt;&gt;
-    &lt;&lt;set $diceData to $equippedWeapon.damage.match(/(\d+)d(\d+)([+-]\d+)?/)&gt;&gt;
-    &lt;&lt;set $diceCount to parseInt($diceData[1])&gt;&gt;
-    &lt;&lt;set $diceType to parseInt($diceData[2])&gt;&gt;
-    &lt;&lt;set $damageModifier to $diceData[3] ? parseInt($diceData[3]) : 0&gt;&gt;
-&lt;&lt;else&gt;&gt; 
-    &lt;!-- Unarmed attack logic: base damage of 1 + strength modifier --&gt;
-    &lt;&lt;set $modifierValue to $modifiers.strength&gt;&gt;
-    &lt;&lt;set $playerAttack to 1 + $modifierValue&gt;&gt;
-&lt;&lt;/if&gt;&gt;
-
-&lt;!-- Calculate the player&#39;s attack damage if a weapon is equipped --&gt;
-&lt;&lt;if $equipmentSlots.mainhand&gt;&gt; 
-    &lt;&lt;set $playerAttack to 0&gt;&gt;
-    &lt;&lt;for _i = 1; _i &lt;= $diceCount; _i++&gt;&gt; 
-        &lt;&lt;set $playerAttack to $playerAttack + random(1, $diceType)&gt;&gt;
-    &lt;&lt;/for&gt;&gt;
-    &lt;&lt;set $playerAttack to $playerAttack + $damageModifier&gt;&gt;
-    &lt;&lt;if $playerAttack &lt; 0&gt;&gt; &lt;&lt;set $playerAttack to 0&gt;&gt; &lt;&lt;/if&gt;&gt;
-&lt;&lt;/if&gt;&gt;
-
-&lt;!-- Determine if the player&#39;s attack hits and calculate damage --&gt;
-&lt;&lt;set $attackRoll to random(3, 20) + $modifierValue&gt;&gt;
-&lt;&lt;if $attackRoll &gt;= $currentEnemy.defense&gt;&gt; 
-    &lt;&lt;set $currentEnemy.health to $currentEnemy.health - $playerAttack&gt;&gt;
-    You attack the $currentEnemy.name, dealing $playerAttack damage.&lt;br&gt;&lt;br&gt;
-&lt;&lt;else&gt;&gt; 
-    You miss the $currentEnemy.name.&lt;br&gt;&lt;br&gt;
-&lt;&lt;/if&gt;&gt;
-
-&lt;!-- Enemy counterattack if they&#39;re still alive --&gt;
-&lt;&lt;if $currentEnemy.health &gt; 0&gt;&gt; 
+&lt;&lt;if $enemyAP &gt; 0&gt;&gt;
+    &lt;&lt;if $currentEnemy.range == &quot;melee&quot;&gt;&gt;
+        &lt;&lt;if $playerDistance == &quot;close&quot;&gt;&gt;
+            &lt;&lt;goto &quot;EnemyAttack&quot;&gt;&gt;
+        &lt;&lt;elseif $playerDistance == &quot;mid-range&quot;&gt;&gt;
+            The $currentEnemy.name closes in on you.
+            &lt;&lt;set $playerDistance = &quot;close&quot;&gt;&gt;&lt;&lt;set $enemyAP -= 1&gt;&gt;&lt;br&gt;&lt;br&gt;
+            [[Continue|EnemyTurn]]
+        &lt;&lt;elseif $playerDistance == &quot;far&quot;&gt;&gt;
+            The $currentEnemy.name charges toward you.
+            &lt;&lt;set $playerDistance = &quot;mid-range&quot;&gt;&gt;&lt;&lt;set $enemyAP -= 1&gt;&gt;
+            [[Continue|EnemyTurn]]
+        &lt;&lt;/if&gt;&gt;
+    &lt;&lt;elseif $currentEnemy.range == &quot;ranged&quot;&gt;&gt;
+        &lt;&lt;if $playerDistance == &quot;mid-range&quot; || $playerDistance == &quot;far&quot;&gt;&gt;
+            &lt;&lt;goto &quot;EnemyAttack&quot;&gt;&gt;
+        &lt;&lt;else&gt;&gt;
+            The $currentEnemy.name creates distance.
+            &lt;&lt;set $playerDistance = &quot;mid-range&quot;&gt;&gt;&lt;&lt;set $enemyAP -= 1&gt;&gt;
+            [[Continue|EnemyTurn]]
+        &lt;&lt;/if&gt;&gt;
+    &lt;&lt;/if&gt;&gt;
+&lt;&lt;else&gt;&gt;
+    The $currentEnemy.name ends its turn.&lt;br&gt;&lt;br&gt;
+    [[Continue|CombatTurn]]&lt;&lt;set $enemyAP to 3&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="31" name="EnemyAttack" tags="nobr" position="100,475" size="100,100">&lt;br&gt;
+&lt;&lt;print &quot;&lt;img src=&#39;&quot; + $enemyImgPath + &quot;&#39; style=&#39;display: block; margin: auto;&#39; width=&#39;300&#39; height=&#39;300&#39;&gt;&quot;&gt;&gt;&lt;br&gt;
+&lt;div style=&quot;text-align: center;&quot;&gt;
+    Enemy HP: $currentEnemy.health &lt;br&gt;
+    Distance: $playerDistance
+&lt;/div&gt;&lt;br&gt;
+&lt;&lt;if $enemyAP &gt;= 2&gt;&gt; &lt;!-- Assuming an attack costs 2 AP, adjust as necessary --&gt;
+    &lt;&lt;set $enemyAP -= 2&gt;&gt;
     &lt;!-- Calculate the enemy&#39;s attack damage --&gt;
     &lt;&lt;set $enemyDiceData to $currentEnemy.damage.match(/(\d+)d(\d+)([+-]\d+)?/)&gt;&gt;
     &lt;&lt;set $enemyDiceCount to parseInt($enemyDiceData[1], 10)&gt;&gt;
@@ -738,22 +754,14 @@ Enemy Distance: &lt;&lt;print $playerDistance&gt;&gt;. What do you want to do?&l
     &lt;!-- Determine if the enemy&#39;s attack hits and calculate damage --&gt;
     &lt;&lt;if $enemyAttackRoll &gt;= $playerAC&gt;&gt; 
         &lt;&lt;set $currentStats.health to $currentStats.health - $enemyAttack&gt;&gt;
-        The $currentEnemy.name attacks back, dealing $enemyAttack damage.&lt;br&gt;&lt;br&gt;
+        The $currentEnemy.name attacks, dealing $enemyAttack damage.&lt;br&gt;&lt;br&gt;
     &lt;&lt;else&gt;&gt; 
         The $currentEnemy.name misses.&lt;br&gt;&lt;br&gt;
     &lt;&lt;/if&gt;&gt;
-&lt;&lt;/if&gt;&gt;
-
-&lt;!-- Provide response options based on the outcomes of the combat --&gt;
-&lt;&lt;if $currentStats.health &lt;= 0&gt;&gt; 
-    [[You have been defeated.|GameOver]]
-&lt;&lt;elseif $currentEnemy.health &lt;= 0&gt;&gt; 
-    You have defeated the $currentEnemy.name!&lt;br&gt;
-    [[Continue|Victory]]
-&lt;&lt;else&gt;&gt; 
-    [[Attack|Attack]]&lt;br&gt;
-    [[Use Item|UseItem]]&lt;br&gt; &lt;!-- To be implemented later --&gt;
-    [[Flee|FleeEncounter]] &lt;!-- Fleeing during combat could have different consequences --&gt;
+    [[Continue|EnemyTurn]]
+&lt;&lt;else&gt;&gt;
+    The $currentEnemy.name ends it&#39;s turn.&lt;br&gt;&lt;br&gt;
+    [[Continue|CombatTurn]]&lt;&lt;set $enemyAP to 3&gt;&gt;
 &lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="32" name="UseItem" tags="" position="1200,350" size="100,100"></tw-passagedata><tw-passagedata pid="33" name="Victory" tags="" position="1050,475" size="100,100">&lt;&lt;set $playerEXP += $currentEnemy.exp&gt;&gt;
 &lt;&lt;set $playerGold += $currentEnemy.gold&gt;&gt; 
 
@@ -1171,6 +1179,7 @@ Inventory:
         &quot;awareness&quot;: 12,
         &quot;charisma&quot;: 3,
         &quot;damage&quot;: &quot;1d4&quot;,
+        &quot;range&quot;: &quot;melee&quot;,
         &quot;gold&quot;: 5,
         &quot;exp&quot;: 12,
         &quot;img&quot;: &quot;Assets/Artwork/Enemies/goblin.png&quot;
@@ -1186,7 +1195,7 @@ Inventory:
         &quot;awareness&quot;: 7,
         &quot;charisma&quot;: 2,
         &quot;damage&quot;: &quot;1d12&quot;,
-        &quot;modifier&quot;: &quot;strength&quot;,
+        &quot;range&quot;: &quot;melee&quot;,
         &quot;gold&quot;: 25,
         &quot;exp&quot;: 50,
         &quot;img&quot;: &quot;Assets/Artwork/Enemies/troll.png&quot;
@@ -1202,6 +1211,7 @@ Inventory:
         &quot;awareness&quot;: 10,
         &quot;charisma&quot;: 8,
         &quot;damage&quot;: &quot;1d6&quot;,
+        &quot;range&quot;: &quot;melee&quot;,
         &quot;gold&quot;: 15,
         &quot;exp&quot;: 20,
         &quot;img&quot;: &quot;Assets/Artwork/Enemies/bandit.png&quot;
