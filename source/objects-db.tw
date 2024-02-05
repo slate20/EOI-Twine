@@ -18,7 +18,7 @@
 <<set $weapons = {
     "Worn Iron Sword": {
         "name": "Worn Iron Sword",
-        "class": "weapon",
+        "class": "melee",
         "type": "sword",
         "description": "A heavily used sword that has seen better days.",
         "damage": "1d4+2",
@@ -28,12 +28,22 @@
     },
     "Frying Pan": {
         "name": "Frying Pan",
-        "class": "weapon",
+        "class": "melee",
         "type": "blunt",
         "description": "A cast iron pan. There's still some chicken stuck to the bottom...",
         "damage": "1d4+0",
         "tier": 0,
         "value": 3,
+        "equipped": false
+    },
+    "Oak Shortbow": {
+        "name": "Oak Shortbow",
+        "class": "ranged",
+        "type": "sword",
+        "description": "A heavily used sword that has seen better days.",
+        "damage": "1d4+2",
+        "tier": 1,
+        "value": 10,
         "equipped": false
     }
 }>>

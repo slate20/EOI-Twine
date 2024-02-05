@@ -58,7 +58,7 @@ The Guildmaster, a figure of respect and authority, assesses you. <br>
 
 :: SwordsmanInfo [nobr] {"position":"16600,6875"}
 <br><br>
-"Swordsmen are masters of melee combat," explains the Guildmaster. "They possess formidable strength and an unwavering defense. With a sword in hand, they are a force to be reckoned with on any battlefield. To join us is to embrace a life of discipline and courage. Will you take up the sword and join our bortherhood of steel?"
+"Swordsmen are masters of melee combat," explains the Guildmaster. "They possess formidable strength and an unwavering defense. With a sword in hand, they are a force to be reckoned with on any battlefield. To join us is to embrace a life of discipline and courage. Will you take up the sword and join our brotherhood of steel?"
 <br><br>
 <<link "Enroll in Swordsman class">><<goto "EnrollSwordsman">><</link>><br>
 [["I'm not sure yet."|MVMGuildMaster]]

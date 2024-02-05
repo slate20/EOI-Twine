@@ -18,14 +18,23 @@
 
 
 :: EngageEnemy [nobr] {"position":"1100,225","size":"100,100"}
+<<set $playerAP to 3>> <!-- Assuming each turn starts with 3 AP -->
 <br>
 <<print "<img src='" + $enemyImgPath + "' style='display: block; margin: auto;' width='300' height='300'>">><br>
 <div style="text-align: center;">
     Enemy HP: $currentEnemy.health
 </div><br>
-The $currentEnemy.name stands before you.<br>
+You prepare for battle with the $currentEnemy.name.<br><br>
 
-[[Attack|Attack]]<br>
+
+<<link "Engage up close">>
+    <<set $playerDistance = "close">>
+    <<goto CombatTurn>>
+<</link>><br>
+<<link "Keep your distance">>
+    <<set $playerDistance = "far">>
+    <<goto CombatTurn>>
+<</link>><br>
 [[Use Item|UseItem]]<br>
 [[Flee|FleeEncounter]]
 
@@ -41,6 +50,150 @@ The $currentEnemy.name stands before you.<br>
     You can't escape!
     [[Fight|EngageEnemy]]
     <</if>>
+
+
+:: CombatTurn [nobr]
+<br>
+<<print "<img src='" + $enemyImgPath + "' style='display: block; margin: auto;' width='300' height='300'>">><br>
+<div style="text-align: center;">
+    Enemy HP: $currentEnemy.health
+</div><br>
+You face the $currentEnemy.name, readying yourself for the next move.<br>
+<<if $playerAP > 0>>
+    AP: $playerAP <br>
+    <<if $playerAP >= 2 && $playerDistance != "far">> <!-- Attack requires 2 AP and enemy must not be at "far" distance -->
+        <<link "Attack">><<goto "PlayerAttack">><<set $playerAP -= 2>><</link>><br>
+    <</if>>
+    <<if $playerAP >= 1>> <!-- Moving or using an item requires 1 AP -->
+        <<link "Move">><<goto "PlayerMove">><<set $playerAP -= 1>><</link>><br>
+        <<link "Use Item">><<goto "UseItem">><<set $playerAP -= 1>><</link>><br>
+    <</if>>
+    <!-- <<if $playerSkills.length > 0>> <!-- Check if player has skills to use and if any can be used within remaining AP 
+        <<link "Use Skill">><<goto "SkillChoice">><</link>> <!-- Skill menu will handle AP deduction 
+    <</if>> -->
+<<else>>
+    You've used all your AP for this turn.<br><br>
+    <<link "End Turn">><<goto "EnemyTurn">><</link>>
+<</if>><br>
+[[Flee|FleeEncounter]] <!-- Option to flee, regardless of AP -->
+
+
+:: PlayerAttack [nobr]
+<br>
+<<print "<img src='" + $enemyImgPath + "' style='display: block; margin: auto;' width='300' height='300'>">><br>
+<div style="text-align: center;">
+    Enemy HP: $currentEnemy.health
+</div><br>
+<<set $weaponClass to $weapons[$equipmentSlots.mainhand].class>>
+<<if $weaponClass == "ranged">>
+    <<if $playerDistance == "far" || $playerDistance == "mid-range">>
+        <<goto "AttackResults">>
+    <<else>>
+        "You're too close for a ranged attack!"
+        <<goto "CombatTurn">>
+    <</if>>
+<<elseif $weaponClass != "ranged">>
+    <<if $playerDistance == "close">>
+        <<goto "AttackResults">>
+    <<else>>
+        "You're too far to attack right now!"
+        <<goto "CombatTurn">>
+    <</if>>
+<<else>>
+    "You have no weapon equipped."
+    <<goto "CombatTurn">>
+<</if>>
+
+
+:: AttackResults [nobr]
+<br>
+<<print "<img src='" + $enemyImgPath + "' style='display: block; margin: auto;' width='300' height='300'>">><br>
+<div style="text-align: center;">
+    Enemy HP: $currentEnemy.health
+</div><br>
+<!-- Initialize weapon and modifier variables based on equipped weapon -->
+<<if $equipmentSlots.mainhand>> 
+    <<set $equippedWeapon to $weapons[$equipmentSlots.mainhand]>>
+    <<set $modifierType to $weaponTypeModifiers[$equippedWeapon.type]>>
+    <<set $modifierValue to $modifiers[$modifierType]>>
+    <<set $diceData to $equippedWeapon.damage.match(/(\d+)d(\d+)([+-]\d+)?/)>>
+    <<set $diceCount to parseInt($diceData[1])>>
+    <<set $diceType to parseInt($diceData[2])>>
+    <<set $damageModifier to $diceData[3] ? parseInt($diceData[3]) : 0>>
+<<else>> 
+    <!-- Unarmed attack logic: base damage of 1 + strength modifier -->
+    <<set $modifierValue to $modifiers.strength>>
+    <<set $playerAttack to 1 + $modifierValue>>
+<</if>>
+
+<!-- Calculate the player's attack damage if a weapon is equipped -->
+<<if $equipmentSlots.mainhand>> 
+    <<set $playerAttack to 0>>
+    <<for _i = 1; _i <= $diceCount; _i++>> 
+        <<set $playerAttack to $playerAttack + random(1, $diceType)>>
+    <</for>>
+    <<set $playerAttack to $playerAttack + $damageModifier>>
+    <<if $playerAttack < 0>> <<set $playerAttack to 0>> <</if>>
+<</if>>
+
+<!-- Determine if the player's attack hits and calculate damage -->
+<<set $attackRoll to random(3, 20) + $modifierValue>>
+<<if $attackRoll >= $currentEnemy.defense>> 
+    <<set $currentEnemy.health to $currentEnemy.health - $playerAttack>>
+    You attack the $currentEnemy.name, dealing $playerAttack damage.<br><br>
+<<else>> 
+    You miss the $currentEnemy.name.<br><br>
+<</if>>
+
+[[Continue|CombatTurn]]
+
+
+:: PlayerMove [nobr]
+<br>
+<<print "<img src='" + $enemyImgPath + "' style='display: block; margin: auto;' width='300' height='300'>">><br>
+<div style="text-align: center;">
+    Enemy HP: $currentEnemy.health
+</div><br>
+Enemy Distance: <<print $playerDistance>>. What do you want to do?<br><br>
+<<if $playerDistance == "far">>
+    <<link "Move closer">>
+        <<set $playerDistance = "mid-range">>
+        <<goto CombatTurn>>
+    <</link>>
+<<elseif $playerDistance == "mid-range">>
+    <<link "Move closer">>
+        <<set $playerDistance = "mid-range">>
+        <<goto CombatTurn>>
+    <</link>>
+    <<link "Move further">>
+        <<set $playerDistance = "far">>
+        <<goto CombatTurn>>
+    <</link>>
+<<elseif $playerDistance == "close">>
+    <<link "Create distance">>
+        <<set $playerDistance = "mid-range">>
+        <<goto CombatTurn>>
+    <</link>>
+<</if>><br>
+[[Stay put|CombatTurn]]
+
+
+
+:: SkillChoice
+
+
+
+:: EnemyTurn
+
+
+
+
+
+
+
+
+
+
 
 
 :: Attack [nobr] {"position":"1000,350","size":"100,100"}
