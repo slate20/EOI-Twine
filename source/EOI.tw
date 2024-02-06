@@ -52,6 +52,7 @@ Echoes Of Ismia
 <<set $playerClass = "">>
 <<set $playerSkillPoints = 0>>
 <<set $playerStatPoints = 0>>
+<<set $playerSkills = []>>
 <<set $inventory = []>>
 <<set $playerGold = 0>>
 
