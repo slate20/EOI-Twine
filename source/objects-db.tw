@@ -39,7 +39,7 @@
     "Oak Shortbow": {
         "name": "Oak Shortbow",
         "class": "ranged",
-        "type": "sword",
+        "type": "bow",
         "description": "A heavily used sword that has seen better days.",
         "damage": "1d4+2",
         "tier": 1,

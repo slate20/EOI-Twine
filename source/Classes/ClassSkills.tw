@@ -1,9 +1,0 @@
-<!-- Swordsman Class Skills -->
-
-<<set $SwordsmanSkills to {
-    "DashingBlow": {
-        "name": "Dashing Blow"
-        
-    }
-    }
->>

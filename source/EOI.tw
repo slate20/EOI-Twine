@@ -21,7 +21,9 @@ Echoes Of Ismia
 :: StoryInit {"position":"100,0"}
 <!-- Initialize Player Stats & Modifiers -->
 <<set $baseStats = {
-    "health": 20, 
+    "health": 20,
+    "stamina": 20,
+    "mana": 20,
     "strength": 10, 
     "defense": 10,
     "dexterity": 10,
@@ -29,7 +31,7 @@ Echoes Of Ismia
     "awareness": 10,
     "charisma": 10,
     "ac": 10,
-    "energy": 100 
+    "energy": 100
 }>>
 
 <<set $currentStats = clone($baseStats)>>
@@ -47,7 +49,7 @@ Echoes Of Ismia
 
 <!-- Initialize Player Variables -->
 <<set $playerLvl = 1>>
-<<set $playerEXP = 0>>
+<<set $playerEXP = 80>>
 <<set $expThresh = 100>>
 <<set $playerClass = "">>
 <<set $playerSkillPoints = 0>>
@@ -63,7 +65,7 @@ Echoes Of Ismia
     "back": ""
 }>>
 
-<!-- Initialize Global Variables -->
+<!-- Initialize Global Variables and objects -->
 <<set $globalHUD = 0>>
 <<set $inMenu = 0>>
 <<set $currentEnemy = "">>
@@ -72,6 +74,7 @@ Echoes Of Ismia
 <<include "Items">>
 <<include "Enemies">>
 <<include "TravelInit">>
+<<include "ClassSkills">>
 
 :: PassageHeader [System-Logic nobr] {"position":"900,0","size":"100,100"}
 <<if $globalHUD is not 0>>
@@ -87,6 +90,7 @@ Echoes Of Ismia
 <!-- Level up check -->
 <<if $playerEXP >= $expThresh>>
     <<set $playerLvl += 1>>
+    <<set $playerSkillPoints += 1>>
     <<set $expThresh = $expThresh + (100 * $playerLvl)>>
     <<run Dialog.setup("Level Up!")>>
     <<run Dialog.wiki("You have reached level " + $playerLvl + "!")>>

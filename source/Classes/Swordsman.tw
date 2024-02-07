@@ -10,20 +10,89 @@
 <<set $currentStats.health = $baseStats.health>>
 <<set $currentStats.energy to $baseStats.energy>>
 <<set $playerClass = "Swordsman">>
+<<if $playerSkills.length === 0>>
+    <<run Object.keys($SwordsmanSkills).forEach(function(skillKey) {
+        $playerSkills.push(clone($SwordsmanSkills[skillKey]));
+    })>>
+<</if>>
 <<set $baseStats.strength += 4>>
 <<set $baseStats.defense += 2>>
 <<set $baseStats.dexterity += 2>>
 <<set $currentStats.strength = $baseStats.strength>>
 <<set $currentStats.defense = $baseStats.defense>>
 <<set $currentStats.dexterity = $baseStats.dexterity>>
-<<set $inventory.push(clone($weapons["Worn Iron Sword"]))>>
-<<set $inventory.push(clone($armor["Wooden Shield"]))>>
+<<if $classStarterWeapons is true>>
+<<else>>
+    <<set $inventory.push(clone($weapons["Worn Iron Sword"]))>>
+    <<set $inventory.push(clone($armor["Wooden Shield"]))>>
+<</if>>
+<<set $classStarterWeapons to true>>
 <br><br>
-Over the span of several months, your training under the watchful eye of the Guildmaster and seasoned instructors at the Mightvale Mercenaries' Guild transforms you. Each day, you rise at dawn to the clang of steel, dedicating yourself to mastering the art of combat. You learn not just to swing a blade, but to read your opponent, anticipate their moves, and strike with precision. Your muscles grow stronger, your reflexes quicker, and your resolve harder. Yet, as you stand ready to embark on your own path, it's clear that this is but the first step in a lifelong journey of mastery. The real test begins as you venture forth, seeking challenges that will forge you into a true warrior.
+Over the span of several months, your training under the watchful eye of the Guildmaster and seasoned instructors at the Mightvale Mercenaries' Guild transforms you. 
+Each day, you rise at dawn to the clang of steel, dedicating yourself to mastering the art of combat. You learn not just to swing a blade, but to read your opponent, 
+anticipate their moves, and strike with precision. Your muscles grow stronger, your reflexes quicker, and your resolve harder. 
+Yet, as you stand ready to embark on your own path, it's clear that this is but the first step in a lifelong journey of mastery. 
+The real test begins as you venture forth, seeking challenges that will forge you into a true warrior.
 <br><br>
 <<link "Complete your training">>
     <<run Dialog.setup("Joined Swordsman Class")>>
     <<run Dialog.wiki("You have unlock the Swordsman skilltree. You have also obtained a Worn Iron Sword and Wooden Shield from your training.")>>
     <<run Dialog.open()>>
-    <<goto $lastLocation>>
+    <<goto RecalcMods>>
 <</link>>
+
+
+<!-- Swordsman Class Skills Logic -->
+
+:: SkillDashingBlow [nobr]
+
+
+
+:: SkillEnragedStrike [nobr]
+<br>
+<<print "<img src='" + $enemyImgPath + "' style='display: block; margin: auto;' width='300' height='300'>">><br>
+<div style="text-align: center;">
+    Enemy HP: $currentEnemy.health <br>
+    Distance: $playerDistance
+</div><br>
+<<set $playerAP -= 3>>
+<<set $currentStats.stamina -= 5>>
+<!-- Initialize weapon and modifier variables based on equipped weapon -->
+<<if $equipmentSlots.mainhand>> 
+    <<set $equippedWeapon to $weapons[$equipmentSlots.mainhand]>>
+    <<set $modifierType to $weaponTypeModifiers[$equippedWeapon.type]>>
+    <<set $modifierValue to $modifiers[$modifierType]>>
+    <<set $diceData to $equippedWeapon.damage.match(/(\d+)d(\d+)([+-]\d+)?/)>>
+    <<set $diceCount to parseInt($diceData[1])>>
+    <<set $diceType to parseInt($diceData[2])>>
+    <<set $damageModifier to $diceData[3] ? parseInt($diceData[3]) : 0>>
+<<else>> 
+    <!-- Unarmed attack logic: base damage of 1 + strength modifier -->
+    <<set $modifierValue to $modifiers.strength>>
+    <<set $playerAttack to 1 + $modifierValue>>
+<</if>>
+
+<!-- Calculate the player's attack damage if a weapon is equipped -->
+<<if $equipmentSlots.mainhand>> 
+    <<set $playerAttack to 0>>
+    <<for _i = 1; _i <= $diceCount; _i++>> 
+        <<set $playerAttack to $playerAttack + random(1, $diceType)>>
+    <</for>>
+    <<set $playerAttack to Math.round(($playerAttack + $damageModifier) * 1.5)>>
+    <<if $playerAttack < 0>> <<set $playerAttack to 0>> <</if>>
+<</if>>
+
+<!-- Determine if the player's attack hits and calculate damage -->
+<<set $attackRoll to random(3, 20) + $modifierValue>>
+<<if $attackRoll >= $currentEnemy.defense>> 
+    <<set $currentEnemy.health to $currentEnemy.health - $playerAttack>>
+    You feriouciously swing down on the $currentEnemy.name, dealing $playerAttack damage.<br><br>
+<<else>> 
+    You miss the $currentEnemy.name.<br><br>
+<</if>>
+<<if $currentEnemy.health <= 0>>
+    You have defeated the $currentEnemy.name!<br>
+    [[Continue|Victory]]
+<<else>>
+    [[Continue|CombatTurn]]
+<</if>>

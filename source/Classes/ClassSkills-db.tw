@@ -1,0 +1,15 @@
+
+:: ClassSkills
+
+<!-- Swordsman Class Skills -->
+<<set $SwordsmanSkills = {
+    "EnragedStrike": {
+        "name": "Enraged Strike",
+        "description": "Focus your aggression into a powerful strike.",
+        "effect": "Attack with +50% damage",
+        "staminaCost": 5,
+        "apCost": 3,
+        "range": "close",
+        "unlocked": false
+    }
+}>>
