@@ -294,7 +294,7 @@ Available Skills:<br>
 
 
 :: UseItem {"position":"1200,350","size":"100,100"}
-
+[[Go Back|CombatTurn]]
 
 :: Victory {"position":"1050,475","size":"100,100"}
 <<set $playerEXP += $currentEnemy.exp>>
