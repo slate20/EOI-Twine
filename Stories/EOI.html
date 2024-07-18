@@ -328,6 +328,15 @@ $(document).on(':passagerender', function() {
         &quot;apCost&quot;: 3,
         &quot;range&quot;: &quot;close&quot;,
         &quot;unlocked&quot;: false
+    },
+    &quot;DashingBlow&quot;: {
+        &quot;name&quot;: &quot;Dashing Blow&quot;,
+        &quot;description&quot;: &quot;Charge toward the enemy and deliver a swift blow.&quot;,
+        &quot;effect&quot;: &quot;Close distance and attack in one move&quot;,
+        &quot;staminaCost&quot;: 5,
+        &quot;apCost&quot;: 2,
+        &quot;range&quot;: [&quot;mid-range&quot;, &quot;far&quot;],
+        &quot;unlocked&quot;: false
     }
 }&gt;&gt;</tw-passagedata><tw-passagedata pid="2" name="EnrollSwordsman" tags="nobr" position="2700,200" size="100,100">&lt;br&gt;&lt;br&gt;
 &lt;div style=&quot;text-align: center;&quot;&gt;
@@ -369,7 +378,68 @@ The real test begins as you venture forth, seeking challenges that will forge yo
 &lt;&lt;/link&gt;&gt;
 
 
-&lt;!-- Swordsman Class Skills Logic --&gt;</tw-passagedata><tw-passagedata pid="4" name="SkillDashingBlow" tags="nobr" position="475,100" size="100,100"></tw-passagedata><tw-passagedata pid="5" name="SkillEnragedStrike" tags="nobr" position="600,100" size="100,100">&lt;br&gt;
+&lt;!-- Swordsman Class Skills Logic --&gt;</tw-passagedata><tw-passagedata pid="4" name="SkillDashingBlow" tags="nobr" position="475,100" size="100,100">&lt;br&gt;
+&lt;&lt;print &quot;&lt;img src=&#39;&quot; + $enemyImgPath + &quot;&#39; style=&#39;display: block; margin: auto;&#39; width=&#39;300&#39; height=&#39;300&#39;&gt;&quot;&gt;&gt;&lt;br&gt;
+&lt;div style=&quot;text-align: center;&quot;&gt;
+    Enemy HP: $currentEnemy.health &lt;br&gt;
+    Distance: $playerDistance
+&lt;/div&gt;&lt;br&gt;
+
+&lt;&lt;if $playerDistance != &quot;close&quot; &amp;&amp; $equippedWeapon.class == &quot;melee&quot;&gt;&gt;
+    &lt;&lt;if $playerAP &gt;= 2 &amp;&amp; $currentStats.Stamina &gt;= 5&gt;&gt;
+        &lt;&lt;set $playerAP -= 2&gt;&gt;
+        &lt;&lt;set $currentStats.stamina -= 5&gt;&gt;
+        &lt;!-- Initialize weapon and modifier variables based on equipped weapon --&gt;
+        &lt;&lt;if $equipmentSlots.mainhand&gt;&gt; 
+            &lt;&lt;set $equippedWeapon to $weapons[$equipmentSlots.mainhand]&gt;&gt;
+            &lt;&lt;set $modifierType to $weaponTypeModifiers[$equippedWeapon.type]&gt;&gt;
+            &lt;&lt;set $modifierValue to $modifiers[$modifierType]&gt;&gt;
+            &lt;&lt;set $diceData to $equippedWeapon.damage.match(/(\d+)d(\d+)([+-]\d+)?/)&gt;&gt;
+            &lt;&lt;set $diceCount to parseInt($diceData[1])&gt;&gt;
+            &lt;&lt;set $diceType to parseInt($diceData[2])&gt;&gt;
+            &lt;&lt;set $damageModifier to $diceData[3] ? parseInt($diceData[3]) : 0&gt;&gt;
+        &lt;&lt;else&gt;&gt; 
+            &lt;!-- Unarmed attack logic: base damage of 1 + strength modifier --&gt;
+            &lt;&lt;set $modifierValue to $modifiers.strength&gt;&gt; 
+            &lt;&lt;set $diceCount = 1&gt;&gt;
+            &lt;&lt;set $diceType = 6&gt;&gt;
+            &lt;&lt;set $damageModifier = 0&gt;&gt;
+        &lt;&lt;/if&gt;&gt;
+
+        &lt;!-- Calculate the player&#39;s attack damage if a weapon is equipped --&gt;
+        &lt;&lt;if $equipmentSlots.mainhand&gt;&gt;
+            &lt;&lt;set $playerAttack to 0&gt;&gt;
+            &lt;&lt;for _i = 1; _i &lt;= $diceCount; _i++&gt;&gt; 
+                &lt;&lt;set $playerAttack to $playerAttack + random(1, $diceType)&gt;&gt;
+            &lt;&lt;/for&gt;&gt;
+            &lt;&lt;set $playerAttack to Math.round(($playerAttack + $damageModifier))&gt;&gt;
+        &lt;&lt;/if&gt;&gt;
+
+        &lt;!-- Determine if the player&#39;s attack hits and calculate damage --&gt;
+        &lt;&lt;set $attackRoll to random(3, 20) + $modifierValue&gt;&gt;
+        &lt;&lt;if $attackRoll &gt;= $currentEnemy.defense&gt;&gt;
+            &lt;&lt;set $currentEnemy.health to $currentEnemy.health - $playerAttack&gt;&gt;
+            You swing down on the $currentEnemy.name, dealing $playerAttack damage.&lt;br&gt;&lt;br&gt;
+        &lt;&lt;else&gt;&gt;
+            You miss the $currentEnemy.name.&lt;br&gt;&lt;br&gt;
+        &lt;&lt;/if&gt;&gt;
+        &lt;&lt;if $currentEnemy.health &lt;= 0&gt;&gt;
+            You have defeated the $currentEnemy.name!&lt;br&gt;
+            [[Continue|Victory]]
+        &lt;&lt;else&gt;&gt;
+            [[Continue|CombatTurn]]
+        &lt;&lt;/if&gt;&gt;
+    &lt;&lt;else&gt;&gt;
+        &lt;&lt;if $playerDistance == &quot;close&quot;&gt;&gt;
+            &quot;You&#39;re too close to use this skill!&quot;&lt;br&gt;&lt;br&gt;
+        &lt;&lt;else&gt;&gt;
+            &lt;&lt;if $currentStats.stamina &lt; 5&gt;&gt;
+                &quot;You don&#39;t have enough stamina to use this skill!&quot;&lt;br&gt;&lt;br&gt;
+            &lt;&lt;/if&gt;&gt;
+            [[Go Back|CombatTurn]]
+        &lt;&lt;/if&gt;&gt;
+    &lt;&lt;/if&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="5" name="SkillEnragedStrike" tags="nobr" position="600,100" size="100,100">&lt;br&gt;
 &lt;&lt;print &quot;&lt;img src=&#39;&quot; + $enemyImgPath + &quot;&#39; style=&#39;display: block; margin: auto;&#39; width=&#39;300&#39; height=&#39;300&#39;&gt;&quot;&gt;&gt;&lt;br&gt;
 &lt;div style=&quot;text-align: center;&quot;&gt;
     Enemy HP: $currentEnemy.health &lt;br&gt;
@@ -488,7 +558,7 @@ The real test begins as you venture forth, seeking challenges that will forge yo
     &lt;&lt;run Dialog.setup(&quot;Level Up!&quot;)&gt;&gt;
     &lt;&lt;run Dialog.wiki(&quot;You have reached level &quot; + $playerLvl + &quot;!&quot;)&gt;&gt;
     &lt;&lt;run Dialog.open()&gt;&gt;
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="8" name="HUDStatDisplay" tags="System-Logic" position="1000,0" size="100,100">HP: &lt;&lt;print $currentStats.health&gt;&gt; | Energy: &lt;&lt;print $currentStats.energy&gt;&gt;</tw-passagedata><tw-passagedata pid="9" name="Start" tags="" position="100,100" size="100,100">&lt;&lt;set $globalHUD = 1&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="8" name="HUDStatDisplay" tags="System-Logic" position="1000,0" size="100,100">HP: &lt;&lt;print $currentStats.health&gt;&gt; | Stamina: &lt;&lt;print $currentStats.stamina&gt;&gt; | Energy: &lt;&lt;print $currentStats.energy&gt;&gt;</tw-passagedata><tw-passagedata pid="9" name="Start" tags="" position="100,100" size="100,100">&lt;&lt;set $globalHUD = 1&gt;&gt;
 
 &lt;div style=&quot;text-align: center; border: 2px solid black; padding: 10px; margin: auto;&quot;&gt;
     &lt;img src=&quot;Assets/Artwork/Logo_design_alt.png&quot; width=&quot;400&quot; height=&quot;400&quot;&gt;&lt;br&gt;

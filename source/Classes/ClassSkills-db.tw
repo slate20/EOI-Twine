@@ -10,6 +10,17 @@
         "staminaCost": 5,
         "apCost": 3,
         "range": "close",
+        "weaponType": "melee",
+        "unlocked": false
+    },
+    "DashingBlow": {
+        "name": "Dashing Blow",
+        "description": "Charge toward the enemy and deliver a swift blow.",
+        "effect": "Close distance and attack in one move",
+        "staminaCost": 5,
+        "apCost": 2,
+        "range": ["mid-range", "far"],
+        "weaponType": "melee",
         "unlocked": false
     }
 }>>

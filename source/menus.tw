@@ -168,11 +168,15 @@ Available Skill Points: $playerSkillPoints
                 Unlocked
             <<else>>
                 <<if $playerSkillPoints > 0>>
-                    <<button "1 SP">>
-                        <<set _skill.unlocked = true>>
-                        <<set $playerSkillPoints -= 1>>
-                        <<goto "SkillsMenu">>
-                    <</button>>
+                    <<capture _skill>>
+                        <<button "1 SP">>
+                            <<set _skill.unlocked = true>>
+                            <<set $playerSkillPoints -= 1>>
+                            <<run Dialog.wiki(_skill.name)>>
+                            <<run Dialog.open()>>
+                            <<goto "SkillsMenu">>
+                        <</button>>
+                    <</capture>>
                 <<else>>
                     Not enough SP
                 <</if>>

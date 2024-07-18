@@ -99,7 +99,7 @@ Echoes Of Ismia
 
 
 :: HUDStatDisplay [System-Logic] {"position":"1000,0","size":"100,100"}
-HP: <<print $currentStats.health>> | Energy: <<print $currentStats.energy>>
+HP: <<print $currentStats.health>> | Stamina: <<print $currentStats.stamina>> | Energy: <<print $currentStats.energy>>
 
 
 :: Start {"position":"100,100"}
