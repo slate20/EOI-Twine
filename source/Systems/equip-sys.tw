@@ -24,7 +24,7 @@
 <</if>>
 
 <<set $inventory[$tempItemIndex].equipped = true>>
-
+<<set $equippedWeapon to $weapons[$equipmentSlots.mainhand]>>
 <<goto "Inventory">>
 
 
@@ -45,5 +45,5 @@
 <</if>>
 
 <<set $inventory[$tempItemIndex].equipped = false>>
-
+<<set $equippedWeapon to "">>
 <<goto "Inventory">>

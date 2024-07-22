@@ -19,16 +19,6 @@ You are in the town of <<print passage()>>. What would you like to do?
     }>>
     <<goto "TravelStart">>
 <</link>>
-<<link "Travel South">>
-	<<set $traveling to true>>
-	<<set $travelTo = {
-        destination: "Win-Clay",
-        distance: 3, // Example distance
-        energyCostPerUnit: 5, // Example energy cost
-        eventProbability: 0.5 // Example event probability
-    }>>
-    <<goto "TravelStart">>
-<</link>>
 
 
 :: Bavenmore Shop [gen-shop] {"position":"17250,6875"}

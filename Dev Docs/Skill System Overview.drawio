@@ -1,0 +1,90 @@
+<mxfile host="Electron" modified="2024-02-06T18:46:07.501Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/23.0.2 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="mA4gW5g9ALSFq8y49hOx" version="23.0.2" type="device">
+  <diagram name="Page-1" id="TA_XopPO5sXI1aFnpR3q">
+    <mxGraphModel dx="1434" dy="836" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="UlYkXJm4JNaiJvEIRhOo-6" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DEEDFF;strokeColor=#36393d;" vertex="1" parent="1">
+          <mxGeometry x="43" y="660" width="760" height="410" as="geometry" />
+        </mxCell>
+        <mxCell id="UlYkXJm4JNaiJvEIRhOo-5" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f9f7ed;strokeColor=#36393d;" vertex="1" parent="1">
+          <mxGeometry x="48" y="170" width="760" height="410" as="geometry" />
+        </mxCell>
+        <mxCell id="UlYkXJm4JNaiJvEIRhOo-11" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="UlYkXJm4JNaiJvEIRhOo-1" target="UlYkXJm4JNaiJvEIRhOo-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="UlYkXJm4JNaiJvEIRhOo-1" value="&lt;b&gt;$playerSkills []&lt;/b&gt;&lt;br&gt;&lt;br&gt;Player Skills array" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffcc99;strokeColor=#36393d;" vertex="1" parent="1">
+          <mxGeometry x="128" y="345" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="UlYkXJm4JNaiJvEIRhOo-8" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fillColor=#f9f7ed;strokeColor=#36393d;" edge="1" parent="1" source="UlYkXJm4JNaiJvEIRhOo-2" target="UlYkXJm4JNaiJvEIRhOo-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="UlYkXJm4JNaiJvEIRhOo-2" value="&lt;b&gt;ClassSkills.tw&lt;/b&gt;&lt;br&gt;&lt;br&gt;Skills Database" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffcc99;strokeColor=#36393d;" vertex="1" parent="1">
+          <mxGeometry x="598" y="215" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="UlYkXJm4JNaiJvEIRhOo-22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="UlYkXJm4JNaiJvEIRhOo-3" target="UlYkXJm4JNaiJvEIRhOo-21">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="UlYkXJm4JNaiJvEIRhOo-25" style="edgeStyle=entityRelationEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;curved=0;" edge="1" parent="1" source="UlYkXJm4JNaiJvEIRhOo-3" target="UlYkXJm4JNaiJvEIRhOo-24">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="UlYkXJm4JNaiJvEIRhOo-3" value="&lt;b&gt;:: Skill+&amp;lt;skillname&amp;gt;&lt;/b&gt;&lt;br&gt;Passages for each Skills logic/function" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffcc99;strokeColor=#36393d;" vertex="1" parent="1">
+          <mxGeometry x="598" y="475" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="UlYkXJm4JNaiJvEIRhOo-18" style="edgeStyle=entityRelationEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.25;exitDx=0;exitDy=0;curved=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="UlYkXJm4JNaiJvEIRhOo-4" target="UlYkXJm4JNaiJvEIRhOo-3">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="598" y="535" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="UlYkXJm4JNaiJvEIRhOo-4" value="Player uses skill during CombatTurn" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="363" y="840" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="UlYkXJm4JNaiJvEIRhOo-9" style="edgeStyle=entityRelationEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;curved=1;fillColor=#f9f7ed;strokeColor=#36393d;" edge="1" parent="1" source="UlYkXJm4JNaiJvEIRhOo-7" target="UlYkXJm4JNaiJvEIRhOo-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="UlYkXJm4JNaiJvEIRhOo-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fillColor=#f9f7ed;strokeColor=#36393d;" edge="1" parent="1" source="UlYkXJm4JNaiJvEIRhOo-7" target="UlYkXJm4JNaiJvEIRhOo-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="UlYkXJm4JNaiJvEIRhOo-7" value="Class Skilltree parent objects with child skill objects" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffcc99;strokeColor=#36393d;" vertex="1" parent="1">
+          <mxGeometry x="598" y="345" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="UlYkXJm4JNaiJvEIRhOo-12" style="edgeStyle=entityRelationEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.75;entryDx=0;entryDy=0;curved=1;" edge="1" parent="1" source="UlYkXJm4JNaiJvEIRhOo-10" target="UlYkXJm4JNaiJvEIRhOo-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="UlYkXJm4JNaiJvEIRhOo-14" value="" style="rounded=1;orthogonalLoop=1;jettySize=auto;html=1;elbow=vertical;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;curved=0;" edge="1" parent="1" source="UlYkXJm4JNaiJvEIRhOo-10" target="UlYkXJm4JNaiJvEIRhOo-13">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="258" y="427.5" as="sourcePoint" />
+            <mxPoint x="208" y="700" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="UlYkXJm4JNaiJvEIRhOo-10" value="&lt;b&gt;Skill Menu&lt;br&gt;&lt;/b&gt;&lt;br&gt;Shows unlocked skills and skills available to unlock for player&#39;s class" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="129" y="710" width="118" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="UlYkXJm4JNaiJvEIRhOo-17" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;curved=0;" edge="1" parent="1" source="UlYkXJm4JNaiJvEIRhOo-13" target="UlYkXJm4JNaiJvEIRhOo-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="UlYkXJm4JNaiJvEIRhOo-13" value="&lt;b&gt;Use Skill&lt;br&gt;&lt;/b&gt;(combat option)&lt;br&gt;&lt;br&gt;Unlocked skills available during combat" style="whiteSpace=wrap;html=1;rounded=1;fillColor=#b1ddf0;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="120" y="940" width="140" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="UlYkXJm4JNaiJvEIRhOo-23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.75;exitY=0;exitDx=0;exitDy=0;entryX=0.75;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="UlYkXJm4JNaiJvEIRhOo-21" target="UlYkXJm4JNaiJvEIRhOo-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="UlYkXJm4JNaiJvEIRhOo-21" value="Combat variables&lt;br&gt;($currentEnemy, $playerAP, etc.)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="598" y="730" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="UlYkXJm4JNaiJvEIRhOo-24" value="Combat Skill&lt;br&gt;Results" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="598" y="950" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="UlYkXJm4JNaiJvEIRhOo-26" value="Backend Components" style="text;html=1;strokeColor=none;fillColor=#f9f7ed;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=17;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="340" y="185" width="180" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="UlYkXJm4JNaiJvEIRhOo-27" value="Player-Facing/&lt;br&gt;Combat Components" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=17;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="333" y="680" width="180" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="UlYkXJm4JNaiJvEIRhOo-28" value="Skill System Overview" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;fontSize=28;" vertex="1" parent="1">
+          <mxGeometry x="240" y="60" width="370" height="40" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
