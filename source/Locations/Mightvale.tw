@@ -1,0 +1,65 @@
+:: Mightvale [Location sm-forest-town] {"position":"16800,6500"}
+<<nobr>>
+<<set $currentBiome = "forest">>
+<<set $biomeBG = "forest">>
+<<set $lastLocation = passage()>>
+<</nobr>>
+<div style="text-align: center;">
+You are in the town of <<print passage()>>. What would you like to do?
+</div>
+
+[[Visit the Mightvale Mercenaries' Guild|MV Merc Guild]]
+<<link "Travel East">>
+	<<set $traveling to true>>
+	<<set $travelTo = {
+        destination: "Bavenmore",
+        distance: 3, // Example distance
+        energyCostPerUnit: 5, // Example energy cost
+        eventProbability: 0.5 // Example event probability
+    }>>
+    <<goto "TravelStart">>
+<</link>>
+
+:: MV Merc Guild [nobr] {"position":"16700,6625"}
+<<set $lastLocation = passage()>>
+<br><br>
+<<if $playerClass == "Swordsman">>
+    You're greeted warmly as a fellow Swordsman. The guild is bustling with activity.<br><br>
+    [[Talk to a guild member|MVMGuildMember]]<br>
+    [[Check the notice board for work|NoticeBoard]]<br>
+    [[Visit the guild shop|MVMGuildShop]]<br>
+    [[Rest in the bunkhouse|Bunkhouse]]<br>
+<<else>>
+    You enter the guild curiously. Members seem busy, but you are welcomed to look around.<br><br>
+    [[Talk to a guild member|MVMGuildMember]]<br>
+    [[Talk to the Guildmaster|MVMGuildMaster]]<br>
+<</if>>
+[[Leave the guild|Mightvale]]
+
+:: MVMGuildMember [nobr] {"position":"16500,6750"}
+<br><br>
+<<if $playerClass == "Swordsman">>
+    Fellow guild members share insights about advanced combat techniques.<br><br>
+<<else>>
+    A friendly member notices your interest. "If you're looking to join, the Guildmaster can help you with that."<br><br>
+<</if>>
+[[Go back to the main hall|MV Merc Guild]]
+
+:: MVMGuildMaster [nobr] {"position":"16600,6750"}
+<br><br>
+<div style="text-align: center;">
+The Guildmaster, a figure of respect and authority, assesses you. <br>
+"What brings you to the Mightvale Mercenaries' Guild?"<br><br>
+</div>
+<<if $playerClass != "Swordsman">>
+    <<link "Ask about becoming a Swordsman">><<goto "SwordsmanInfo">><</link>>
+<</if>><br>
+[[Nothing, sorry to bother you.|MV Merc Guild]]
+
+
+:: SwordsmanInfo [nobr] {"position":"16600,6875"}
+<br><br>
+"Swordsmen are masters of melee combat," explains the Guildmaster. "They possess formidable strength and an unwavering defense. With a sword in hand, they are a force to be reckoned with on any battlefield. To join us is to embrace a life of discipline and courage. Will you take up the sword and join our brotherhood of steel?"
+<br><br>
+<<link "Enroll in Swordsman class">><<goto "EnrollSwordsman">><</link>><br>
+[["I'm not sure yet."|MVMGuildMaster]]

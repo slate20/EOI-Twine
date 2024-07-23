@@ -16,11 +16,11 @@
 }>>
 
 <<set $weapons = {
-    "Rusty Sword": {
-        "name": "Rusty Sword",
-        "class": "weapon",
+    "Worn Iron Sword": {
+        "name": "Worn Iron Sword",
+        "class": "melee",
         "type": "sword",
-        "description": "A blunt sword that has seen better days.",
+        "description": "A heavily used sword that has seen better days.",
         "damage": "1d4+2",
         "tier": 1,
         "value": 10,
@@ -28,12 +28,22 @@
     },
     "Frying Pan": {
         "name": "Frying Pan",
-        "class": "weapon",
+        "class": "melee",
         "type": "blunt",
         "description": "A cast iron pan. There's still some chicken stuck to the bottom...",
         "damage": "1d4+0",
         "tier": 0,
         "value": 3,
+        "equipped": false
+    },
+    "Oak Shortbow": {
+        "name": "Oak Shortbow",
+        "class": "ranged",
+        "type": "bow",
+        "description": "A heavily used sword that has seen better days.",
+        "damage": "1d4+2",
+        "tier": 1,
+        "value": 10,
         "equipped": false
     }
 }>>
@@ -104,6 +114,7 @@
         "awareness": 12,
         "charisma": 3,
         "damage": "1d4",
+        "range": "melee",
         "gold": 5,
         "exp": 12,
         "img": "Assets/Artwork/Enemies/goblin.png"
@@ -119,7 +130,7 @@
         "awareness": 7,
         "charisma": 2,
         "damage": "1d12",
-        "modifier": "strength",
+        "range": "melee",
         "gold": 25,
         "exp": 50,
         "img": "Assets/Artwork/Enemies/troll.png"
@@ -135,6 +146,7 @@
         "awareness": 10,
         "charisma": 8,
         "damage": "1d6",
+        "range": "melee",
         "gold": 15,
         "exp": 20,
         "img": "Assets/Artwork/Enemies/bandit.png"

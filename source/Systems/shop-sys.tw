@@ -1,4 +1,7 @@
 :: Tier1Shop [menu] {"position":"300,300","size":"100,100"}
+<br>
+Your Gold: $playerGold
+
 Shop Inventory:
 
 <<nobr>>
@@ -53,6 +56,9 @@ Shop Inventory:
 
 
 :: SellInventory [menu] {"position":"200,300","size":"100,100"}
+<br>
+Gold: $playerGold
+
 Sell Inventory:
 
 <<nobr>>
@@ -85,14 +91,13 @@ Sell Inventory:
 
 
 :: SellItem [menu] {"position":"200,400","size":"100,100"}
-Sell the <<print $sellItem.name>>?
-
+<br>
+Sell the <<print $sellItem.name>>?<br>
 <<link "Yes">>
     <<set $playerGold += Math.round($sellItem.value * 0.5)>>
     <<set $inventory = $inventory.filter(item => item.name !== $sellItem.name)>>
     <<goto "SellInventory">>
-<</link>><br>
-
+<</link>>
 <<link "Nevermind">>
     <<goto "SellInventory">>
 <</link>>

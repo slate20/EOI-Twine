@@ -1,0 +1,113 @@
+:: Bavenmore [Location sm-forest-town] {"position":"17375,6750"}
+<<nobr>>
+<<set $currentBiome = "forest">>
+<<set $lastLocation = passage()>>
+<</nobr>>
+<div style="text-align: center;">
+You are in the town of <<print passage()>>. What would you like to do?
+</div><br>
+[[Explore the surrounding forest|Bavenmore Forest]]
+[[Visit the shop|Bavenmore Shop]]
+[[Visit the Inn|Bavenmore Inn]]
+<<link "Travel West">>
+	<<set $traveling to true>>
+	<<set $travelTo = {
+        destination: "Mightvale",
+        distance: 3, // Example distance
+        energyCostPerUnit: 5, // Example energy cost
+        eventProbability: 0.5 // Example event probability
+    }>>
+    <<goto "TravelStart">>
+<</link>>
+
+
+:: Bavenmore Shop [gen-shop] {"position":"17250,6875"}
+<<set $lastLocation = passage()>>
+
+You enter the local shop. It's modestly sized, with various items on wooden tables and shelves.
+The shopkeeper nods at you. 
+
+<<link "Buy Items">>
+	<<goto Tier1Shop>>
+<</link>>
+<<link "Sell Items">>
+	<<goto SellInventory>>
+<</link>>
+<<link "Leave the shop">>
+	<<set $shopVisited = 0>>
+    <<goto Bavenmore>>
+<</link>>
+
+
+:: Bavenmore Inn [nobr wood-inn] {"position":"17375,6875"}
+<<set $lastLocation = passage()>>
+<br><br>
+You enter the town's inn. It's a cozy place, with a warm atmosphere.<br>
+Wooden tables are scattered around, and the air is filled with the aroma of food and ale.<br><br>
+
+<<link "Rent Room ( 3 Gold )">><<goto "RoomRental">><</link>><br>
+[[Talk to the innkeeper|Bavenmore Innkeeper]]<br>
+<<if $hasPan == 0>>
+	[[What is that sticking out of the trash?|Find Frying Pan]]<br>
+<</if>>
+[[Leave the Inn|Bavenmore]]
+
+
+:: Bavenmore Innkeeper [nobr wood-inn] {"position":"17375,7000"}
+<br><br>
+The innkeeper pauses his work and gives you a nod. "Welcome, traveler! What can I do for you on this fine day?"
+<br><br>
+[[Inquire about places to hone skills|Ask about Skills-BM]]<br>
+[["That's all, thank you."|Bavenmore Inn]]
+
+
+:: Ask about Skills-BM [nobr wood-inn] {"position":"17375,7125"}
+<br><br>
+"Ah, seeking to sharpen your abilities, are you? There are several guilds in the land where one can train..."
+<br><br>
+<<link "Ask about the Swordsman class">><<set $classInquiry = "Swordsman">><<goto "Guild Info">><</link>><br>
+<!-- Placeholder links for future classes -->
+<<link "Ask about the Mage class (Coming Soon)">><<set $classInquiry = "Mage">><<goto "Guild Info">><</link>><br>
+<<link "Ask about the Rogue class (Coming Soon)">><<set $classInquiry = "Rogue">><<goto "Guild Info">><</link>><br>
+[[Ask about something else|Bavenmore Innkeeper]]
+
+
+:: Guild Info [nobr wood-inn] {"position":"17375,7250"}
+<br><br>
+<<if $classInquiry == "Swordsman">>
+    "For those wishing to master the sword, the Mightvale Mercenaries' Guild would be your destination. Head west from here to get to Mightvale."
+<</if>>
+<<if $classInquiry == "Mage">>
+    // Additional classes coming soon! //
+<</if>>
+<<if $classInquiry == "Rogue">>
+    // Additional classes coming soon! //
+<</if>>
+<br><br>
+[[Ask about another class|Ask about Skills-BM]]<br>
+[["Thank you for the information!"|Bavenmore Innkeeper]]
+
+
+:: Find Frying Pan [wood-inn] {"position":"17500,7000"}
+<<set $hasPan = 1>>
+
+You find a frying pan with a small chip in the rim. The cook must have tossed it out...
+
+<<link "Take the pan">>
+<<set $inventory.push(clone($weapons["Frying Pan"]))>>
+    <<goto $lastLocation>>
+<</link>>
+
+
+:: Bavenmore Forest {"position":"17375,6625"}
+<br>
+<div style="text-align: center;">
+The woods around Bavenmore whisper of ancient secrets and untapped bounty. 
+Moss carpets the ground, and the air hums with the quiet life of the forest. 
+
+Today, the forest offers nothing but the peace of its shaded groves and the occasional bird call. 
+Yet, you sense that with the right skills, these woods could provide valuable resources.
+
+<br>
+[[Return to Bavenmore|Bavenmore]]
+</div>

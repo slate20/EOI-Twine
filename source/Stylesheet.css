@@ -55,6 +55,27 @@ body {
     text-decoration: none;
 }
 
+.hover-info {
+    position: relative;
+    display: inline-block;
+}
+
+.hover-info .info-text {
+    visibility: hidden;
+    width: 360px;
+    background-color: #252525;
+    font-size: 14px;
+    text-align: left;
+    border-radius: 5px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+}
+
+.hover-info:hover .info-text {
+    visibility: visible;
+}
+
 
 /* Header styles if used */
 header, .header {
@@ -110,6 +131,11 @@ footer, .footer {
 
 /* Menus default to bg color */
 body.menu {
+    background-image: none;
+}
+
+/* System-Logic default to bg color */
+body.System-Logic {
     background-image: none;
 }
 

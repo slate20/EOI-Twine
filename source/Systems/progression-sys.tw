@@ -1,1 +1,13 @@
 :: PlayerProgression [System-Logic] {"position":"300,0"}
+
+
+:: RecalcMods [nobr]
+<<set $modifiers = {
+    "strength": Math.floor(($currentStats.strength - 10) / 2),
+    "defense": Math.floor(($currentStats.defense - 10) / 2),
+    "dexterity": Math.floor(($currentStats.dexterity - 10) / 2),
+    "intelligence": Math.floor(($currentStats.intelligence - 10) / 2),
+    "awareness": Math.floor(($currentStats.awareness - 10) / 2),
+    "charisma": Math.floor(($currentStats.charisma - 10) / 2)
+}>>
+<<goto $lastLocation>>

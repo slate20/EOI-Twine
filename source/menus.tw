@@ -25,7 +25,12 @@
     <</if>>
     <<goto "Inventory">>
 <</link>>
-
+<<link "Skills">>
+    <<if $inMenu is 0>>
+        <<set $returnPassage = passage()>>
+    <</if>>
+    <<goto "SkillsMenu">>
+<</link>>
 
 :: StatsMenu [menu] {"position":"800,100","size":"100,100"}
 <<set $inMenu = 1>>
@@ -129,6 +134,58 @@ Inventory:
 <div id="inventory"></div>
 <</nobr>>
 
+<<link "Back">>
+    <<set $inMenu = 0>>
+    <<goto $returnPassage>>
+<</link>>
+
+
+:: SkillsMenu [nobr menu]
+<<set $inMenu = 1>>
+<br><br>
+Available Skill Points: $playerSkillPoints
+<br><br>
+<<if $playerClass === "">>
+    Enroll in a class to unlock Class Skills.<br>
+<<else>>
+    $playerClass Skills:<br>
+    <div style="display: flex; justify-content: space-between; padding: 5px; border-radius: 5px;">
+        <div style="flex: 1;"><b>Name</b></div>
+        <div style="flex: 3; text-align: center;"><b>Effect</b></div>
+        <div style="flex: 1; text-align: center;"><b>Cost</b></div>
+    </div>
+    <<for _skillId, _skill range $playerSkills>>
+    <div style="display: flex; justify-content: space-between; padding: 5px; border-bottom: 1px solid #ddd;">
+        <div style="flex: 1;">
+            <div class="hover-info">
+            <<print _skill.name>>
+            <span class="info-text">Description: <<print _skill.description>><br>Effect: <<print _skill.effect>><br>Stamina Cost: <<print _skill.staminaCost>><br>AP Cost: <<print _skill.apCost>><br>Range: <<print _skill.range>></span>
+            </div>
+        </div>
+        <div style="flex: 3; text-align: center;"><<print _skill.effect>></div>
+        <div style="flex: 1; text-align: center;">
+            <<if _skill.unlocked>>
+                Unlocked
+            <<else>>
+                <<if $playerSkillPoints > 0>>
+                    <<capture _skill>>
+                        <<button "1 SP">>
+                            <<set _skill.unlocked = true>>
+                            <<set $playerSkillPoints -= 1>>
+                            <<run Dialog.wiki(_skill.name)>>
+                            <<run Dialog.open()>>
+                            <<goto "SkillsMenu">>
+                        <</button>>
+                    <</capture>>
+                <<else>>
+                    Not enough SP
+                <</if>>
+            <</if>>
+        </div>
+    </div>
+    <</for>>
+<</if>>
+<br>
 <<link "Back">>
     <<set $inMenu = 0>>
     <<goto $returnPassage>>

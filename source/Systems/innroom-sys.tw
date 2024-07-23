@@ -5,6 +5,7 @@
       <<set $playerGold = $playerGold - 3>>
       <<set $currentStats.health to $baseStats.health>>
       <<set $currentStats.energy to $baseStats.energy>>
+      <<set $currentStats.stamina to $baseStats.stamina>>
       You spend the night at the inn and feel well-rested<br><br>
 <</if>>   
-<<link "Return to the Inn">><<goto "Winmose Inn">><</link>>
+<<link "Return to the Inn">><<goto $lastLocation>><</link>>
