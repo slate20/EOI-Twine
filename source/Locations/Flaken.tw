@@ -1,0 +1,19 @@
+:: Flaken [Location sm-forest-town] {"position":"18800,7100"}
+<<nobr>>
+<<set $currentBiome = "forest">>
+<<set $lastLocation = passage()>>
+<</nobr>>
+<div style="text-align: center;">
+You are in the town of <<print passage()>>. What would you like to do?
+</div><br>
+[[Explore the surrounding forest|Flaken Forest]]
+<<link "Travel West">>
+	<<set $traveling to true>>
+	<<set $travelTo = {
+        destination: "Bavenmore",
+        distance: 9, // Example distance
+        energyCostPerUnit: 5, // Example energy cost
+        eventProbability: 0.5 // Example event probability
+    }>>
+    <<goto "TravelStart">>
+<</link>>
