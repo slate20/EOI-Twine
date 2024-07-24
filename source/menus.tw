@@ -45,6 +45,7 @@ Back: <<print $equipmentSlots.back>>
     <div>
         <b>Stat</b><br>
         Health:
+        <<if $playerHasMagic == 1>> Mana: <</if>>
         AC:
         Strength:
         Defense:
@@ -56,6 +57,7 @@ Back: <<print $equipmentSlots.back>>
     <div>
         <b>Current</b><br>
         <<print $currentStats.health>>
+        <<if $playerHasMagic == 1>> <<print $currentStats.mana>> <</if>>
         <<print $playerAC>>
         <<print $currentStats.strength>>
         <<print $currentStats.defense>>
@@ -67,6 +69,7 @@ Back: <<print $equipmentSlots.back>>
     <div>
         <b>Base</b><br>
         <<print $baseStats.health>>
+        <<if $playerHasMagic == 1>> <<print $baseStats.mana>> <</if>>
         <<print $baseStats.ac>>
         <<print $baseStats.strength>>
         <<print $baseStats.defense>>
@@ -159,7 +162,13 @@ Available Skill Points: $playerSkillPoints
         <div style="flex: 1;">
             <div class="hover-info">
             <<print _skill.name>>
-            <span class="info-text">Description: <<print _skill.description>><br>Effect: <<print _skill.effect>><br>Stamina Cost: <<print _skill.staminaCost>><br>AP Cost: <<print _skill.apCost>><br>Range: <<print _skill.range>></span>
+            <span class="info-text">Description: <<print _skill.description>><br>Effect: <<print _skill.effect>><br>
+            <<if _skill.staminaCost>>
+                Stamina Cost: <<print _skill.staminaCost>><br>
+            <<else>>
+                Mana Cost: <<print _skill.manaCost>><br>
+            <</if>>    
+            AP Cost: <<print _skill.apCost>><br>Range: <<print _skill.range>></span>
             </div>
         </div>
         <div style="flex: 3; text-align: center;"><<print _skill.effect>></div>

@@ -2,6 +2,7 @@
 <<set $weaponTypeModifiers = {
     "sword": "strength",
     "blunt": "strength",
+    "staff": "strength",
     "magic": "intelligence",
     "dagger": "dexterity",
     "bow": "awareness"
@@ -11,6 +12,7 @@
     "sword": ["mainhand"],
     "blunt": ["mainhand"],
     "bow": ["mainhand", "offhand"],
+    "staff": ["mainhand", "offhand"],
     "shield": ["offhand"],
     "armor": ["outfit"]
 }>>
@@ -44,6 +46,16 @@
         "damage": "1d4+2",
         "tier": 1,
         "value": 10,
+        "equipped": false
+    },
+    "Knotted Oak Staff": {
+        "name": "Knotted Oak Staff",
+        "class": "melee",
+        "type": "staff",
+        "description": "A simple staff made from the wood of a knotted oak tree.",
+        "damage": "1d4+0",
+        "tier": 1,
+        "value": 15,
         "equipped": false
     }
 }>>

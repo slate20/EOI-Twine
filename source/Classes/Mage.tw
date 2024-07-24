@@ -1,0 +1,170 @@
+:: EnrollMage [nobr] {"position":"2900,200"}
+<br><br>
+<div style="text-align: center;">
+"Welcome, young mage, to the Arcane Academy." the Archmage proclaims.
+</div>
+<br><br>
+[[Begin your training|MageTraining]]
+
+:: MageTraining [nobr] {"position":"2900,325"}
+<<set $currentStats.health = $baseStats.health>>
+<<set $currentStats.energy to $baseStats.energy>>
+<<set $playerClass = "Mage">>
+<<set $playerHasMagic = 1>>
+<<if $playerSkills.length === 0>>
+    <<run Object.keys($MageSkills).forEach(function(skillKey) {
+        $playerSkills.push(clone($MageSkills[skillKey]));
+    })>>
+<</if>>
+<<set $baseStats.intelligence += 4>>
+<<set $baseStats.awareness += 2>>
+<<set $baseStats.dexterity += 1>>
+<<set $baseStats.charisma += 1>>
+<<set $currentStats.intelligence = $baseStats.intelligence>>
+<<set $currentStats.awareness = $baseStats.awareness>>
+<<set $currentStats.dexterity = $baseStats.dexterity>>
+<<set $currentStats.charisma = $baseStats.charisma>>
+<<if $classStarterWeapons is true>>
+<<else>>
+    <<set $inventory.push(clone($weapons["Knotted Oak Staff"]))>>
+<</if>>
+<<set $classStarterWeapons to true>>
+<br><br>
+Over the span of several months, your studies under the watchful eye of the Archmage and other esteemed magicians at the Arcane Academy transforms you. 
+Each day, you rise at dawn to the soft glow of enchanted candles, immersing yourself in the study of spellcraft and ancient tomes. 
+You learn to harness the energies around you, to channel them into spells of great power. 
+Your mind becomes sharper, your understanding of the arcane deeper, and your control over magic more precise. 
+Yet, as you stand ready to embark on your own path, it's clear that this is but the first step in a lifelong journey of mastery. 
+The real test begins as you venture forth, seeking knowledge and challenges that will forge you into a true Mage.
+<br><br>
+<<link "Complete your training">>
+    <<run Dialog.setup("Joined Mage Class")>>
+    <<run Dialog.wiki("You have unlock the Mage skilltree. You have also obtained a Knotted Oak Staff from your training.")>>
+    <<run Dialog.open()>>
+    <<goto RecalcMods>>
+<</link>>
+
+<!-- Mage Class Skills Logic -->
+
+:: SkillFireball [nobr]
+<br>
+<<print "<img src='" + $enemyImgPath + "' style='display: block; margin: auto;' width='300' height='300'>">><br>
+<div style="text-align: center;">
+    Enemy HP: $currentEnemy.health <br>
+    Distance: $playerDistance
+</div><br>
+<<if $playerDistance == "close">>
+    <<print "You are too close to use this skill.<br><br>">>
+    [[Go Back|SkillChoice]]<br>
+<<else>>
+    <<if $playermana < 5>>
+        <<print "You don't have enough AP to use this skill.">><br><br>
+        [[Go Back|SkillChoice]]<br>
+    <<else>>
+        <<set $currentStats.mana -= 5>>
+        <<set $playerAP -= 2>>
+
+        <!-- Calculate Damage -->
+        <<set $baseDamage to 0>>
+        <<for _i = 1; _i <= 1; _i++>> 
+            <<set $baseDamage to $baseDamage + random(1, 8)>>
+        <</for>>
+        <<set $playerAttack to $baseDamage + $modifiers.intelligence>> <!-- 1d8 + intelligence modifier -->
+
+        <!-- Determine if the player's attack hits -->
+        <<set $attackRoll to random(3, 20) + $modifiers.awareness>>
+        <<if $attackRoll >= $currentEnemy.defense>>
+            <<set $currentEnemy.health to $currentEnemy.health - $playerAttack>>
+            You hurl a Fireball at the $currentEnemy.name, dealing $playerAttack damage.<br><br>
+        <<else>>
+            You miss the $currentEnemy.name.<br><br>
+        <</if>>
+        <<if $currentEnemy.health <= 0>>
+            You have defeated the $currentEnemy.name!<br>
+            [[Continue|Victory]]
+        <<else>>
+            [[Continue|CombatTurn]]
+        <</if>>
+    <</if>>
+<</if>>
+
+
+
+:: SkillArcaneShield [nobr]
+<br>
+<<print "<img src='" + $enemyImgPath + "' style='display: block; margin: auto;' width='300' height='300'>">><br>
+<div style="text-align: center;">
+    Enemy HP: $currentEnemy.health <br>
+    Distance: $playerDistance
+</div><br>
+<<if $currentStats.mana < 3>>
+    <<print "You don't have enough mana to use this skill.">><br><br>
+    [[Go Back|SkillChoice]]<br>
+<<else>>
+    <<set $currentStats.mana -= 3>>
+    <<set $playerAP -= 2>>
+
+    <!-- Apply Arcane Shield effect -->
+    <<set $playerArcaneShield = 1>>
+
+    You create a barrier of arcane energy, reducing incoming damage for the next turn.<br><br>
+
+    [[Continue|CombatTurn]]
+<</if>>
+
+
+
+:: SkillMagicDarts [nobr]
+<br>
+<<print "<img src='" + $enemyImgPath + "' style='display: block; margin: auto;' width='300' height='300'>">><br>
+<div style="text-align: center;">
+    Enemy HP: $currentEnemy.health <br>
+    Distance: $playerDistance
+</div><br>
+<<if $playerDistance == "close">>
+    <<print "You are too close to use this skill.">><br><br>
+    [[Go Back|SkillChoice]]<br>
+<<else>>
+    <<if $currentStats.mana < 4>>
+        <<print "You don't have enough mana to use this skill.">><br><br>
+        [[Go Back|SkillChoice]]<br>
+    <<else>>
+        <<set $currentStats.mana -= 4>>
+        <<set $playerAP -= 2>>
+
+        You focus your energy into the tip of your finger and fire of two Magic Darts at the $currentEnemy.name!<br><br>
+
+        <!-- Loop for 2 ranged attacks -->
+        <<set $multiAttack = 2>>
+        <<for _attackIndex =1; _attackIndex <= $multiAttack; _attackIndex++>>
+            <!-- Calculate Magic Dart Damage -->
+            <<set $playerAttack to 1 + $modifiers.intelligence>>
+
+            <!-- Determine if the player's attack hits -->
+            <<set $attackRoll to random(3, 20) + $modifiers.awareness>>
+            <<if $attackRoll >= $currentEnemy.defense>>
+                <<set $currentEnemy.health to $currentEnemy.health - $playerAttack>>
+                <<if _attackIndex == 1>>
+                    The first Magic Dart hits the $currentEnemy.name, dealing $playerAttack damage.<br><br>
+                <<else>>
+                    The second Magic Dart hits the $currentEnemy.name, dealing $playerAttack damage.<br><br>
+                <</if>>
+            <<else>>
+                <<if _attackIndex == 1>>
+                    The first Magic Dart misses.<br><br>
+                <<else>>
+                    The second Magic Dart misses.<br><br>
+                <</if>>           
+            <</if>>
+
+            <<if $currentEnemy.health <= 0>>
+                You have defeated the $currentEnemy.name!<br>
+                [[Continue|Victory]]
+                <<break>> <!-- exit the loop if the enemy is defeated -->
+            <</if>>
+        <</for>>
+        <<if $currentEnemy.health > 0>>
+            [[Continue|CombatTurn]]
+        <</if>>
+    <</if>>
+<</if>>

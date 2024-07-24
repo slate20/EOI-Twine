@@ -1,0 +1,65 @@
+:: Flaken [Location sm-forest-town] {"position":"18800,7100"}
+<<nobr>>
+<<set $currentBiome = "forest">>
+<<set $lastLocation = passage()>>
+<</nobr>>
+<div style="text-align: center;">
+You are in the town of <<print passage()>>. What would you like to do?
+</div><br>
+[[Explore the surrounding forest|Flaken Forest]]
+[[Visit the Flaken Arcane Academy|Flaken Academy]]
+<<link "Travel West">>
+	<<set $traveling to true>>
+	<<set $travelTo = {
+        destination: "Bavenmore",
+        distance: 9, // Example distance
+        energyCostPerUnit: 5, // Example energy cost
+        eventProbability: 0.5 // Example event probability
+    }>>
+    <<goto "TravelStart">>
+<</link>>
+
+:: Flaken Forest [nobr] {"position":"18800,6975"}
+
+<!-- Flaken Arcane Academy -->
+:: Flaken Academy [nobr] {"position":"18925,7225"}
+<<set $lastLocation = passage()>>
+<br><br>
+<<if $playerClass == "Mage">>
+    You're greeted briefly by your fellow arcane scholars. The academy is bustling with activity.<br><br>
+    [[Talk to an academy member|FAAMember]]<br>
+    [[Check the notice board for work|NoticeBoard]]<br>
+    [[Visit the arcane shop|FAArcaneShop]]<br>
+    [[Rest in the dormatories|FAADorms]]<br>
+<<else>>
+    You enter the academy curiously. Members seem busy, but you are welcomed to look around.<br><br>
+    [[Talk to an academy member|FAAMember]]<br>
+    [[Talk to the Archmage|FAArchMage]]<br>
+<</if>>
+[[Leave the academy|Flaken]]
+
+
+
+:: FAAMember [nobr] {"position":"18925,7350"}
+
+
+
+:: FAArchMage [nobr] {"position":"18925,7475"}
+<br><br>
+<div style="text-align: center;">
+The Archmage, a venerable figure with a flowing robe and a staff
+adorned with glowing runes, gazes at you intently. <br><br>
+"What do you seek here at the Arcane Academy?"<br><br>
+</div>
+<<if $playerClass != "Mage">>
+    <<link "Ask about becoming a Mage">><<goto "MageInfo">><</link>>
+<</if>><br>
+[[Nothing, sorry to trouble you.|Flaken Academy]]
+
+
+:: MageInfo [nobr] {"position":"18925,7600"}
+<br><br>
+"Mages are the keepers of ancient knowledge and wielders of formidable magical power. They draw upon the energies of the world to cast spells that can heal, protect, and destroy. To join our ranks is to embark on a path of wisdom, discipline, and immense responsibility. Are you prepared to dedicate yourself to the study of magic and unlock the mysteries of the arcane?"
+<br><br>
+<<link "Enroll in Mage class">><<goto "EnrollMage">><</link>><br>
+[["I'm not sure yet."|FAArchMage]]

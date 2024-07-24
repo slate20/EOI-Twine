@@ -24,3 +24,37 @@
         "unlocked": false
     }
 }>>
+
+<!-- Mage Class Skills -->
+<<set $MageSkills = {
+    "Fireball": {
+        "name": "Fireball",
+        "description": "Hurl a ball of fire at your enemy.",
+        "effect": "Deals moderate fire damage with a chance to burn",
+        "manaCost": 5,
+        "apCost": 2,
+        "range": ["mid-range", "far"],
+        "weaponType": [],
+        "unlocked": false
+    },
+    "ArcaneShield": {
+        "name": "Arcane Shield",
+        "description": "Create an arcane shield that protects you from damage.",
+        "effect": "Reduces damage taken by 50% for 1 turn",
+        "manaCost": 3,
+        "apCost": 2,
+        "range": ["close", "mid-range", "far"],
+        "weaponType": [],
+        "unlocked": false
+    },
+    "MagicDarts": {
+        "name": "Magic Darts",
+        "description": "Fire two magical darts of energy at your enemy.",
+        "effect": "Deals minor damage with each projectile having a chance to hit",
+        "manaCost": 4,
+        "apCost": 2,
+        "range": ["mid-range", "far"],
+        "weaponType": [],
+        "unlocked": false
+    }
+}>>
