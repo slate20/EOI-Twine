@@ -98,7 +98,7 @@ var LZString={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234
 		<div id="init-lacking"><p>Browser lacks capabilities required to play.</p><p>Upgrade or switch to another browser.</p></div>
 		<div id="init-loading"><div>Loading&hellip;</div></div>
 	</div>
-	<!-- UUID://6E96B523-CDC6-4159-A029-C93DAFF1CA9E// --><tw-storydata name="Echoes Of Ismia" startnode="12" creator="Tweego" creator-version="2.1.1+81d1d71" ifid="6E96B523-CDC6-4159-A029-C93DAFF1CA9E" zoom="0.6" format="SugarCube" format-version="2.36.1" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">/* Overall background and font styles for a classic fantasy theme */
+	<!-- UUID://6E96B523-CDC6-4159-A029-C93DAFF1CA9E// --><tw-storydata name="Echoes Of Ismia" startnode="13" creator="Tweego" creator-version="2.1.1+81d1d71" ifid="6E96B523-CDC6-4159-A029-C93DAFF1CA9E" zoom="0.6" format="SugarCube" format-version="2.36.1" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">/* Overall background and font styles for a classic fantasy theme */
 body {
     background-color: #1b1b1b; /* faded black background */
     color: #e4d6a7; /* Parchment-like text color for a classic look */
@@ -318,7 +318,7 @@ $(document).on(':passagerender', function() {
     updateBiomeBackground();
 });
 
-</script><tw-tag name="objects-db" color="green"></tw-tag><tw-tag name="Location" color="yellow"></tw-tag><tw-tag name="System-Logic" color="orange"></tw-tag><tw-tag name="menu" color="blue"></tw-tag><tw-passagedata pid="1" name="ClassSkills" tags="" position="100,100" size="100,100">&lt;!-- Swordsman Class Skills --&gt;
+</script><tw-tag name="Location" color="yellow"></tw-tag><tw-tag name="System-Logic" color="orange"></tw-tag><tw-tag name="menu" color="blue"></tw-tag><tw-tag name="objects-db" color="green"></tw-tag><tw-passagedata pid="1" name="ClassSkills" tags="" position="100,100" size="100,100">&lt;!-- Swordsman Class Skills --&gt;
 &lt;&lt;set $SwordsmanSkills = {
     &quot;EnragedStrike&quot;: {
         &quot;name&quot;: &quot;Enraged Strike&quot;,
@@ -455,12 +455,31 @@ The real test begins as you venture forth, seeking knowledge and challenges that
             [[Continue|CombatTurn]]
         &lt;&lt;/if&gt;&gt;
     &lt;&lt;/if&gt;&gt;
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="5" name="EnrollSwordsman" tags="nobr" position="2700,200" size="100,100">&lt;br&gt;&lt;br&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="5" name="SkillArcaneShield" tags="nobr" position="600,100" size="100,100">&lt;br&gt;
+&lt;&lt;print &quot;&lt;img src=&#39;&quot; + $enemyImgPath + &quot;&#39; style=&#39;display: block; margin: auto;&#39; width=&#39;300&#39; height=&#39;300&#39;&gt;&quot;&gt;&gt;&lt;br&gt;
+&lt;div style=&quot;text-align: center;&quot;&gt;
+    Enemy HP: $currentEnemy.health &lt;br&gt;
+    Distance: $playerDistance
+&lt;/div&gt;&lt;br&gt;
+&lt;&lt;if $currentStats.mana &lt; 3&gt;&gt;
+    &lt;&lt;print &quot;You don&#39;t have enough mana to use this skill.&lt;br&gt;&lt;br&gt;&quot;&gt;&gt;
+    [[Go Back|SkillChoice]]&lt;br&gt;
+&lt;&lt;else&gt;&gt;
+    &lt;&lt;set $currentStats.mana -= 3&gt;&gt;
+    &lt;&lt;set $playerAP -= 2&gt;&gt;
+
+    &lt;!-- Apply Arcane Shield effect --&gt;
+    &lt;&lt;set $playerArcaneShield = 1&gt;&gt;
+
+    You create a barrier of arcane energy, reducing incoming damage for 1 turn.&lt;br&gt;&lt;br&gt;
+
+    [[Continue|CombatTurn]]
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="6" name="EnrollSwordsman" tags="nobr" position="2700,200" size="100,100">&lt;br&gt;&lt;br&gt;
 &lt;div style=&quot;text-align: center;&quot;&gt;
 &quot;Welcome to the Swordsman&#39;s fold,&quot; the Guildmaster proclaims.
 &lt;/div&gt;
 &lt;br&gt;&lt;br&gt;
-[[Begin your training|SwordsmanTraining]]</tw-passagedata><tw-passagedata pid="6" name="SwordsmanTraining" tags="nobr" position="2700,325" size="100,100">&lt;&lt;set $currentStats.health = $baseStats.health&gt;&gt;
+[[Begin your training|SwordsmanTraining]]</tw-passagedata><tw-passagedata pid="7" name="SwordsmanTraining" tags="nobr" position="2700,325" size="100,100">&lt;&lt;set $currentStats.health = $baseStats.health&gt;&gt;
 &lt;&lt;set $currentStats.energy to $baseStats.energy&gt;&gt;
 &lt;&lt;set $playerClass = &quot;Swordsman&quot;&gt;&gt;
 &lt;&lt;if $playerSkills.length === 0&gt;&gt;
@@ -495,7 +514,7 @@ The real test begins as you venture forth, seeking challenges that will forge yo
 &lt;&lt;/link&gt;&gt;
 
 
-&lt;!-- Swordsman Class Skills Logic --&gt;</tw-passagedata><tw-passagedata pid="7" name="SkillDashingBlow" tags="nobr" position="850,100" size="100,100">&lt;br&gt;
+&lt;!-- Swordsman Class Skills Logic --&gt;</tw-passagedata><tw-passagedata pid="8" name="SkillDashingBlow" tags="nobr" position="975,100" size="100,100">&lt;br&gt;
 &lt;&lt;print &quot;&lt;img src=&#39;&quot; + $enemyImgPath + &quot;&#39; style=&#39;display: block; margin: auto;&#39; width=&#39;300&#39; height=&#39;300&#39;&gt;&quot;&gt;&gt;&lt;br&gt;
 &lt;div style=&quot;text-align: center;&quot;&gt;
     Enemy HP: $currentEnemy.health &lt;br&gt;
@@ -553,7 +572,7 @@ The real test begins as you venture forth, seeking challenges that will forge yo
             [[Continue|CombatTurn]]
         &lt;&lt;/if&gt;&gt;
     &lt;&lt;/if&gt;&gt;
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="8" name="SkillEnragedStrike" tags="nobr" position="975,100" size="100,100">&lt;br&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="9" name="SkillEnragedStrike" tags="nobr" position="1100,100" size="100,100">&lt;br&gt;
 &lt;&lt;print &quot;&lt;img src=&#39;&quot; + $enemyImgPath + &quot;&#39; style=&#39;display: block; margin: auto;&#39; width=&#39;300&#39; height=&#39;300&#39;&gt;&quot;&gt;&gt;&lt;br&gt;
 &lt;div style=&quot;text-align: center;&quot;&gt;
     Enemy HP: $currentEnemy.health &lt;br&gt;
@@ -609,7 +628,7 @@ The real test begins as you venture forth, seeking challenges that will forge yo
             [[Continue|CombatTurn]]
         &lt;&lt;/if&gt;&gt;
     &lt;&lt;/if&gt;&gt;
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="9" name="StoryInit" tags="" position="100,0" size="100,100">&lt;!-- Initialize Player Stats &amp; Modifiers --&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="10" name="StoryInit" tags="" position="100,0" size="100,100">&lt;!-- Initialize Player Stats &amp; Modifiers --&gt;
 &lt;&lt;set $baseStats = {
     &quot;health&quot;: 20,
     &quot;stamina&quot;: 20,
@@ -642,7 +661,7 @@ The real test begins as you venture forth, seeking challenges that will forge yo
 &lt;&lt;set $playerEXP = 80&gt;&gt;
 &lt;&lt;set $expThresh = 100&gt;&gt;
 &lt;&lt;set $playerClass = &quot;&quot;&gt;&gt;
-&lt;&lt;set $playerSkillPoints = 0&gt;&gt;
+&lt;&lt;set $playerSkillPoints = 3&gt;&gt;
 &lt;&lt;set $playerStatPoints = 0&gt;&gt;
 &lt;&lt;set $playerSkills = []&gt;&gt;
 &lt;&lt;set $inventory = []&gt;&gt;
@@ -665,7 +684,7 @@ The real test begins as you venture forth, seeking challenges that will forge yo
 &lt;&lt;include &quot;Items&quot;&gt;&gt;
 &lt;&lt;include &quot;Enemies&quot;&gt;&gt;
 &lt;&lt;include &quot;TravelInit&quot;&gt;&gt;
-&lt;&lt;include &quot;ClassSkills&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="10" name="PassageHeader" tags="System-Logic nobr" position="900,0" size="100,100">&lt;&lt;if $globalHUD is not 0&gt;&gt;
+&lt;&lt;include &quot;ClassSkills&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="11" name="PassageHeader" tags="System-Logic nobr" position="900,0" size="100,100">&lt;&lt;if $globalHUD is not 0&gt;&gt;
     &lt;div style=&quot;display: flex; justify-content: center; align-items: center; gap: 250px;&quot;&gt;
         &lt;div&gt;
             &lt;&lt;print $playerName&gt;&gt; | Lvl: &lt;&lt;print $playerLvl&gt;&gt;
@@ -684,7 +703,7 @@ The real test begins as you venture forth, seeking challenges that will forge yo
     &lt;&lt;run Dialog.setup(&quot;Level Up!&quot;)&gt;&gt;
     &lt;&lt;run Dialog.wiki(&quot;You have reached level &quot; + $playerLvl + &quot;!&quot;)&gt;&gt;
     &lt;&lt;run Dialog.open()&gt;&gt;
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="11" name="HUDStatDisplay" tags="System-Logic" position="1000,0" size="100,100">Energy: &lt;&lt;print $currentStats.energy&gt;&gt; &lt;br&gt; Stamina: &lt;&lt;print $currentStats.stamina&gt;&gt;</tw-passagedata><tw-passagedata pid="12" name="Start" tags="" position="100,100" size="100,100">&lt;&lt;set $globalHUD = 1&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="12" name="HUDStatDisplay" tags="System-Logic" position="1000,0" size="100,100">Energy: &lt;&lt;print $currentStats.energy&gt;&gt; &lt;br&gt; Stamina: &lt;&lt;print $currentStats.stamina&gt;&gt;</tw-passagedata><tw-passagedata pid="13" name="Start" tags="" position="100,100" size="100,100">&lt;&lt;set $globalHUD = 1&gt;&gt;
 
 &lt;div style=&quot;text-align: center; border: 2px solid black; padding: 10px; margin: auto;&quot;&gt;
     &lt;img src=&quot;Assets/Artwork/Logo_design_alt.png&quot; width=&quot;400&quot; height=&quot;400&quot;&gt;&lt;br&gt;
@@ -692,7 +711,7 @@ The real test begins as you venture forth, seeking challenges that will forge yo
     &lt;&lt;textbox &quot;$playerName&quot; &quot;&quot; autofocus&gt;&gt;&lt;br&gt;
     Choose your starting location
     &lt;&lt;link &quot;Bavenmore&quot;&gt;&gt;&lt;&lt;goto &quot;Bavenmore&quot;&gt;&gt;&lt;&lt;/link&gt;&gt;
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="13" name="PassageFooter" tags="System-Logic" position="900,100" size="100,100"></tw-passagedata><tw-passagedata pid="14" name="Bavenmore" tags="Location sm-forest-town" position="17375,6750" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="14" name="PassageFooter" tags="System-Logic" position="900,100" size="100,100"></tw-passagedata><tw-passagedata pid="15" name="Bavenmore" tags="Location sm-forest-town" position="17375,6750" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set $currentBiome = &quot;forest&quot;&gt;&gt;
 &lt;&lt;set $lastLocation = passage()&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;
@@ -721,7 +740,7 @@ You are in the town of &lt;&lt;print passage()&gt;&gt;. What would you like to d
         eventProbability: 0.5 // Example event probability
     }&gt;&gt;
     &lt;&lt;goto &quot;TravelStart&quot;&gt;&gt;
-&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="15" name="Bavenmore Shop" tags="gen-shop" position="17250,6875" size="100,100">&lt;&lt;set $lastLocation = passage()&gt;&gt;
+&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="16" name="Bavenmore Shop" tags="gen-shop" position="17250,6875" size="100,100">&lt;&lt;set $lastLocation = passage()&gt;&gt;
 
 You enter the local shop. It&#39;s modestly sized, with various items on wooden tables and shelves.
 The shopkeeper nods at you. 
@@ -735,7 +754,7 @@ The shopkeeper nods at you.
 &lt;&lt;link &quot;Leave the shop&quot;&gt;&gt;
 	&lt;&lt;set $shopVisited = 0&gt;&gt;
     &lt;&lt;goto Bavenmore&gt;&gt;
-&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="16" name="Bavenmore Inn" tags="nobr wood-inn" position="17375,6875" size="100,100">&lt;&lt;set $lastLocation = passage()&gt;&gt;
+&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="17" name="Bavenmore Inn" tags="nobr wood-inn" position="17375,6875" size="100,100">&lt;&lt;set $lastLocation = passage()&gt;&gt;
 &lt;br&gt;&lt;br&gt;
 You enter the town&#39;s inn. It&#39;s a cozy place, with a warm atmosphere.&lt;br&gt;
 Wooden tables are scattered around, and the air is filled with the aroma of food and ale.&lt;br&gt;&lt;br&gt;
@@ -745,18 +764,18 @@ Wooden tables are scattered around, and the air is filled with the aroma of food
 &lt;&lt;if $hasPan == 0&gt;&gt;
 	[[What is that sticking out of the trash?|Find Frying Pan]]&lt;br&gt;
 &lt;&lt;/if&gt;&gt;
-[[Leave the Inn|Bavenmore]]</tw-passagedata><tw-passagedata pid="17" name="Bavenmore Innkeeper" tags="nobr wood-inn" position="17375,7000" size="100,100">&lt;br&gt;&lt;br&gt;
+[[Leave the Inn|Bavenmore]]</tw-passagedata><tw-passagedata pid="18" name="Bavenmore Innkeeper" tags="nobr wood-inn" position="17375,7000" size="100,100">&lt;br&gt;&lt;br&gt;
 The innkeeper pauses his work and gives you a nod. &quot;Welcome, traveler! What can I do for you on this fine day?&quot;
 &lt;br&gt;&lt;br&gt;
 [[Inquire about places to hone skills|Ask about Skills-BM]]&lt;br&gt;
-[[&quot;That&#39;s all, thank you.&quot;|Bavenmore Inn]]</tw-passagedata><tw-passagedata pid="18" name="Ask about Skills-BM" tags="nobr wood-inn" position="17375,7125" size="100,100">&lt;br&gt;&lt;br&gt;
+[[&quot;That&#39;s all, thank you.&quot;|Bavenmore Inn]]</tw-passagedata><tw-passagedata pid="19" name="Ask about Skills-BM" tags="nobr wood-inn" position="17375,7125" size="100,100">&lt;br&gt;&lt;br&gt;
 &quot;Ah, seeking to sharpen your abilities, are you? There are several guilds in the land where one can train...&quot;
 &lt;br&gt;&lt;br&gt;
 &lt;&lt;link &quot;Ask about the Swordsman class&quot;&gt;&gt;&lt;&lt;set $classInquiry = &quot;Swordsman&quot;&gt;&gt;&lt;&lt;goto &quot;Guild Info&quot;&gt;&gt;&lt;&lt;/link&gt;&gt;&lt;br&gt;
 &lt;!-- Placeholder links for future classes --&gt;
 &lt;&lt;link &quot;Ask about the Mage class (Coming Soon)&quot;&gt;&gt;&lt;&lt;set $classInquiry = &quot;Mage&quot;&gt;&gt;&lt;&lt;goto &quot;Guild Info&quot;&gt;&gt;&lt;&lt;/link&gt;&gt;&lt;br&gt;
 &lt;&lt;link &quot;Ask about the Rogue class (Coming Soon)&quot;&gt;&gt;&lt;&lt;set $classInquiry = &quot;Rogue&quot;&gt;&gt;&lt;&lt;goto &quot;Guild Info&quot;&gt;&gt;&lt;&lt;/link&gt;&gt;&lt;br&gt;
-[[Ask about something else|Bavenmore Innkeeper]]</tw-passagedata><tw-passagedata pid="19" name="Guild Info" tags="nobr wood-inn" position="17375,7250" size="100,100">&lt;br&gt;&lt;br&gt;
+[[Ask about something else|Bavenmore Innkeeper]]</tw-passagedata><tw-passagedata pid="20" name="Guild Info" tags="nobr wood-inn" position="17375,7250" size="100,100">&lt;br&gt;&lt;br&gt;
 &lt;&lt;if $classInquiry == &quot;Swordsman&quot;&gt;&gt;
     &quot;For those wishing to master the sword, the Mightvale Mercenaries&#39; Guild would be your destination. Head west from here to get to Mightvale.&quot;
 &lt;&lt;/if&gt;&gt;
@@ -768,14 +787,14 @@ The innkeeper pauses his work and gives you a nod. &quot;Welcome, traveler! What
 &lt;&lt;/if&gt;&gt;
 &lt;br&gt;&lt;br&gt;
 [[Ask about another class|Ask about Skills-BM]]&lt;br&gt;
-[[&quot;Thank you for the information!&quot;|Bavenmore Innkeeper]]</tw-passagedata><tw-passagedata pid="20" name="Find Frying Pan" tags="wood-inn" position="17500,7000" size="100,100">&lt;&lt;set $hasPan = 1&gt;&gt;
+[[&quot;Thank you for the information!&quot;|Bavenmore Innkeeper]]</tw-passagedata><tw-passagedata pid="21" name="Find Frying Pan" tags="wood-inn" position="17500,7000" size="100,100">&lt;&lt;set $hasPan = 1&gt;&gt;
 
 You find a frying pan with a small chip in the rim. The cook must have tossed it out...
 
 &lt;&lt;link &quot;Take the pan&quot;&gt;&gt;
 &lt;&lt;set $inventory.push(clone($weapons[&quot;Frying Pan&quot;]))&gt;&gt;
     &lt;&lt;goto $lastLocation&gt;&gt;
-&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="21" name="Bavenmore Forest" tags="" position="17375,6625" size="100,100">&lt;br&gt;
+&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="22" name="Bavenmore Forest" tags="" position="17375,6625" size="100,100">&lt;br&gt;
 &lt;div style=&quot;text-align: center;&quot;&gt;
 The woods around Bavenmore whisper of ancient secrets and untapped bounty. 
 Moss carpets the ground, and the air hums with the quiet life of the forest. 
@@ -785,7 +804,7 @@ Yet, you sense that with the right skills, these woods could provide valuable re
 
 &lt;br&gt;
 [[Return to Bavenmore|Bavenmore]]
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="22" name="Claypond" tags="Location sm-forest-" position="17925,5200" size="100,100"></tw-passagedata><tw-passagedata pid="23" name="Flaken" tags="Location sm-forest-town" position="18800,7100" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="23" name="Claypond" tags="Location sm-forest-" position="17925,5200" size="100,100"></tw-passagedata><tw-passagedata pid="24" name="Flaken" tags="Location sm-forest-town" position="18800,7100" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set $currentBiome = &quot;forest&quot;&gt;&gt;
 &lt;&lt;set $lastLocation = passage()&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;
@@ -803,7 +822,7 @@ You are in the town of &lt;&lt;print passage()&gt;&gt;. What would you like to d
         eventProbability: 0.5 // Example event probability
     }&gt;&gt;
     &lt;&lt;goto &quot;TravelStart&quot;&gt;&gt;
-&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="24" name="Flaken Forest" tags="nobr" position="18800,6975" size="100,100">&lt;!-- Flaken Arcane Academy --&gt;</tw-passagedata><tw-passagedata pid="25" name="Flaken Academy" tags="nobr" position="18925,7225" size="100,100">&lt;&lt;set $lastLocation = passage()&gt;&gt;
+&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="25" name="Flaken Forest" tags="nobr" position="18800,6975" size="100,100">&lt;!-- Flaken Arcane Academy --&gt;</tw-passagedata><tw-passagedata pid="26" name="Flaken Academy" tags="nobr" position="18925,7225" size="100,100">&lt;&lt;set $lastLocation = passage()&gt;&gt;
 &lt;br&gt;&lt;br&gt;
 &lt;&lt;if $playerClass == &quot;Mage&quot;&gt;&gt;
     You&#39;re greeted briefly by your fellow arcane scholars. The academy is bustling with activity.&lt;br&gt;&lt;br&gt;
@@ -816,7 +835,7 @@ You are in the town of &lt;&lt;print passage()&gt;&gt;. What would you like to d
     [[Talk to an academy member|FAAMember]]&lt;br&gt;
     [[Talk to the Archmage|FAArchMage]]&lt;br&gt;
 &lt;&lt;/if&gt;&gt;
-[[Leave the academy|Flaken]]</tw-passagedata><tw-passagedata pid="26" name="FAAMember" tags="nobr" position="18925,7350" size="100,100"></tw-passagedata><tw-passagedata pid="27" name="FAArchMage" tags="nobr" position="18925,7475" size="100,100">&lt;br&gt;&lt;br&gt;
+[[Leave the academy|Flaken]]</tw-passagedata><tw-passagedata pid="27" name="FAAMember" tags="nobr" position="18925,7350" size="100,100"></tw-passagedata><tw-passagedata pid="28" name="FAArchMage" tags="nobr" position="18925,7475" size="100,100">&lt;br&gt;&lt;br&gt;
 &lt;div style=&quot;text-align: center;&quot;&gt;
 The Archmage, a venerable figure with a flowing robe and a staff
 adorned with glowing runes, gazes at you intently. &lt;br&gt;&lt;br&gt;
@@ -825,11 +844,11 @@ adorned with glowing runes, gazes at you intently. &lt;br&gt;&lt;br&gt;
 &lt;&lt;if $playerClass != &quot;Mage&quot;&gt;&gt;
     &lt;&lt;link &quot;Ask about becoming a Mage&quot;&gt;&gt;&lt;&lt;goto &quot;MageInfo&quot;&gt;&gt;&lt;&lt;/link&gt;&gt;
 &lt;&lt;/if&gt;&gt;&lt;br&gt;
-[[Nothing, sorry to trouble you.|Flaken Academy]]</tw-passagedata><tw-passagedata pid="28" name="MageInfo" tags="nobr" position="18925,7600" size="100,100">&lt;br&gt;&lt;br&gt;
+[[Nothing, sorry to trouble you.|Flaken Academy]]</tw-passagedata><tw-passagedata pid="29" name="MageInfo" tags="nobr" position="18925,7600" size="100,100">&lt;br&gt;&lt;br&gt;
 &quot;Mages are the keepers of ancient knowledge and wielders of formidable magical power. They draw upon the energies of the world to cast spells that can heal, protect, and destroy. To join our ranks is to embark on a path of wisdom, discipline, and immense responsibility. Are you prepared to dedicate yourself to the study of magic and unlock the mysteries of the arcane?&quot;
 &lt;br&gt;&lt;br&gt;
 &lt;&lt;link &quot;Enroll in Mage class&quot;&gt;&gt;&lt;&lt;goto &quot;EnrollMage&quot;&gt;&gt;&lt;&lt;/link&gt;&gt;&lt;br&gt;
-[[&quot;I&#39;m not sure yet.&quot;|FAArchMage]]</tw-passagedata><tw-passagedata pid="29" name="Mightvale" tags="Location sm-forest-town" position="16800,6500" size="100,100">&lt;&lt;nobr&gt;&gt;
+[[&quot;I&#39;m not sure yet.&quot;|FAArchMage]]</tw-passagedata><tw-passagedata pid="30" name="Mightvale" tags="Location sm-forest-town" position="16800,6500" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set $currentBiome = &quot;forest&quot;&gt;&gt;
 &lt;&lt;set $biomeBG = &quot;forest&quot;&gt;&gt;
 &lt;&lt;set $lastLocation = passage()&gt;&gt;
@@ -848,7 +867,7 @@ You are in the town of &lt;&lt;print passage()&gt;&gt;. What would you like to d
         eventProbability: 0.5 // Example event probability
     }&gt;&gt;
     &lt;&lt;goto &quot;TravelStart&quot;&gt;&gt;
-&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="30" name="MV Merc Guild" tags="nobr" position="16700,6625" size="100,100">&lt;&lt;set $lastLocation = passage()&gt;&gt;
+&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="31" name="MV Merc Guild" tags="nobr" position="16700,6625" size="100,100">&lt;&lt;set $lastLocation = passage()&gt;&gt;
 &lt;br&gt;&lt;br&gt;
 &lt;&lt;if $playerClass == &quot;Swordsman&quot;&gt;&gt;
     You&#39;re greeted warmly as a fellow Swordsman. The guild is bustling with activity.&lt;br&gt;&lt;br&gt;
@@ -861,13 +880,13 @@ You are in the town of &lt;&lt;print passage()&gt;&gt;. What would you like to d
     [[Talk to a guild member|MVMGuildMember]]&lt;br&gt;
     [[Talk to the Guildmaster|MVMGuildMaster]]&lt;br&gt;
 &lt;&lt;/if&gt;&gt;
-[[Leave the guild|Mightvale]]</tw-passagedata><tw-passagedata pid="31" name="MVMGuildMember" tags="nobr" position="16500,6750" size="100,100">&lt;br&gt;&lt;br&gt;
+[[Leave the guild|Mightvale]]</tw-passagedata><tw-passagedata pid="32" name="MVMGuildMember" tags="nobr" position="16500,6750" size="100,100">&lt;br&gt;&lt;br&gt;
 &lt;&lt;if $playerClass == &quot;Swordsman&quot;&gt;&gt;
     Fellow guild members share insights about advanced combat techniques.&lt;br&gt;&lt;br&gt;
 &lt;&lt;else&gt;&gt;
     A friendly member notices your interest. &quot;If you&#39;re looking to join, the Guildmaster can help you with that.&quot;&lt;br&gt;&lt;br&gt;
 &lt;&lt;/if&gt;&gt;
-[[Go back to the main hall|MV Merc Guild]]</tw-passagedata><tw-passagedata pid="32" name="MVMGuildMaster" tags="nobr" position="16600,6750" size="100,100">&lt;br&gt;&lt;br&gt;
+[[Go back to the main hall|MV Merc Guild]]</tw-passagedata><tw-passagedata pid="33" name="MVMGuildMaster" tags="nobr" position="16600,6750" size="100,100">&lt;br&gt;&lt;br&gt;
 &lt;div style=&quot;text-align: center;&quot;&gt;
 The Guildmaster, a figure of respect and authority, assesses you. &lt;br&gt;
 &quot;What brings you to the Mightvale Mercenaries&#39; Guild?&quot;&lt;br&gt;&lt;br&gt;
@@ -875,11 +894,11 @@ The Guildmaster, a figure of respect and authority, assesses you. &lt;br&gt;
 &lt;&lt;if $playerClass != &quot;Swordsman&quot;&gt;&gt;
     &lt;&lt;link &quot;Ask about becoming a Swordsman&quot;&gt;&gt;&lt;&lt;goto &quot;SwordsmanInfo&quot;&gt;&gt;&lt;&lt;/link&gt;&gt;
 &lt;&lt;/if&gt;&gt;&lt;br&gt;
-[[Nothing, sorry to bother you.|MV Merc Guild]]</tw-passagedata><tw-passagedata pid="33" name="SwordsmanInfo" tags="nobr" position="16600,6875" size="100,100">&lt;br&gt;&lt;br&gt;
+[[Nothing, sorry to bother you.|MV Merc Guild]]</tw-passagedata><tw-passagedata pid="34" name="SwordsmanInfo" tags="nobr" position="16600,6875" size="100,100">&lt;br&gt;&lt;br&gt;
 &quot;Swordsmen are masters of melee combat,&quot; explains the Guildmaster. &quot;They possess formidable strength and an unwavering defense. With a sword in hand, they are a force to be reckoned with on any battlefield. To join us is to embrace a life of discipline and courage. Will you take up the sword and join our brotherhood of steel?&quot;
 &lt;br&gt;&lt;br&gt;
 &lt;&lt;link &quot;Enroll in Swordsman class&quot;&gt;&gt;&lt;&lt;goto &quot;EnrollSwordsman&quot;&gt;&gt;&lt;&lt;/link&gt;&gt;&lt;br&gt;
-[[&quot;I&#39;m not sure yet.&quot;|MVMGuildMaster]]</tw-passagedata><tw-passagedata pid="34" name="EnemyEncounter" tags="nobr" position="1200,100" size="100,100">&lt;!-- Randomly select enemy based on the current biome --&gt;
+[[&quot;I&#39;m not sure yet.&quot;|MVMGuildMaster]]</tw-passagedata><tw-passagedata pid="35" name="EnemyEncounter" tags="nobr" position="1200,100" size="100,100">&lt;!-- Randomly select enemy based on the current biome --&gt;
 &lt;&lt;set $availableEnemies = Object.keys($enemies).filter(e =&gt; $enemies[e].biomes.includes($currentBiome))&gt;&gt;
 &lt;&lt;set $randomEnemyKey = $availableEnemies.random()&gt;&gt;
 &lt;&lt;set $currentEnemy = $enemies[$randomEnemyKey]&gt;&gt;
@@ -892,7 +911,7 @@ The Guildmaster, a figure of respect and authority, assesses you. &lt;br&gt;
 &lt;/div&gt;
 &lt;br&gt;
 [[Engage|EngageEnemy]]&lt;br&gt;
-[[Flee|FleeEncounter]]</tw-passagedata><tw-passagedata pid="35" name="EngageEnemy" tags="nobr" position="1100,225" size="100,100">&lt;&lt;set $playerAP = 3&gt;&gt; &lt;!-- Assuming each turn starts with 3 AP --&gt;
+[[Flee|FleeEncounter]]</tw-passagedata><tw-passagedata pid="36" name="EngageEnemy" tags="nobr" position="1100,225" size="100,100">&lt;&lt;set $playerAP = 3&gt;&gt; &lt;!-- Assuming each turn starts with 3 AP --&gt;
 &lt;&lt;set $enemyAP = 3&gt;&gt;
 &lt;&lt;set $combatTurn = 1&gt;&gt;
 &lt;br&gt;
@@ -912,7 +931,7 @@ You prepare for battle with the $currentEnemy.name.&lt;br&gt;&lt;br&gt;
     &lt;&lt;goto CombatTurn&gt;&gt;
 &lt;&lt;/link&gt;&gt;&lt;br&gt;
 [[Use Item|UseItem]]&lt;br&gt;
-[[Flee|FleeEncounter]]</tw-passagedata><tw-passagedata pid="36" name="FleeEncounter" tags="" position="1300,225" size="100,100">&lt;&lt;if $currentStats.dexterity &gt;= $currentEnemy.awareness&gt;&gt;
+[[Flee|FleeEncounter]]</tw-passagedata><tw-passagedata pid="37" name="FleeEncounter" tags="" position="1300,225" size="100,100">&lt;&lt;if $currentStats.dexterity &gt;= $currentEnemy.awareness&gt;&gt;
     
 	You quickly dart away, using your agility to evade the $currentEnemy.name. 
    	&lt;&lt;set $currentEnemy to &quot;&quot;&gt;&gt;
@@ -921,7 +940,7 @@ You prepare for battle with the $currentEnemy.name.&lt;br&gt;&lt;br&gt;
         As you try to flee, the $currentEnemy.name anticipates your move and blocks your path. 
     You can&#39;t escape!
     [[Fight|EngageEnemy]]
-    &lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="37" name="CombatTurn" tags="nobr" position="850,475" size="100,100">&lt;br&gt;
+    &lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="38" name="CombatTurn" tags="nobr" position="975,475" size="100,100">&lt;br&gt;
 &lt;&lt;print &quot;&lt;img src=&#39;&quot; + $enemyImgPath + &quot;&#39; style=&#39;display: block; margin: auto;&#39; width=&#39;300&#39; height=&#39;300&#39;&gt;&quot;&gt;&gt;&lt;br&gt;
 &lt;div style=&quot;text-align: center;&quot;&gt;
     Enemy HP: $currentEnemy.health &lt;br&gt;
@@ -948,7 +967,7 @@ You face the $currentEnemy.name, readying yourself for the next move.&lt;br&gt;
     &lt;&lt;set $combatTurn += 1&gt;&gt;
     &lt;&lt;goto EnemyTurn&gt;&gt;
 &lt;&lt;/link&gt;&gt;&lt;br&gt;
-[[Flee|FleeEncounter]] &lt;!-- Option to flee, regardless of AP --&gt;</tw-passagedata><tw-passagedata pid="38" name="PlayerAttack" tags="nobr" position="975,475" size="100,100">&lt;br&gt;
+[[Flee|FleeEncounter]] &lt;!-- Option to flee, regardless of AP --&gt;</tw-passagedata><tw-passagedata pid="39" name="PlayerAttack" tags="nobr" position="1100,475" size="100,100">&lt;br&gt;
 &lt;&lt;print &quot;&lt;img src=&#39;&quot; + $enemyImgPath + &quot;&#39; style=&#39;display: block; margin: auto;&#39; width=&#39;300&#39; height=&#39;300&#39;&gt;&quot;&gt;&gt;&lt;br&gt;
 &lt;div style=&quot;text-align: center;&quot;&gt;
     Enemy HP: $currentEnemy.health &lt;br&gt;
@@ -972,7 +991,7 @@ You face the $currentEnemy.name, readying yourself for the next move.&lt;br&gt;
 &lt;&lt;else&gt;&gt;
     &quot;You have no weapon equipped.&quot;
     &lt;&lt;goto &quot;CombatTurn&quot;&gt;&gt;
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="39" name="AttackResults" tags="nobr" position="1100,475" size="100,100">&lt;br&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="40" name="AttackResults" tags="nobr" position="1225,475" size="100,100">&lt;br&gt;
 &lt;&lt;print &quot;&lt;img src=&#39;&quot; + $enemyImgPath + &quot;&#39; style=&#39;display: block; margin: auto;&#39; width=&#39;300&#39; height=&#39;300&#39;&gt;&quot;&gt;&gt;&lt;br&gt;
 &lt;div style=&quot;text-align: center;&quot;&gt;
     Enemy HP: $currentEnemy.health &lt;br&gt;
@@ -1016,7 +1035,7 @@ You face the $currentEnemy.name, readying yourself for the next move.&lt;br&gt;
     [[Continue|Victory]]
 &lt;&lt;else&gt;&gt;
     [[Continue|CombatTurn]]
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="40" name="PlayerMove" tags="nobr" position="1225,475" size="100,100">&lt;br&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="41" name="PlayerMove" tags="nobr" position="100,600" size="100,100">&lt;br&gt;
 &lt;&lt;print &quot;&lt;img src=&#39;&quot; + $enemyImgPath + &quot;&#39; style=&#39;display: block; margin: auto;&#39; width=&#39;300&#39; height=&#39;300&#39;&gt;&quot;&gt;&gt;&lt;br&gt;
 &lt;div style=&quot;text-align: center;&quot;&gt;
     Enemy HP: $currentEnemy.health &lt;br&gt;
@@ -1047,7 +1066,7 @@ Enemy Distance: &lt;&lt;print $playerDistance&gt;&gt;. What do you want to do?&l
         &lt;&lt;goto CombatTurn&gt;&gt;
     &lt;&lt;/link&gt;&gt;
 &lt;&lt;/if&gt;&gt;&lt;br&gt;
-[[Stay put|CombatTurn]]</tw-passagedata><tw-passagedata pid="41" name="SkillChoice" tags="nobr" position="100,600" size="100,100">&lt;br&gt;
+[[Stay put|CombatTurn]]</tw-passagedata><tw-passagedata pid="42" name="SkillChoice" tags="nobr" position="225,600" size="100,100">&lt;br&gt;
 &lt;&lt;print &quot;&lt;img src=&#39;&quot; + $enemyImgPath + &quot;&#39; style=&#39;display: block; margin: auto;&#39; width=&#39;300&#39; height=&#39;300&#39;&gt;&quot;&gt;&gt;&lt;br&gt;
 &lt;div style=&quot;text-align: center;&quot;&gt;
     Enemy HP: $currentEnemy.health &lt;br&gt;
@@ -1064,7 +1083,7 @@ Available Skills:&lt;br&gt;
         &lt;&lt;/if&gt;&gt;&lt;br&gt;
     &lt;&lt;/capture&gt;&gt;
 &lt;&lt;/for&gt;&gt;
-[[Go Back|CombatTurn]]</tw-passagedata><tw-passagedata pid="42" name="EnemyTurn" tags="nobr" position="225,600" size="100,100">&lt;br&gt;
+[[Go Back|CombatTurn]]</tw-passagedata><tw-passagedata pid="43" name="EnemyTurn" tags="nobr" position="350,600" size="100,100">&lt;br&gt;
 &lt;&lt;print &quot;&lt;img src=&#39;&quot; + $enemyImgPath + &quot;&#39; style=&#39;display: block; margin: auto;&#39; width=&#39;300&#39; height=&#39;300&#39;&gt;&quot;&gt;&gt;&lt;br&gt;
 &lt;div style=&quot;text-align: center;&quot;&gt;
     Enemy HP: $currentEnemy.health &lt;br&gt;
@@ -1094,8 +1113,11 @@ Available Skills:&lt;br&gt;
     &lt;&lt;/if&gt;&gt;
 &lt;&lt;else&gt;&gt;
     The $currentEnemy.name ends its turn.&lt;br&gt;&lt;br&gt;
+    &lt;&lt;if $playerArcaneShield == 1&gt;&gt;
+        &lt;&lt;set $playerArcaneShield = 0&gt;&gt;
+    &lt;&lt;/if&gt;&gt;
     [[Continue|CombatTurn]]&lt;&lt;set $enemyAP to 3&gt;&gt;
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="43" name="EnemyAttack" tags="nobr" position="350,600" size="100,100">&lt;br&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="44" name="EnemyAttack" tags="nobr" position="475,600" size="100,100">&lt;br&gt;
 &lt;&lt;print &quot;&lt;img src=&#39;&quot; + $enemyImgPath + &quot;&#39; style=&#39;display: block; margin: auto;&#39; width=&#39;300&#39; height=&#39;300&#39;&gt;&quot;&gt;&gt;&lt;br&gt;
 &lt;div style=&quot;text-align: center;&quot;&gt;
     Enemy HP: $currentEnemy.health &lt;br&gt;
@@ -1113,7 +1135,12 @@ Available Skills:&lt;br&gt;
     &lt;&lt;/for&gt;&gt;
     &lt;&lt;set $enemyAttackRoll to random(1, 20)&gt;&gt;
     &lt;!-- Determine if the enemy&#39;s attack hits and calculate damage --&gt;
-    &lt;&lt;if $enemyAttackRoll &gt;= $playerAC&gt;&gt; 
+    &lt;&lt;if $enemyAttackRoll &gt;= $playerAC&gt;&gt;
+        &lt;!-- Check for Arcane Shield --&gt;
+        &lt;&lt;if $playerArcaneShield == 1&gt;&gt;
+            &lt;&lt;set $enemyAttack to Math.floor($enemyAttack / 2)&gt;&gt;
+            &lt;&lt;set $playerArcaneShield = 0&gt;&gt;
+        &lt;&lt;/if&gt;&gt; 
         &lt;&lt;set $currentStats.health to $currentStats.health - $enemyAttack&gt;&gt;
         The $currentEnemy.name attacks, dealing $enemyAttack damage.&lt;br&gt;&lt;br&gt;
     &lt;&lt;else&gt;&gt; 
@@ -1128,7 +1155,7 @@ Available Skills:&lt;br&gt;
 &lt;&lt;else&gt;&gt;
     The $currentEnemy.name ends it&#39;s turn.&lt;br&gt;&lt;br&gt;
     [[Continue|CombatTurn]]&lt;&lt;set $enemyAP to 3&gt;&gt;
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="44" name="UseItem" tags="" position="1200,350" size="100,100">[[Go Back|CombatTurn]]</tw-passagedata><tw-passagedata pid="45" name="Victory" tags="" position="1050,475" size="100,100">&lt;&lt;set $playerEXP += $currentEnemy.exp&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="45" name="UseItem" tags="" position="1200,350" size="100,100">[[Go Back|CombatTurn]]</tw-passagedata><tw-passagedata pid="46" name="Victory" tags="" position="1050,475" size="100,100">&lt;&lt;set $playerEXP += $currentEnemy.exp&gt;&gt;
 &lt;&lt;set $playerGold += $currentEnemy.gold&gt;&gt; 
 
 You gained $currentEnemy.gold gold and $currentEnemy.exp EXP!&lt;br&gt;&lt;br&gt;
@@ -1139,12 +1166,12 @@ You gained $currentEnemy.gold gold and $currentEnemy.exp EXP!&lt;br&gt;&lt;br&gt
     &lt;&lt;else&gt;&gt;
 	    &lt;&lt;goto $lastLocation&gt;&gt;
     &lt;&lt;/if&gt;&gt;
-&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="46" name="GameOver" tags="" position="937.5,475" size="100,100">&lt;br&gt;
+&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="47" name="GameOver" tags="" position="937.5,475" size="100,100">&lt;br&gt;
 &lt;div style=&quot;text-align: center;&quot;&gt;
 It appears you have met an untimely demise...Well then, from the top!
 
 Either load from save or restart.
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="47" name="EquipItem" tags="System-Logic" position="650,200" size="100,100">&lt;&lt;set _itemToEquip = $inventory[$tempItemIndex]&gt;&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="48" name="EquipItem" tags="System-Logic" position="650,200" size="100,100">&lt;&lt;set _itemToEquip = $inventory[$tempItemIndex]&gt;&gt;
 &lt;&lt;set $itemType = _itemToEquip.type&gt;&gt;
 &lt;&lt;set $itemSlots = $itemTypeToSlots[$itemType]&gt;&gt;
 
@@ -1170,7 +1197,7 @@ Either load from save or restart.
 
 &lt;&lt;set $inventory[$tempItemIndex].equipped = true&gt;&gt;
 &lt;&lt;set $equippedWeapon to $weapons[$equipmentSlots.mainhand]&gt;&gt;
-&lt;&lt;goto &quot;Inventory&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="48" name="UnequipItem" tags="System-Logic" position="750,200" size="100,100">&lt;&lt;set _itemToUnequip = $inventory[$tempItemIndex]&gt;&gt;
+&lt;&lt;goto &quot;Inventory&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="49" name="UnequipItem" tags="System-Logic" position="750,200" size="100,100">&lt;&lt;set _itemToUnequip = $inventory[$tempItemIndex]&gt;&gt;
 &lt;&lt;set $itemType = _itemToUnequip.type&gt;&gt;
 &lt;&lt;set $itemSlots = $itemTypeToSlots[$itemType]&gt;&gt;
 
@@ -1187,7 +1214,7 @@ Either load from save or restart.
 
 &lt;&lt;set $inventory[$tempItemIndex].equipped = false&gt;&gt;
 &lt;&lt;set $equippedWeapon to &quot;&quot;&gt;&gt;
-&lt;&lt;goto &quot;Inventory&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="49" name="RoomRental" tags="System-Logic inn-room" position="500,0" size="100,100">&lt;&lt;if $playerGold &lt; 3&gt;&gt;
+&lt;&lt;goto &quot;Inventory&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="50" name="RoomRental" tags="System-Logic inn-room" position="500,0" size="100,100">&lt;&lt;if $playerGold &lt; 3&gt;&gt;
     &lt;&lt;print &quot;You do not have enough gold!&quot;&gt;&gt;
   &lt;&lt;else&gt;&gt;
       &lt;&lt;set $playerGold = $playerGold - 3&gt;&gt;
@@ -1197,7 +1224,7 @@ Either load from save or restart.
       &lt;&lt;set $currentStats.stamina to $baseStats.stamina&gt;&gt;
       You spend the night at the inn and feel well-rested&lt;br&gt;&lt;br&gt;
 &lt;&lt;/if&gt;&gt;   
-&lt;&lt;link &quot;Return to the Inn&quot;&gt;&gt;&lt;&lt;goto $lastLocation&gt;&gt;&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="50" name="PlayerProgression" tags="System-Logic" position="300,0" size="100,100"></tw-passagedata><tw-passagedata pid="51" name="RecalcMods" tags="nobr" position="100,725" size="100,100">&lt;&lt;set $modifiers = {
+&lt;&lt;link &quot;Return to the Inn&quot;&gt;&gt;&lt;&lt;goto $lastLocation&gt;&gt;&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="51" name="PlayerProgression" tags="System-Logic" position="300,0" size="100,100"></tw-passagedata><tw-passagedata pid="52" name="RecalcMods" tags="nobr" position="225,725" size="100,100">&lt;&lt;set $modifiers = {
     &quot;strength&quot;: Math.floor(($currentStats.strength - 10) / 2),
     &quot;defense&quot;: Math.floor(($currentStats.defense - 10) / 2),
     &quot;dexterity&quot;: Math.floor(($currentStats.dexterity - 10) / 2),
@@ -1205,7 +1232,7 @@ Either load from save or restart.
     &quot;awareness&quot;: Math.floor(($currentStats.awareness - 10) / 2),
     &quot;charisma&quot;: Math.floor(($currentStats.charisma - 10) / 2)
 }&gt;&gt;
-&lt;&lt;goto $lastLocation&gt;&gt;</tw-passagedata><tw-passagedata pid="52" name="Tier1Shop" tags="menu" position="300,300" size="100,100">&lt;br&gt;
+&lt;&lt;goto $lastLocation&gt;&gt;</tw-passagedata><tw-passagedata pid="53" name="Tier1Shop" tags="menu" position="300,300" size="100,100">&lt;br&gt;
 Your Gold: $playerGold
 
 Shop Inventory:
@@ -1243,7 +1270,7 @@ Shop Inventory:
 
 &lt;&lt;link &quot;Go Back&quot;&gt;&gt;
     &lt;&lt;goto $lastLocation&gt;&gt;
-&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="53" name="BuyItem" tags="menu" position="300,400" size="100,100">&lt;&lt;if $playerGold &gt;= $boughtItem.value&gt;&gt;
+&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="54" name="BuyItem" tags="menu" position="300,400" size="100,100">&lt;&lt;if $playerGold &gt;= $boughtItem.value&gt;&gt;
     &lt;&lt;set $playerGold -= $boughtItem.value&gt;&gt;
     &lt;&lt;set $inventory.push(clone($boughtItem))&gt;&gt;
 
@@ -1254,7 +1281,7 @@ Shop Inventory:
 &lt;&lt;/if&gt;&gt;
 &lt;&lt;link &quot;Return to Shop&quot;&gt;&gt;
     &lt;&lt;goto &quot;Tier1Shop&quot;&gt;&gt;
-&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="54" name="SellInventory" tags="menu" position="200,300" size="100,100">&lt;br&gt;
+&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="55" name="SellInventory" tags="menu" position="200,300" size="100,100">&lt;br&gt;
 Gold: $playerGold
 
 Sell Inventory:
@@ -1285,7 +1312,7 @@ Sell Inventory:
 
 &lt;&lt;link &quot;Return to Shop&quot;&gt;&gt;
     &lt;&lt;goto $lastLocation&gt;&gt;
-&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="55" name="SellItem" tags="menu" position="200,400" size="100,100">&lt;br&gt;
+&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="56" name="SellItem" tags="menu" position="200,400" size="100,100">&lt;br&gt;
 Sell the &lt;&lt;print $sellItem.name&gt;&gt;?&lt;br&gt;
 &lt;&lt;link &quot;Yes&quot;&gt;&gt;
     &lt;&lt;set $playerGold += Math.round($sellItem.value * 0.5)&gt;&gt;
@@ -1294,12 +1321,12 @@ Sell the &lt;&lt;print $sellItem.name&gt;&gt;?&lt;br&gt;
 &lt;&lt;/link&gt;&gt;
 &lt;&lt;link &quot;Nevermind&quot;&gt;&gt;
     &lt;&lt;goto &quot;SellInventory&quot;&gt;&gt;
-&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="56" name="TravelInit" tags="" position="1600,0" size="100,100">&lt;&lt;set $traveling to false&gt;&gt;
+&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="57" name="TravelInit" tags="" position="1600,0" size="100,100">&lt;&lt;set $traveling to false&gt;&gt;
 &lt;&lt;set $travel = {
     distance: 0, // The distance to the next location in &#39;units&#39;.
     energyCostPerUnit: 5, // The energy cost per &#39;unit&#39; of distance traveled.
     chanceOfRandomEvent: 0.1 // 10% chance of a random event per &#39;unit&#39; of distance.
-}&gt;&gt;</tw-passagedata><tw-passagedata pid="57" name="TravelStart" tags="" position="1600,100" size="100,100">&lt;br&gt;
+}&gt;&gt;</tw-passagedata><tw-passagedata pid="58" name="TravelStart" tags="" position="1600,100" size="100,100">&lt;br&gt;
 &lt;&lt;if $currentStats.energy &gt;= ($travelTo.distance * $travelTo.energyCostPerUnit)&gt;&gt;
     &lt;&lt;goto &quot;TravelAction&quot;&gt;&gt;
 &lt;&lt;else&gt;&gt;
@@ -1307,17 +1334,17 @@ Sell the &lt;&lt;print $sellItem.name&gt;&gt;?&lt;br&gt;
     &lt;&lt;link &quot;Go Back&quot;&gt;&gt;
         &lt;&lt;goto $lastLocation&gt;&gt;
     &lt;&lt;/link&gt;&gt;
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="58" name="TravelAction" tags="nobr" position="1600,200" size="100,100">&lt;&lt;set $currentStats.energy -= ($travelTo.distance * $travelTo.energyCostPerUnit)&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="59" name="TravelAction" tags="nobr" position="1600,200" size="100,100">&lt;&lt;set $currentStats.energy -= ($travelTo.distance * $travelTo.energyCostPerUnit)&gt;&gt;
 &lt;&lt;set $randomCheck = random(1, 100) / 100&gt;&gt;
 &lt;&lt;if $randomCheck &lt;= $travelTo.eventProbability&gt;&gt;
     &lt;&lt;goto &quot;RandomTravelEvent&quot;&gt;&gt; &lt;!-- Redirect to a random event passage --&gt;
 &lt;&lt;else&gt;&gt;
     &lt;&lt;goto &quot;SafeTravel&quot;&gt;&gt; &lt;!-- No event, so proceed to destination --&gt;
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="59" name="RandomTravelEvent" tags="" position="1700,100" size="100,100">&lt;&lt;set $eventRoll = random(1, 100)&gt;&gt; &lt;!-- Roll a number between 1 and 100 --&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="60" name="RandomTravelEvent" tags="" position="1700,100" size="100,100">&lt;&lt;set $eventRoll = random(1, 100)&gt;&gt; &lt;!-- Roll a number between 1 and 100 --&gt;
 
 &lt;&lt;if $eventRoll &lt;= 100&gt;&gt; &lt;!-- 100% chance for &quot;Enemy Encounter&quot; --&gt;
     &lt;&lt;goto &quot;EnemyEncounter&quot;&gt;&gt;
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="60" name="SafeTravel" tags="" position="1700,200" size="100,100">&lt;br&gt;&lt;br&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="61" name="SafeTravel" tags="" position="1700,200" size="100,100">&lt;br&gt;&lt;br&gt;
 &lt;div style=&quot;text-align: center;&quot;&gt;
 Despite your expectations, your journey continues without incident.
 You remain on guard, but it seems luck is on your side today.
@@ -1326,7 +1353,7 @@ You remain on guard, but it seems luck is on your side today.
 &lt;&lt;link &quot;Continue to $travelTo.destination&quot;&gt;&gt;
     &lt;&lt;set $traveling to false&gt;&gt;
     &lt;&lt;goto $travelTo.destination&gt;&gt;
-&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="61" name="MainMenu" tags="menu" position="800,0" size="100,100">&lt;&lt;set $inMenu = 1&gt;&gt;
+&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="62" name="MainMenu" tags="menu" position="800,0" size="100,100">&lt;&lt;set $inMenu = 1&gt;&gt;
 &lt;&lt;link &quot;Character Stats&quot;&gt;&gt;
     &lt;&lt;goto &quot;StatsMenu&quot;&gt;&gt;
 &lt;&lt;/link&gt;&gt;
@@ -1336,7 +1363,7 @@ You remain on guard, but it seems luck is on your side today.
 &lt;&lt;link &quot;Back&quot;&gt;&gt;
     &lt;&lt;set $inMenu = 0&gt;&gt;
     &lt;&lt;goto $returnPassage&gt;&gt;
-&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="62" name="StoryMenu" tags="menu" position="700,0" size="100,100">&lt;&lt;link &quot;Stats&quot;&gt;&gt;
+&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="63" name="StoryMenu" tags="menu" position="700,0" size="100,100">&lt;&lt;link &quot;Stats&quot;&gt;&gt;
     &lt;&lt;if $inMenu is 0&gt;&gt;
         &lt;&lt;set $returnPassage = passage()&gt;&gt;
     &lt;&lt;/if&gt;&gt;    
@@ -1353,7 +1380,7 @@ You remain on guard, but it seems luck is on your side today.
         &lt;&lt;set $returnPassage = passage()&gt;&gt;
     &lt;&lt;/if&gt;&gt;
     &lt;&lt;goto &quot;SkillsMenu&quot;&gt;&gt;
-&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="63" name="StatsMenu" tags="menu" position="800,100" size="100,100">&lt;&lt;set $inMenu = 1&gt;&gt;
+&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="64" name="StatsMenu" tags="menu" position="800,100" size="100,100">&lt;&lt;set $inMenu = 1&gt;&gt;
 EXP: &lt;&lt;print $playerEXP&gt;&gt;&lt;br&gt;
 &#39;&#39;Equipment&#39;&#39;
 Mainhand: &lt;&lt;print $equipmentSlots.mainhand&gt;&gt;
@@ -1403,7 +1430,7 @@ Back: &lt;&lt;print $equipmentSlots.back&gt;&gt;
 &lt;&lt;link &quot;Back&quot;&gt;&gt;
     &lt;&lt;set $inMenu = 0&gt;&gt;
     &lt;&lt;goto $returnPassage&gt;&gt;
-&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="64" name="Inventory" tags="menu" position="700,100" size="100,100">&lt;&lt;set $inMenu = 1&gt;&gt;
+&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="65" name="Inventory" tags="menu" position="700,100" size="100,100">&lt;&lt;set $inMenu = 1&gt;&gt;
 
 Gold: $playerGold
 
@@ -1456,7 +1483,7 @@ Inventory:
 &lt;&lt;link &quot;Back&quot;&gt;&gt;
     &lt;&lt;set $inMenu = 0&gt;&gt;
     &lt;&lt;goto $returnPassage&gt;&gt;
-&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="65" name="SkillsMenu" tags="nobr menu" position="600,850" size="100,100">&lt;&lt;set $inMenu = 1&gt;&gt;
+&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="66" name="SkillsMenu" tags="nobr menu" position="725,850" size="100,100">&lt;&lt;set $inMenu = 1&gt;&gt;
 &lt;br&gt;&lt;br&gt;
 Available Skill Points: $playerSkillPoints
 &lt;br&gt;&lt;br&gt;
@@ -1504,7 +1531,7 @@ Available Skill Points: $playerSkillPoints
 &lt;&lt;link &quot;Back&quot;&gt;&gt;
     &lt;&lt;set $inMenu = 0&gt;&gt;
     &lt;&lt;goto $returnPassage&gt;&gt;
-&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="66" name="Items" tags="objects-db" position="1400,0" size="100,100">&lt;&lt;set $weaponTypeModifiers = {
+&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="67" name="Items" tags="objects-db" position="1400,0" size="100,100">&lt;&lt;set $weaponTypeModifiers = {
     &quot;sword&quot;: &quot;strength&quot;,
     &quot;blunt&quot;: &quot;strength&quot;,
     &quot;staff&quot;: &quot;strength&quot;,
@@ -1597,7 +1624,7 @@ Available Skill Points: $playerSkillPoints
         &quot;tier&quot;: 1,
         &quot;value&quot;: 3
     }
-}&gt;&gt;</tw-passagedata><tw-passagedata pid="67" name="Enemies" tags="objects-db" position="1200,0" size="100,100">&lt;!-- Enemy Template:
+}&gt;&gt;</tw-passagedata><tw-passagedata pid="68" name="Enemies" tags="objects-db" position="1200,0" size="100,100">&lt;!-- Enemy Template:
 	&quot;Goblin&quot;, (dm: 
 		&quot;name&quot;, &quot;Goblin&quot;,
         &quot;biomes&quot;, (a: &quot;forest&quot;, &quot;grasslands&quot;, &quot;hills&quot;, &quot;swamp&quot;),

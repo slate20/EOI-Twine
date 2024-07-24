@@ -250,6 +250,9 @@ Available Skills:<br>
     <</if>>
 <<else>>
     The $currentEnemy.name ends its turn.<br><br>
+    <<if $playerArcaneShield == 1>>
+        <<set $playerArcaneShield = 0>>
+    <</if>>
     [[Continue|CombatTurn]]<<set $enemyAP to 3>>
 <</if>>
 
@@ -273,7 +276,12 @@ Available Skills:<br>
     <</for>>
     <<set $enemyAttackRoll to random(1, 20)>>
     <!-- Determine if the enemy's attack hits and calculate damage -->
-    <<if $enemyAttackRoll >= $playerAC>> 
+    <<if $enemyAttackRoll >= $playerAC>>
+        <!-- Check for Arcane Shield -->
+        <<if $playerArcaneShield == 1>>
+            <<set $enemyAttack to Math.floor($enemyAttack / 2)>>
+            <<set $playerArcaneShield = 0>>
+        <</if>> 
         <<set $currentStats.health to $currentStats.health - $enemyAttack>>
         The $currentEnemy.name attacks, dealing $enemyAttack damage.<br><br>
     <<else>> 

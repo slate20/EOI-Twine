@@ -58,7 +58,7 @@ The real test begins as you venture forth, seeking knowledge and challenges that
     [[Go Back|SkillChoice]]<br>
 <<else>>
     <<if $playermana < 5>>
-        <<print "You don't have enough AP to use this skill.<br><br>">>
+        <<print "You don't have enough AP to use this skill.">><br><br>
         [[Go Back|SkillChoice]]<br>
     <<else>>
         <<set $currentStats.mana -= 5>>
@@ -87,4 +87,84 @@ The real test begins as you venture forth, seeking knowledge and challenges that
         <</if>>
     <</if>>
 <</if>>
-    
+
+
+
+:: SkillArcaneShield [nobr]
+<br>
+<<print "<img src='" + $enemyImgPath + "' style='display: block; margin: auto;' width='300' height='300'>">><br>
+<div style="text-align: center;">
+    Enemy HP: $currentEnemy.health <br>
+    Distance: $playerDistance
+</div><br>
+<<if $currentStats.mana < 3>>
+    <<print "You don't have enough mana to use this skill.">><br><br>
+    [[Go Back|SkillChoice]]<br>
+<<else>>
+    <<set $currentStats.mana -= 3>>
+    <<set $playerAP -= 2>>
+
+    <!-- Apply Arcane Shield effect -->
+    <<set $playerArcaneShield = 1>>
+
+    You create a barrier of arcane energy, reducing incoming damage for the next turn.<br><br>
+
+    [[Continue|CombatTurn]]
+<</if>>
+
+
+
+:: SkillMagicDarts [nobr]
+<br>
+<<print "<img src='" + $enemyImgPath + "' style='display: block; margin: auto;' width='300' height='300'>">><br>
+<div style="text-align: center;">
+    Enemy HP: $currentEnemy.health <br>
+    Distance: $playerDistance
+</div><br>
+<<if $playerDistance == "close">>
+    <<print "You are too close to use this skill.">><br><br>
+    [[Go Back|SkillChoice]]<br>
+<<else>>
+    <<if $currentStats.mana < 4>>
+        <<print "You don't have enough mana to use this skill.">><br><br>
+        [[Go Back|SkillChoice]]<br>
+    <<else>>
+        <<set $currentStats.mana -= 4>>
+        <<set $playerAP -= 2>>
+
+        You focus your energy into the tip of your finger and fire of two Magic Darts at the $currentEnemy.name!<br><br>
+
+        <!-- Loop for 2 ranged attacks -->
+        <<set $multiAttack = 2>>
+        <<for _attackIndex =1; _attackIndex <= $multiAttack; _attackIndex++>>
+            <!-- Calculate Magic Dart Damage -->
+            <<set $playerAttack to 1 + $modifiers.intelligence>>
+
+            <!-- Determine if the player's attack hits -->
+            <<set $attackRoll to random(3, 20) + $modifiers.awareness>>
+            <<if $attackRoll >= $currentEnemy.defense>>
+                <<set $currentEnemy.health to $currentEnemy.health - $playerAttack>>
+                <<if _attackIndex == 1>>
+                    The first Magic Dart hits the $currentEnemy.name, dealing $playerAttack damage.<br><br>
+                <<else>>
+                    The second Magic Dart hits the $currentEnemy.name, dealing $playerAttack damage.<br><br>
+                <</if>>
+            <<else>>
+                <<if _attackIndex == 1>>
+                    The first Magic Dart misses.<br><br>
+                <<else>>
+                    The second Magic Dart misses.<br><br>
+                <</if>>           
+            <</if>>
+
+            <<if $currentEnemy.health <= 0>>
+                You have defeated the $currentEnemy.name!<br>
+                [[Continue|Victory]]
+                <<break>> <!-- exit the loop if the enemy is defeated -->
+            <</if>>
+        <</for>>
+        <<if $currentEnemy.health > 0>>
+            [[Continue|CombatTurn]]
+        <</if>>
+    <</if>>
+<</if>>

@@ -40,7 +40,7 @@
     "ArcaneShield": {
         "name": "Arcane Shield",
         "description": "Create an arcane shield that protects you from damage.",
-        "effect": "reduces damage taken by 50% for 1 turn",
+        "effect": "Reduces damage taken by 50% for 1 turn",
         "manaCost": 3,
         "apCost": 2,
         "range": ["close", "mid-range", "far"],

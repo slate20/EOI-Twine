@@ -162,7 +162,13 @@ Available Skill Points: $playerSkillPoints
         <div style="flex: 1;">
             <div class="hover-info">
             <<print _skill.name>>
-            <span class="info-text">Description: <<print _skill.description>><br>Effect: <<print _skill.effect>><br>Stamina Cost: <<print _skill.staminaCost>><br>AP Cost: <<print _skill.apCost>><br>Range: <<print _skill.range>></span>
+            <span class="info-text">Description: <<print _skill.description>><br>Effect: <<print _skill.effect>><br>
+            <<if _skill.staminaCost>>
+                Stamina Cost: <<print _skill.staminaCost>><br>
+            <<else>>
+                Mana Cost: <<print _skill.manaCost>><br>
+            <</if>>    
+            AP Cost: <<print _skill.apCost>><br>Range: <<print _skill.range>></span>
             </div>
         </div>
         <div style="flex: 3; text-align: center;"><<print _skill.effect>></div>
