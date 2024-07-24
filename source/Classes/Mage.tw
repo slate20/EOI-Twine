@@ -1,7 +1,7 @@
 :: EnrollMage [nobr] {"position":"2900,200"}
 <br><br>
 <div style="text-align: center;">
-"Welcome to the Swordsman's fold," the Guildmaster proclaims.
+"Welcome, young mage, to the Arcane Academy." the Archmage proclaims.
 </div>
 <br><br>
 [[Begin your training|MageTraining]]
@@ -9,7 +9,8 @@
 :: MageTraining [nobr] {"position":"2900,325"}
 <<set $currentStats.health = $baseStats.health>>
 <<set $currentStats.energy to $baseStats.energy>>
-<<set $playerClass = "Swordsman">>
+<<set $playerClass = "Mage">>
+<<set $playerHasMagic = 1>>
 <<if $playerSkills.length === 0>>
     <<run Object.keys($MageSkills).forEach(function(skillKey) {
         $playerSkills.push(clone($MageSkills[skillKey]));
@@ -44,3 +45,46 @@ The real test begins as you venture forth, seeking knowledge and challenges that
 <</link>>
 
 <!-- Mage Class Skills Logic -->
+
+:: SkillFireball [nobr]
+<br>
+<<print "<img src='" + $enemyImgPath + "' style='display: block; margin: auto;' width='300' height='300'>">><br>
+<div style="text-align: center;">
+    Enemy HP: $currentEnemy.health <br>
+    Distance: $playerDistance
+</div><br>
+<<if $playerDistance == "close">>
+    <<print "You are too close to use this skill.<br><br>">>
+    [[Go Back|SkillChoice]]<br>
+<<else>>
+    <<if $playermana < 5>>
+        <<print "You don't have enough AP to use this skill.<br><br>">>
+        [[Go Back|SkillChoice]]<br>
+    <<else>>
+        <<set $currentStats.mana -= 5>>
+        <<set $playerAP -= 2>>
+
+        <!-- Calculate Damage -->
+        <<set $baseDamage to 0>>
+        <<for _i = 1; _i <= 1; _i++>> 
+            <<set $baseDamage to $baseDamage + random(1, 8)>>
+        <</for>>
+        <<set $playerAttack to $baseDamage + $modifiers.intelligence>> <!-- 1d8 + intelligence modifier -->
+
+        <!-- Determine if the player's attack hits -->
+        <<set $attackRoll to random(3, 20) + $modifiers.awareness>>
+        <<if $attackRoll >= $currentEnemy.defense>>
+            <<set $currentEnemy.health to $currentEnemy.health - $playerAttack>>
+            You hurl a Fireball at the $currentEnemy.name, dealing $playerAttack damage.<br><br>
+        <<else>>
+            You miss the $currentEnemy.name.<br><br>
+        <</if>>
+        <<if $currentEnemy.health <= 0>>
+            You have defeated the $currentEnemy.name!<br>
+            [[Continue|Victory]]
+        <<else>>
+            [[Continue|CombatTurn]]
+        <</if>>
+    <</if>>
+<</if>>
+    

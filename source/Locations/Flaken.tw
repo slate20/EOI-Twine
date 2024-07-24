@@ -47,7 +47,8 @@ You are in the town of <<print passage()>>. What would you like to do?
 :: FAArchMage [nobr] {"position":"18925,7475"}
 <br><br>
 <div style="text-align: center;">
-The Archmage, a venerable figure with a flowing robe and a staff adorned with glowing runes, gazes at you intently. <br>
+The Archmage, a venerable figure with a flowing robe and a staff
+adorned with glowing runes, gazes at you intently. <br><br>
 "What do you seek here at the Arcane Academy?"<br><br>
 </div>
 <<if $playerClass != "Mage">>
@@ -57,7 +58,6 @@ The Archmage, a venerable figure with a flowing robe and a staff adorned with gl
 
 
 :: MageInfo [nobr] {"position":"18925,7600"}
-<br><br>
 <br><br>
 "Mages are the keepers of ancient knowledge and wielders of formidable magical power. They draw upon the energies of the world to cast spells that can heal, protect, and destroy. To join our ranks is to embark on a path of wisdom, discipline, and immense responsibility. Are you prepared to dedicate yourself to the study of magic and unlock the mysteries of the arcane?"
 <br><br>
