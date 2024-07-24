@@ -24,3 +24,17 @@
         "unlocked": false
     }
 }>>
+
+<!-- Mage Class Skills -->
+<<set $MageSkills = {
+    "EnragedStrike": {
+        "name": "Enraged Strike",
+        "description": "Focus your aggression into a powerful strike.",
+        "effect": "Attack with +50% damage",
+        "staminaCost": 5,
+        "apCost": 3,
+        "range": "close",
+        "weaponType": "melee",
+        "unlocked": false
+    }
+}>>

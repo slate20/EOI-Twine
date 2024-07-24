@@ -45,6 +45,7 @@ Back: <<print $equipmentSlots.back>>
     <div>
         <b>Stat</b><br>
         Health:
+        <<if $playerHasMagic == 1>> Mana: <</if>>
         AC:
         Strength:
         Defense:
@@ -56,6 +57,7 @@ Back: <<print $equipmentSlots.back>>
     <div>
         <b>Current</b><br>
         <<print $currentStats.health>>
+        <<if $playerHasMagic == 1>> <<print $currentStats.mana>> <</if>>
         <<print $playerAC>>
         <<print $currentStats.strength>>
         <<print $currentStats.defense>>
@@ -67,6 +69,7 @@ Back: <<print $equipmentSlots.back>>
     <div>
         <b>Base</b><br>
         <<print $baseStats.health>>
+        <<if $playerHasMagic == 1>> <<print $baseStats.mana>> <</if>>
         <<print $baseStats.ac>>
         <<print $baseStats.strength>>
         <<print $baseStats.defense>>

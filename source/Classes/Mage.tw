@@ -1,0 +1,46 @@
+:: EnrollMage [nobr] {"position":"2900,200"}
+<br><br>
+<div style="text-align: center;">
+"Welcome to the Swordsman's fold," the Guildmaster proclaims.
+</div>
+<br><br>
+[[Begin your training|MageTraining]]
+
+:: MageTraining [nobr] {"position":"2900,325"}
+<<set $currentStats.health = $baseStats.health>>
+<<set $currentStats.energy to $baseStats.energy>>
+<<set $playerClass = "Swordsman">>
+<<if $playerSkills.length === 0>>
+    <<run Object.keys($MageSkills).forEach(function(skillKey) {
+        $playerSkills.push(clone($MageSkills[skillKey]));
+    })>>
+<</if>>
+<<set $baseStats.intelligence += 4>>
+<<set $baseStats.awareness += 2>>
+<<set $baseStats.dexterity += 1>>
+<<set $baseStats.charisma += 1>>
+<<set $currentStats.intelligence = $baseStats.intelligence>>
+<<set $currentStats.awareness = $baseStats.awareness>>
+<<set $currentStats.dexterity = $baseStats.dexterity>>
+<<set $currentStats.charisma = $baseStats.charisma>>
+<<if $classStarterWeapons is true>>
+<<else>>
+    <<set $inventory.push(clone($weapons["Knotted Oak Staff"]))>>
+<</if>>
+<<set $classStarterWeapons to true>>
+<br><br>
+Over the span of several months, your studies under the watchful eye of the Archmage and other esteemed magicians at the Arcane Academy transforms you. 
+Each day, you rise at dawn to the soft glow of enchanted candles, immersing yourself in the study of spellcraft and ancient tomes. 
+You learn to harness the energies around you, to channel them into spells of great power. 
+Your mind becomes sharper, your understanding of the arcane deeper, and your control over magic more precise. 
+Yet, as you stand ready to embark on your own path, it's clear that this is but the first step in a lifelong journey of mastery. 
+The real test begins as you venture forth, seeking knowledge and challenges that will forge you into a true Mage.
+<br><br>
+<<link "Complete your training">>
+    <<run Dialog.setup("Joined Mage Class")>>
+    <<run Dialog.wiki("You have unlock the Mage skilltree. You have also obtained a Knotted Oak Staff from your training.")>>
+    <<run Dialog.open()>>
+    <<goto RecalcMods>>
+<</link>>
+
+<!-- Mage Class Skills Logic -->

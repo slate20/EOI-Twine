@@ -57,6 +57,7 @@ Echoes Of Ismia
 <<set $playerSkills = []>>
 <<set $inventory = []>>
 <<set $playerGold = 0>>
+<<set $playerHasMagic = 0>>
 
 <<set $equipmentSlots = {
     "mainhand": "",
@@ -81,6 +82,7 @@ Echoes Of Ismia
     <div style="display: flex; justify-content: center; align-items: center; gap: 250px;">
         <div>
             <<print $playerName>> | Lvl: <<print $playerLvl>>
+            <br> HP: <<print $currentStats.health>> <<if $playerHasMagic == 1>> | MP: <<print $currentStats.mana>> <</if>>
         </div>
         <div>
             <<include "HUDStatDisplay">>
@@ -99,7 +101,7 @@ Echoes Of Ismia
 
 
 :: HUDStatDisplay [System-Logic] {"position":"1000,0","size":"100,100"}
-HP: <<print $currentStats.health>> | Stamina: <<print $currentStats.stamina>> | Energy: <<print $currentStats.energy>>
+Energy: <<print $currentStats.energy>> <br> Stamina: <<print $currentStats.stamina>>
 
 
 :: Start {"position":"100,100"}
