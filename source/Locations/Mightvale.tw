@@ -20,6 +20,7 @@ You are in the town of <<print passage()>>. What would you like to do?
     <<goto "TravelStart">>
 <</link>>
 
+
 :: MV Merc Guild [nobr] {"position":"16700,6625"}
 <<set $lastLocation = passage()>>
 <br><br>
@@ -36,6 +37,7 @@ You are in the town of <<print passage()>>. What would you like to do?
 <</if>>
 [[Leave the guild|Mightvale]]
 
+
 :: MVMGuildMember [nobr] {"position":"16500,6750"}
 <br><br>
 <<if $playerClass == "Swordsman">>
@@ -44,6 +46,7 @@ You are in the town of <<print passage()>>. What would you like to do?
     A friendly member notices your interest. "If you're looking to join, the Guildmaster can help you with that."<br><br>
 <</if>>
 [[Go back to the main hall|MV Merc Guild]]
+
 
 :: MVMGuildMaster [nobr] {"position":"16600,6750"}
 <br><br>

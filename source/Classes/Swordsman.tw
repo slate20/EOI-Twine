@@ -59,6 +59,9 @@ The real test begins as you venture forth, seeking challenges that will forge yo
     <<if $currentStats.stamina < 5>>
         <<print "You don't have enough stamina to use this skill.<br><br>">>
         [[Go Back|SkillChoice]]
+    <<elseif $weapons[$equipmentSlots.mainhand].class != "melee">>
+        <<print "You must have a melee weapon equipped to use this skill.<br><br>">>
+        [[Go Back|SkillChoice]]
     <<else>>
         <<set $playerAP -= 2>>
         <<set $currentStats.stamina -= 5>>
@@ -120,6 +123,9 @@ The real test begins as you venture forth, seeking challenges that will forge yo
 <<else>>
     <<if $currentStats.stamina < 5>>
         <<print "You don't have enough stamina to use this skill.<br><br>">>
+        [[Go Back|SkillChoice]]
+    <<elseif $weapons[$equipmentSlots.mainhand].class != "melee">>
+        <<print "You must have a melee weapon equipped to use this skill.<br><br>">>
         [[Go Back|SkillChoice]]
     <<else>>
         <<set $playerAP -= 3>>

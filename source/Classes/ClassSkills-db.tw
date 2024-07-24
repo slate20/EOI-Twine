@@ -25,6 +25,8 @@
     }
 }>>
 
+
+
 <!-- Mage Class Skills -->
 <<set $MageSkills = {
     "Fireball": {
@@ -58,3 +60,41 @@
         "unlocked": false
     }
 }>>
+
+
+
+<!-- Rogue Class Skills -->
+<<set $RogueSkills = {
+    "PiercingShot": {
+        "name": "Piercing Shot",
+        "description": "Fire an overcharged shot to pierce through an enemy's defense.",
+        "effect": "Deals moderate damage with increased chance to hit",
+        "staminaCost": 5,
+        "apCost": 3,
+        "range": ["mid-range", "far"],
+        "weaponType": "bow",
+        "unlocked": false
+    },
+    "Ensnare": {
+        "name": "Ensnare",
+        "description": "Move away and set a trap to ensnare the enemy",
+        "effect": "Move to the 'far' position and trap the enemy when they try to approach",
+        "staminaCost": 3,
+        "apCost": 3,
+        "range": ["close", "mid-range"],
+        "weaponType": [],
+        "unlocked": false
+    },
+    "LaceratingSlice": {
+        "name": "Lacerating Slice",
+        "description": "Make a calculated strike that leaves the enemy bleeding.",
+        "effect": "Deals moderate damage and inflicts bleeding status",
+        "staminaCost": 5,
+        "apCost": 2,
+        "range": "close",
+        "weaponType": "dagger",
+        "unlocked": false
+    }
+}>>
+
+        

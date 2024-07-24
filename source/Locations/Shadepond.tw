@@ -1,0 +1,60 @@
+:: Shadepond [Location sm-forest-town] {"position":"17150,5500"}
+<<nobr>>
+<<set $currentBiome = "forest">>
+<<set $biomeBG = "forest">>
+<<set $lastLocation = passage()>>
+<</nobr>>
+<div style="text-align: center;">
+You are in the town of <<print passage()>>. What would you like to do?
+</div>
+
+[[Explore the surrounding forest|Shadepond Forest]]
+[[Visit the Veiled Wardens Sanctuary|Veiled Wardens Sanctuary]]
+<<link "Travel South">>
+	<<set $traveling to true>>
+	<<set $travelTo = {
+        destination: "Bavenmore",
+        distance: 7, // Example distance
+        energyCostPerUnit: 5, // Example energy cost
+        eventProbability: 0.5 // Example event probability
+    }>>
+    <<goto "TravelStart">>
+<</link>>
+
+
+:: Veiled Wardens Sanctuary [nobr] {"position":"17150,5500"}
+<<set $lastLocation = passage()>>
+<br><br>
+<<if $playerClass == "Rogue">>
+    You're greeted warmly as a fellow Rogue. The sancutary is bustling with activity.<br><br>
+    [[Check the notice board for work|NoticeBoard]]<br>
+    [[Visit the trader|VeiledWardensTrader]]<br>
+    [[Rest in the bunkhouse|Bunkhouse]]<br>
+<<else>>
+    You step into the dimly lit underground sanctuary known as the Veiled Wardens' Sanctuary. The room is filled with individuals practicing their stealth, archery, and dexterity. At the far end, you see the Master Warden, a figure cloaked in light armor, observing you.<br><br>
+    [[Speak to a member of the Veiled Wardens|VeiledWardensMember]]<br>
+    [[Approach the Master Warden|VeiledWardensMaster]]<br>
+<</if>>
+[[Leave the sanctuary|Shadepond]]
+
+
+:: VeiledWardensMaster [nobr] {"position":"17150,5375"}
+<br><br>
+<div style="text-align: center;">
+The Master Warden, a figure cloaked in light armor, steps forward and assesses you with a keen gaze.<br>
+"Why have you come to our sancutary?"<br><br>
+</div>
+<<if $playerClass != "Rogue">>
+    <<link "Ask about becoming a Rogue">><<goto "RogueInfo">><</link>>
+<</if>><br>
+[[Nothing, sorry to bother you.|Veiled Wardens Sanctuary]]
+
+
+:: RogueInfo [nobr] {"position":"17150,5500"}
+<br><br>
+"Rogues are masters of stealth and precision. They excel at striking swiftly, avoiding detection, and mastering ranged attacks. To join our numbers is to embrace a life of cunning, agility, and versatility. Are you prepared to dedicate yourself to the way of the Veiled Wardens?"
+<br><br>
+<<link "Enroll in Rogue class">><<goto "EnrollRogue">><</link>><br>
+[["I'm not sure yet."|VeiledWardensMaster]]
+
+:: Shadepond Forest [nobr] {"position":"17150,5375"}
