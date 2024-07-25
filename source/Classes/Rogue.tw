@@ -1,0 +1,166 @@
+:: EnrollRogue [nobr] {"position":"2700,200"}
+<br><br>
+<div style="text-align: center;">
+"We welcome you to our league," the Master Warden announces.
+</div>
+<br><br>
+[[Begin your training|RogueTraining]]
+
+
+:: RogueTraining [nobr] {"position":"2700,325"}
+<<set $currentStats.health = $baseStats.health>>
+<<set $currentStats.energy to $baseStats.energy>>
+<<set $playerClass = "Rogue">>
+<<if $playerSkills.length === 0>>
+    <<run Object.keys($RogueSkills).forEach(function(skillKey) {
+        $playerSkills.push(clone($RogueSkills[skillKey]));
+    })>>
+<</if>>
+<<set $baseStats.dexterity += 4>>
+<<set $baseStats.awareness += 2>>
+<<set $baseStats.charisma += 2>>
+<<set $currentStats.dexterity = $baseStats.dexterity>>
+<<set $currentStats.awareness = $baseStats.awareness>>
+<<set $currentStats.charisma = $baseStats.charisma>>
+<<if $classStarterWeapons is true>>
+<<else>>
+    <<set $inventory.push(clone($weapons["Dull Iron Dagger"]))>>
+    <<set $inventory.push(clone($weapons["Oak Shortbow"]))>>
+<</if>>
+<<set $classStarterWeapons to true>>
+<br><br>
+Over the span of several months, your training under the all-seeing eye of the Master Warden at the Veiled Wardens' Sanctuary transforms you. 
+You spend every night training, blending into the shadows, honing your skills in stealth, agility, and precision under the limited visibilty of the night sky. You learn not just to strike swiftly, 
+but to move unseen and unheard, to blend into the darkness and become one with the shadows. Your movements grow quicker, your strikes more precise, and your presence almost imperceptible. 
+Yet, as you stand ready to embark on your own path, it's clear that this is but the first step in a lifelong journey of mastery. The real test begins as you venture forth, 
+seeking challenges that will forge you into a master rogue.
+<br><br>
+<<link "Complete your training">>
+    <<run Dialog.setup("Joined Rogue Class")>>
+    <<run Dialog.wiki("You have unlock the Rogue skilltree. You have also obtained a Dull Iron Dagger and Oak Shortbow from your training.")>>
+    <<run Dialog.open()>>
+    <<goto RecalcMods>>
+<</link>>
+
+
+<!-- Rogue Class Skills Logic -->
+
+:: SkillPiercingShot [nobr]
+<br>
+<<print "<img src='" + $enemyImgPath + "' style='display: block; margin: auto;' width='300' height='300'>">><br>
+<div style="text-align: center;">
+    Enemy HP: $currentEnemy.health <br>
+    Distance: $playerDistance
+</div><br>
+
+<<if $playerDistance == "close">>
+    <<print "You are too close to use this skill.">><br><br>
+    [[Go Back|SkillChoice]]<br>
+<<else>>
+    <<if $currentStats.stamina < 5>>
+        <<print "You don't have enough stamina to use this skill.">><br><br>
+        [[Go Back|SkillChoice]]<br>
+    <<elseif $weapons[$equipmentSlots.mainhand].type != "bow">>
+        <<print "You must have a bow equipped to use this skill.">><br><br>
+        [[Go Back|SkillChoice]]<br>
+    <<else>>
+        <<set $currentStats.stamina -= 5>>
+        <<set $playerAP -= 3>>
+
+        <!-- Calculate Piercing Shot Damage -->
+        <<set $baseDamage = random(1, 6)>>
+        <<set $playerAttack to $baseDamage + $modifiers.dexterity>> <!-- 1d6 + dexterity modifier -->
+
+        <!-- Determine if the player's attack hits -->
+        <<set $attackRoll to random(7, 20) + $modifiers.awareness>>
+        <<if $attackRoll >= $currentEnemy.defense>>
+            <<set $currentEnemy.health to $currentEnemy.health - $playerAttack>>
+            You overdraw your bow and release a forceful shot at the $currentEnemy.name, dealing $playerAttack damage.<br><br>
+        <<else>>
+            You're Piercing Shot misses the $currentEnemy.name.<br><br>
+        <</if>>
+
+        <<if $currentEnemy.health <= 0>>
+            You have defeat the $currentEnemy.name!<br>
+            [[Continue|Victory]]
+        <<else>>
+            [[Continue|CombatTurn]]
+        <</if>>
+    <</if>>
+<</if>>
+
+
+:: SkillEnsnare [nobr]
+<br>
+<<print "<img src='" + $enemyImgPath + "' style='display: block; margin: auto;' width='300' height='300'>">><br>
+<div style="text-align: center;">
+    Enemy HP: $currentEnemy.health <br>
+    Distance: $playerDistance
+</div><br>
+
+<<if $currentStats.stamina < 3>>
+    <<print "You don't have enough stamina to use this skill.">><br><br>
+    [[Go Back|SkillChoice]]<br>
+<<else>>
+    <<set $currentStats.stamina -= 3>>
+    <<set $playerAP -= 3>>
+
+    <!-- Move to 'far' distance -->
+    <<set $playerDistance = "far">>
+
+    <!-- Apply Ensnare effect -->
+    <<set $currentEnemyStatusEffects.snare = {duration: 1, effect: "snare"}>>
+
+    You quickly deploy a snare trap and move to a safe distance.<br><br>
+
+    [[Continue|CombatTurn]]
+<</if>>
+
+
+:: SkillLacerate [nobr]
+<br>
+<<print "<img src='" + $enemyImgPath + "' style='display: block; margin: auto;' width='300' height='300'>">><br>
+<div style="text-align: center;">
+    Enemy HP: $currentEnemy.health <br>
+    Distance: $playerDistance
+</div><br>
+
+<<if $playerDistance != "close">>
+    <<print "You are too far away to use this skill.">><br><br>
+    [[Go Back|SkillChoice]]<br>
+<<else>>
+    <<if $currentStats.stamina < 5>>
+        <<print "You don't have enough stamina to use this skill.">><br><br>
+        [[Go Back|SkillChoice]]<br>
+    <<elseif $weapons[$equipmentSlots.mainhand].type != "dagger">>
+        <<print "You must have a dagger equipped to use this skill.">><br><br>
+        [[Go Back|SkillChoice]]<br>
+    <<else>>
+        <<set $currentStats.stamina -= 5>>
+        <<set $playerAP -= 2>>
+
+        <!-- Calculate Lacerate Damage -->
+        <<set $baseDamage = random(1, 4)>>
+        <<set $playerAttack to $baseDamage + $modifiers.dexterity>> <!-- 1d4 + dexterity modifier -->
+
+        <!-- Determine if the player's attack hits -->
+        <<set $attackRoll to random(3, 20) + $modifiers.awareness>>
+        <<if $attackRoll >= $currentEnemy.defense>>
+            <<set $currentEnemy.health to $currentEnemy.health - $playerAttack>>
+            You deliver a calculated strike to the $currentEnemy.name, dealing $playerAttack damage.<br><br>
+            <!-- Apply Bleed effect -->
+            <<set $currentEnemyStatusEffects.bleeding = {duration: 3, effect: "bleeding", damage: 1}>>
+            The $currentEnemy.name starts bleeding.<br><br>
+        <<else>>
+            You miss the $currentEnemy.name.<br><br>
+        <</if>>
+
+        <<if $currentEnemy.health <= 0>>
+            You have defeat the $currentEnemy.name!<br>
+            [[Continue|Victory]]
+        <<else>>
+            [[Continue|CombatTurn]]
+        <</if>>
+    <</if>>
+<</if>>
+

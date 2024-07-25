@@ -52,11 +52,12 @@ Echoes Of Ismia
 <<set $playerEXP = 80>>
 <<set $expThresh = 100>>
 <<set $playerClass = "">>
-<<set $playerSkillPoints = 0>>
+<<set $playerSkillPoints = 3>>
 <<set $playerStatPoints = 0>>
 <<set $playerSkills = []>>
 <<set $inventory = []>>
 <<set $playerGold = 0>>
+<<set $playerHasMagic = 0>>
 
 <<set $equipmentSlots = {
     "mainhand": "",
@@ -69,6 +70,7 @@ Echoes Of Ismia
 <<set $globalHUD = 0>>
 <<set $inMenu = 0>>
 <<set $currentEnemy = "">>
+<<set $currentEnemyStatusEffects = {}>>
 <<set $shopVisited = 0>>
 <<set $hasPan = 0>>
 <<include "Items">>
@@ -76,11 +78,15 @@ Echoes Of Ismia
 <<include "TravelInit">>
 <<include "ClassSkills">>
 
+<!-- Initialize Status Effects for Player-->
+<<set $playerStatusEffects = {}>>
+
 :: PassageHeader [System-Logic nobr] {"position":"900,0","size":"100,100"}
 <<if $globalHUD is not 0>>
     <div style="display: flex; justify-content: center; align-items: center; gap: 250px;">
         <div>
             <<print $playerName>> | Lvl: <<print $playerLvl>>
+            <br> HP: <<print $currentStats.health>> <<if $playerHasMagic == 1>> | MP: <<print $currentStats.mana>> <</if>>
         </div>
         <div>
             <<include "HUDStatDisplay">>
@@ -99,7 +105,7 @@ Echoes Of Ismia
 
 
 :: HUDStatDisplay [System-Logic] {"position":"1000,0","size":"100,100"}
-HP: <<print $currentStats.health>> | Stamina: <<print $currentStats.stamina>> | Energy: <<print $currentStats.energy>>
+Energy: <<print $currentStats.energy>> <br> Stamina: <<print $currentStats.stamina>>
 
 
 :: Start {"position":"100,100"}

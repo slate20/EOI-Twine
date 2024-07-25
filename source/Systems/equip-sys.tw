@@ -3,6 +3,17 @@
 <<set $itemType = _itemToEquip.type>>
 <<set $itemSlots = $itemTypeToSlots[$itemType]>>
 
+<<if $equipmentSlots.mainhand !== "">>
+    <<set _mainhandItemName = $equipmentSlots.mainhand>>
+    <<set _mainhandItemIndex = $inventory.findIndex(item => item.name === _mainhandItemName)>>
+    <<if _mainhandItemIndex !== -1>>
+        <<set _mainHandItemType = $inventory[_mainhandItemIndex].type>>
+        <<if $itemTypeToSlots[_mainHandItemType].includes("offhand")>>
+            <<set $equipmentSlots.offhand = "">>
+        <</if>>
+    <</if>>
+<</if>>
+
 <<for _slot range $itemSlots>>
     <<if $equipmentSlots[_slot] !== "">>
         <<set _equippedItemName = $equipmentSlots[_slot]>>

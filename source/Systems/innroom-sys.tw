@@ -4,6 +4,7 @@
   <<else>>
       <<set $playerGold = $playerGold - 3>>
       <<set $currentStats.health to $baseStats.health>>
+      <<set $currentStats.mana to $baseStats.mana>>
       <<set $currentStats.energy to $baseStats.energy>>
       <<set $currentStats.stamina to $baseStats.stamina>>
       You spend the night at the inn and feel well-rested<br><br>
