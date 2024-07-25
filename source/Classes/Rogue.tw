@@ -89,3 +89,29 @@ seeking challenges that will forge you into a master rogue.
     <</if>>
 <</if>>
 
+
+:: SkillEnsnare [nobr]
+<br>
+<<print "<img src='" + $enemyImgPath + "' style='display: block; margin: auto;' width='300' height='300'>">><br>
+<div style="text-align: center;">
+    Enemy HP: $currentEnemy.health <br>
+    Distance: $playerDistance
+</div><br>
+
+<<if $currentStats.stamina < 3>>
+    <<print "You don't have enough stamina to use this skill.<br><br>">>
+    [[Go Back|SkillChoice]]<br>
+<<else>>
+    <<set $currentStats.stamina -= 3>>
+    <<set $playerAP -= 3>>
+
+    <!-- Move to 'far' distance -->
+    <<set $playerDistance = "far">>
+
+    <!-- Apply Ensnare effect -->
+    <<set $currentEnemyStatusEffects.snare = {duration: 1, effect: "snare"}>>
+
+    You quickly deploy a snare trap and move to a safe distance.<br><br>
+
+    [[Continue|CombatTurn]]
+<</if>>
