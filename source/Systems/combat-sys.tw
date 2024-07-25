@@ -168,7 +168,7 @@ You face the $currentEnemy.name, readying yourself for the next move.<br>
     Enemy HP: $currentEnemy.health <br>
     Distance: $playerDistance
 </div><br>
-Enemy Distance: <<print $playerDistance>>. What do you want to do?<br><br>
+Where do you want to move?<br><br>
 <<if $playerDistance == "far">>
     <<link "Move closer">>
         <<set $playerAP -= 1>>
@@ -227,42 +227,46 @@ Available Skills:<br>
     Distance: $playerDistance
 </div><br>
 
-<<include "HandleStatusEffects">>
-
-<<if $currentEnemy.health <= 0>>
-    The $currentEnemy.name succumbs to their wounds!<br>
-    [[Continue|Victory]]
-<<else>>    
-    <<if $enemyAP > 0>>
-        <<if $currentEnemy.range == "melee">>
-            <<if $playerDistance == "close">>
-                <<goto "EnemyAttack">>
-            <<elseif $playerDistance == "mid-range">>
-                <<if "snare" in $currentEnemyStatusEffects>>
-                    The $currentEnemy.name is ensnared and unable to move closer.<br>
-                    <<set $enemyAP to 0>>
-                <<else>>
-                    The $currentEnemy.name closes in on you.
-                    <<set $playerDistance = "close">><<set $enemyAP -= 1>><br><br>
+<<if $combatTurn != "enemy">>
+    <<set $combatTurn = "enemy">>    
+    <<include "HandleStatusEffects">>
+    [[Continue|EnemyTurn]]
+<<else>>
+    <<if $currentEnemy.health <= 0>>
+        The $currentEnemy.name succumbs to their wounds!<br>
+        [[Continue|Victory]] <<set $combatTurn = "player">>
+    <<else>>    
+        <<if $enemyAP > 0>>
+            <<if $currentEnemy.range == "melee">>
+                <<if $playerDistance == "close">>
+                    <<goto "EnemyAttack">>
+                <<elseif $playerDistance == "mid-range">>
+                    <<if "snare" in $currentEnemyStatusEffects>>
+                        The $currentEnemy.name is ensnared and unable to move closer.<br>
+                        <<set $enemyAP to 0>>
+                    <<else>>
+                        The $currentEnemy.name closes in on you.
+                        <<set $playerDistance = "close">><<set $enemyAP -= 1>><br><br>
+                    <</if>>
+                    [[Continue|EnemyTurn]]
+                <<elseif $playerDistance == "far">>
+                    The $currentEnemy.name charges toward you.
+                    <<set $playerDistance = "mid-range">><<set $enemyAP -= 1>><br><br>
+                    [[Continue|EnemyTurn]]
                 <</if>>
-                [[Continue|EnemyTurn]]
-            <<elseif $playerDistance == "far">>
-                The $currentEnemy.name charges toward you.
-                <<set $playerDistance = "mid-range">><<set $enemyAP -= 1>><br><br>
-                [[Continue|EnemyTurn]]
+            <<elseif $currentEnemy.range == "ranged">>
+                <<if $playerDistance == "mid-range" || $playerDistance == "far">>
+                    <<goto "EnemyAttack">>
+                <<else>>
+                    The $currentEnemy.name creates distance.
+                    <<set $playerDistance = "mid-range">><<set $enemyAP -= 1>><br><br>
+                    [[Continue|EnemyTurn]]
+                <</if>>
             <</if>>
-        <<elseif $currentEnemy.range == "ranged">>
-            <<if $playerDistance == "mid-range" || $playerDistance == "far">>
-                <<goto "EnemyAttack">>
-            <<else>>
-                The $currentEnemy.name creates distance.
-                <<set $playerDistance = "mid-range">><<set $enemyAP -= 1>><br><br>
-                [[Continue|EnemyTurn]]
-            <</if>>
+        <<else>>
+            The $currentEnemy.name ends its turn.<br><br>
+            [[Continue|CombatTurn]]<<set $enemyAP to 3>><<set $combatTurn = "player">>
         <</if>>
-    <<else>>
-        The $currentEnemy.name ends its turn.<br><br>
-        [[Continue|CombatTurn]]<<set $enemyAP to 3>>
     <</if>>
 <</if>>
 

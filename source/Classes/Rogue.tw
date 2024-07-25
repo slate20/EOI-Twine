@@ -54,14 +54,14 @@ seeking challenges that will forge you into a master rogue.
 </div><br>
 
 <<if $playerDistance == "close">>
-    <<print "You are too close to use this skill.<br><br>">>
+    <<print "You are too close to use this skill.">><br><br>
     [[Go Back|SkillChoice]]<br>
 <<else>>
     <<if $currentStats.stamina < 5>>
-        <<print "You don't have enough stamina to use this skill.<br><br>">>
+        <<print "You don't have enough stamina to use this skill.">><br><br>
         [[Go Back|SkillChoice]]<br>
     <<elseif $weapons[$equipmentSlots.mainhand].type != "bow">>
-        <<print "You must have a bow equipped to use this skill.<br><br>">>
+        <<print "You must have a bow equipped to use this skill.">><br><br>
         [[Go Back|SkillChoice]]<br>
     <<else>>
         <<set $currentStats.stamina -= 5>>
@@ -99,7 +99,7 @@ seeking challenges that will forge you into a master rogue.
 </div><br>
 
 <<if $currentStats.stamina < 3>>
-    <<print "You don't have enough stamina to use this skill.<br><br>">>
+    <<print "You don't have enough stamina to use this skill.">><br><br>
     [[Go Back|SkillChoice]]<br>
 <<else>>
     <<set $currentStats.stamina -= 3>>
@@ -115,3 +115,52 @@ seeking challenges that will forge you into a master rogue.
 
     [[Continue|CombatTurn]]
 <</if>>
+
+
+:: SkillLacerate [nobr]
+<br>
+<<print "<img src='" + $enemyImgPath + "' style='display: block; margin: auto;' width='300' height='300'>">><br>
+<div style="text-align: center;">
+    Enemy HP: $currentEnemy.health <br>
+    Distance: $playerDistance
+</div><br>
+
+<<if $playerDistance != "close">>
+    <<print "You are too far away to use this skill.">><br><br>
+    [[Go Back|SkillChoice]]<br>
+<<else>>
+    <<if $currentStats.stamina < 5>>
+        <<print "You don't have enough stamina to use this skill.">><br><br>
+        [[Go Back|SkillChoice]]<br>
+    <<elseif $weapons[$equipmentSlots.mainhand].type != "dagger">>
+        <<print "You must have a dagger equipped to use this skill.">><br><br>
+        [[Go Back|SkillChoice]]<br>
+    <<else>>
+        <<set $currentStats.stamina -= 5>>
+        <<set $playerAP -= 2>>
+
+        <!-- Calculate Lacerate Damage -->
+        <<set $baseDamage = random(1, 4)>>
+        <<set $playerAttack to $baseDamage + $modifiers.dexterity>> <!-- 1d4 + dexterity modifier -->
+
+        <!-- Determine if the player's attack hits -->
+        <<set $attackRoll to random(3, 20) + $modifiers.awareness>>
+        <<if $attackRoll >= $currentEnemy.defense>>
+            <<set $currentEnemy.health to $currentEnemy.health - $playerAttack>>
+            You deliver a calculated strike to the $currentEnemy.name, dealing $playerAttack damage.<br><br>
+            <!-- Apply Bleed effect -->
+            <<set $currentEnemyStatusEffects.bleeding = {duration: 3, effect: "bleeding", damage: 1}>>
+            The $currentEnemy.name starts bleeding.<br><br>
+        <<else>>
+            You miss the $currentEnemy.name.<br><br>
+        <</if>>
+
+        <<if $currentEnemy.health <= 0>>
+            You have defeat the $currentEnemy.name!<br>
+            [[Continue|Victory]]
+        <<else>>
+            [[Continue|CombatTurn]]
+        <</if>>
+    <</if>>
+<</if>>
+

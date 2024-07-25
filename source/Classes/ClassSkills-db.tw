@@ -85,8 +85,8 @@
         "weaponType": [],
         "unlocked": false
     },
-    "LaceratingSlice": {
-        "name": "Lacerating Slice",
+    "Lacerate": {
+        "name": "Lacerate",
         "description": "Make a calculated strike that leaves the enemy bleeding.",
         "effect": "Deals moderate damage and inflicts bleeding status",
         "staminaCost": 5,
