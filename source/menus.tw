@@ -31,6 +31,12 @@
     <</if>>
     <<goto "SkillsMenu">>
 <</link>>
+<<link "Journal">>
+    <<if $inMenu is 0>>
+        <<set $returnPassage = passage()>>
+    <</if>>
+    <<goto "Journal">>
+<</link>>
 
 :: StatsMenu [menu] {"position":"800,100","size":"100,100"}
 <<set $inMenu = 1>>
@@ -195,6 +201,44 @@ Available Skill Points: $playerSkillPoints
     <</for>>
 <</if>>
 <br>
+<<link "Back">>
+    <<set $inMenu = 0>>
+    <<goto $returnPassage>>
+<</link>>
+
+
+
+:: Journal [nobr menu] {"position":"900,100","size":"100,100"}
+<<set $inMenu = 1>>
+
+Quest Journal:
+<br><br>
+
+<div style="display: flex; justify-content: space-between; padding: 5px; border-radius: 5px;">
+    <div style="flex: 2; text-align: left;"><b>Quest</b></div>
+    <div style="flex: 3; text-align: left;"><b>Objective</b></div>
+    <div style="flex: 1; text-align: center;"><b>Status</b></div>
+</div>
+<<for _quest range $playerQuests>>
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div style="flex: 2; text-align: left;">
+            <div class="hover-info">
+                <<print _quest.title>>
+                <span class="info-text">Description: <<print _quest.description>></span>
+            </div>
+        </div>
+        <div style="flex: 3; text-align: left;">
+            <<for _index, _objective range _quest.objectives>>
+                <<if _objective.completed is false>>
+                    <<print _objective.text>><br>
+                    <<break>>
+                <</if>>
+            <</for>>
+        </div>
+        <div style="flex: 1; text-align: center;"><<print _quest.status>></div>
+    </div>
+<</for>>
+
 <<link "Back">>
     <<set $inMenu = 0>>
     <<goto $returnPassage>>

@@ -1,0 +1,35 @@
+:: QuestReward [nobr] {"position":"0,0"}
+<<set _quest to $playerQuests.find(q => q.title === $currentQuest)>>
+<<if _quest>>
+    <<set _quest.status to "completed">>
+
+    <!-- Handle Gold Reward -->
+    <<if _quest.reward.gold > 0>>
+        <<set $playerGold += _quest.reward.gold>>
+    <</if>>
+
+    <!-- Handle EXP Reward -->
+    <<if _quest.reward.exp > 0>>
+        <<set $playerEXP += _quest.reward.exp>>
+    <</if>>
+
+    <!-- Handle Item Rewards -->
+    <<if _quest.reward.items.length > 0>>
+        <<for _item range _quest.reward.items>>
+            <<set $inventory.push(_item)>>
+        <</for>>
+    <</if>>
+
+    You completed the quest: <<print _quest.title>>!<br>
+    <<if _quest.reward.gold > 0>>You gained <<print _quest.reward.gold>> gold.<</if>>
+    <<if _quest.reward.exp > 0>>You gained <<print _quest.reward.exp>> EXP.<</if>>
+    <<if _quest.reward.items.length > 0>>You received the following items:<br>
+        <<for _item range _quest.reward.items>>
+            - <<print _item.name>><br>
+        <</for>>
+    <</if>>
+
+    <<link "Continue">>
+        <<goto $lastLocation>>
+    <</link>>
+<</if>>
