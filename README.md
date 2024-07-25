@@ -1,13 +1,9 @@
 ## Setup<br><br>
 To play simply run the html file located in the Stories folder.<br><br>
 To Contribute:<br>
-Download Twine Editor here: https://github.com/klembot/twinejs/releases<br>
+View development setup instructions [here](Dev-Setup.md).<br>
+<br><br>
 
-Open Twine and at the top select Twine->Set Story Library Folder <br>
-Set this to the 'Stories' folder in the repository<br><br>
-
-**Templates for adding content** -> [Code Templates](Code_Templates.md)<br><br>
-<br>
 #### CURRENTLY NOT WORKING
 ~the .map file in 'Stories/Assets/Maps' can be opened here: <br>
 https://azgaar.github.io/Fantasy-Map-Generator/~
