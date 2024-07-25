@@ -14,6 +14,11 @@
         <<set $playerDistance = "mid-range">>
         <<set $enemyAP = 0>>
     <</if>>
+    <<if _effectName == "stun">>
+        The $currentEnemy.name is stunned and cannot act!<br><br>
+        <<set $currentEnemyStatusEffects[_effectName].duration -= 1>>
+        <<set $enemyAP = 0>>
+    <</if>>
 <</for>>
 
 <!-- Remove expired status effects -->

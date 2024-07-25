@@ -21,6 +21,7 @@
 <<set $playerAP = 3>> <!-- Assuming each turn starts with 3 AP -->
 <<set $enemyAP = 3>>
 <<set $combatTurn = 1>>
+<<set $enemyTurn to false>>
 <br>
 <<print "<img src='" + $enemyImgPath + "' style='display: block; margin: auto;' width='300' height='300'>">><br>
 <div style="text-align: center;">
@@ -227,14 +228,53 @@ Available Skills:<br>
     Distance: $playerDistance
 </div><br>
 
-<<if $combatTurn != "enemy">>
-    <<set $combatTurn = "enemy">>    
-    <<include "HandleStatusEffects">>
+<<if $enemyTurn != true>>
+    <<set $enemyTurn to true>>
+    <<if Object.keys($currentEnemyStatusEffects).length > 0>>    
+        <<include "HandleStatusEffects">>
     [[Continue|EnemyTurn]]
+    <<else>>
+        <<if $currentEnemy.health <= 0>>
+            The $currentEnemy.name succumbs to their wounds!<br>
+            [[Continue|Victory]] <<set $enemyTurn = false>>
+        <<else>>    
+            <<if $enemyAP > 0>>
+                <<if $currentEnemy.range == "melee">>
+                    <<if $playerDistance == "close">>
+                        <<goto "EnemyAttack">>
+                    <<elseif $playerDistance == "mid-range">>
+                        <<if "snare" in $currentEnemyStatusEffects>>
+                            The $currentEnemy.name is ensnared and unable to move closer.<br>
+                            <<set $enemyAP to 0>>
+                        <<else>>
+                            The $currentEnemy.name closes in on you.
+                            <<set $playerDistance = "close">><<set $enemyAP -= 1>><br><br>
+                        <</if>>
+                        [[Continue|EnemyTurn]]
+                    <<elseif $playerDistance == "far">>
+                        The $currentEnemy.name charges toward you.
+                        <<set $playerDistance = "mid-range">><<set $enemyAP -= 1>><br><br>
+                        [[Continue|EnemyTurn]]
+                    <</if>>
+                <<elseif $currentEnemy.range == "ranged">>
+                    <<if $playerDistance == "mid-range" || $playerDistance == "far">>
+                        <<goto "EnemyAttack">>
+                    <<else>>
+                        The $currentEnemy.name creates distance.
+                        <<set $playerDistance = "mid-range">><<set $enemyAP -= 1>><br><br>
+                        [[Continue|EnemyTurn]]
+                    <</if>>
+                <</if>>
+            <<else>>
+                The $currentEnemy.name ends its turn.<br><br>
+                [[Continue|CombatTurn]]<<set $enemyAP to 3>><<set $enemyTurn = false>>
+            <</if>>
+        <</if>>
+    <</if>>
 <<else>>
     <<if $currentEnemy.health <= 0>>
         The $currentEnemy.name succumbs to their wounds!<br>
-        [[Continue|Victory]] <<set $combatTurn = "player">>
+        [[Continue|Victory]]
     <<else>>    
         <<if $enemyAP > 0>>
             <<if $currentEnemy.range == "melee">>
@@ -265,10 +305,11 @@ Available Skills:<br>
             <</if>>
         <<else>>
             The $currentEnemy.name ends its turn.<br><br>
-            [[Continue|CombatTurn]]<<set $enemyAP to 3>><<set $combatTurn = "player">>
+            [[Continue|CombatTurn]]<<set $enemyAP to 3>><<set $enemyTurn = false>>
         <</if>>
     <</if>>
 <</if>>
+
 
 
 :: EnemyAttack [nobr]
@@ -309,7 +350,7 @@ Available Skills:<br>
     <</if>>
 <<else>>
     The $currentEnemy.name ends it's turn.<br><br>
-    [[Continue|CombatTurn]]<<set $enemyAP to 3>>
+    [[Continue|CombatTurn]]<<set $enemyAP to 3>><<set $enemyTurn = false>>
 <</if>>
 
 

@@ -171,3 +171,70 @@ The real test begins as you venture forth, seeking challenges that will forge yo
         <</if>>
     <</if>>
 <</if>>
+
+
+:: SkillConcussiveBlow [nobr]
+<br>
+<<print "<img src='" + $enemyImgPath + "' style='display: block; margin: auto;' width='300' height='300'>">><br>
+<div style="text-align: center;">
+    Enemy HP: $currentEnemy.health <br>
+    Distance: $playerDistance
+</div><br>
+<<if $playerDistance != "close">>
+    <<print "You are too far away to use this skill.<br><br>">>
+    [[Go Back|SkillChoice]]
+<<else>>
+    <<if $currentStats.stamina < 5>>
+        <<print "You don't have enough stamina to use this skill.<br><br>">>
+        [[Go Back|SkillChoice]]
+    <<elseif $weapons[$equipmentSlots.mainhand].class != "melee">>
+        <<print "You must have a melee weapon equipped to use this skill.<br><br>">>
+        [[Go Back|SkillChoice]]
+    <<else>>
+        <<set $playerAP -= 3>>
+        <<set $currentStats.stamina -= 5>>
+
+        <!-- Initialize weapon and modifier variables based on equipped weapon -->
+        <<if $equipmentSlots.mainhand>> 
+            <<set $equippedWeapon to $weapons[$equipmentSlots.mainhand]>>
+            <<set $modifierType to $weaponTypeModifiers[$equippedWeapon.type]>>
+            <<set $modifierValue to $modifiers[$modifierType]>>
+            <<set $diceData to $equippedWeapon.damage.match(/(\d+)d(\d+)([+-]\d+)?/)>>
+            <<set $diceCount to parseInt($diceData[1])>>
+            <<set $diceType to parseInt($diceData[2])>>
+            <<set $damageModifier to $diceData[3] ? parseInt($diceData[3]) : 0>>
+        <<else>> 
+            <!-- Unarmed attack logic: base damage of 1 + strength modifier -->
+            <<set $modifierValue to $modifiers.strength>>
+            <<set $playerAttack to 1 + $modifierValue>>
+        <</if>>
+
+        <!-- Calculate the player's attack damage if a weapon is equipped -->
+        <<if $equipmentSlots.mainhand>> 
+            <<set $playerAttack to 0>>
+            <<for _i = 1; _i <= $diceCount; _i++>> 
+                <<set $playerAttack to $playerAttack + random(1, $diceType)>>
+            <</for>>
+            <<set $playerAttack to $playerAttack + $damageModifier>>
+            <<if $playerAttack < 0>> <<set $playerAttack to 0>> <</if>>
+        <</if>>
+
+        <!-- Determine if the player's attack hits and calculate damage -->
+        <<set $attackRoll to random(3, 20) + $modifierValue>>
+        <<if $attackRoll >= $currentEnemy.defense>> 
+            <<set $currentEnemy.health to $currentEnemy.health - $playerAttack>>
+            You deliver a concussive blow to the $currentEnemy.name, dealing $playerAttack damage.<br><br>
+            <<set $currentEnemyStatusEffects.stun = {duration: 1, effect: "stun"}>> <!-- Apply stun status effect -->
+            The $currentEnemy.name is stunned.<br><br>
+        <<else>> 
+            You miss the $currentEnemy.name.<br><br>
+        <</if>>
+        
+        <<if $currentEnemy.health <= 0>>
+            You have defeat the $currentEnemy.name!<br>
+            [[Continue|Victory]]
+        <<else>>
+            [[Continue|CombatTurn]]
+        <</if>>
+    <</if>>
+<</if>>

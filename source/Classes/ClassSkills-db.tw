@@ -22,6 +22,16 @@
         "range": ["mid-range", "far"],
         "weaponType": "melee",
         "unlocked": false
+    },
+    "ConcussiveBlow": {
+        "name": "Concussive Blow",
+        "description": "Deliver a blow with the blunt of your weapon to stun the enemy.",
+        "effect": "Deals moderate damage and stuns the enemy for 1 turn",
+        "staminaCost": 5,
+        "apCost": 3,
+        "range": "close",
+        "weaponType": "melee",
+        "unlocked": false
     }
 }>>
 
