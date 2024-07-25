@@ -22,8 +22,20 @@
         "range": ["mid-range", "far"],
         "weaponType": "melee",
         "unlocked": false
+    },
+    "ConcussiveBlow": {
+        "name": "Concussive Blow",
+        "description": "Deliver a blow with the blunt of your weapon to stun the enemy.",
+        "effect": "Deals moderate damage and stuns the enemy for 1 turn",
+        "staminaCost": 5,
+        "apCost": 3,
+        "range": "close",
+        "weaponType": "melee",
+        "unlocked": false
     }
 }>>
+
+
 
 <!-- Mage Class Skills -->
 <<set $MageSkills = {
@@ -58,3 +70,41 @@
         "unlocked": false
     }
 }>>
+
+
+
+<!-- Rogue Class Skills -->
+<<set $RogueSkills = {
+    "PiercingShot": {
+        "name": "Piercing Shot",
+        "description": "Fire an overcharged shot to pierce through an enemy's defense.",
+        "effect": "Deals moderate damage with increased chance to hit",
+        "staminaCost": 5,
+        "apCost": 3,
+        "range": ["mid-range", "far"],
+        "weaponType": "bow",
+        "unlocked": false
+    },
+    "Ensnare": {
+        "name": "Ensnare",
+        "description": "Move away and set a trap to ensnare the enemy",
+        "effect": "Move to the 'far' position and trap the enemy when they try to approach",
+        "staminaCost": 3,
+        "apCost": 3,
+        "range": ["close", "mid-range"],
+        "weaponType": [],
+        "unlocked": false
+    },
+    "Lacerate": {
+        "name": "Lacerate",
+        "description": "Make a calculated strike that leaves the enemy bleeding.",
+        "effect": "Deals moderate damage and inflicts bleeding status",
+        "staminaCost": 5,
+        "apCost": 2,
+        "range": "close",
+        "weaponType": "dagger",
+        "unlocked": false
+    }
+}>>
+
+        

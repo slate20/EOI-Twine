@@ -9,12 +9,13 @@
 }>>
 
 <<set $itemTypeToSlots = {
-    "sword": ["mainhand"],
+    "armor": ["outfit"],
     "blunt": ["mainhand"],
     "bow": ["mainhand", "offhand"],
-    "staff": ["mainhand", "offhand"],
+    "dagger": ["mainhand"],
     "shield": ["offhand"],
-    "armor": ["outfit"]
+    "staff": ["mainhand", "offhand"],
+    "sword": ["mainhand"]
 }>>
 
 <<set $weapons = {
@@ -56,6 +57,16 @@
         "damage": "1d4+0",
         "tier": 1,
         "value": 15,
+        "equipped": false
+    },
+    "Dull Iron Dagger": {
+        "name": "Dull Iron Dagger",
+        "class": "melee",
+        "type": "dagger",
+        "description": "A simple dagger with a dulled edge.",
+        "damage": "1d4+0",
+        "tier": 1,
+        "value": 7,
         "equipped": false
     }
 }>>

@@ -70,12 +70,16 @@ Echoes Of Ismia
 <<set $globalHUD = 0>>
 <<set $inMenu = 0>>
 <<set $currentEnemy = "">>
+<<set $currentEnemyStatusEffects = {}>>
 <<set $shopVisited = 0>>
 <<set $hasPan = 0>>
 <<include "Items">>
 <<include "Enemies">>
 <<include "TravelInit">>
 <<include "ClassSkills">>
+
+<!-- Initialize Status Effects for Player-->
+<<set $playerStatusEffects = {}>>
 
 :: PassageHeader [System-Logic nobr] {"position":"900,0","size":"100,100"}
 <<if $globalHUD is not 0>>

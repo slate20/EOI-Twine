@@ -1,0 +1,30 @@
+:: HandleStatusEffects [nobr]
+
+<!-- Handle enemy status effects -->
+<<for _effectName, _effectData range $currentEnemyStatusEffects>>
+    <<if _effectName == "bleeding">>
+        <<set $bleedingDamage = _effectData.damage>>
+        <<set $currentEnemy.health -= $bleedingDamage>>
+        The $currentEnemy.name bleeds, taking <<print $bleedingDamage>> damage.<br><br>
+        <<set $currentEnemyStatusEffects[_effectName].duration -= 1>>
+    <</if>>
+    <<if _effectName == "snare">>
+        The $currentEnemy.name runs into your snare and struggles to move.<br><br>
+        <<set $currentEnemyStatusEffects[_effectName].duration -= 1>>
+        <<set $playerDistance = "mid-range">>
+        <<set $enemyAP = 0>>
+    <</if>>
+    <<if _effectName == "stun">>
+        The $currentEnemy.name is stunned and cannot act!<br><br>
+        <<set $currentEnemyStatusEffects[_effectName].duration -= 1>>
+        <<set $enemyAP = 0>>
+    <</if>>
+<</for>>
+
+<!-- Remove expired status effects -->
+<<set $currentEnemyStatusEffects = Object.keys($currentEnemyStatusEffects).reduce((acc, key) => {
+    if ($currentEnemyStatusEffects[key].duration > 0) {
+        acc[key] = $currentEnemyStatusEffects[key];
+    }
+    return acc;
+}, {})>>
