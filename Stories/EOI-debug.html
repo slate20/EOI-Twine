@@ -983,6 +983,7 @@ The real test begins as you venture forth, seeking challenges that will forge yo
 &lt;&lt;set $playerSkills = []&gt;&gt;
 &lt;&lt;set $inventory = []&gt;&gt;
 &lt;&lt;set $playerQuests = []&gt;&gt;
+&lt;&lt;set $completedQuests = []&gt;&gt;
 &lt;&lt;set $playerGold = 0&gt;&gt;
 &lt;&lt;set $playerHasMagic = 0&gt;&gt;
 
@@ -1089,11 +1090,14 @@ The shopkeeper nods at you.
 	&lt;&lt;set $shopVisited = 0&gt;&gt;
     &lt;&lt;goto Bavenmore&gt;&gt;
 &lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="24" name="Bavenmore Shopkeeper" tags="nobr gen-shop" position="17250,7000" size="100,100">&lt;&lt;set _quest to $playerQuests.find(q =&gt; q.title === &quot;Lost Family Necklace&quot;)&gt;&gt;
+&lt;&lt;set _completedQuest to $completedQuests.find(q =&gt; q.title === &quot;Lost Family Necklace&quot;)&gt;&gt;
+
 &lt;br&gt;&lt;br&gt;
 &quot;Welcome to the Bavenmore Shop!&quot; the shopkeeper bellows. &quot;What can I help you with today?&quot;
 &lt;br&gt;&lt;br&gt;
 
-&lt;&lt;if _quest &amp;&amp; _quest.objectives[1].completed is true&gt;&gt;
+&lt;&lt;if _completedQuest&gt;&gt;
+&lt;&lt;elseif _quest &amp;&amp; _quest.objectives[1].completed is true&gt;&gt;
     [[&quot;I have found your lost necklace!&quot;|LostFamilyNecklace]]&lt;br&gt;
 &lt;&lt;else&gt;&gt;
     [[&quot;You look troubled, is there something on your mind?&quot;|LostFamilyNecklace]]&lt;br&gt;
@@ -1144,17 +1148,17 @@ The innkeeper pauses his work and gives you a nod. &quot;Welcome, traveler! What
 &lt;br&gt;&lt;br&gt;
 &lt;&lt;link &quot;Ask about the Swordsman class&quot;&gt;&gt;&lt;&lt;set $classInquiry = &quot;Swordsman&quot;&gt;&gt;&lt;&lt;goto &quot;Guild Info&quot;&gt;&gt;&lt;&lt;/link&gt;&gt;&lt;br&gt;
 &lt;!-- Placeholder links for future classes --&gt;
-&lt;&lt;link &quot;Ask about the Mage class (Coming Soon)&quot;&gt;&gt;&lt;&lt;set $classInquiry = &quot;Mage&quot;&gt;&gt;&lt;&lt;goto &quot;Guild Info&quot;&gt;&gt;&lt;&lt;/link&gt;&gt;&lt;br&gt;
-&lt;&lt;link &quot;Ask about the Rogue class (Coming Soon)&quot;&gt;&gt;&lt;&lt;set $classInquiry = &quot;Rogue&quot;&gt;&gt;&lt;&lt;goto &quot;Guild Info&quot;&gt;&gt;&lt;&lt;/link&gt;&gt;&lt;br&gt;
+&lt;&lt;link &quot;Ask about the Mage class&quot;&gt;&gt;&lt;&lt;set $classInquiry = &quot;Mage&quot;&gt;&gt;&lt;&lt;goto &quot;Guild Info&quot;&gt;&gt;&lt;&lt;/link&gt;&gt;&lt;br&gt;
+&lt;&lt;link &quot;Ask about the Rogue class&quot;&gt;&gt;&lt;&lt;set $classInquiry = &quot;Rogue&quot;&gt;&gt;&lt;&lt;goto &quot;Guild Info&quot;&gt;&gt;&lt;&lt;/link&gt;&gt;&lt;br&gt;
 [[Ask about something else|Bavenmore Innkeeper]]</tw-passagedata><tw-passagedata pid="30" name="Guild Info" tags="nobr wood-inn" position="17375,7250" size="100,100">&lt;br&gt;&lt;br&gt;
 &lt;&lt;if $classInquiry == &quot;Swordsman&quot;&gt;&gt;
     &quot;For those wishing to master the sword, the Mightvale Mercenaries&#39; Guild would be your destination. Head west from here to get to Mightvale.&quot;
 &lt;&lt;/if&gt;&gt;
 &lt;&lt;if $classInquiry == &quot;Mage&quot;&gt;&gt;
-    // Additional classes coming soon! //
+    &quot;For those seeking to understand the mysteries of magic, the Arcane Academy in Flaken is where you should go. Journey east from here, once in Flaken you can&#39;t miss it.&quot;
 &lt;&lt;/if&gt;&gt;
 &lt;&lt;if $classInquiry == &quot;Rogue&quot;&gt;&gt;
-    // Additional classes coming soon! //
+    &quot;If speed and cunning are more to your liking, the Veiled Wardens in Shadepond may take you in. Travel north from town to get there. After that, good luck finding the place.&quot;
 &lt;&lt;/if&gt;&gt;
 &lt;br&gt;&lt;br&gt;
 [[Ask about another class|Ask about Skills-BM]]&lt;br&gt;
@@ -1415,7 +1419,11 @@ You face the $currentEnemy.name, readying yourself for the next move.&lt;br&gt;
     Enemy HP: $currentEnemy.health &lt;br&gt;
     Distance: $playerDistance
 &lt;/div&gt;&lt;br&gt;
-&lt;&lt;set $weaponClass to $weapons[$equipmentSlots.mainhand].class&gt;&gt;
+&lt;&lt;if $equipmentSlots.mainhand is not undefined and $weapons[$equipmentSlots.mainhand] is not undefined&gt;&gt;&gt;&gt;
+    &lt;&lt;set $weaponClass to $weapons[$equipmentSlots.mainhand].class&gt;&gt;
+&lt;&lt;else&gt;&gt;
+    &lt;&lt;set $weaponClass to &quot;unarmed&quot;&gt;&gt;
+&lt;&lt;/if&gt;&gt;
 &lt;&lt;if $weaponClass == &quot;ranged&quot;&gt;&gt;
     &lt;&lt;if $playerDistance == &quot;far&quot; || $playerDistance == &quot;mid-range&quot;&gt;&gt;
         &lt;&lt;goto &quot;AttackResults&quot;&gt;&gt;&lt;&lt;set $playerAP -= 2&gt;&gt;
@@ -1430,9 +1438,6 @@ You face the $currentEnemy.name, readying yourself for the next move.&lt;br&gt;
         &quot;You&#39;re too far to attack right now!&quot;&lt;br&gt;&lt;br&gt;
         [[Go Back|CombatTurn]]
     &lt;&lt;/if&gt;&gt;
-&lt;&lt;else&gt;&gt;
-    &quot;You have no weapon equipped.&quot;
-    &lt;&lt;goto &quot;CombatTurn&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="55" name="AttackResults" tags="nobr" position="600,725" size="100,100">&lt;br&gt;
 &lt;&lt;print &quot;&lt;img src=&#39;&quot; + $enemyImgPath + &quot;&#39; style=&#39;display: block; margin: auto;&#39; width=&#39;300&#39; height=&#39;300&#39;&gt;&quot;&gt;&gt;&lt;br&gt;
 &lt;div style=&quot;text-align: center;&quot;&gt;
@@ -1493,7 +1498,7 @@ Where do you want to move?&lt;br&gt;&lt;br&gt;
 &lt;&lt;elseif $playerDistance == &quot;mid-range&quot;&gt;&gt;
     &lt;&lt;link &quot;Move closer&quot;&gt;&gt;
         &lt;&lt;set $playerAP -= 1&gt;&gt;
-        &lt;&lt;set $playerDistance = &quot;mid-range&quot;&gt;&gt;
+        &lt;&lt;set $playerDistance = &quot;close&quot;&gt;&gt;
         &lt;&lt;goto CombatTurn&gt;&gt;
     &lt;&lt;/link&gt;&gt;&lt;br&gt;
     &lt;&lt;link &quot;Move further&quot;&gt;&gt;
@@ -1738,7 +1743,8 @@ Either load from save or restart.
     &quot;awareness&quot;: Math.floor(($currentStats.awareness - 10) / 2),
     &quot;charisma&quot;: Math.floor(($currentStats.charisma - 10) / 2)
 }&gt;&gt;
-&lt;&lt;goto $lastLocation&gt;&gt;</tw-passagedata><tw-passagedata pid="68" name="QuestReward" tags="nobr" position="0,0" size="100,100">&lt;&lt;set _quest to $playerQuests.find(q =&gt; q.title === $currentQuest)&gt;&gt;
+&lt;&lt;goto $lastLocation&gt;&gt;</tw-passagedata><tw-passagedata pid="68" name="QuestReward" tags="nobr menu" position="0,0" size="100,100">&lt;br&gt;&lt;br&gt;
+&lt;&lt;set _quest to $playerQuests.find(q =&gt; q.title === $currentQuest)&gt;&gt;
 &lt;&lt;if _quest&gt;&gt;
     &lt;&lt;set _quest.status to &quot;completed&quot;&gt;&gt;
 
@@ -1759,15 +1765,21 @@ Either load from save or restart.
         &lt;&lt;/for&gt;&gt;
     &lt;&lt;/if&gt;&gt;
 
-    You completed the quest: &lt;&lt;print _quest.title&gt;&gt;!&lt;br&gt;
-    &lt;&lt;if _quest.reward.gold &gt; 0&gt;&gt;You gained &lt;&lt;print _quest.reward.gold&gt;&gt; gold.&lt;&lt;/if&gt;&gt;
-    &lt;&lt;if _quest.reward.exp &gt; 0&gt;&gt;You gained &lt;&lt;print _quest.reward.exp&gt;&gt; EXP.&lt;&lt;/if&gt;&gt;
+    &lt;!-- Move quest to completedQuests and remove from playerQuests --&gt;
+    &lt;&lt;set $completedQuests.push(clone(_quest))&gt;&gt;
+    &lt;&lt;set $playerQuests = $playerQuests.filter(q =&gt; q.title !== $currentQuest)&gt;&gt;
+
+    &lt;div style=&quot;text-align: center;&quot;&gt;
+    You completed the quest: &lt;&lt;print _quest.title&gt;&gt;!&lt;br&gt;&lt;br&gt;
+    &lt;&lt;if _quest.reward.gold &gt; 0&gt;&gt;You gained &lt;&lt;print _quest.reward.gold&gt;&gt; gold.&lt;&lt;/if&gt;&gt;&lt;br&gt;
+    &lt;&lt;if _quest.reward.exp &gt; 0&gt;&gt;You gained &lt;&lt;print _quest.reward.exp&gt;&gt; EXP.&lt;&lt;/if&gt;&gt;&lt;br&gt;
     &lt;&lt;if _quest.reward.items.length &gt; 0&gt;&gt;You received the following items:&lt;br&gt;
         &lt;&lt;for _item range _quest.reward.items&gt;&gt;
             - &lt;&lt;print _item.name&gt;&gt;&lt;br&gt;
         &lt;&lt;/for&gt;&gt;
     &lt;&lt;/if&gt;&gt;
-
+    &lt;/div&gt;
+    &lt;br&gt;
     &lt;&lt;link &quot;Continue&quot;&gt;&gt;
         &lt;&lt;goto $lastLocation&gt;&gt;
     &lt;&lt;/link&gt;&gt;
@@ -2110,7 +2122,7 @@ Available Skill Points: $playerSkillPoints
     &lt;&lt;set $inMenu = 0&gt;&gt;
     &lt;&lt;goto $returnPassage&gt;&gt;
 &lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="84" name="Journal" tags="nobr menu" position="900,100" size="100,100">&lt;&lt;set $inMenu = 1&gt;&gt;
-
+&lt;br&gt;
 Quest Journal:
 &lt;br&gt;&lt;br&gt;
 
@@ -2138,11 +2150,45 @@ Quest Journal:
         &lt;div style=&quot;flex: 1; text-align: center;&quot;&gt;&lt;&lt;print _quest.status&gt;&gt;&lt;/div&gt;
     &lt;/div&gt;
 &lt;&lt;/for&gt;&gt;
-
+&lt;br&gt;
+&lt;&lt;if $completedQuests.length &gt; 0&gt;&gt;
+    &lt;&lt;link &quot;Completed Quests&quot;&gt;&gt;
+        &lt;&lt;goto &quot;CompletedQuests&quot;&gt;&gt;
+    &lt;&lt;/link&gt;&gt;&lt;br&gt;
+&lt;&lt;/if&gt;&gt;
 &lt;&lt;link &quot;Back&quot;&gt;&gt;
     &lt;&lt;set $inMenu = 0&gt;&gt;
     &lt;&lt;goto $returnPassage&gt;&gt;
-&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="85" name="Items" tags="objects-db" position="1400,0" size="100,100">&lt;&lt;set $weaponTypeModifiers = {
+&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="85" name="CompletedQuests" tags="nobr menu" position="900,100" size="100,100">&lt;&lt;set $inMenu = 1&gt;&gt;
+&lt;br&gt;
+Completed Quests:
+&lt;br&gt;&lt;br&gt;
+
+&lt;div style=&quot;display: flex; justify-content: space-between; padding: 5px; border-radius: 5px;&quot;&gt;
+    &lt;div style=&quot;flex: 2; text-align: left;&quot;&gt;&lt;b&gt;Quest&lt;/b&gt;&lt;/div&gt;
+    &lt;div style=&quot;flex: 3; text-align: left;&quot;&gt;&lt;b&gt;Description&lt;/b&gt;&lt;/div&gt;
+    &lt;div style=&quot;flex: 1; text-align: center;&quot;&gt;&lt;b&gt;Status&lt;/b&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;&lt;for _quest range $completedQuests&gt;&gt;
+    &lt;div style=&quot;display: flex; justify-content: space-between; align-items: center;&quot;&gt;
+        &lt;div style=&quot;flex: 2; text-align: left;&quot;&gt;
+            &lt;&lt;print _quest.title&gt;&gt;
+        &lt;/div&gt;
+        &lt;div style=&quot;flex: 3; text-align: left;&quot;&gt;
+            &lt;&lt;print _quest.description&gt;&gt;
+        &lt;/div&gt;
+        &lt;div style=&quot;flex: 1; text-align: center;&quot;&gt;&lt;&lt;print _quest.status&gt;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+&lt;&lt;/for&gt;&gt;
+&lt;br&gt;
+
+&lt;&lt;link &quot;Active Quests&quot;&gt;&gt;
+    &lt;&lt;goto Journal&gt;&gt;
+&lt;&lt;/link&gt;&gt;&lt;br&gt;
+&lt;&lt;link &quot;Back&quot;&gt;&gt;
+    &lt;&lt;set $inMenu = 0&gt;&gt;
+    &lt;&lt;goto $returnPassage&gt;&gt;
+&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="86" name="Items" tags="objects-db" position="1400,0" size="100,100">&lt;&lt;set $weaponTypeModifiers = {
     &quot;sword&quot;: &quot;strength&quot;,
     &quot;blunt&quot;: &quot;strength&quot;,
     &quot;staff&quot;: &quot;strength&quot;,
@@ -2246,7 +2292,7 @@ Quest Journal:
         &quot;tier&quot;: 1,
         &quot;value&quot;: 3
     }
-}&gt;&gt;</tw-passagedata><tw-passagedata pid="86" name="Enemies" tags="objects-db" position="1200,0" size="100,100">&lt;!-- Enemy Template:
+}&gt;&gt;</tw-passagedata><tw-passagedata pid="87" name="Enemies" tags="objects-db" position="1200,0" size="100,100">&lt;!-- Enemy Template:
 	&quot;Goblin&quot;, (dm: 
 		&quot;name&quot;, &quot;Goblin&quot;,
         &quot;biomes&quot;, (a: &quot;forest&quot;, &quot;grasslands&quot;, &quot;hills&quot;, &quot;swamp&quot;),
@@ -2313,7 +2359,7 @@ Quest Journal:
         &quot;exp&quot;: 20,
         &quot;img&quot;: &quot;Assets/Artwork/Enemies/bandit.png&quot;
     }
-}&gt;&gt;</tw-passagedata><tw-passagedata pid="87" name="Quests" tags="" position="850,1100" size="100,100">&lt;&lt;set $questDB = {
+}&gt;&gt;</tw-passagedata><tw-passagedata pid="88" name="Quests" tags="" position="975,1100" size="100,100">&lt;&lt;set $questDB = {
     &quot;LostFamilyNecklace&quot;: {
         &quot;title&quot;: &quot;Lost Family Necklace&quot;,
         &quot;description&quot;: &quot;Find the shopkeepers lost necklace in the Bavenmore forest.&quot;,

@@ -61,11 +61,14 @@ The shopkeeper nods at you.
 
 :: Bavenmore Shopkeeper [nobr gen-shop] {"position":"17250,7000"}
 <<set _quest to $playerQuests.find(q => q.title === "Lost Family Necklace")>>
+<<set _completedQuest to $completedQuests.find(q => q.title === "Lost Family Necklace")>>
+
 <br><br>
 "Welcome to the Bavenmore Shop!" the shopkeeper bellows. "What can I help you with today?"
 <br><br>
 
-<<if _quest && _quest.objectives[1].completed is true>>
+<<if _completedQuest>>
+<<elseif _quest && _quest.objectives[1].completed is true>>
     [["I have found your lost necklace!"|LostFamilyNecklace]]<br>
 <<else>>
     [["You look troubled, is there something on your mind?"|LostFamilyNecklace]]<br>
@@ -136,8 +139,8 @@ The innkeeper pauses his work and gives you a nod. "Welcome, traveler! What can 
 <br><br>
 <<link "Ask about the Swordsman class">><<set $classInquiry = "Swordsman">><<goto "Guild Info">><</link>><br>
 <!-- Placeholder links for future classes -->
-<<link "Ask about the Mage class (Coming Soon)">><<set $classInquiry = "Mage">><<goto "Guild Info">><</link>><br>
-<<link "Ask about the Rogue class (Coming Soon)">><<set $classInquiry = "Rogue">><<goto "Guild Info">><</link>><br>
+<<link "Ask about the Mage class">><<set $classInquiry = "Mage">><<goto "Guild Info">><</link>><br>
+<<link "Ask about the Rogue class">><<set $classInquiry = "Rogue">><<goto "Guild Info">><</link>><br>
 [[Ask about something else|Bavenmore Innkeeper]]
 
 
@@ -147,10 +150,10 @@ The innkeeper pauses his work and gives you a nod. "Welcome, traveler! What can 
     "For those wishing to master the sword, the Mightvale Mercenaries' Guild would be your destination. Head west from here to get to Mightvale."
 <</if>>
 <<if $classInquiry == "Mage">>
-    // Additional classes coming soon! //
+    "For those seeking to understand the mysteries of magic, the Arcane Academy in Flaken is where you should go. Journey east from here, once in Flaken you can't miss it."
 <</if>>
 <<if $classInquiry == "Rogue">>
-    // Additional classes coming soon! //
+    "If speed and cunning are more to your liking, the Veiled Wardens in Shadepond may take you in. Travel north from town to get there. After that, good luck finding the place."
 <</if>>
 <br><br>
 [[Ask about another class|Ask about Skills-BM]]<br>

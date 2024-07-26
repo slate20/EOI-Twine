@@ -57,6 +57,7 @@ Echoes Of Ismia
 <<set $playerSkills = []>>
 <<set $inventory = []>>
 <<set $playerQuests = []>>
+<<set $completedQuests = []>>
 <<set $playerGold = 0>>
 <<set $playerHasMagic = 0>>
 

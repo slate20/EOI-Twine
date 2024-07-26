@@ -93,7 +93,11 @@ You face the $currentEnemy.name, readying yourself for the next move.<br>
     Enemy HP: $currentEnemy.health <br>
     Distance: $playerDistance
 </div><br>
-<<set $weaponClass to $weapons[$equipmentSlots.mainhand].class>>
+<<if $equipmentSlots.mainhand is not undefined and $weapons[$equipmentSlots.mainhand] is not undefined>>>>
+    <<set $weaponClass to $weapons[$equipmentSlots.mainhand].class>>
+<<else>>
+    <<set $weaponClass to "unarmed">>
+<</if>>
 <<if $weaponClass == "ranged">>
     <<if $playerDistance == "far" || $playerDistance == "mid-range">>
         <<goto "AttackResults">><<set $playerAP -= 2>>
@@ -108,9 +112,6 @@ You face the $currentEnemy.name, readying yourself for the next move.<br>
         "You're too far to attack right now!"<br><br>
         [[Go Back|CombatTurn]]
     <</if>>
-<<else>>
-    "You have no weapon equipped."
-    <<goto "CombatTurn">>
 <</if>>
 
 
@@ -179,7 +180,7 @@ Where do you want to move?<br><br>
 <<elseif $playerDistance == "mid-range">>
     <<link "Move closer">>
         <<set $playerAP -= 1>>
-        <<set $playerDistance = "mid-range">>
+        <<set $playerDistance = "close">>
         <<goto CombatTurn>>
     <</link>><br>
     <<link "Move further">>
