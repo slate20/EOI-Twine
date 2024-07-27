@@ -75,6 +75,7 @@ Echoes Of Ismia
 <<set $currentEnemyStatusEffects = {}>>
 <<set $shopVisited = 0>>
 <<set $hasPan = 0>>
+<<set $unitsTraveled = 0>>
 <<include "Items">>
 <<include "Enemies">>
 <<include "TravelInit">>

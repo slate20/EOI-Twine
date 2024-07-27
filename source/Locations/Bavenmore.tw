@@ -9,15 +9,41 @@ You are in the town of <<print passage()>>. What would you like to do?
 [[Explore the surrounding forest|Bavenmore Forest]]
 [[Visit the shop|Bavenmore Shop]]
 [[Visit the Inn|Bavenmore Inn]]
+[[Leave Bavenmore|Bavenmore Travel]]
+
+
+:: Bavenmore Travel {"position":"17500,6750"}
+<<nobr>>
+<br><br>
+<div style="text-align: center;">
+Which direction would you like to travel in?
+</div>
+<</nobr>><div style="text-align: center;">
+<<link "Travel North">>
+    <<set $traveling to true>>
+    <<set $travelTo = {
+        destination: "Shadepond",
+        distance: 7, // Total distance
+        energyCostPerUnit: 5, // Energy cost per unit...duh
+        eventProbability: 0.5, // Probability of event per check
+        eventInterval: 3, // Interval for event checks
+        stopThreshold: 5, // Distance to trigger an intermediate stop
+        campThreshold: 10 // Distance to trigger need to camp
+    }>>
+    <<goto TravelStart>>
+<</link>>
 <<link "Travel East">>
 	<<set $traveling to true>>
 	<<set $travelTo = {
         destination: "Flaken",
-        distance: 9, // Example distance
-        energyCostPerUnit: 5, // Example energy cost
-        eventProbability: 0.5 // Example event probability
+        distance: 9, // Total distance
+        energyCostPerUnit: 5, // Energy cost per unit...duh
+        eventProbability: 0.5, // Probability of event per check
+        eventInterval: 3, // Interval for event checks
+        stopThreshold: 5, // Distance to trigger an intermediate stop
+        campThreshold: 10 // Distance to trigger need to camp
     }>>
-    <<goto "TravelStart">>
+    <<goto TravelStart>>
 <</link>>
 <<link "Travel West">>
 	<<set $traveling to true>>
@@ -25,20 +51,14 @@ You are in the town of <<print passage()>>. What would you like to do?
         destination: "Mightvale",
         distance: 3, // Example distance
         energyCostPerUnit: 5, // Example energy cost
-        eventProbability: 0.5 // Example event probability
+        eventProbability: 0.5, // Example event probability
+        eventInterval: 3, // Interval for event checks
+        stopThreshold: 5, // Distance to trigger an intermediate stop
+        campThreshold: 10 // Distance to trigger need to camp
     }>>
-    <<goto "TravelStart">>
+    <<goto TravelStart>>
 <</link>>
-<<link "Travel North">>
-	<<set $traveling to true>>
-	<<set $travelTo = {
-        destination: "Shadepond",
-        distance: 7, // Example distance
-        energyCostPerUnit: 5, // Example energy cost
-        eventProbability: 0.5 // Example event probability
-    }>>
-    <<goto "TravelStart">>
-<</link>>
+</div>
 
 :: Bavenmore Shop [gen-shop] {"position":"17250,6875"}
 <<set $lastLocation = passage()>>
@@ -201,7 +221,7 @@ Yet, you sense that with the right skills, these woods could provide valuable re
 <</if>>
 
 
-:: FamNecklaceSearch [nobr] {"position":"17375,6750"}
+:: FamNecklaceSearch [nobr] {"position":"17500,6625"}
 <br><br>
 <<set _quest to $playerQuests.find(q => q.title === "Lost Family Necklace")>>
 

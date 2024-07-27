@@ -7,10 +7,11 @@
 }>>
 
 
-:: TravelStart {"position":"1600,100"}
-<br>
+:: TravelStart [nobr] {"position":"1600,100"}
+<br><br>
 <<if $currentStats.energy >= ($travelTo.distance * $travelTo.energyCostPerUnit)>>
-    <<goto "TravelAction">>
+    <<set $unitsTraveled = 0>>
+    <<goto TravelAction>>
 <<else>>
     You do not have enough energy to make it to <<print $travelTo.destination>>. You need to rest or eat something.<br>
     <<link "Go Back">>
@@ -20,31 +21,148 @@
 
 
 :: TravelAction [nobr] {"position":"1600,200"}
-<<set $currentStats.energy -= ($travelTo.distance * $travelTo.energyCostPerUnit)>>
-<<set $randomCheck = random(1, 100) / 100>>
-<<if $randomCheck <= $travelTo.eventProbability>>
-    <<goto "RandomTravelEvent">> <!-- Redirect to a random event passage -->
+<<if $unitsTraveled < $travelTo.distance>>
+    <!-- Determine the smaller value between $travelTo.eventInterval and $travelTo.distance - $unitsTraveled -->
+    <<if $travelTo.eventInterval < ($travelTo.distance - $unitsTraveled)>>
+        <<set _unitsToTravel = $travelTo.eventInterval>>
+    <<else>>
+        <<set _unitsToTravel = ($travelTo.distance - $unitsTraveled)>>
+    <</if>>
+    <<set $currentStats.energy -= (_unitsToTravel * $travelTo.energyCostPerUnit)>>
+    <<set $unitsTraveled += _unitsToTravel>>
+
+    <<if $unitsTraveled >= $travelTo.campThreshold and $unitsTraveled < ($travelTo.campThreshold + $travelTo.eventInterval) and $unitsTraveled < $travelTo.distance>>
+        <<goto CampingStop>>
+    <<elseif $unitsTraveled >= $travelTo.stopThreshold and $unitsTraveled < ($travelTo.stopThreshold + $travelTo.eventInterval) and $unitsTraveled < $travelTo.distance>>
+        <<goto TravelStop>>
+    <<else>>
+        <<if random(1, 100) / 100 <= $travelTo.eventProbability>>
+            <<goto RandomTravelEvent>>
+        <<else>>
+            <<goto TravelProgress>>
+        <</if>>
+    <</if>>
+
 <<else>>
-    <<goto "SafeTravel">> <!-- No event, so proceed to destination -->
+    <<goto TravelEnd>>
 <</if>>
 
 
-:: RandomTravelEvent {"position":"1700,100"}
-<<set $eventRoll = random(1, 100)>> <!-- Roll a number between 1 and 100 -->
-
-<<if $eventRoll <= 100>> <!-- 100% chance for "Enemy Encounter" -->
-    <<goto "EnemyEncounter">>
-<</if>>
-
-
-:: SafeTravel {"position":"1700,200"}
+:: TravelProgress [nobr] {"position":"1600,300"}
 <br><br>
 <div style="text-align: center;">
-Despite your expectations, your journey continues without incident.
-You remain on guard, but it seems luck is on your side today.
+<<if $unitsTraveled <= ($travelTo.distance / 3)>>
+    You have well since departed from <<print $lastLocation>>, but there is still much of the journey ahead.
+<<elseif $unitsTraveled <= (2 * ($travelTo.distance / 3))>>
+    You have made considerable progress in your travel, and you sense it won't be much longer now.
+<<else>>
+    The end of your journey is in sight as your destination grows near.
+<</if>>
+<br><br>
+<<link "Continue your journey">>
+    <<goto TravelAction>>
+<</link>>
 </div>
-<br>
+
+
+:: RandomTravelEvent {"position":"1950,75"}
+<<set $eventRoll = random(1, 100)>> <!-- Roll a number between 1 and 100 -->
+
+<<if $eventRoll <= 50>> <!-- 50% chance for "Enemy Encounter" -->
+    <<goto EnemyEncounter>>
+<<elseif $eventRoll <= 75>> <!-- 25% chance for "Obstacle">> -->
+    <<goto ObstacleEncounter>>
+<<elseif $eventRoll <= 90 >> <!-- 15% chance for "Merchant Encounter">> -->
+    <<goto MerchantEncounter>>
+<<else>> <!-- 10% chance for "Finding Loot">> -->
+    <<goto TravelFindLoot>>
+<</if>>
+
+
+:: TravelEnd [nobr] {"position":"1700,100"}
+<br><br>
+<div style="text-align: center;">
+Your travel comes to an end as you arrive in <<print $travelTo.destination>>.
+<br><br>
 <<link "Continue to $travelTo.destination">>
     <<set $traveling to false>>
+    <<set $unitsTraveled = 0>>
     <<goto $travelTo.destination>>
+<</link>>
+</div>
+
+:: TravelStop [nobr] {"position":"1725,325"}
+<br><br>
+<div style="text-align: center;">
+After traveling for some time, you consider if you should stop and rest.
+</div>
+<br><br>
+<<link "Stop and rest">>
+    <<goto TravelStopOptions>>
+<</link>><br>
+<<link "Continue your journey">>
+    <<goto TravelProgress>>
+<</link>>
+
+
+:: CampingStop [nobr] {"position":"1725,325"}
+<br><br>
+<div style="text-align: center;">
+The sun is setting, and you are tired after a long day of travel. You decide to stop and rest for the night.
+</div>
+<br><br>
+<<link "Rest Overnight">>
+    <<set $currentStats.energy += 20>> <!-- placeholder rest recovery -->
+    <<goto TravelProgress>>
+<</link>>
+
+
+:: TravelFindLoot [nobr] {"position":"1825,200"}
+<br><br>
+<<set _foundGold = random(2, 7)>>
+<<set $currentStats.gold += _foundGold>>
+<div style="text-align: center;">
+You find a small coin purse in the bushes along your path. There is <<print _foundGold>> gold inside!
+</div>
+<br><br>
+<<link "Continue your journey">>
+    <<goto TravelProgress>>
+<</link>>
+
+
+:: MerchantEncounter [nobr] {"position":"2075,200"}
+<br><br>
+<<set $lastLocation = passage()>>
+<div style="text-align: center;">
+You encounter a traveling merchant on the road. He offers you various goods.
+</div>
+<br><br>
+<<link "Browse his wares">>
+    <<goto Tier1Shop>>
+<</link>><br>
+<<link "Continue your journey">>
+    <<goto TravelProgress>>
+<</link>>
+
+
+:: ObstacleEncounter [nobr] {"position":"1950,200"}
+<br><br>
+<div style="text-align: center;">
+A fallen tree blocks your path. You need to find a way around it.
+</div>
+<br><br>
+<<link "Find another route">>
+    <<goto FindRoute>>
+<</link>>
+
+
+:: FindRoute [nobr] {"position":"1950,300"}
+<br><br>
+<div style="text-align: center;">
+You manage to find a detour, but it takes some extra time.
+</div>
+<br><br>
+<<set $currentStats.energy -= 5>> <!-- extra energy cost -->
+<<link "Continue your journey">>
+    <<goto TravelProgress>>
 <</link>>

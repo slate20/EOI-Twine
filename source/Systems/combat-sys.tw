@@ -42,17 +42,22 @@ You prepare for battle with the $currentEnemy.name.<br><br>
 [[Flee|FleeEncounter]]
 
 
-:: FleeEncounter {"position":"1300,225","size":"100,100"}
+:: FleeEncounter [nobr] {"position":"1300,225","size":"100,100"}
+<br><br>
 <<if $currentStats.dexterity >= $currentEnemy.awareness>>
-    
-	You quickly dart away, using your agility to evade the $currentEnemy.name. 
+    <div style="text-align: center;">
+	You quickly dart away, using your agility to evade the $currentEnemy.name.
+    </div><br>
    	<<set $currentEnemy to "">>
     <<link "Continue">><<goto $lastLocation>><</link>>
 	<<else>>
-        As you try to flee, the $currentEnemy.name anticipates your move and blocks your path. 
-    You can't escape!
-    [[Fight|EngageEnemy]]
-    <</if>>
+        <div style="text-align: center;">
+        As you try to flee, the $currentEnemy.name anticipates your move and blocks your path.<br>
+        You can't escape!
+        <br><br>
+    [[Fight|CombatTurn]]
+    </div>
+<</if>>
 
 
 :: CombatTurn [nobr]
@@ -70,7 +75,7 @@ You face the $currentEnemy.name, readying yourself for the next move.<br>
     <</if>>
     <<if $playerAP >= 1>> <!-- Moving or using an item requires 1 AP -->
         <<link "Move">><<goto "PlayerMove">><</link>><br>
-        <<link "Use Item">><<goto "UseItem">><<set $playerAP -= 1>><</link>><br>
+        <<link "Use Item">><<goto "UseItem">><</link>><br>
     <</if>>
     <<if $playerSkills.length > 0>> <!-- Check if player has skills to use and if any can be used within remaining AP -->
         <<link "Use Skill">><<goto "SkillChoice">><</link>><br> <!-- Skill menu will handle AP deduction -->
@@ -365,8 +370,7 @@ Available Skills:<br>
 You gained $currentEnemy.gold gold and $currentEnemy.exp EXP!<br><br>
 <<link "Continue">>
     <<if $traveling is true>>
-        <<set $traveling to false>>
-        <<goto $travelTo.destination>>
+        <<goto TravelProgress>>
     <<else>>
 	    <<goto $lastLocation>>
     <</if>>
