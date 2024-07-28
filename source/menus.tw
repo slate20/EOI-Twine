@@ -192,7 +192,7 @@ Available Skill Points: $playerSkillPoints
                         <<button "1 SP">>
                             <<set _skill.unlocked = true>>
                             <<set $playerSkillPoints -= _skill.spCost>>
-                            <<run Dialog.wiki("You spend some time training, reflecting on the experience you have gained.")>>
+                            <<run Dialog.wiki("You spend some time training, reflecting on the experience you have gained.")>><br>
                             <<run Dialog.wiki("You have unlocked " + _skill.name)>>
                             <<run Dialog.open()>>
                             <<goto "SkillsMenu">>

@@ -37,7 +37,8 @@ The real test begins as you venture forth, seeking challenges that will forge yo
 <br><br>
 <<link "Complete your training">>
     <<run Dialog.setup("Joined Swordsman Class")>>
-    <<run Dialog.wiki("You have unlock the Swordsman skilltree. You have also obtained a Worn Iron Sword and Wooden Shield from your training.")>>
+    <<run Dialog.wiki("You have unlock the Swordsman skilltree.")>><br>
+    <<run Dialog.wiki("You have also obtained a Worn Iron Sword and Wooden Shield from your training.")>>
     <<run Dialog.open()>>
     <<goto RecalcMods>>
 <</link>>

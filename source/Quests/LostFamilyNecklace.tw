@@ -54,7 +54,7 @@
                 [[Where did you say you lost the necklace?|LostFamilyNecklace]]<br>
             <</if>>
     <</switch>>
-<<elseif !_completedQuest>>
+<<elseif !_completedQuest && passage() == "Bavenmore Shopkeeper">>
     [[You look troubled, is there something on your mind?|LostFamilyNecklace]]<br>
 <</if>>
 

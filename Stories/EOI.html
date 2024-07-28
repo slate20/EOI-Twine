@@ -349,7 +349,7 @@ window.questCheck = function(questTitle) {
             State.variables.NewQuestState = "not started";
         }
     }
-};</script><tw-tag name="Location" color="yellow"></tw-tag><tw-tag name="System-Logic" color="orange"></tw-tag><tw-tag name="menu" color="blue"></tw-tag><tw-tag name="objects-db" color="green"></tw-tag><tw-passagedata pid="1" name="ClassSkills" tags="" position="100,100" size="100,100">&lt;!-- Swordsman Class Skills --&gt;
+};</script><tw-tag name="System-Logic" color="orange"></tw-tag><tw-tag name="menu" color="blue"></tw-tag><tw-tag name="objects-db" color="green"></tw-tag><tw-tag name="Location" color="yellow"></tw-tag><tw-passagedata pid="1" name="ClassSkills" tags="" position="100,100" size="100,100">&lt;!-- Swordsman Class Skills --&gt;
 &lt;&lt;set $SwordsmanSkills = {
     &quot;EnragedStrike&quot;: {
         &quot;name&quot;: &quot;Enraged Strike&quot;,
@@ -799,7 +799,8 @@ The real test begins as you venture forth, seeking challenges that will forge yo
 &lt;br&gt;&lt;br&gt;
 &lt;&lt;link &quot;Complete your training&quot;&gt;&gt;
     &lt;&lt;run Dialog.setup(&quot;Joined Swordsman Class&quot;)&gt;&gt;
-    &lt;&lt;run Dialog.wiki(&quot;You have unlock the Swordsman skilltree. You have also obtained a Worn Iron Sword and Wooden Shield from your training.&quot;)&gt;&gt;
+    &lt;&lt;run Dialog.wiki(&quot;You have unlock the Swordsman skilltree.&quot;)&gt;&gt;&lt;br&gt;
+    &lt;&lt;run Dialog.wiki(&quot;You have also obtained a Worn Iron Sword and Wooden Shield from your training.&quot;)&gt;&gt;
     &lt;&lt;run Dialog.open()&gt;&gt;
     &lt;&lt;goto RecalcMods&gt;&gt;
 &lt;&lt;/link&gt;&gt;
@@ -1207,11 +1208,11 @@ You find a frying pan with a small chip in the rim. The cook must have tossed it
 &lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="31" name="Bavenmore Forest" tags="nobr" position="17375,6625" size="100,100">&lt;br&gt;&lt;br&gt;
 
 &lt;div style=&quot;text-align: center;&quot;&gt;
-The woods around Bavenmore whisper of ancient secrets and untapped bounty.&lt;br&gt;
+//The woods around Bavenmore whisper of ancient secrets and untapped bounty.&lt;br&gt;
 Moss carpets the ground, and the air hums with the quiet life of the forest. 
 &lt;br&gt;&lt;br&gt;
 Today, the forest offers nothing but the peace of its shaded groves and the occasional bird call.&lt;br&gt;
-Yet, you sense that with the right skills, these woods could provide valuable resources.
+Yet, you sense that with the right skills, these woods could provide valuable resources.//
 &lt;br&gt;&lt;br&gt;&lt;br&gt;
 &lt;/div&gt;
 
@@ -1483,7 +1484,7 @@ The Master Warden, a figure cloaked in light armor, steps forward and assesses y
                 [[Where did you say you lost the necklace?|LostFamilyNecklace]]&lt;br&gt;
             &lt;&lt;/if&gt;&gt;
     &lt;&lt;/switch&gt;&gt;
-&lt;&lt;elseif !_completedQuest&gt;&gt;
+&lt;&lt;elseif !_completedQuest &amp;&amp; passage() == &quot;Bavenmore Shopkeeper&quot;&gt;&gt;
     [[You look troubled, is there something on your mind?|LostFamilyNecklace]]&lt;br&gt;
 &lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="58" name="LostFamilyNecklaceEnd" tags="nobr gen-shop" position="975,725" size="100,100">&lt;&lt;set _quest to $playerQuests.find(q =&gt; q.title === &quot;Lost Family Necklace&quot;)&gt;&gt;
 &lt;br&gt;&lt;br&gt;
@@ -2481,7 +2482,7 @@ Available Skill Points: $playerSkillPoints
                         &lt;&lt;button &quot;1 SP&quot;&gt;&gt;
                             &lt;&lt;set _skill.unlocked = true&gt;&gt;
                             &lt;&lt;set $playerSkillPoints -= _skill.spCost&gt;&gt;
-                            &lt;&lt;run Dialog.wiki(&quot;You spend some time training, reflecting on the experience you have gained.&quot;)&gt;&gt;
+                            &lt;&lt;run Dialog.wiki(&quot;You spend some time training, reflecting on the experience you have gained.&quot;)&gt;&gt;&lt;br&gt;
                             &lt;&lt;run Dialog.wiki(&quot;You have unlocked &quot; + _skill.name)&gt;&gt;
                             &lt;&lt;run Dialog.open()&gt;&gt;
                             &lt;&lt;goto &quot;SkillsMenu&quot;&gt;&gt;
