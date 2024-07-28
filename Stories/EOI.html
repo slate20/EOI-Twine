@@ -268,7 +268,10 @@ body.inn-room {
 }
 
 /* Add more as needed for different tags */
-</style><script role="script" id="twine-user-script" type="text/twine-javascript">// Function for using consumable items
+</style><script role="script" id="twine-user-script" type="text/twine-javascript">// Disable history controls
+Config.history.controls = false;
+
+// Function for using consumable items
 window.useItem = function(itemIndex) {
     var item = State.variables.inventory[itemIndex];
     // Check if the item exists in the $consumables object
@@ -346,7 +349,7 @@ window.questCheck = function(questTitle) {
             State.variables.NewQuestState = "not started";
         }
     }
-};</script><tw-tag name="System-Logic" color="orange"></tw-tag><tw-tag name="menu" color="blue"></tw-tag><tw-tag name="objects-db" color="green"></tw-tag><tw-tag name="Location" color="yellow"></tw-tag><tw-passagedata pid="1" name="ClassSkills" tags="" position="100,100" size="100,100">&lt;!-- Swordsman Class Skills --&gt;
+};</script><tw-tag name="objects-db" color="green"></tw-tag><tw-tag name="Location" color="yellow"></tw-tag><tw-tag name="System-Logic" color="orange"></tw-tag><tw-tag name="menu" color="blue"></tw-tag><tw-passagedata pid="1" name="ClassSkills" tags="" position="100,100" size="100,100">&lt;!-- Swordsman Class Skills --&gt;
 &lt;&lt;set $SwordsmanSkills = {
     &quot;EnragedStrike&quot;: {
         &quot;name&quot;: &quot;Enraged Strike&quot;,

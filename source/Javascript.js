@@ -1,3 +1,6 @@
+// Disable history controls
+Config.history.controls = false;
+
 // Function for using consumable items
 window.useItem = function(itemIndex) {
     var item = State.variables.inventory[itemIndex];
