@@ -32,6 +32,7 @@ Which direction would you like to travel in?
     }>>
     <<goto TravelStart>>
 <</link>>
+</div>
 
 
 :: MV Merc Guild [nobr] {"position":"16700,6625"}
