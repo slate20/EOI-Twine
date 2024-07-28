@@ -23,7 +23,7 @@ Which direction would you like to travel in?
     <<set $traveling to true>>
     <<set $travelTo = {
         destination: "Bavenmore",
-        distance: 3, // Total distance
+        distance: 4, // Total distance
         energyCostPerUnit: 5, // Energy cost per unit...duh
         eventProbability: 0.5, // Probability of event per check
         eventInterval: 3, // Interval for event checks

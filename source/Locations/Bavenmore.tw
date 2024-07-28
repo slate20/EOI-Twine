@@ -49,7 +49,7 @@ Which direction would you like to travel in?
 	<<set $traveling to true>>
 	<<set $travelTo = {
         destination: "Mightvale",
-        distance: 3, // Example distance
+        distance: 4, // Example distance
         energyCostPerUnit: 5, // Example energy cost
         eventProbability: 0.5, // Example event probability
         eventInterval: 3, // Interval for event checks
