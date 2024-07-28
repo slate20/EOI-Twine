@@ -35,6 +35,7 @@ Which direction would you like to travel in?
 </div>
 
 
+
 :: MV Merc Guild [nobr] {"position":"16700,6625"}
 <<set $lastLocation = passage()>>
 <br><br>
