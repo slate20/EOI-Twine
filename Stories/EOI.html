@@ -349,7 +349,7 @@ window.questCheck = function(questTitle) {
             State.variables.NewQuestState = "not started";
         }
     }
-};</script><tw-tag name="objects-db" color="green"></tw-tag><tw-tag name="Location" color="yellow"></tw-tag><tw-tag name="System-Logic" color="orange"></tw-tag><tw-tag name="menu" color="blue"></tw-tag><tw-passagedata pid="1" name="ClassSkills" tags="" position="100,100" size="100,100">&lt;!-- Swordsman Class Skills --&gt;
+};</script><tw-tag name="Location" color="yellow"></tw-tag><tw-tag name="System-Logic" color="orange"></tw-tag><tw-tag name="menu" color="blue"></tw-tag><tw-tag name="objects-db" color="green"></tw-tag><tw-passagedata pid="1" name="ClassSkills" tags="" position="100,100" size="100,100">&lt;!-- Swordsman Class Skills --&gt;
 &lt;&lt;set $SwordsmanSkills = {
     &quot;EnragedStrike&quot;: {
         &quot;name&quot;: &quot;Enraged Strike&quot;,
@@ -471,6 +471,7 @@ window.questCheck = function(questTitle) {
 &lt;&lt;set $currentStats.energy to $baseStats.energy&gt;&gt;
 &lt;&lt;set $playerClass = &quot;Mage&quot;&gt;&gt;
 &lt;&lt;set $playerHasMagic = 1&gt;&gt;
+&lt;&lt;set $playerSkillPoints += 1&gt;&gt;
 &lt;&lt;if $playerSkills.length === 0&gt;&gt;
     &lt;&lt;run Object.keys($MageSkills).forEach(function(skillKey) {
         $playerSkills.push(clone($MageSkills[skillKey]));
@@ -622,6 +623,7 @@ The real test begins as you venture forth, seeking knowledge and challenges that
 [[Begin your training|RogueTraining]]</tw-passagedata><tw-passagedata pid="8" name="RogueTraining" tags="nobr" position="2700,325" size="100,100">&lt;&lt;set $currentStats.health = $baseStats.health&gt;&gt;
 &lt;&lt;set $currentStats.energy to $baseStats.energy&gt;&gt;
 &lt;&lt;set $playerClass = &quot;Rogue&quot;&gt;&gt;
+&lt;&lt;set $playerSkillPoints += 1&gt;&gt;
 &lt;&lt;if $playerSkills.length === 0&gt;&gt;
     &lt;&lt;run Object.keys($RogueSkills).forEach(function(skillKey) {
         $playerSkills.push(clone($RogueSkills[skillKey]));
@@ -770,6 +772,7 @@ seeking challenges that will forge you into a master rogue.
 [[Begin your training|SwordsmanTraining]]</tw-passagedata><tw-passagedata pid="13" name="SwordsmanTraining" tags="nobr" position="2700,325" size="100,100">&lt;&lt;set $currentStats.health = $baseStats.health&gt;&gt;
 &lt;&lt;set $currentStats.energy to $baseStats.energy&gt;&gt;
 &lt;&lt;set $playerClass = &quot;Swordsman&quot;&gt;&gt;
+&lt;&lt;set $playerSkillPoints += 1&gt;&gt;
 &lt;&lt;if $playerSkills.length === 0&gt;&gt;
     &lt;&lt;run Object.keys($SwordsmanSkills).forEach(function(skillKey) {
         $playerSkills.push(clone($SwordsmanSkills[skillKey]));
@@ -1015,7 +1018,7 @@ The real test begins as you venture forth, seeking challenges that will forge yo
 
 &lt;!-- Initialize Player Variables --&gt;
 &lt;&lt;set $playerLvl = 1&gt;&gt;
-&lt;&lt;set $playerEXP = 80&gt;&gt;
+&lt;&lt;set $playerEXP = 0&gt;&gt;
 &lt;&lt;set $expThresh = 100&gt;&gt;
 &lt;&lt;set $playerClass = &quot;&quot;&gt;&gt;
 &lt;&lt;set $playerSkillPoints = 0&gt;&gt;

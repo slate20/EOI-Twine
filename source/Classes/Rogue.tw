@@ -11,6 +11,7 @@
 <<set $currentStats.health = $baseStats.health>>
 <<set $currentStats.energy to $baseStats.energy>>
 <<set $playerClass = "Rogue">>
+<<set $playerSkillPoints += 1>>
 <<if $playerSkills.length === 0>>
     <<run Object.keys($RogueSkills).forEach(function(skillKey) {
         $playerSkills.push(clone($RogueSkills[skillKey]));

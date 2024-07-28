@@ -49,7 +49,7 @@ Echoes Of Ismia
 
 <!-- Initialize Player Variables -->
 <<set $playerLvl = 1>>
-<<set $playerEXP = 80>>
+<<set $playerEXP = 0>>
 <<set $expThresh = 100>>
 <<set $playerClass = "">>
 <<set $playerSkillPoints = 0>>

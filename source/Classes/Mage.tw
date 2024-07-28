@@ -11,6 +11,7 @@
 <<set $currentStats.energy to $baseStats.energy>>
 <<set $playerClass = "Mage">>
 <<set $playerHasMagic = 1>>
+<<set $playerSkillPoints += 1>>
 <<if $playerSkills.length === 0>>
     <<run Object.keys($MageSkills).forEach(function(skillKey) {
         $playerSkills.push(clone($MageSkills[skillKey]));
