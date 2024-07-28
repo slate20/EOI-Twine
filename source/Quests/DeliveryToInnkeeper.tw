@@ -1,0 +1,58 @@
+:: DeliveryToInnkeeper [nobr gen-shop]
+<<set _quest to $playerQuests.find(q => q.title === "Delivery To Innkeeper")>>
+<br><br>
+<<if not _quest>>
+    "I need to get this package to the innkeeper. Can you deliver it for me?"
+    <br><br>
+
+    <<link "Sure, that doesn't sound too hard.">>
+        <<set $questID = "DeliveryToInnkeeper">>
+        <<set _newQuest to clone($questDB[$questID])>>
+        <<set _newQuest.status to "in progress">>
+        <<set $playerQuests.push(_newQuest)>>
+        <<goto DeliveryToInnkeeperAccept>>
+    <</link>><br>
+    [["Sorry, I can't help you right now."|Bavenmore Shop]]
+<</if>>
+
+
+:: DeliveryToInnkeeperAccept [nobr gen-shop]
+<<set _quest to $playerQuests.find(q => q.title === "Delivery To Innkeeper")>>
+<br><br>
+"Thank you! Please deliver this package to the innkeeper over at the inn. You can keep his payment as a reward."
+<br><br>
+<<set _quest.objectives[0].completed to true>>
+<<run questCheck("Delivery To Innkeeper")>>
+
+[["Go Back"|Bavenmore Shopkeeper]]
+
+
+:: DeliveryToInnkeeper_Dialog [nobr]
+<<set _quest to $playerQuests.find(q => q.title === "Delivery To Innkeeper")>>
+<<set _completedQuest to $completedQuests.find(q => q.title === "Delivery To Innkeeper")>>
+<<if _quest>>
+    <<switch _quest.status>>
+        <<case "complete">>
+        <<case "objective1">>
+            [[I need to get the package.|DeliveryToInnkeeper]]<br>
+        <<case "objective2">>
+            <<if passage() == "Bavenmore Innkeeper">>
+                [[I have a package from the shopkeeper for you?|DeliveryToInnkeeperEnd]]<br>
+            <</if>>
+    <</switch>>
+<<else>>
+    <<if passage() == "Bavenmore Shopkeeper" && !_completedQuest>>
+        [[Is there anything I can help you with?|DeliveryToInnkeeper]]<br>
+    <</if>>
+<</if>>
+
+
+:: DeliveryToInnkeeperEnd [nobr wood-inn]
+<<set _quest to $playerQuests.find(q => q.title === "Delivery To Innkeeper")>>
+<br><br>
+"Ah, I have been waiting for this to arrive! Thank you for delivering it. Here is the payment."
+<br><br>
+<<link "Hand over the package.">>
+    <<set $questComplete to "Delivery To Innkeeper">>
+    <<goto QuestReward>>
+<</link>>

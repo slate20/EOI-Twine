@@ -10,16 +10,30 @@ You are in the town of <<print passage()>>. What would you like to do?
 
 [[Explore the surrounding forest|Shadepond Forest]]
 [[Visit the Veiled Wardens Sanctuary|Veiled Wardens Sanctuary]]
+[[Leave Shadepond|Shadepond Travel]]
+
+
+:: Shadepond Travel {"position":"17375,5500"}
+<<nobr>>
+<br><br>
+<div style="text-align: center;">
+Which direction would you like to travel in?
+</div>
+<</nobr>><div style="text-align: center;">
 <<link "Travel South">>
-	<<set $traveling to true>>
-	<<set $travelTo = {
+    <<set $traveling to true>>
+    <<set $travelTo = {
         destination: "Bavenmore",
-        distance: 7, // Example distance
-        energyCostPerUnit: 5, // Example energy cost
-        eventProbability: 0.5 // Example event probability
+        distance: 7, // Total distance
+        energyCostPerUnit: 5, // Energy cost per unit...duh
+        eventProbability: 0.5, // Probability of event per check
+        eventInterval: 3, // Interval for event checks
+        stopThreshold: 5, // Distance to trigger an intermediate stop
+        campThreshold: 10 // Distance to trigger need to camp
     }>>
-    <<goto "TravelStart">>
-<</link>>
+    <<goto TravelStart>>
+    <</link>>
+</div>
 
 
 :: Veiled Wardens Sanctuary [nobr] {"position":"17150,5500"}

@@ -1,0 +1,93 @@
+:: LostFamilyNecklace [nobr gen-shop] {"position":"17250,7125"}
+<<set _quest to $playerQuests.find(q => q.title === "Lost Family Necklace")>>
+<br><br>
+<<if _quest && _quest.objectives[1].completed is true>>
+    "Well I'll be, I didn't honestly think I would ever see it again! You have done me a great service traveler. Here is your reward, as promised."
+    <br><br>
+
+    <<link "Return the necklace to the shopkeeper">>
+        <<set _quest.objectives[2].completed to true>>
+        <<set $questComplete to "Lost Family Necklace">>
+        <<goto QuestReward>>
+    <</link>>
+<</if>>
+<<if not _quest>>
+    "I've lost a treasured family necklace somewhere in the forest. If you find yourself exploring the area, would you mind keeping an eye out for it?"
+    <br><br>
+
+    <<link "Sure, I'll see if I can find it.">>
+        <<set $questID = "LostFamilyNecklace">>
+        <<set _newQuest to clone($questDB[$questID])>>
+        <<set _newQuest.status to "in progress">>
+        <<set $playerQuests.push(_newQuest)>>
+        <<goto LostFamNecklaceAccept>>
+    <</link>><br>
+    [["Sorry, I can't help you right now."|Bavenmore Shop]]
+<<elseif _quest.objectives[1].completed is false>>
+    "I am certain I was somewhere in the forest outside of town last I had it."
+    <br><br>
+
+    [["Ok thank you."|Bavenmore Shopkeeper]]
+<</if>>
+
+
+:: LostFamNecklaceAccept [nobr gen-shop] {"position":"17250,7250"}
+<br><br>
+"You are most kind! If you do happen to find it, please return it to me. I would gladly pay you for your efforts."
+<br><br>
+[["Go Back"|Bavenmore Shop]]
+
+
+:: LostFamilyNecklace_Dialog [nobr]
+<<set _quest to $playerQuests.find(q => q.title === "Lost Family Necklace")>>
+<<set _completedQuest to $completedQuests.find(q => q.title === "Lost Family Necklace")>>
+<<if _quest>>
+    <<switch _quest.status>>
+        <<case "objective2">>
+            <<if passage() == "Bavenmore Shopkeeper">>
+                [[I have found your lost necklace!|LostFamilyNecklaceEnd]]<br>
+            <</if>>
+        <<case "objective1">>
+            <<if passage() == "Bavenmore Forest">>
+                [[Search for the necklace|FamNecklaceSearch]]<br>
+            <<else>>
+                [[Where did you say you lost the necklace?|LostFamilyNecklace]]<br>
+            <</if>>
+    <</switch>>
+<<elseif !_completedQuest>>
+    [[You look troubled, is there something on your mind?|LostFamilyNecklace]]<br>
+<</if>>
+
+
+:: LostFamilyNecklaceEnd [nobr gen-shop]
+<<set _quest to $playerQuests.find(q => q.title === "Lost Family Necklace")>>
+<br><br>
+"Well I'll be, I didn't honestly think I would ever see it again! You have done me a great service traveler. Here is your reward, as promised."
+<br><br>
+
+<<link "Return the necklace to the shopkeeper">>
+    <<set $questComplete to "Lost Family Necklace">>
+    <<goto QuestReward>>
+<</link>>
+
+
+:: FamNecklaceSearch [nobr] {"position":"17500,6625"}
+<br><br>
+<<set _quest to $playerQuests.find(q => q.title === "Lost Family Necklace")>>
+
+<<if $currentStats.energy > 20>>
+    <div style="text-align: center;">
+    You search around the area for the family necklace. <br>
+    After a couple hours of exploring the forest floor, you manage to find it!
+    </div>
+    <br><br>
+    <<set $currentStats.energy -= 20>>
+    <<set _quest.objectives[0].completed to true>>
+<<else>>
+    <div style="text-align: center;">
+    You are too tired to spend time searching for the necklace.
+    </div>
+    <br><br>
+<</if>>
+
+[[Leave the Forest|Bavenmore]]

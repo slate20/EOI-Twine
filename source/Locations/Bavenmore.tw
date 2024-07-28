@@ -9,15 +9,41 @@ You are in the town of <<print passage()>>. What would you like to do?
 [[Explore the surrounding forest|Bavenmore Forest]]
 [[Visit the shop|Bavenmore Shop]]
 [[Visit the Inn|Bavenmore Inn]]
+[[Leave Bavenmore|Bavenmore Travel]]
+
+
+:: Bavenmore Travel {"position":"17500,6750"}
+<<nobr>>
+<br><br>
+<div style="text-align: center;">
+Which direction would you like to travel in?
+</div>
+<</nobr>><div style="text-align: center;">
+<<link "Travel North">>
+    <<set $traveling to true>>
+    <<set $travelTo = {
+        destination: "Shadepond",
+        distance: 7, // Total distance
+        energyCostPerUnit: 5, // Energy cost per unit...duh
+        eventProbability: 0.5, // Probability of event per check
+        eventInterval: 3, // Interval for event checks
+        stopThreshold: 5, // Distance to trigger an intermediate stop
+        campThreshold: 10 // Distance to trigger need to camp
+    }>>
+    <<goto TravelStart>>
+<</link>>
 <<link "Travel East">>
 	<<set $traveling to true>>
 	<<set $travelTo = {
         destination: "Flaken",
-        distance: 9, // Example distance
-        energyCostPerUnit: 5, // Example energy cost
-        eventProbability: 0.5 // Example event probability
+        distance: 9, // Total distance
+        energyCostPerUnit: 5, // Energy cost per unit...duh
+        eventProbability: 0.5, // Probability of event per check
+        eventInterval: 3, // Interval for event checks
+        stopThreshold: 5, // Distance to trigger an intermediate stop
+        campThreshold: 10 // Distance to trigger need to camp
     }>>
-    <<goto "TravelStart">>
+    <<goto TravelStart>>
 <</link>>
 <<link "Travel West">>
 	<<set $traveling to true>>
@@ -25,20 +51,14 @@ You are in the town of <<print passage()>>. What would you like to do?
         destination: "Mightvale",
         distance: 3, // Example distance
         energyCostPerUnit: 5, // Example energy cost
-        eventProbability: 0.5 // Example event probability
+        eventProbability: 0.5, // Example event probability
+        eventInterval: 3, // Interval for event checks
+        stopThreshold: 5, // Distance to trigger an intermediate stop
+        campThreshold: 10 // Distance to trigger need to camp
     }>>
-    <<goto "TravelStart">>
+    <<goto TravelStart>>
 <</link>>
-<<link "Travel North">>
-	<<set $traveling to true>>
-	<<set $travelTo = {
-        destination: "Shadepond",
-        distance: 7, // Example distance
-        energyCostPerUnit: 5, // Example energy cost
-        eventProbability: 0.5 // Example event probability
-    }>>
-    <<goto "TravelStart">>
-<</link>>
+</div>
 
 :: Bavenmore Shop [gen-shop] {"position":"17250,6875"}
 <<set $lastLocation = passage()>>
@@ -46,6 +66,7 @@ You are in the town of <<print passage()>>. What would you like to do?
 You enter the local shop. It's modestly sized, with various items on wooden tables and shelves.
 The shopkeeper nods at you. 
 
+[[Talk to the shopkeeper|Bavenmore Shopkeeper]]
 <<link "Buy Items">>
 	<<goto Tier1Shop>>
 <</link>>
@@ -56,6 +77,21 @@ The shopkeeper nods at you.
 	<<set $shopVisited = 0>>
     <<goto Bavenmore>>
 <</link>>
+
+
+:: Bavenmore Shopkeeper [nobr gen-shop] {"position":"17250,7000"}
+<br><br>
+"Welcome to the Bavenmore Shop!" the shopkeeper bellows. "What can I help you with today?"
+<br><br>
+
+<!-- Quest Checks and Dialog -->
+<<run questCheck("Lost Family Necklace")>>
+<<include "LostFamilyNecklace_Dialog">>
+
+<<run questCheck("Delivery To Innkeeper")>>
+<<include "DeliveryToInnkeeper_Dialog">>
+
+[["Nevermind."|Bavenmore Shop]]
 
 
 :: Bavenmore Inn [nobr wood-inn] {"position":"17375,6875"}
@@ -76,6 +112,10 @@ Wooden tables are scattered around, and the air is filled with the aroma of food
 <br><br>
 The innkeeper pauses his work and gives you a nod. "Welcome, traveler! What can I do for you on this fine day?"
 <br><br>
+
+<<run questCheck("Delivery To Innkeeper")>>
+<<include "DeliveryToInnkeeper_Dialog">>
+
 [[Inquire about places to hone skills|Ask about Skills-BM]]<br>
 [["That's all, thank you."|Bavenmore Inn]]
 
@@ -86,8 +126,8 @@ The innkeeper pauses his work and gives you a nod. "Welcome, traveler! What can 
 <br><br>
 <<link "Ask about the Swordsman class">><<set $classInquiry = "Swordsman">><<goto "Guild Info">><</link>><br>
 <!-- Placeholder links for future classes -->
-<<link "Ask about the Mage class (Coming Soon)">><<set $classInquiry = "Mage">><<goto "Guild Info">><</link>><br>
-<<link "Ask about the Rogue class (Coming Soon)">><<set $classInquiry = "Rogue">><<goto "Guild Info">><</link>><br>
+<<link "Ask about the Mage class">><<set $classInquiry = "Mage">><<goto "Guild Info">><</link>><br>
+<<link "Ask about the Rogue class">><<set $classInquiry = "Rogue">><<goto "Guild Info">><</link>><br>
 [[Ask about something else|Bavenmore Innkeeper]]
 
 
@@ -97,10 +137,10 @@ The innkeeper pauses his work and gives you a nod. "Welcome, traveler! What can 
     "For those wishing to master the sword, the Mightvale Mercenaries' Guild would be your destination. Head west from here to get to Mightvale."
 <</if>>
 <<if $classInquiry == "Mage">>
-    // Additional classes coming soon! //
+    "For those seeking to understand the mysteries of magic, the Arcane Academy in Flaken is where you should go. Journey east from here, once in Flaken you can't miss it."
 <</if>>
 <<if $classInquiry == "Rogue">>
-    // Additional classes coming soon! //
+    "If speed and cunning are more to your liking, the Veiled Wardens in Shadepond may take you in. Travel north from town to get there. After that, good luck finding the place."
 <</if>>
 <br><br>
 [[Ask about another class|Ask about Skills-BM]]<br>
@@ -118,15 +158,19 @@ You find a frying pan with a small chip in the rim. The cook must have tossed it
 <</link>>
 
 
-:: Bavenmore Forest {"position":"17375,6625"}
-<br>
+:: Bavenmore Forest [nobr] {"position":"17375,6625"}
+<br><br>
+
 <div style="text-align: center;">
-The woods around Bavenmore whisper of ancient secrets and untapped bounty. 
+The woods around Bavenmore whisper of ancient secrets and untapped bounty.<br>
 Moss carpets the ground, and the air hums with the quiet life of the forest. 
-
-Today, the forest offers nothing but the peace of its shaded groves and the occasional bird call. 
+<br><br>
+Today, the forest offers nothing but the peace of its shaded groves and the occasional bird call.<br>
 Yet, you sense that with the right skills, these woods could provide valuable resources.
-
-<br>
-[[Return to Bavenmore|Bavenmore]]
+<br><br><br>
 </div>
+
+<<run questCheck("Lost Family Necklace")>>
+<<include "LostFamilyNecklace_Dialog">>
+
+[[Return to Bavenmore|Bavenmore]]

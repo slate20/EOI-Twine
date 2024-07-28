@@ -8,18 +8,38 @@ You are in the town of <<print passage()>>. What would you like to do?
 </div><br>
 [[Explore the surrounding forest|Flaken Forest]]
 [[Visit the Flaken Arcane Academy|Flaken Academy]]
+[[Leave Flaken|Flaken Travel]]
+
+
+:: Flaken Travel {"position":"18800,7100"}
+<<nobr>>
+<br><br>
+<div style="text-align: center;">
+Which direction would you like to travel in?
+</div>
+<</nobr>><div style="text-align: center;">
 <<link "Travel West">>
-	<<set $traveling to true>>
-	<<set $travelTo = {
+    <<set $traveling to true>>
+    <<set $travelTo = {
         destination: "Bavenmore",
-        distance: 9, // Example distance
-        energyCostPerUnit: 5, // Example energy cost
-        eventProbability: 0.5 // Example event probability
+        distance: 9, // Total distance
+        energyCostPerUnit: 5, // Energy cost per unit...duh
+        eventProbability: 0.5, // Probability of event per check
+        eventInterval: 3, // Interval for event checks
+        stopThreshold: 5, // Distance to trigger an intermediate stop
+        campThreshold: 10 // Distance to trigger need to camp
     }>>
-    <<goto "TravelStart">>
+    <<goto TravelStart>>
 <</link>>
+</div>
+
 
 :: Flaken Forest [nobr] {"position":"18800,6975"}
+<br><br>
+<div style="text-align: center;">
+// Coming soon //
+</div>
+[[Return to town|Flaken]]
 
 <!-- Flaken Arcane Academy -->
 :: Flaken Academy [nobr] {"position":"18925,7225"}

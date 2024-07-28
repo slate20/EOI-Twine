@@ -1,0 +1,34 @@
+:: Quests 
+
+<<set $questDB = {
+    "LostFamilyNecklace": {
+        "title": "Lost Family Necklace",
+        "description": "Find the shopkeepers lost necklace in the Bavenmore forest.",
+        "objectives": [
+            {"text": "Travel to the Bavenmore Forest and search for the necklace", "completed": false}, 
+            {"text": "Return the necklace to the shopkeeper", "completed": false}
+        ],
+        "location": "Bavenmore Shop",
+        "reward": {
+            "gold": 15,
+            "exp": 10,
+            "items": [] // Add item rewards if any
+        },
+        "status": "not started"
+    },
+    "DeliveryToInnkeeper": {
+        "title": "Delivery To Innkeeper",
+        "description": "Deliver the package of goods from the shopkeeper to the innkeeper.",
+        "objectives": [
+            {"text": "Get the package from the shopkeeper", "completed": false},
+            {"text": "Deliver the package to the innkeeper", "completed": false}
+        ],
+        "location": "Bavenmore Shop",
+        "reward": {
+            "gold": 5,
+            "exp": 5,
+            "items": [] // Add item rewards if any
+        },
+        "status": "not started"
+    }
+}>>

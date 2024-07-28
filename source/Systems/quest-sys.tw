@@ -1,0 +1,42 @@
+:: QuestReward [nobr menu] {"position":"0,0"}
+<br><br>
+<<set _quest to $playerQuests.find(q => q.title === $questComplete)>>
+<<if _quest>>
+    <<set _quest.status to "completed">>
+
+    <!-- Handle Gold Reward -->
+    <<if _quest.reward.gold > 0>>
+        <<set $playerGold += _quest.reward.gold>>
+    <</if>>
+
+    <!-- Handle EXP Reward -->
+    <<if _quest.reward.exp > 0>>
+        <<set $playerEXP += _quest.reward.exp>>
+    <</if>>
+
+    <!-- Handle Item Rewards -->
+    <<if _quest.reward.items.length > 0>>
+        <<for _item range _quest.reward.items>>
+            <<set $inventory.push(_item)>>
+        <</for>>
+    <</if>>
+
+    <!-- Move quest to completedQuests and remove from playerQuests -->
+    <<set $completedQuests.push(clone(_quest))>>
+    <<set $playerQuests = $playerQuests.filter(q => q.title !== $questComplete)>>
+
+    <div style="text-align: center;">
+    You completed the quest: <<print _quest.title>>!<br><br>
+    <<if _quest.reward.gold > 0>>You gained <<print _quest.reward.gold>> gold.<</if>><br>
+    <<if _quest.reward.exp > 0>>You gained <<print _quest.reward.exp>> EXP.<</if>><br>
+    <<if _quest.reward.items.length > 0>>You received the following items:<br>
+        <<for _item range _quest.reward.items>>
+            - <<print _item.name>><br>
+        <</for>>
+    <</if>>
+    </div>
+    <br>
+    <<link "Continue">>
+        <<goto $lastLocation>>
+    <</link>>
+<</if>>

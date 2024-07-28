@@ -52,10 +52,12 @@ Echoes Of Ismia
 <<set $playerEXP = 80>>
 <<set $expThresh = 100>>
 <<set $playerClass = "">>
-<<set $playerSkillPoints = 3>>
+<<set $playerSkillPoints = 0>>
 <<set $playerStatPoints = 0>>
 <<set $playerSkills = []>>
 <<set $inventory = []>>
+<<set $playerQuests = []>>
+<<set $completedQuests = []>>
 <<set $playerGold = 0>>
 <<set $playerHasMagic = 0>>
 
@@ -73,10 +75,12 @@ Echoes Of Ismia
 <<set $currentEnemyStatusEffects = {}>>
 <<set $shopVisited = 0>>
 <<set $hasPan = 0>>
+<<set $unitsTraveled = 0>>
 <<include "Items">>
 <<include "Enemies">>
 <<include "TravelInit">>
 <<include "ClassSkills">>
+<<include "Quests">>
 
 <!-- Initialize Status Effects for Player-->
 <<set $playerStatusEffects = {}>>

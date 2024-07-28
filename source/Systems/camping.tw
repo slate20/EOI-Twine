@@ -1,0 +1,82 @@
+<!-- Travel Stop Options -->
+
+:: TravelStopOptions [nobr] {"position":"1725,200"}
+<br><br>
+<div style="text-align: center;">
+You take a moment to sit down and rest for a bit.
+</div>
+<br><br>
+<<link "Eat some food">>
+    <<goto TravelEat>>
+<</link>><br>
+<<link "Use an item">>
+    <<goto TravelUseItem>>
+<</link>><br>
+<<link "Take a short nap">>
+    <<goto TravelNap>>
+<</link>><br>
+<<link "Continue your journey">>
+    <<goto TravelProgress>>
+<</link>>
+
+
+:: TravelEat [nobr] {"position":"1725,325"}
+<<set _foodItems = []>> <!-- temporary array to hold food items -->
+<<for _index, _item range $inventory>>
+    <<if _item.type == "food">>
+        <<set _foodItems.push(_index)>>
+    <</if>>
+<</for>>
+<br><br>
+<div style="text-align: center;">
+You have the following food options:
+</div>
+<br>
+
+<!-- Display food items -->
+<<if _foodItems.length > 0>>
+    <<for _index range _foodItems>>
+        <<set _item = $inventory[_index]>>
+        <div style="text-align: center;">
+            <<link "Eat _item.name">>
+                <<run useItem(_index)>>
+                <<goto "TravelEat">>
+            <</link>>
+        </div>
+        <br>
+    <</for>>
+    <<link "Go back">>
+        <<goto TravelStopOptions>>
+    <</link>>
+<<else>>
+    <div style="text-align: center;">
+        You have no food to eat.
+    </div>
+    <br><br>
+    <<link "Go back">>
+        <<goto TravelStopOptions>>
+    <</link>>
+<</if>>
+
+
+:: TravelUseItem [nobr] {"position":"1725,450"}
+<br><br>
+<div style="text-align: center;">
+You use an item before continuing your travel.
+</div>
+<br><br>
+<<link "Continue your journey">>
+    <<goto TravelProgress>>
+<</link>>
+
+
+:: TravelNap [nobr] {"position":"1725,575"}
+<br><br>
+<div style="text-align: center;">
+You decide to take a short nap, and feel slightly refreshed when you wake up.
+</div>
+<br><br>
+<<set $currentStats.energy += 10>>
+<<link "Continue your journey">>
+    <<goto TravelProgress>>
+<</link>>

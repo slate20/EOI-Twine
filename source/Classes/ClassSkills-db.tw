@@ -9,6 +9,7 @@
         "effect": "Attack with +50% damage",
         "staminaCost": 5,
         "apCost": 3,
+        "spCost": 1,
         "range": "close",
         "weaponType": "melee",
         "unlocked": false
@@ -19,6 +20,7 @@
         "effect": "Close distance and attack in one move",
         "staminaCost": 5,
         "apCost": 2,
+        "spCost": 1,
         "range": ["mid-range", "far"],
         "weaponType": "melee",
         "unlocked": false
@@ -29,6 +31,7 @@
         "effect": "Deals moderate damage and stuns the enemy for 1 turn",
         "staminaCost": 5,
         "apCost": 3,
+        "spCost": 1,
         "range": "close",
         "weaponType": "melee",
         "unlocked": false
@@ -45,6 +48,7 @@
         "effect": "Deals moderate fire damage with a chance to burn",
         "manaCost": 5,
         "apCost": 2,
+        "spCost": 1,
         "range": ["mid-range", "far"],
         "weaponType": [],
         "unlocked": false
@@ -55,6 +59,7 @@
         "effect": "Reduces damage taken by 50% for 1 turn",
         "manaCost": 3,
         "apCost": 2,
+        "spCost": 1,
         "range": ["close", "mid-range", "far"],
         "weaponType": [],
         "unlocked": false
@@ -65,6 +70,7 @@
         "effect": "Deals minor damage with each projectile having a chance to hit",
         "manaCost": 4,
         "apCost": 2,
+        "spCost": 1,
         "range": ["mid-range", "far"],
         "weaponType": [],
         "unlocked": false
@@ -81,6 +87,7 @@
         "effect": "Deals moderate damage with increased chance to hit",
         "staminaCost": 5,
         "apCost": 3,
+        "spCost": 1,
         "range": ["mid-range", "far"],
         "weaponType": "bow",
         "unlocked": false
@@ -91,6 +98,7 @@
         "effect": "Move to the 'far' position and trap the enemy when they try to approach",
         "staminaCost": 3,
         "apCost": 3,
+        "spCost": 1,
         "range": ["close", "mid-range"],
         "weaponType": [],
         "unlocked": false
@@ -101,10 +109,9 @@
         "effect": "Deals moderate damage and inflicts bleeding status",
         "staminaCost": 5,
         "apCost": 2,
+        "spCost": 1,
         "range": "close",
         "weaponType": "dagger",
         "unlocked": false
     }
 }>>
-
-        
