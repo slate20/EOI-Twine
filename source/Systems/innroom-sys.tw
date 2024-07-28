@@ -1,12 +1,20 @@
-:: RoomRental [System-Logic inn-room] {"position":"500,0"}
+:: RoomRental [nobr System-Logic inn-room] {"position":"500,0"}
+<br><br>
+<div style="text-align: center;">
 <<if $playerGold < 3>>
     <<print "You do not have enough gold!">>
-  <<else>>
-      <<set $playerGold = $playerGold - 3>>
-      <<set $currentStats.health to $baseStats.health>>
-      <<set $currentStats.mana to $baseStats.mana>>
-      <<set $currentStats.energy to $baseStats.energy>>
-      <<set $currentStats.stamina to $baseStats.stamina>>
-      You spend the night at the inn and feel well-rested<br><br>
+<<elseif $currentStats.energy == $baseStats.energy
+    && $currentStats.health == $baseStats.health
+    && $currentStats.mana == $baseStats.mana
+    && $currentStats.stamina == $baseStats.stamina>>
+    You don't need to rest right now.<br><br>
+<<else>>
+    <<set $playerGold = $playerGold - 3>>
+    <<set $currentStats.health to $baseStats.health>>
+    <<set $currentStats.mana to $baseStats.mana>>
+    <<set $currentStats.energy to $baseStats.energy>>
+    <<set $currentStats.stamina to $baseStats.stamina>>
+    You spend the night at the inn and feel well-rested<br><br>
 <</if>>   
 <<link "Return to the Inn">><<goto $lastLocation>><</link>>
+</div>

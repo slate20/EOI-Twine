@@ -9,15 +9,28 @@ You are in the town of <<print passage()>>. What would you like to do?
 </div>
 
 [[Visit the Mightvale Mercenaries' Guild|MV Merc Guild]]
+[[Leave Mightvale|Mightvale Travel]]
+
+
+:: Mightvale Travel {"position":"17500,6750"}
+<<nobr>>
+<br><br>
+<div style="text-align: center;">
+Which direction would you like to travel in?
+</div>
+<</nobr>><div style="text-align: center;">
 <<link "Travel East">>
-	<<set $traveling to true>>
-	<<set $travelTo = {
+    <<set $traveling to true>>
+    <<set $travelTo = {
         destination: "Bavenmore",
-        distance: 3, // Example distance
-        energyCostPerUnit: 5, // Example energy cost
-        eventProbability: 0.5 // Example event probability
+        distance: 3, // Total distance
+        energyCostPerUnit: 5, // Energy cost per unit...duh
+        eventProbability: 0.5, // Probability of event per check
+        eventInterval: 3, // Interval for event checks
+        stopThreshold: 5, // Distance to trigger an intermediate stop
+        campThreshold: 10 // Distance to trigger need to camp
     }>>
-    <<goto "TravelStart">>
+    <<goto TravelStart>>
 <</link>>
 
 

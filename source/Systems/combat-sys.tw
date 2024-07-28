@@ -49,6 +49,7 @@ You prepare for battle with the $currentEnemy.name.<br><br>
 	You quickly dart away, using your agility to evade the $currentEnemy.name.
     </div><br>
    	<<set $currentEnemy to "">>
+    <<set $combatTurn = 0>>
     <<link "Continue">><<goto $lastLocation>><</link>>
 	<<else>>
         <div style="text-align: center;">
@@ -363,9 +364,11 @@ Available Skills:<br>
 :: UseItem {"position":"1200,350","size":"100,100"}
 [[Go Back|CombatTurn]]
 
+
 :: Victory {"position":"1050,475","size":"100,100"}
 <<set $playerEXP += $currentEnemy.exp>>
-<<set $playerGold += $currentEnemy.gold>> 
+<<set $playerGold += $currentEnemy.gold>>
+<<set $combatTurn = 0>>
 
 You gained $currentEnemy.gold gold and $currentEnemy.exp EXP!<br><br>
 <<link "Continue">>

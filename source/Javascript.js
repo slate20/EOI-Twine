@@ -23,6 +23,7 @@ window.useItem = function(itemIndex) {
     }
 };
 
+
 var biomeClasses = {
     'forest': 'biome-forest',
     'desert': 'biome-desert',
@@ -30,6 +31,7 @@ var biomeClasses = {
     // Add more biomes here as needed
 };
 
+// Update the background image based on the current biome
 function updateBiomeBackground() {
     var currentBiome = State.variables.currentBiome;
     
@@ -48,3 +50,27 @@ $(document).on(':passagerender', function() {
     updateBiomeBackground();
 });
 
+
+// Function to check quest status and include the appropriate passage
+window.questCheck = function(questTitle, questPassage) {
+    var quest = State.variables.playerQuests.find(q => q.title === questTitle);
+    var completedQuest = State.variables.completedQuests.find(q => q.title === questTitle);
+
+    if (completedQuest) {
+        State.variables.currentQuestState = "complete";
+    } else if (quest) {
+        var objectiveSet = false;
+        for (var i = 0; i < quest.objectives.length; i++) {
+            if (!quest.objectives[i].completed) {
+                State.variables.currentQuestState = "objective" + (i + 1);
+                objectiveSet = true;
+                break;
+            }
+        }
+        if (!objectiveSet) {
+            State.variables.currentQuestState = "turnIn";
+        }
+    } else {
+        State.variables.currentQuestState = "start";
+    }
+};

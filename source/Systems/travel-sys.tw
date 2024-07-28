@@ -38,8 +38,10 @@
     <<else>>
         <<if random(1, 100) / 100 <= $travelTo.eventProbability>>
             <<goto RandomTravelEvent>>
-        <<else>>
+        <<elseif $unitsTraveled < $travelTo.distance>>
             <<goto TravelProgress>>
+        <<else>>
+            <<goto TravelEnd>>
         <</if>>
     <</if>>
 
@@ -101,7 +103,7 @@ After traveling for some time, you consider if you should stop and rest.
     <<goto TravelStopOptions>>
 <</link>><br>
 <<link "Continue your journey">>
-    <<goto TravelProgress>>
+    <<goto TravelAction>>
 <</link>>
 
 

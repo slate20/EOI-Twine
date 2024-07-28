@@ -113,29 +113,32 @@ Inventory:
         <div style="flex: 3; text-align: left;"><<print _item.description>></div>
         <div style="flex: 1; text-align: center;"><<print _item.value>> gold</div>
         <div style="flex: 1; text-align: center;">
-            <<if _item.equipped !== undefined>>
-                <<if _item.equipped>>
+            <<if $combatTurn > 0>>
+            <<else>>
+                <<if _item.equipped !== undefined>>
+                    <<if _item.equipped>>
+                        <<capture _index>>
+                            <<link "Unequip">>
+                                <<set $tempItemIndex to _index>>
+                                <<goto "UnequipItem">>
+                            <</link>>
+                        <</capture>>
+                    <<else>>
+                        <<capture _index>>
+                            <<link "Equip">>
+                                <<set $tempItemIndex to _index>>
+                                <<goto "EquipItem">>
+                            <</link>>
+                        <</capture>>
+                    <</if>>
+                <<elseif _isConsumable>>
                     <<capture _index>>
-                        <<link "Unequip">>
-                            <<set $tempItemIndex to _index>>
-                            <<goto "UnequipItem">>
-                        <</link>>
-                    <</capture>>
-                <<else>>
-                    <<capture _index>>
-                        <<link "Equip">>
-                            <<set $tempItemIndex to _index>>
-                            <<goto "EquipItem">>
+                        <<link "Use">>
+                            <<run useItem(_index)>>
+                            <<goto "Inventory">>
                         <</link>>
                     <</capture>>
                 <</if>>
-            <<elseif _isConsumable>>
-                <<capture _index>>
-                    <<link "Use">>
-                        <<run useItem(_index)>>
-                        <<goto "Inventory">>
-                    <</link>>
-                <</capture>>
             <</if>>
         </div>
     </div>
@@ -181,12 +184,15 @@ Available Skill Points: $playerSkillPoints
         <div style="flex: 1; text-align: center;">
             <<if _skill.unlocked>>
                 Unlocked
+            <<elseif $combatTurn > 0>>
+                Not Learned
             <<else>>
-                <<if $playerSkillPoints > 0>>
+                <<if $playerSkillPoints >= _skill.spCost>>
                     <<capture _skill>>
                         <<button "1 SP">>
                             <<set _skill.unlocked = true>>
-                            <<set $playerSkillPoints -= 1>>
+                            <<set $playerSkillPoints -= _skill.spCost>>
+                            <<run Dialog.wiki("You spend some time training, reflecting on the experience you have gained.")>>
                             <<run Dialog.wiki("You have unlocked " + _skill.name)>>
                             <<run Dialog.open()>>
                             <<goto "SkillsMenu">>
