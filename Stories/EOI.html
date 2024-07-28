@@ -349,7 +349,7 @@ window.questCheck = function(questTitle) {
             State.variables.NewQuestState = "not started";
         }
     }
-};</script><tw-tag name="Location" color="yellow"></tw-tag><tw-tag name="System-Logic" color="orange"></tw-tag><tw-tag name="menu" color="blue"></tw-tag><tw-tag name="objects-db" color="green"></tw-tag><tw-passagedata pid="1" name="ClassSkills" tags="" position="100,100" size="100,100">&lt;!-- Swordsman Class Skills --&gt;
+};</script><tw-tag name="System-Logic" color="orange"></tw-tag><tw-tag name="menu" color="blue"></tw-tag><tw-tag name="objects-db" color="green"></tw-tag><tw-tag name="Location" color="yellow"></tw-tag><tw-passagedata pid="1" name="ClassSkills" tags="" position="100,100" size="100,100">&lt;!-- Swordsman Class Skills --&gt;
 &lt;&lt;set $SwordsmanSkills = {
     &quot;EnragedStrike&quot;: {
         &quot;name&quot;: &quot;Enraged Strike&quot;,
@@ -1306,7 +1306,8 @@ Which direction would you like to travel in?
         campThreshold: 10 // Distance to trigger need to camp
     }&gt;&gt;
     &lt;&lt;goto TravelStart&gt;&gt;
-&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="41" name="MV Merc Guild" tags="nobr" position="16700,6625" size="100,100">&lt;&lt;set $lastLocation = passage()&gt;&gt;
+&lt;&lt;/link&gt;&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="41" name="MV Merc Guild" tags="nobr" position="16700,6625" size="100,100">&lt;&lt;set $lastLocation = passage()&gt;&gt;
 &lt;br&gt;&lt;br&gt;
 &lt;&lt;if $playerClass == &quot;Swordsman&quot;&gt;&gt;
     You&#39;re greeted warmly as a fellow Swordsman. The guild is bustling with activity.&lt;br&gt;&lt;br&gt;
