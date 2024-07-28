@@ -1,6 +1,6 @@
 :: QuestReward [nobr menu] {"position":"0,0"}
 <br><br>
-<<set _quest to $playerQuests.find(q => q.title === $currentQuest)>>
+<<set _quest to $playerQuests.find(q => q.title === $questComplete)>>
 <<if _quest>>
     <<set _quest.status to "completed">>
 
@@ -23,7 +23,7 @@
 
     <!-- Move quest to completedQuests and remove from playerQuests -->
     <<set $completedQuests.push(clone(_quest))>>
-    <<set $playerQuests = $playerQuests.filter(q => q.title !== $currentQuest)>>
+    <<set $playerQuests = $playerQuests.filter(q => q.title !== $questComplete)>>
 
     <div style="text-align: center;">
     You completed the quest: <<print _quest.title>>!<br><br>

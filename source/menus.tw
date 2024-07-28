@@ -222,8 +222,7 @@ Quest Journal:
 
 <div style="display: flex; justify-content: space-between; padding: 5px; border-radius: 5px;">
     <div style="flex: 2; text-align: left;"><b>Quest</b></div>
-    <div style="flex: 3; text-align: left;"><b>Objective</b></div>
-    <div style="flex: 1; text-align: center;"><b>Status</b></div>
+    <div style="flex: 4; text-align: left;"><b>Objective</b></div>
 </div>
 <<for _quest range $playerQuests>>
     <div style="display: flex; justify-content: space-between; align-items: center;">
@@ -233,7 +232,7 @@ Quest Journal:
                 <span class="info-text">Description: <<print _quest.description>></span>
             </div>
         </div>
-        <div style="flex: 3; text-align: left;">
+        <div style="flex: 4; text-align: left;">
             <<for _index, _objective range _quest.objectives>>
                 <<if _objective.completed is false>>
                     <<print _objective.text>><br>
@@ -241,7 +240,6 @@ Quest Journal:
                 <</if>>
             <</for>>
         </div>
-        <div style="flex: 1; text-align: center;"><<print _quest.status>></div>
     </div>
 <</for>>
 <br>

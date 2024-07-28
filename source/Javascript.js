@@ -52,25 +52,28 @@ $(document).on(':passagerender', function() {
 
 
 // Function to check quest status and include the appropriate passage
-window.questCheck = function(questTitle, questPassage) {
+window.questCheck = function(questTitle) {
     var quest = State.variables.playerQuests.find(q => q.title === questTitle);
-    var completedQuest = State.variables.completedQuests.find(q => q.title === questTitle);
 
-    if (completedQuest) {
-        State.variables.currentQuestState = "complete";
-    } else if (quest) {
-        var objectiveSet = false;
-        for (var i = 0; i < quest.objectives.length; i++) {
-            if (!quest.objectives[i].completed) {
-                State.variables.currentQuestState = "objective" + (i + 1);
-                objectiveSet = true;
-                break;
+    if (quest) {
+        var allObjectivesCompleted = quest.objectives.every(o => o.completed);
+
+        if (allObjectivesCompleted) {
+            quest.status = "complete";
+        } else {
+            for (var i = 0; i < quest.objectives.length; i++) {
+                if (!quest.objectives[i].completed) {
+                    quest.status = "objective" + (i + 1);
+                    break;
+                }
             }
         }
-        if (!objectiveSet) {
-            State.variables.currentQuestState = "turnIn";
-        }
     } else {
-        State.variables.currentQuestState = "start";
+        var completedQuest = State.variables.completedQuests.find(q => q.title === questTitle);
+        if (completedQuest) {
+            completedQuest.status = "complete";
+        } else {
+            State.variables.NewQuestState = "not started";
+        }
     }
 };

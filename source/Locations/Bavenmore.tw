@@ -84,8 +84,13 @@ The shopkeeper nods at you.
 "Welcome to the Bavenmore Shop!" the shopkeeper bellows. "What can I help you with today?"
 <br><br>
 
-<<run questCheck("Lost Family Necklace", "LostFamilyNecklace_Dialog")>>
+<!-- Quest Checks and Dialog -->
+<<run questCheck("Lost Family Necklace")>>
 <<include "LostFamilyNecklace_Dialog">>
+
+<<run questCheck("Delivery To Innkeeper")>>
+<<include "DeliveryToInnkeeper_Dialog">>
+
 [["Nevermind."|Bavenmore Shop]]
 
 
@@ -107,6 +112,10 @@ Wooden tables are scattered around, and the air is filled with the aroma of food
 <br><br>
 The innkeeper pauses his work and gives you a nod. "Welcome, traveler! What can I do for you on this fine day?"
 <br><br>
+
+<<run questCheck("Delivery To Innkeeper")>>
+<<include "DeliveryToInnkeeper_Dialog">>
+
 [[Inquire about places to hone skills|Ask about Skills-BM]]<br>
 [["That's all, thank you."|Bavenmore Inn]]
 
@@ -151,12 +160,6 @@ You find a frying pan with a small chip in the rim. The cook must have tossed it
 
 :: Bavenmore Forest [nobr] {"position":"17375,6625"}
 <br><br>
-<<set _quest to $playerQuests.find(q => q.title === "Lost Family Necklace")>>
-<<if _quest>>
-    <<if not _quest.objectives[0].completed>>
-        <<set _quest.objectives[0].completed to true>>
-    <</if>>
-<</if>>
 
 <div style="text-align: center;">
 The woods around Bavenmore whisper of ancient secrets and untapped bounty.<br>
@@ -166,36 +169,8 @@ Today, the forest offers nothing but the peace of its shaded groves and the occa
 Yet, you sense that with the right skills, these woods could provide valuable resources.
 <br><br><br>
 </div>
-<<if _quest && _quest.objectives[0].completed && not _quest.objectives[1].completed>>
-    [[Search for the necklace|FamNecklaceSearch]]<br>
-    <<link "Return to Bavenmore">>
-        <<if _quest.objectives[1].completed == false>>
-            <<set _quest.objectives[0].completed to false>>
-        <</if>>
-        <<goto Bavenmore>>
-    <</link>>
-<<else>><br>
-    [[Return to Bavenmore|Bavenmore]]
-<</if>>
 
+<<run questCheck("Lost Family Necklace")>>
+<<include "LostFamilyNecklace_Dialog">>
 
-:: FamNecklaceSearch [nobr] {"position":"17500,6625"}
-<br><br>
-<<set _quest to $playerQuests.find(q => q.title === "Lost Family Necklace")>>
-
-<<if $currentStats.energy > 20>>
-    <div style="text-align: center;">
-    You search around the area for the family necklace. <br>
-    After a couple hours of exploring the forest floor, you manage to find it!
-    </div>
-    <br><br>
-    <<set $currentStats.energy -= 20>>
-    <<set _quest.objectives[1].completed to true>>
-<<else>>
-    <div style="text-align: center;">
-    You are too tired to spend time searching for the necklace.
-    </div>
-    <br><br>
-<</if>>
-
-[[Leave the Forest|Bavenmore]]
+[[Return to Bavenmore|Bavenmore]]
