@@ -69,19 +69,21 @@ Sell Inventory:
     <div style="flex: 1; text-align: center;"><b>Action</b></div>
 </div>
 <<for _index, _item range $inventory>>
-    <<capture _item _index>> <!-- Capture the current item and its index -->
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-            <div style="flex: 1; text-align: left;"><<print _item.name>></div>
-            <div style="flex: 3; text-align: left;"><<print _item.description>></div>
-            <div style="flex: 1; text-align: center;"><<print Math.round(_item.value * 0.5)>> gold</div>
-            <div style="flex: 1; text-align: center;">
-                <<link "Sell">>
-                    <<set $sellItem to _item>> <!-- Store item temporarily -->
-                    <<goto "SellItem">> <!-- Go to the SellItem passage -->
-                <</link>>
+    <<if !_item.equipped>> <!-- If the item is not equipped -->
+        <<capture _item _index>> <!-- Capture the current item and its index -->
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div style="flex: 1; text-align: left;"><<print _item.name>></div>
+                <div style="flex: 3; text-align: left;"><<print _item.description>></div>
+                <div style="flex: 1; text-align: center;"><<print Math.round(_item.value * 0.5)>> gold</div>
+                <div style="flex: 1; text-align: center;">
+                    <<link "Sell">>
+                        <<set $sellIndex to _index>> <!-- Store index temporarily -->
+                        <<goto "SellItem">> <!-- Go to the SellItem passage -->
+                    <</link>>
+                </div>
             </div>
-        </div>
-    <</capture>>
+        <</capture>>
+    <</if>>
 <</for>>
 <</nobr>>
 
@@ -92,10 +94,10 @@ Sell Inventory:
 
 :: SellItem [menu] {"position":"200,400","size":"100,100"}
 <br>
-Sell the <<print $sellItem.name>>?<br>
+Sell the <<print $inventory[$sellIndex].name>>?<br>
 <<link "Yes">>
-    <<set $playerGold += Math.round($sellItem.value * 0.5)>>
-    <<set $inventory = $inventory.filter(item => item.name !== $sellItem.name)>>
+    <<set $playerGold += Math.round($inventory[$sellIndex].value * 0.5)>>
+    <<set $inventory.splice($sellIndex, 1)>>
     <<goto "SellInventory">>
 <</link>>
 <<link "Nevermind">>

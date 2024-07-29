@@ -349,7 +349,7 @@ window.questCheck = function(questTitle) {
             State.variables.NewQuestState = "not started";
         }
     }
-};</script><tw-tag name="System-Logic" color="orange"></tw-tag><tw-tag name="menu" color="blue"></tw-tag><tw-tag name="objects-db" color="green"></tw-tag><tw-tag name="Location" color="yellow"></tw-tag><tw-passagedata pid="1" name="ClassSkills" tags="" position="100,100" size="100,100">&lt;!-- Swordsman Class Skills --&gt;
+};</script><tw-tag name="Location" color="yellow"></tw-tag><tw-tag name="System-Logic" color="orange"></tw-tag><tw-tag name="menu" color="blue"></tw-tag><tw-tag name="objects-db" color="green"></tw-tag><tw-passagedata pid="1" name="ClassSkills" tags="" position="100,100" size="100,100">&lt;!-- Swordsman Class Skills --&gt;
 &lt;&lt;set $SwordsmanSkills = {
     &quot;EnragedStrike&quot;: {
         &quot;name&quot;: &quot;Enraged Strike&quot;,
@@ -1393,7 +1393,11 @@ The Master Warden, a figure cloaked in light armor, steps forward and assesses y
 &quot;Rogues are masters of stealth and precision. They excel at striking swiftly, avoiding detection, and mastering ranged attacks. To join our numbers is to embrace a life of cunning, agility, and versatility. Are you prepared to dedicate yourself to the way of the Veiled Wardens?&quot;
 &lt;br&gt;&lt;br&gt;
 &lt;&lt;link &quot;Enroll in Rogue class&quot;&gt;&gt;&lt;&lt;goto &quot;EnrollRogue&quot;&gt;&gt;&lt;&lt;/link&gt;&gt;&lt;br&gt;
-[[&quot;I&#39;m not sure yet.&quot;|VeiledWardensMaster]]</tw-passagedata><tw-passagedata pid="50" name="Shadepond Forest" tags="nobr" position="17150,5375" size="100,100"></tw-passagedata><tw-passagedata pid="51" name="DeliveryToInnkeeper" tags="nobr gen-shop" position="100,725" size="100,100">&lt;&lt;set _quest to $playerQuests.find(q =&gt; q.title === &quot;Delivery To Innkeeper&quot;)&gt;&gt;
+[[&quot;I&#39;m not sure yet.&quot;|VeiledWardensMaster]]</tw-passagedata><tw-passagedata pid="50" name="Shadepond Forest" tags="nobr" position="17150,5375" size="100,100">&lt;br&gt;&lt;br&gt;
+&lt;div style=&quot;text-align: center;&quot;&gt;
+// Coming soon //
+&lt;/div&gt;
+[[Return to town|Shadepond]]</tw-passagedata><tw-passagedata pid="51" name="DeliveryToInnkeeper" tags="nobr gen-shop" position="100,725" size="100,100">&lt;&lt;set _quest to $playerQuests.find(q =&gt; q.title === &quot;Delivery To Innkeeper&quot;)&gt;&gt;
 &lt;br&gt;&lt;br&gt;
 &lt;&lt;if not _quest&gt;&gt;
     &quot;I need to get this package to the innkeeper. Can you deliver it for me?&quot;
@@ -2125,29 +2129,31 @@ Sell Inventory:
     &lt;div style=&quot;flex: 1; text-align: center;&quot;&gt;&lt;b&gt;Action&lt;/b&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;&lt;for _index, _item range $inventory&gt;&gt;
-    &lt;&lt;capture _item _index&gt;&gt; &lt;!-- Capture the current item and its index --&gt;
-        &lt;div style=&quot;display: flex; justify-content: space-between; align-items: center;&quot;&gt;
-            &lt;div style=&quot;flex: 1; text-align: left;&quot;&gt;&lt;&lt;print _item.name&gt;&gt;&lt;/div&gt;
-            &lt;div style=&quot;flex: 3; text-align: left;&quot;&gt;&lt;&lt;print _item.description&gt;&gt;&lt;/div&gt;
-            &lt;div style=&quot;flex: 1; text-align: center;&quot;&gt;&lt;&lt;print Math.round(_item.value * 0.5)&gt;&gt; gold&lt;/div&gt;
-            &lt;div style=&quot;flex: 1; text-align: center;&quot;&gt;
-                &lt;&lt;link &quot;Sell&quot;&gt;&gt;
-                    &lt;&lt;set $sellItem to _item&gt;&gt; &lt;!-- Store item temporarily --&gt;
-                    &lt;&lt;goto &quot;SellItem&quot;&gt;&gt; &lt;!-- Go to the SellItem passage --&gt;
-                &lt;&lt;/link&gt;&gt;
+    &lt;&lt;if !_item.equipped&gt;&gt; &lt;!-- If the item is not equipped --&gt;
+        &lt;&lt;capture _item _index&gt;&gt; &lt;!-- Capture the current item and its index --&gt;
+            &lt;div style=&quot;display: flex; justify-content: space-between; align-items: center;&quot;&gt;
+                &lt;div style=&quot;flex: 1; text-align: left;&quot;&gt;&lt;&lt;print _item.name&gt;&gt;&lt;/div&gt;
+                &lt;div style=&quot;flex: 3; text-align: left;&quot;&gt;&lt;&lt;print _item.description&gt;&gt;&lt;/div&gt;
+                &lt;div style=&quot;flex: 1; text-align: center;&quot;&gt;&lt;&lt;print Math.round(_item.value * 0.5)&gt;&gt; gold&lt;/div&gt;
+                &lt;div style=&quot;flex: 1; text-align: center;&quot;&gt;
+                    &lt;&lt;link &quot;Sell&quot;&gt;&gt;
+                        &lt;&lt;set $sellIndex to _index&gt;&gt; &lt;!-- Store index temporarily --&gt;
+                        &lt;&lt;goto &quot;SellItem&quot;&gt;&gt; &lt;!-- Go to the SellItem passage --&gt;
+                    &lt;&lt;/link&gt;&gt;
+                &lt;/div&gt;
             &lt;/div&gt;
-        &lt;/div&gt;
-    &lt;&lt;/capture&gt;&gt;
+        &lt;&lt;/capture&gt;&gt;
+    &lt;&lt;/if&gt;&gt;
 &lt;&lt;/for&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;
 
 &lt;&lt;link &quot;Return to Shop&quot;&gt;&gt;
     &lt;&lt;goto $lastLocation&gt;&gt;
 &lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="87" name="SellItem" tags="menu" position="200,400" size="100,100">&lt;br&gt;
-Sell the &lt;&lt;print $sellItem.name&gt;&gt;?&lt;br&gt;
+Sell the &lt;&lt;print $inventory[$sellIndex].name&gt;&gt;?&lt;br&gt;
 &lt;&lt;link &quot;Yes&quot;&gt;&gt;
-    &lt;&lt;set $playerGold += Math.round($sellItem.value * 0.5)&gt;&gt;
-    &lt;&lt;set $inventory = $inventory.filter(item =&gt; item.name !== $sellItem.name)&gt;&gt;
+    &lt;&lt;set $playerGold += Math.round($inventory[$sellIndex].value * 0.5)&gt;&gt;
+    &lt;&lt;set $inventory.splice($sellIndex, 1)&gt;&gt;
     &lt;&lt;goto &quot;SellInventory&quot;&gt;&gt;
 &lt;&lt;/link&gt;&gt;
 &lt;&lt;link &quot;Nevermind&quot;&gt;&gt;
