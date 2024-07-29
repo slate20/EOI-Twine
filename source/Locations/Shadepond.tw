@@ -9,11 +9,12 @@ You are in the town of <<print passage()>>. What would you like to do?
 </div>
 
 [[Explore the surrounding forest|Shadepond Forest]]
+[[Visit the Inn|Shadepond Inn]]
 [[Visit the Veiled Wardens Sanctuary|Veiled Wardens Sanctuary]]
 [[Leave Shadepond|Shadepond Travel]]
 
 
-:: Shadepond Travel {"position":"17375,5500"}
+:: Shadepond Travel {"position":"17150,5625"}
 <<nobr>>
 <br><br>
 <div style="text-align: center;">
@@ -34,6 +35,16 @@ Which direction would you like to travel in?
     <<goto TravelStart>>
     <</link>>
 </div>
+
+
+:: Shadepond Inn [nobr wood-inn] {"position":"17150,5875"}
+<<set $lastLocation = passage()>>
+<br><br>
+You enter the town's inn. It's a cozy place, with a warm atmosphere.<br>
+Wooden tables are scattered around, and the air is filled with the aroma of food and ale.<br><br>
+
+<<link "Rent Room ( 3 Gold )">><<goto "RoomRental">><</link>><br>
+[[Leave the Inn|Shadepond]]
 
 
 :: Veiled Wardens Sanctuary [nobr] {"position":"17150,5500"}

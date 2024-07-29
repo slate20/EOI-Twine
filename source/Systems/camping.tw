@@ -65,8 +65,8 @@ You have the following food options:
 You use an item before continuing your travel.
 </div>
 <br><br>
-<<link "Continue your journey">>
-    <<goto TravelProgress>>
+<<link "Go back">>
+    <<goto TravelStopOptions>>
 <</link>>
 
 
@@ -77,6 +77,19 @@ You decide to take a short nap, and feel slightly refreshed when you wake up.
 </div>
 <br><br>
 <<set $currentStats.energy += 10>>
+<<if $currentStats.energy > $baseStats.energy>>
+    <<set $currentStats.energy = $baseStats.energy>>
+<</if>>
+<<set $currentStats.stamina += 5>>
+<<if $currentStats.stamina > $baseStats.stamina>>
+    <<set $currentStats.stamina = $baseStats.stamina>>
+<</if>>
+<<if $playerHasMagic == 1>>
+    <<set $currentStats.mana += 5>>
+    <<if $currentStats.mana > $baseStats.mana>>
+        <<set $currentStats.mana = $baseStats.mana>>
+    <</if>>
+<</if>>
 <<link "Continue your journey">>
     <<goto TravelProgress>>
 <</link>>

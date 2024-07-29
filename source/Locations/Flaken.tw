@@ -41,6 +41,17 @@ Which direction would you like to travel in?
 </div>
 [[Return to town|Flaken]]
 
+
+:: Flaken Inn [nobr wood-inn] {"position":"18800,7225"}
+<<set $lastLocation = passage()>>
+<br><br>
+You enter the town's inn. It's a cozy place, with a warm atmosphere.<br>
+Wooden tables are scattered around, and the air is filled with the aroma of food and ale.<br><br>
+
+<<link "Rent Room ( 3 Gold )">><<goto "RoomRental">><</link>><br>
+[[Leave the Inn|Flaken]]
+
+
 <!-- Flaken Arcane Academy -->
 :: Flaken Academy [nobr] {"position":"18925,7225"}
 <<set $lastLocation = passage()>>

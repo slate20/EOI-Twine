@@ -1349,6 +1349,7 @@ You are in the town of &lt;&lt;print passage()&gt;&gt;. What would you like to d
 &lt;/div&gt;
 
 [[Explore the surrounding forest|Shadepond Forest]]
+[[Visit the Inn|Shadepond Inn]]
 [[Visit the Veiled Wardens Sanctuary|Veiled Wardens Sanctuary]]
 [[Leave Shadepond|Shadepond Travel]]</tw-passagedata><tw-passagedata pid="46" name="Shadepond Travel" tags="" position="17375,5500" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;br&gt;&lt;br&gt;
@@ -1369,7 +1370,13 @@ Which direction would you like to travel in?
     }&gt;&gt;
     &lt;&lt;goto TravelStart&gt;&gt;
     &lt;&lt;/link&gt;&gt;
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="47" name="Veiled Wardens Sanctuary" tags="nobr" position="17150,5500" size="100,100">&lt;&lt;set $lastLocation = passage()&gt;&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="47" name="Shadepond Inn" tags="nobr wood-inn" position="17375,6875" size="100,100">&lt;&lt;set $lastLocation = passage()&gt;&gt;
+&lt;br&gt;&lt;br&gt;
+You enter the town&#39;s inn. It&#39;s a cozy place, with a warm atmosphere.&lt;br&gt;
+Wooden tables are scattered around, and the air is filled with the aroma of food and ale.&lt;br&gt;&lt;br&gt;
+
+&lt;&lt;link &quot;Rent Room ( 3 Gold )&quot;&gt;&gt;&lt;&lt;goto &quot;RoomRental&quot;&gt;&gt;&lt;&lt;/link&gt;&gt;&lt;br&gt;
+[[Leave the Inn|Shadepond]]</tw-passagedata><tw-passagedata pid="48" name="Veiled Wardens Sanctuary" tags="nobr" position="17150,5500" size="100,100">&lt;&lt;set $lastLocation = passage()&gt;&gt;
 &lt;br&gt;&lt;br&gt;
 &lt;&lt;if $playerClass == &quot;Rogue&quot;&gt;&gt;
     You&#39;re greeted warmly as a fellow Rogue. The sancutary is bustling with activity.&lt;br&gt;&lt;br&gt;
@@ -1381,7 +1388,7 @@ Which direction would you like to travel in?
     [[Speak to a member of the Veiled Wardens|VeiledWardensMember]]&lt;br&gt;
     [[Approach the Master Warden|VeiledWardensMaster]]&lt;br&gt;
 &lt;&lt;/if&gt;&gt;
-[[Leave the sanctuary|Shadepond]]</tw-passagedata><tw-passagedata pid="48" name="VeiledWardensMaster" tags="nobr" position="17150,5375" size="100,100">&lt;br&gt;&lt;br&gt;
+[[Leave the sanctuary|Shadepond]]</tw-passagedata><tw-passagedata pid="49" name="VeiledWardensMaster" tags="nobr" position="17150,5375" size="100,100">&lt;br&gt;&lt;br&gt;
 &lt;div style=&quot;text-align: center;&quot;&gt;
 The Master Warden, a figure cloaked in light armor, steps forward and assesses you with a keen gaze.&lt;br&gt;
 &quot;Why have you come to our sancutary?&quot;&lt;br&gt;&lt;br&gt;
@@ -1389,15 +1396,15 @@ The Master Warden, a figure cloaked in light armor, steps forward and assesses y
 &lt;&lt;if $playerClass != &quot;Rogue&quot;&gt;&gt;
     &lt;&lt;link &quot;Ask about becoming a Rogue&quot;&gt;&gt;&lt;&lt;goto &quot;RogueInfo&quot;&gt;&gt;&lt;&lt;/link&gt;&gt;
 &lt;&lt;/if&gt;&gt;&lt;br&gt;
-[[Nothing, sorry to bother you.|Veiled Wardens Sanctuary]]</tw-passagedata><tw-passagedata pid="49" name="RogueInfo" tags="nobr" position="17150,5500" size="100,100">&lt;br&gt;&lt;br&gt;
+[[Nothing, sorry to bother you.|Veiled Wardens Sanctuary]]</tw-passagedata><tw-passagedata pid="50" name="RogueInfo" tags="nobr" position="17150,5500" size="100,100">&lt;br&gt;&lt;br&gt;
 &quot;Rogues are masters of stealth and precision. They excel at striking swiftly, avoiding detection, and mastering ranged attacks. To join our numbers is to embrace a life of cunning, agility, and versatility. Are you prepared to dedicate yourself to the way of the Veiled Wardens?&quot;
 &lt;br&gt;&lt;br&gt;
 &lt;&lt;link &quot;Enroll in Rogue class&quot;&gt;&gt;&lt;&lt;goto &quot;EnrollRogue&quot;&gt;&gt;&lt;&lt;/link&gt;&gt;&lt;br&gt;
-[[&quot;I&#39;m not sure yet.&quot;|VeiledWardensMaster]]</tw-passagedata><tw-passagedata pid="50" name="Shadepond Forest" tags="nobr" position="17150,5375" size="100,100">&lt;br&gt;&lt;br&gt;
+[[&quot;I&#39;m not sure yet.&quot;|VeiledWardensMaster]]</tw-passagedata><tw-passagedata pid="51" name="Shadepond Forest" tags="nobr" position="17150,5375" size="100,100">&lt;br&gt;&lt;br&gt;
 &lt;div style=&quot;text-align: center;&quot;&gt;
 // Coming soon //
 &lt;/div&gt;
-[[Return to town|Shadepond]]</tw-passagedata><tw-passagedata pid="51" name="DeliveryToInnkeeper" tags="nobr gen-shop" position="100,725" size="100,100">&lt;&lt;set _quest to $playerQuests.find(q =&gt; q.title === &quot;Delivery To Innkeeper&quot;)&gt;&gt;
+[[Return to town|Shadepond]]</tw-passagedata><tw-passagedata pid="52" name="DeliveryToInnkeeper" tags="nobr gen-shop" position="225,725" size="100,100">&lt;&lt;set _quest to $playerQuests.find(q =&gt; q.title === &quot;Delivery To Innkeeper&quot;)&gt;&gt;
 &lt;br&gt;&lt;br&gt;
 &lt;&lt;if not _quest&gt;&gt;
     &quot;I need to get this package to the innkeeper. Can you deliver it for me?&quot;
@@ -1411,14 +1418,14 @@ The Master Warden, a figure cloaked in light armor, steps forward and assesses y
         &lt;&lt;goto DeliveryToInnkeeperAccept&gt;&gt;
     &lt;&lt;/link&gt;&gt;&lt;br&gt;
     [[&quot;Sorry, I can&#39;t help you right now.&quot;|Bavenmore Shop]]
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="52" name="DeliveryToInnkeeperAccept" tags="nobr gen-shop" position="225,725" size="100,100">&lt;&lt;set _quest to $playerQuests.find(q =&gt; q.title === &quot;Delivery To Innkeeper&quot;)&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="53" name="DeliveryToInnkeeperAccept" tags="nobr gen-shop" position="350,725" size="100,100">&lt;&lt;set _quest to $playerQuests.find(q =&gt; q.title === &quot;Delivery To Innkeeper&quot;)&gt;&gt;
 &lt;br&gt;&lt;br&gt;
 &quot;Thank you! Please deliver this package to the innkeeper over at the inn. You can keep his payment as a reward.&quot;
 &lt;br&gt;&lt;br&gt;
 &lt;&lt;set _quest.objectives[0].completed to true&gt;&gt;
 &lt;&lt;run questCheck(&quot;Delivery To Innkeeper&quot;)&gt;&gt;
 
-[[&quot;Go Back&quot;|Bavenmore Shopkeeper]]</tw-passagedata><tw-passagedata pid="53" name="DeliveryToInnkeeper_Dialog" tags="nobr" position="350,725" size="100,100">&lt;&lt;set _quest to $playerQuests.find(q =&gt; q.title === &quot;Delivery To Innkeeper&quot;)&gt;&gt;
+[[&quot;Go Back&quot;|Bavenmore Shopkeeper]]</tw-passagedata><tw-passagedata pid="54" name="DeliveryToInnkeeper_Dialog" tags="nobr" position="475,725" size="100,100">&lt;&lt;set _quest to $playerQuests.find(q =&gt; q.title === &quot;Delivery To Innkeeper&quot;)&gt;&gt;
 &lt;&lt;set _completedQuest to $completedQuests.find(q =&gt; q.title === &quot;Delivery To Innkeeper&quot;)&gt;&gt;
 &lt;&lt;if _quest&gt;&gt;
     &lt;&lt;switch _quest.status&gt;&gt;
@@ -1434,14 +1441,14 @@ The Master Warden, a figure cloaked in light armor, steps forward and assesses y
     &lt;&lt;if passage() == &quot;Bavenmore Shopkeeper&quot; &amp;&amp; !_completedQuest&gt;&gt;
         [[Is there anything I can help you with?|DeliveryToInnkeeper]]&lt;br&gt;
     &lt;&lt;/if&gt;&gt;
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="54" name="DeliveryToInnkeeperEnd" tags="nobr wood-inn" position="475,725" size="100,100">&lt;&lt;set _quest to $playerQuests.find(q =&gt; q.title === &quot;Delivery To Innkeeper&quot;)&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="55" name="DeliveryToInnkeeperEnd" tags="nobr wood-inn" position="600,725" size="100,100">&lt;&lt;set _quest to $playerQuests.find(q =&gt; q.title === &quot;Delivery To Innkeeper&quot;)&gt;&gt;
 &lt;br&gt;&lt;br&gt;
 &quot;Ah, I have been waiting for this to arrive! Thank you for delivering it. Here is the payment.&quot;
 &lt;br&gt;&lt;br&gt;
 &lt;&lt;link &quot;Hand over the package.&quot;&gt;&gt;
     &lt;&lt;set $questComplete to &quot;Delivery To Innkeeper&quot;&gt;&gt;
     &lt;&lt;goto QuestReward&gt;&gt;
-&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="55" name="LostFamilyNecklace" tags="nobr gen-shop" position="17250,7125" size="100,100">&lt;&lt;set _quest to $playerQuests.find(q =&gt; q.title === &quot;Lost Family Necklace&quot;)&gt;&gt;
+&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="56" name="LostFamilyNecklace" tags="nobr gen-shop" position="17250,7125" size="100,100">&lt;&lt;set _quest to $playerQuests.find(q =&gt; q.title === &quot;Lost Family Necklace&quot;)&gt;&gt;
 &lt;br&gt;&lt;br&gt;
 &lt;&lt;if _quest &amp;&amp; _quest.objectives[1].completed is true&gt;&gt;
     &quot;Well I&#39;ll be, I didn&#39;t honestly think I would ever see it again! You have done me a great service traveler. Here is your reward, as promised.&quot;
@@ -1470,10 +1477,10 @@ The Master Warden, a figure cloaked in light armor, steps forward and assesses y
     &lt;br&gt;&lt;br&gt;
 
     [[&quot;Ok thank you.&quot;|Bavenmore Shopkeeper]]
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="56" name="LostFamNecklaceAccept" tags="nobr gen-shop" position="17250,7250" size="100,100">&lt;br&gt;&lt;br&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="57" name="LostFamNecklaceAccept" tags="nobr gen-shop" position="17250,7250" size="100,100">&lt;br&gt;&lt;br&gt;
 &quot;You are most kind! If you do happen to find it, please return it to me. I would gladly pay you for your efforts.&quot;
 &lt;br&gt;&lt;br&gt;
-[[&quot;Go Back&quot;|Bavenmore Shop]]</tw-passagedata><tw-passagedata pid="57" name="LostFamilyNecklace_Dialog" tags="nobr" position="850,725" size="100,100">&lt;&lt;set _quest to $playerQuests.find(q =&gt; q.title === &quot;Lost Family Necklace&quot;)&gt;&gt;
+[[&quot;Go Back&quot;|Bavenmore Shop]]</tw-passagedata><tw-passagedata pid="58" name="LostFamilyNecklace_Dialog" tags="nobr" position="975,725" size="100,100">&lt;&lt;set _quest to $playerQuests.find(q =&gt; q.title === &quot;Lost Family Necklace&quot;)&gt;&gt;
 &lt;&lt;set _completedQuest to $completedQuests.find(q =&gt; q.title === &quot;Lost Family Necklace&quot;)&gt;&gt;
 &lt;&lt;if _quest&gt;&gt;
     &lt;&lt;switch _quest.status&gt;&gt;
@@ -1490,7 +1497,7 @@ The Master Warden, a figure cloaked in light armor, steps forward and assesses y
     &lt;&lt;/switch&gt;&gt;
 &lt;&lt;elseif !_completedQuest &amp;&amp; passage() == &quot;Bavenmore Shopkeeper&quot;&gt;&gt;
     [[You look troubled, is there something on your mind?|LostFamilyNecklace]]&lt;br&gt;
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="58" name="LostFamilyNecklaceEnd" tags="nobr gen-shop" position="975,725" size="100,100">&lt;&lt;set _quest to $playerQuests.find(q =&gt; q.title === &quot;Lost Family Necklace&quot;)&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="59" name="LostFamilyNecklaceEnd" tags="nobr gen-shop" position="1100,725" size="100,100">&lt;&lt;set _quest to $playerQuests.find(q =&gt; q.title === &quot;Lost Family Necklace&quot;)&gt;&gt;
 &lt;br&gt;&lt;br&gt;
 &quot;Well I&#39;ll be, I didn&#39;t honestly think I would ever see it again! You have done me a great service traveler. Here is your reward, as promised.&quot;
 &lt;br&gt;&lt;br&gt;
@@ -1498,7 +1505,7 @@ The Master Warden, a figure cloaked in light armor, steps forward and assesses y
 &lt;&lt;link &quot;Return the necklace to the shopkeeper&quot;&gt;&gt;
     &lt;&lt;set $questComplete to &quot;Lost Family Necklace&quot;&gt;&gt;
     &lt;&lt;goto QuestReward&gt;&gt;
-&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="59" name="FamNecklaceSearch" tags="nobr" position="17500,6625" size="100,100">&lt;br&gt;&lt;br&gt;
+&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="60" name="FamNecklaceSearch" tags="nobr" position="17500,6625" size="100,100">&lt;br&gt;&lt;br&gt;
 &lt;&lt;set _quest to $playerQuests.find(q =&gt; q.title === &quot;Lost Family Necklace&quot;)&gt;&gt;
 
 &lt;&lt;if $currentStats.energy &gt; 20&gt;&gt;
@@ -1516,7 +1523,7 @@ The Master Warden, a figure cloaked in light armor, steps forward and assesses y
     &lt;br&gt;&lt;br&gt;
 &lt;&lt;/if&gt;&gt;
 
-[[Leave the Forest|Bavenmore]]</tw-passagedata><tw-passagedata pid="60" name="Quests" tags="" position="1225,725" size="100,100">&lt;&lt;set $questDB = {
+[[Leave the Forest|Bavenmore]]</tw-passagedata><tw-passagedata pid="61" name="Quests" tags="" position="100,850" size="100,100">&lt;&lt;set $questDB = {
     &quot;LostFamilyNecklace&quot;: {
         &quot;title&quot;: &quot;Lost Family Necklace&quot;,
         &quot;description&quot;: &quot;Find the shopkeepers lost necklace in the Bavenmore forest.&quot;,
@@ -1547,7 +1554,7 @@ The Master Warden, a figure cloaked in light armor, steps forward and assesses y
         },
         &quot;status&quot;: &quot;not started&quot;
     }
-}&gt;&gt;</tw-passagedata><tw-passagedata pid="61" name="TravelStopOptions" tags="nobr" position="1725,200" size="100,100">&lt;br&gt;&lt;br&gt;
+}&gt;&gt;</tw-passagedata><tw-passagedata pid="62" name="TravelStopOptions" tags="nobr" position="1725,200" size="100,100">&lt;br&gt;&lt;br&gt;
 &lt;div style=&quot;text-align: center;&quot;&gt;
 You take a moment to sit down and rest for a bit.
 &lt;/div&gt;
@@ -1563,7 +1570,7 @@ You take a moment to sit down and rest for a bit.
 &lt;&lt;/link&gt;&gt;&lt;br&gt;
 &lt;&lt;link &quot;Continue your journey&quot;&gt;&gt;
     &lt;&lt;goto TravelProgress&gt;&gt;
-&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="62" name="TravelEat" tags="nobr" position="1725,325" size="100,100">&lt;&lt;set _foodItems = []&gt;&gt; &lt;!-- temporary array to hold food items --&gt;
+&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="63" name="TravelEat" tags="nobr" position="1725,325" size="100,100">&lt;&lt;set _foodItems = []&gt;&gt; &lt;!-- temporary array to hold food items --&gt;
 &lt;&lt;for _index, _item range $inventory&gt;&gt;
     &lt;&lt;if _item.type == &quot;food&quot;&gt;&gt;
         &lt;&lt;set _foodItems.push(_index)&gt;&gt;
@@ -1598,22 +1605,35 @@ You have the following food options:
     &lt;&lt;link &quot;Go back&quot;&gt;&gt;
         &lt;&lt;goto TravelStopOptions&gt;&gt;
     &lt;&lt;/link&gt;&gt;
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="63" name="TravelUseItem" tags="nobr" position="1725,450" size="100,100">&lt;br&gt;&lt;br&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="64" name="TravelUseItem" tags="nobr" position="1725,450" size="100,100">&lt;br&gt;&lt;br&gt;
 &lt;div style=&quot;text-align: center;&quot;&gt;
 You use an item before continuing your travel.
 &lt;/div&gt;
 &lt;br&gt;&lt;br&gt;
-&lt;&lt;link &quot;Continue your journey&quot;&gt;&gt;
-    &lt;&lt;goto TravelProgress&gt;&gt;
-&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="64" name="TravelNap" tags="nobr" position="1725,575" size="100,100">&lt;br&gt;&lt;br&gt;
+&lt;&lt;link &quot;Go back&quot;&gt;&gt;
+    &lt;&lt;goto TravelStopOptions&gt;&gt;
+&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="65" name="TravelNap" tags="nobr" position="1725,575" size="100,100">&lt;br&gt;&lt;br&gt;
 &lt;div style=&quot;text-align: center;&quot;&gt;
 You decide to take a short nap, and feel slightly refreshed when you wake up.
 &lt;/div&gt;
 &lt;br&gt;&lt;br&gt;
 &lt;&lt;set $currentStats.energy += 10&gt;&gt;
+&lt;&lt;if $currentStats.energy &gt; $baseStats.energy&gt;&gt;
+    &lt;&lt;set $currentStats.energy = $baseStats.energy&gt;&gt;
+&lt;&lt;/if&gt;&gt;
+&lt;&lt;set $currentStats.stamina += 5&gt;&gt;
+&lt;&lt;if $currentStats.stamina &gt; $baseStats.stamina&gt;&gt;
+    &lt;&lt;set $currentStats.stamina = $baseStats.stamina&gt;&gt;
+&lt;&lt;/if&gt;&gt;
+&lt;&lt;if $playerHasMagic == 1&gt;&gt;
+    &lt;&lt;set $currentStats.mana += 5&gt;&gt;
+    &lt;&lt;if $currentStats.mana &gt; $baseStats.mana&gt;&gt;
+        &lt;&lt;set $currentStats.mana = $baseStats.mana&gt;&gt;
+    &lt;&lt;/if&gt;&gt;
+&lt;&lt;/if&gt;&gt;
 &lt;&lt;link &quot;Continue your journey&quot;&gt;&gt;
     &lt;&lt;goto TravelProgress&gt;&gt;
-&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="65" name="EnemyEncounter" tags="nobr" position="1200,100" size="100,100">&lt;!-- Randomly select enemy based on the current biome --&gt;
+&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="66" name="EnemyEncounter" tags="nobr" position="1200,100" size="100,100">&lt;!-- Randomly select enemy based on the current biome --&gt;
 &lt;&lt;set $availableEnemies = Object.keys($enemies).filter(e =&gt; $enemies[e].biomes.includes($currentBiome))&gt;&gt;
 &lt;&lt;set $randomEnemyKey = $availableEnemies.random()&gt;&gt;
 &lt;&lt;set $currentEnemy = $enemies[$randomEnemyKey]&gt;&gt;
@@ -1626,7 +1646,7 @@ You decide to take a short nap, and feel slightly refreshed when you wake up.
 &lt;/div&gt;
 &lt;br&gt;
 [[Engage|EngageEnemy]]&lt;br&gt;
-[[Flee|FleeEncounter]]</tw-passagedata><tw-passagedata pid="66" name="EngageEnemy" tags="nobr" position="1100,225" size="100,100">&lt;&lt;set $playerAP = 3&gt;&gt; &lt;!-- Assuming each turn starts with 3 AP --&gt;
+[[Flee|FleeEncounter]]</tw-passagedata><tw-passagedata pid="67" name="EngageEnemy" tags="nobr" position="1100,225" size="100,100">&lt;&lt;set $playerAP = 3&gt;&gt; &lt;!-- Assuming each turn starts with 3 AP --&gt;
 &lt;&lt;set $enemyAP = 3&gt;&gt;
 &lt;&lt;set $combatTurn = 1&gt;&gt;
 &lt;&lt;set $enemyTurn to false&gt;&gt;
@@ -1647,7 +1667,7 @@ You prepare for battle with the $currentEnemy.name.&lt;br&gt;&lt;br&gt;
     &lt;&lt;goto CombatTurn&gt;&gt;
 &lt;&lt;/link&gt;&gt;&lt;br&gt;
 [[Use Item|UseItem]]&lt;br&gt;
-[[Flee|FleeEncounter]]</tw-passagedata><tw-passagedata pid="67" name="FleeEncounter" tags="nobr" position="1300,225" size="100,100">&lt;br&gt;&lt;br&gt;
+[[Flee|FleeEncounter]]</tw-passagedata><tw-passagedata pid="68" name="FleeEncounter" tags="nobr" position="1300,225" size="100,100">&lt;br&gt;&lt;br&gt;
 &lt;&lt;if $currentStats.dexterity &gt;= $currentEnemy.awareness&gt;&gt;
     &lt;div style=&quot;text-align: center;&quot;&gt;
 	You quickly dart away, using your agility to evade the $currentEnemy.name.
@@ -1662,7 +1682,7 @@ You prepare for battle with the $currentEnemy.name.&lt;br&gt;&lt;br&gt;
         &lt;br&gt;&lt;br&gt;
     [[Fight|CombatTurn]]
     &lt;/div&gt;
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="68" name="CombatTurn" tags="nobr" position="975,850" size="100,100">&lt;br&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="69" name="CombatTurn" tags="nobr" position="1100,850" size="100,100">&lt;br&gt;
 &lt;&lt;print &quot;&lt;img src=&#39;&quot; + $enemyImgPath + &quot;&#39; style=&#39;display: block; margin: auto;&#39; width=&#39;300&#39; height=&#39;300&#39;&gt;&quot;&gt;&gt;&lt;br&gt;
 &lt;div style=&quot;text-align: center;&quot;&gt;
     Enemy HP: $currentEnemy.health &lt;br&gt;
@@ -1689,7 +1709,7 @@ You face the $currentEnemy.name, readying yourself for the next move.&lt;br&gt;
     &lt;&lt;set $combatTurn += 1&gt;&gt;
     &lt;&lt;goto EnemyTurn&gt;&gt;
 &lt;&lt;/link&gt;&gt;&lt;br&gt;
-[[Flee|FleeEncounter]] &lt;!-- Option to flee, regardless of AP --&gt;</tw-passagedata><tw-passagedata pid="69" name="PlayerAttack" tags="nobr" position="1100,850" size="100,100">&lt;br&gt;
+[[Flee|FleeEncounter]] &lt;!-- Option to flee, regardless of AP --&gt;</tw-passagedata><tw-passagedata pid="70" name="PlayerAttack" tags="nobr" position="1225,850" size="100,100">&lt;br&gt;
 &lt;&lt;print &quot;&lt;img src=&#39;&quot; + $enemyImgPath + &quot;&#39; style=&#39;display: block; margin: auto;&#39; width=&#39;300&#39; height=&#39;300&#39;&gt;&quot;&gt;&gt;&lt;br&gt;
 &lt;div style=&quot;text-align: center;&quot;&gt;
     Enemy HP: $currentEnemy.health &lt;br&gt;
@@ -1714,7 +1734,7 @@ You face the $currentEnemy.name, readying yourself for the next move.&lt;br&gt;
         &quot;You&#39;re too far to attack right now!&quot;&lt;br&gt;&lt;br&gt;
         [[Go Back|CombatTurn]]
     &lt;&lt;/if&gt;&gt;
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="70" name="AttackResults" tags="nobr" position="1225,850" size="100,100">&lt;br&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="71" name="AttackResults" tags="nobr" position="100,975" size="100,100">&lt;br&gt;
 &lt;&lt;print &quot;&lt;img src=&#39;&quot; + $enemyImgPath + &quot;&#39; style=&#39;display: block; margin: auto;&#39; width=&#39;300&#39; height=&#39;300&#39;&gt;&quot;&gt;&gt;&lt;br&gt;
 &lt;div style=&quot;text-align: center;&quot;&gt;
     Enemy HP: $currentEnemy.health &lt;br&gt;
@@ -1746,10 +1766,14 @@ You face the $currentEnemy.name, readying yourself for the next move.&lt;br&gt;
 &lt;&lt;/if&gt;&gt;
 
 &lt;!-- Determine if the player&#39;s attack hits and calculate damage --&gt;
-&lt;&lt;set $attackRoll to random(3, 20) + $modifierValue&gt;&gt;
+&lt;&lt;set $attackRoll to random(5, 20) + $modifierValue&gt;&gt;
 &lt;&lt;if $attackRoll &gt;= $currentEnemy.defense&gt;&gt; 
     &lt;&lt;set $currentEnemy.health to $currentEnemy.health - $playerAttack&gt;&gt;
-    You attack the $currentEnemy.name, dealing $playerAttack damage.&lt;br&gt;&lt;br&gt;
+    &lt;&lt;if $equipmentSlots.mainhand&gt;&gt;
+        You attack the $currentEnemy.name with your $equippedWeapon.type, dealing $playerAttack damage.&lt;br&gt;&lt;br&gt;
+    &lt;&lt;else&gt;&gt;
+        You attack the $currentEnemy.name with your fists, dealing $playerAttack damage.&lt;br&gt;&lt;br&gt;
+    &lt;&lt;/if&gt;&gt;
 &lt;&lt;else&gt;&gt; 
     You miss the $currentEnemy.name.&lt;br&gt;&lt;br&gt;
 &lt;&lt;/if&gt;&gt;
@@ -1758,7 +1782,7 @@ You face the $currentEnemy.name, readying yourself for the next move.&lt;br&gt;
     [[Continue|Victory]]
 &lt;&lt;else&gt;&gt;
     [[Continue|CombatTurn]]
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="71" name="PlayerMove" tags="nobr" position="100,975" size="100,100">&lt;br&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="72" name="PlayerMove" tags="nobr" position="225,975" size="100,100">&lt;br&gt;
 &lt;&lt;print &quot;&lt;img src=&#39;&quot; + $enemyImgPath + &quot;&#39; style=&#39;display: block; margin: auto;&#39; width=&#39;300&#39; height=&#39;300&#39;&gt;&quot;&gt;&gt;&lt;br&gt;
 &lt;div style=&quot;text-align: center;&quot;&gt;
     Enemy HP: $currentEnemy.health &lt;br&gt;
@@ -1789,7 +1813,7 @@ Where do you want to move?&lt;br&gt;&lt;br&gt;
         &lt;&lt;goto CombatTurn&gt;&gt;
     &lt;&lt;/link&gt;&gt;
 &lt;&lt;/if&gt;&gt;&lt;br&gt;
-[[Stay put|CombatTurn]]</tw-passagedata><tw-passagedata pid="72" name="SkillChoice" tags="nobr" position="225,975" size="100,100">&lt;br&gt;
+[[Stay put|CombatTurn]]</tw-passagedata><tw-passagedata pid="73" name="SkillChoice" tags="nobr" position="350,975" size="100,100">&lt;br&gt;
 &lt;&lt;print &quot;&lt;img src=&#39;&quot; + $enemyImgPath + &quot;&#39; style=&#39;display: block; margin: auto;&#39; width=&#39;300&#39; height=&#39;300&#39;&gt;&quot;&gt;&gt;&lt;br&gt;
 &lt;div style=&quot;text-align: center;&quot;&gt;
     Enemy HP: $currentEnemy.health &lt;br&gt;
@@ -1802,11 +1826,11 @@ Available Skills:&lt;br&gt;
             &lt;&lt;link _skill.name&gt;&gt;
                 &lt;&lt;set _skillPassage = &quot;Skill&quot; + _skill.name.replace(&quot; &quot;,&quot;&quot;)&gt;&gt;
                 &lt;&lt;goto _skillPassage&gt;&gt;
-            &lt;&lt;/link&gt;&gt;
-        &lt;&lt;/if&gt;&gt;&lt;br&gt;
+            &lt;&lt;/link&gt;&gt;&lt;br&gt;
+        &lt;&lt;/if&gt;&gt;
     &lt;&lt;/capture&gt;&gt;
 &lt;&lt;/for&gt;&gt;
-[[Go Back|CombatTurn]]</tw-passagedata><tw-passagedata pid="73" name="EnemyTurn" tags="nobr" position="350,975" size="100,100">&lt;br&gt;
+[[Go Back|CombatTurn]]</tw-passagedata><tw-passagedata pid="74" name="EnemyTurn" tags="nobr" position="475,975" size="100,100">&lt;br&gt;
 &lt;&lt;print &quot;&lt;img src=&#39;&quot; + $enemyImgPath + &quot;&#39; style=&#39;display: block; margin: auto;&#39; width=&#39;300&#39; height=&#39;300&#39;&gt;&quot;&gt;&gt;&lt;br&gt;
 &lt;div style=&quot;text-align: center;&quot;&gt;
     Enemy HP: $currentEnemy.health &lt;br&gt;
@@ -1893,7 +1917,7 @@ Available Skills:&lt;br&gt;
             [[Continue|CombatTurn]]&lt;&lt;set $enemyAP to 3&gt;&gt;&lt;&lt;set $enemyTurn = false&gt;&gt;
         &lt;&lt;/if&gt;&gt;
     &lt;&lt;/if&gt;&gt;
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="74" name="EnemyAttack" tags="nobr" position="475,975" size="100,100">&lt;br&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="75" name="EnemyAttack" tags="nobr" position="600,975" size="100,100">&lt;br&gt;
 &lt;&lt;print &quot;&lt;img src=&#39;&quot; + $enemyImgPath + &quot;&#39; style=&#39;display: block; margin: auto;&#39; width=&#39;300&#39; height=&#39;300&#39;&gt;&quot;&gt;&gt;&lt;br&gt;
 &lt;div style=&quot;text-align: center;&quot;&gt;
     Enemy HP: $currentEnemy.health &lt;br&gt;
@@ -1931,7 +1955,7 @@ Available Skills:&lt;br&gt;
 &lt;&lt;else&gt;&gt;
     The $currentEnemy.name ends it&#39;s turn.&lt;br&gt;&lt;br&gt;
     [[Continue|CombatTurn]]&lt;&lt;set $enemyAP to 3&gt;&gt;&lt;&lt;set $enemyTurn = false&gt;&gt;
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="75" name="UseItem" tags="" position="1200,350" size="100,100">[[Go Back|CombatTurn]]</tw-passagedata><tw-passagedata pid="76" name="Victory" tags="" position="1050,475" size="100,100">&lt;&lt;set $playerEXP += $currentEnemy.exp&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="76" name="UseItem" tags="" position="1200,350" size="100,100">[[Go Back|CombatTurn]]</tw-passagedata><tw-passagedata pid="77" name="Victory" tags="" position="1050,475" size="100,100">&lt;&lt;set $playerEXP += $currentEnemy.exp&gt;&gt;
 &lt;&lt;set $playerGold += $currentEnemy.gold&gt;&gt;
 &lt;&lt;set $combatTurn = 0&gt;&gt;
 
@@ -1942,12 +1966,12 @@ You gained $currentEnemy.gold gold and $currentEnemy.exp EXP!&lt;br&gt;&lt;br&gt
     &lt;&lt;else&gt;&gt;
 	    &lt;&lt;goto $lastLocation&gt;&gt;
     &lt;&lt;/if&gt;&gt;
-&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="77" name="GameOver" tags="" position="937.5,475" size="100,100">&lt;br&gt;
+&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="78" name="GameOver" tags="" position="937.5,475" size="100,100">&lt;br&gt;
 &lt;div style=&quot;text-align: center;&quot;&gt;
 It appears you have met an untimely demise...Well then, from the top!
 
 Either load from save or restart.
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="78" name="EquipItem" tags="System-Logic" position="650,200" size="100,100">&lt;&lt;set _itemToEquip = $inventory[$tempItemIndex]&gt;&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="79" name="EquipItem" tags="System-Logic" position="650,200" size="100,100">&lt;&lt;set _itemToEquip = $inventory[$tempItemIndex]&gt;&gt;
 &lt;&lt;set $itemType = _itemToEquip.type&gt;&gt;
 &lt;&lt;set $itemSlots = $itemTypeToSlots[$itemType]&gt;&gt;
 
@@ -1984,7 +2008,7 @@ Either load from save or restart.
 
 &lt;&lt;set $inventory[$tempItemIndex].equipped = true&gt;&gt;
 &lt;&lt;set $equippedWeapon to $weapons[$equipmentSlots.mainhand]&gt;&gt;
-&lt;&lt;goto &quot;Inventory&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="79" name="UnequipItem" tags="System-Logic" position="750,200" size="100,100">&lt;&lt;set _itemToUnequip = $inventory[$tempItemIndex]&gt;&gt;
+&lt;&lt;goto &quot;Inventory&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="80" name="UnequipItem" tags="System-Logic" position="750,200" size="100,100">&lt;&lt;set _itemToUnequip = $inventory[$tempItemIndex]&gt;&gt;
 &lt;&lt;set $itemType = _itemToUnequip.type&gt;&gt;
 &lt;&lt;set $itemSlots = $itemTypeToSlots[$itemType]&gt;&gt;
 
@@ -2001,7 +2025,7 @@ Either load from save or restart.
 
 &lt;&lt;set $inventory[$tempItemIndex].equipped = false&gt;&gt;
 &lt;&lt;set $equippedWeapon to &quot;&quot;&gt;&gt;
-&lt;&lt;goto &quot;Inventory&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="80" name="RoomRental" tags="nobr System-Logic inn-room" position="500,0" size="100,100">&lt;br&gt;&lt;br&gt;
+&lt;&lt;goto &quot;Inventory&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="81" name="RoomRental" tags="nobr System-Logic inn-room" position="500,0" size="100,100">&lt;br&gt;&lt;br&gt;
 &lt;div style=&quot;text-align: center;&quot;&gt;
 &lt;&lt;if $playerGold &lt; 3&gt;&gt;
     &lt;&lt;print &quot;You do not have enough gold!&quot;&gt;&gt;
@@ -2019,7 +2043,7 @@ Either load from save or restart.
     You spend the night at the inn and feel well-rested&lt;br&gt;&lt;br&gt;
 &lt;&lt;/if&gt;&gt;   
 &lt;&lt;link &quot;Return to the Inn&quot;&gt;&gt;&lt;&lt;goto $lastLocation&gt;&gt;&lt;&lt;/link&gt;&gt;
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="81" name="PlayerProgression" tags="System-Logic" position="300,0" size="100,100"></tw-passagedata><tw-passagedata pid="82" name="RecalcMods" tags="nobr" position="225,1100" size="100,100">&lt;&lt;set $modifiers = {
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="82" name="PlayerProgression" tags="System-Logic" position="300,0" size="100,100"></tw-passagedata><tw-passagedata pid="83" name="RecalcMods" tags="nobr" position="350,1100" size="100,100">&lt;&lt;set $modifiers = {
     &quot;strength&quot;: Math.floor(($currentStats.strength - 10) / 2),
     &quot;defense&quot;: Math.floor(($currentStats.defense - 10) / 2),
     &quot;dexterity&quot;: Math.floor(($currentStats.dexterity - 10) / 2),
@@ -2027,7 +2051,7 @@ Either load from save or restart.
     &quot;awareness&quot;: Math.floor(($currentStats.awareness - 10) / 2),
     &quot;charisma&quot;: Math.floor(($currentStats.charisma - 10) / 2)
 }&gt;&gt;
-&lt;&lt;goto $lastLocation&gt;&gt;</tw-passagedata><tw-passagedata pid="83" name="QuestReward" tags="nobr menu" position="0,0" size="100,100">&lt;br&gt;&lt;br&gt;
+&lt;&lt;goto $lastLocation&gt;&gt;</tw-passagedata><tw-passagedata pid="84" name="QuestReward" tags="nobr menu" position="0,0" size="100,100">&lt;br&gt;&lt;br&gt;
 &lt;&lt;set _quest to $playerQuests.find(q =&gt; q.title === $questComplete)&gt;&gt;
 &lt;&lt;if _quest&gt;&gt;
     &lt;&lt;set _quest.status to &quot;completed&quot;&gt;&gt;
@@ -2067,7 +2091,7 @@ Either load from save or restart.
     &lt;&lt;link &quot;Continue&quot;&gt;&gt;
         &lt;&lt;goto $lastLocation&gt;&gt;
     &lt;&lt;/link&gt;&gt;
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="84" name="Tier1Shop" tags="menu" position="300,300" size="100,100">&lt;br&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="85" name="Tier1Shop" tags="menu" position="300,300" size="100,100">&lt;br&gt;
 Your Gold: $playerGold
 
 Shop Inventory:
@@ -2105,7 +2129,7 @@ Shop Inventory:
 
 &lt;&lt;link &quot;Go Back&quot;&gt;&gt;
     &lt;&lt;goto $lastLocation&gt;&gt;
-&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="85" name="BuyItem" tags="menu" position="300,400" size="100,100">&lt;&lt;if $playerGold &gt;= $boughtItem.value&gt;&gt;
+&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="86" name="BuyItem" tags="menu" position="300,400" size="100,100">&lt;&lt;if $playerGold &gt;= $boughtItem.value&gt;&gt;
     &lt;&lt;set $playerGold -= $boughtItem.value&gt;&gt;
     &lt;&lt;set $inventory.push(clone($boughtItem))&gt;&gt;
 
@@ -2116,7 +2140,7 @@ Shop Inventory:
 &lt;&lt;/if&gt;&gt;
 &lt;&lt;link &quot;Return to Shop&quot;&gt;&gt;
     &lt;&lt;goto &quot;Tier1Shop&quot;&gt;&gt;
-&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="86" name="SellInventory" tags="menu" position="200,300" size="100,100">&lt;br&gt;
+&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="87" name="SellInventory" tags="menu" position="200,300" size="100,100">&lt;br&gt;
 Gold: $playerGold
 
 Sell Inventory:
@@ -2149,7 +2173,7 @@ Sell Inventory:
 
 &lt;&lt;link &quot;Return to Shop&quot;&gt;&gt;
     &lt;&lt;goto $lastLocation&gt;&gt;
-&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="87" name="SellItem" tags="menu" position="200,400" size="100,100">&lt;br&gt;
+&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="88" name="SellItem" tags="menu" position="200,400" size="100,100">&lt;br&gt;
 Sell the &lt;&lt;print $inventory[$sellIndex].name&gt;&gt;?&lt;br&gt;
 &lt;&lt;link &quot;Yes&quot;&gt;&gt;
     &lt;&lt;set $playerGold += Math.round($inventory[$sellIndex].value * 0.5)&gt;&gt;
@@ -2158,7 +2182,7 @@ Sell the &lt;&lt;print $inventory[$sellIndex].name&gt;&gt;?&lt;br&gt;
 &lt;&lt;/link&gt;&gt;
 &lt;&lt;link &quot;Nevermind&quot;&gt;&gt;
     &lt;&lt;goto &quot;SellInventory&quot;&gt;&gt;
-&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="88" name="HandleStatusEffects" tags="nobr" position="975,1100" size="100,100">&lt;!-- Handle enemy status effects --&gt;
+&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="89" name="HandleStatusEffects" tags="nobr" position="1100,1100" size="100,100">&lt;!-- Handle enemy status effects --&gt;
 &lt;&lt;for _effectName, _effectData range $currentEnemyStatusEffects&gt;&gt;
     &lt;&lt;if _effectName == &quot;bleeding&quot;&gt;&gt;
         &lt;&lt;set $bleedingDamage = _effectData.damage&gt;&gt;
@@ -2185,12 +2209,12 @@ Sell the &lt;&lt;print $inventory[$sellIndex].name&gt;&gt;?&lt;br&gt;
         acc[key] = $currentEnemyStatusEffects[key];
     }
     return acc;
-}, {})&gt;&gt;</tw-passagedata><tw-passagedata pid="89" name="TravelInit" tags="" position="1600,0" size="100,100">&lt;&lt;set $traveling to false&gt;&gt;
+}, {})&gt;&gt;</tw-passagedata><tw-passagedata pid="90" name="TravelInit" tags="" position="1600,0" size="100,100">&lt;&lt;set $traveling to false&gt;&gt;
 &lt;&lt;set $travel = {
     distance: 0, // The distance to the next location in &#39;units&#39;.
     energyCostPerUnit: 5, // The energy cost per &#39;unit&#39; of distance traveled.
     chanceOfRandomEvent: 0.1 // 10% chance of a random event per &#39;unit&#39; of distance.
-}&gt;&gt;</tw-passagedata><tw-passagedata pid="90" name="TravelStart" tags="nobr" position="1600,100" size="100,100">&lt;br&gt;&lt;br&gt;
+}&gt;&gt;</tw-passagedata><tw-passagedata pid="91" name="TravelStart" tags="nobr" position="1600,100" size="100,100">&lt;br&gt;&lt;br&gt;
 &lt;&lt;if $currentStats.energy &gt;= ($travelTo.distance * $travelTo.energyCostPerUnit)&gt;&gt;
     &lt;&lt;set $unitsTraveled = 0&gt;&gt;
     &lt;&lt;goto TravelAction&gt;&gt;
@@ -2199,7 +2223,7 @@ Sell the &lt;&lt;print $inventory[$sellIndex].name&gt;&gt;?&lt;br&gt;
     &lt;&lt;link &quot;Go Back&quot;&gt;&gt;
         &lt;&lt;goto $lastLocation&gt;&gt;
     &lt;&lt;/link&gt;&gt;
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="91" name="TravelAction" tags="nobr" position="1600,200" size="100,100">&lt;&lt;if $unitsTraveled &lt; $travelTo.distance&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="92" name="TravelAction" tags="nobr" position="1600,200" size="100,100">&lt;&lt;if $unitsTraveled &lt; $travelTo.distance&gt;&gt;
     &lt;!-- Determine the smaller value between $travelTo.eventInterval and $travelTo.distance - $unitsTraveled --&gt;
     &lt;&lt;if $travelTo.eventInterval &lt; ($travelTo.distance - $unitsTraveled)&gt;&gt;
         &lt;&lt;set _unitsToTravel = $travelTo.eventInterval&gt;&gt;
@@ -2225,7 +2249,7 @@ Sell the &lt;&lt;print $inventory[$sellIndex].name&gt;&gt;?&lt;br&gt;
 
 &lt;&lt;else&gt;&gt;
     &lt;&lt;goto TravelEnd&gt;&gt;
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="92" name="TravelProgress" tags="nobr" position="1600,300" size="100,100">&lt;br&gt;&lt;br&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="93" name="TravelProgress" tags="nobr" position="1600,300" size="100,100">&lt;br&gt;&lt;br&gt;
 &lt;div style=&quot;text-align: center;&quot;&gt;
 &lt;&lt;if $unitsTraveled &lt;= ($travelTo.distance / 3)&gt;&gt;
     You have well since departed from &lt;&lt;print $lastLocation&gt;&gt;, but there is still much of the journey ahead.
@@ -2238,7 +2262,7 @@ Sell the &lt;&lt;print $inventory[$sellIndex].name&gt;&gt;?&lt;br&gt;
 &lt;&lt;link &quot;Continue your journey&quot;&gt;&gt;
     &lt;&lt;goto TravelAction&gt;&gt;
 &lt;&lt;/link&gt;&gt;
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="93" name="RandomTravelEvent" tags="" position="1950,75" size="100,100">&lt;&lt;set $eventRoll = random(1, 100)&gt;&gt; &lt;!-- Roll a number between 1 and 100 --&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="94" name="RandomTravelEvent" tags="" position="1950,75" size="100,100">&lt;&lt;set $eventRoll = random(1, 100)&gt;&gt; &lt;!-- Roll a number between 1 and 100 --&gt;
 
 &lt;&lt;if $eventRoll &lt;= 50&gt;&gt; &lt;!-- 50% chance for &quot;Enemy Encounter&quot; --&gt;
     &lt;&lt;goto EnemyEncounter&gt;&gt;
@@ -2248,7 +2272,7 @@ Sell the &lt;&lt;print $inventory[$sellIndex].name&gt;&gt;?&lt;br&gt;
     &lt;&lt;goto MerchantEncounter&gt;&gt;
 &lt;&lt;else&gt;&gt; &lt;!-- 10% chance for &quot;Finding Loot&quot;&gt;&gt; --&gt;
     &lt;&lt;goto TravelFindLoot&gt;&gt;
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="94" name="TravelEnd" tags="nobr" position="1700,100" size="100,100">&lt;br&gt;&lt;br&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="95" name="TravelEnd" tags="nobr" position="1700,100" size="100,100">&lt;br&gt;&lt;br&gt;
 &lt;div style=&quot;text-align: center;&quot;&gt;
 Your travel comes to an end as you arrive in &lt;&lt;print $travelTo.destination&gt;&gt;.
 &lt;br&gt;&lt;br&gt;
@@ -2257,7 +2281,7 @@ Your travel comes to an end as you arrive in &lt;&lt;print $travelTo.destination
     &lt;&lt;set $unitsTraveled = 0&gt;&gt;
     &lt;&lt;goto $travelTo.destination&gt;&gt;
 &lt;&lt;/link&gt;&gt;
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="95" name="TravelStop" tags="nobr" position="1725,325" size="100,100">&lt;br&gt;&lt;br&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="96" name="TravelStop" tags="nobr" position="1725,325" size="100,100">&lt;br&gt;&lt;br&gt;
 &lt;div style=&quot;text-align: center;&quot;&gt;
 After traveling for some time, you consider if you should stop and rest.
 &lt;/div&gt;
@@ -2267,7 +2291,7 @@ After traveling for some time, you consider if you should stop and rest.
 &lt;&lt;/link&gt;&gt;&lt;br&gt;
 &lt;&lt;link &quot;Continue your journey&quot;&gt;&gt;
     &lt;&lt;goto TravelAction&gt;&gt;
-&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="96" name="CampingStop" tags="nobr" position="1725,325" size="100,100">&lt;br&gt;&lt;br&gt;
+&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="97" name="CampingStop" tags="nobr" position="1725,325" size="100,100">&lt;br&gt;&lt;br&gt;
 &lt;div style=&quot;text-align: center;&quot;&gt;
 The sun is setting, and you are tired after a long day of travel. You decide to stop and rest for the night.
 &lt;/div&gt;
@@ -2275,7 +2299,7 @@ The sun is setting, and you are tired after a long day of travel. You decide to 
 &lt;&lt;link &quot;Rest Overnight&quot;&gt;&gt;
     &lt;&lt;set $currentStats.energy += 20&gt;&gt; &lt;!-- placeholder rest recovery --&gt;
     &lt;&lt;goto TravelProgress&gt;&gt;
-&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="97" name="TravelFindLoot" tags="nobr" position="1825,200" size="100,100">&lt;br&gt;&lt;br&gt;
+&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="98" name="TravelFindLoot" tags="nobr" position="1825,200" size="100,100">&lt;br&gt;&lt;br&gt;
 &lt;&lt;set _foundGold = random(2, 7)&gt;&gt;
 &lt;&lt;set $currentStats.gold += _foundGold&gt;&gt;
 &lt;div style=&quot;text-align: center;&quot;&gt;
@@ -2284,7 +2308,7 @@ You find a small coin purse in the bushes along your path. There is &lt;&lt;prin
 &lt;br&gt;&lt;br&gt;
 &lt;&lt;link &quot;Continue your journey&quot;&gt;&gt;
     &lt;&lt;goto TravelProgress&gt;&gt;
-&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="98" name="MerchantEncounter" tags="nobr" position="2075,200" size="100,100">&lt;br&gt;&lt;br&gt;
+&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="99" name="MerchantEncounter" tags="nobr" position="2075,200" size="100,100">&lt;br&gt;&lt;br&gt;
 &lt;&lt;set $lastLocation = passage()&gt;&gt;
 &lt;div style=&quot;text-align: center;&quot;&gt;
 You encounter a traveling merchant on the road. He offers you various goods.
@@ -2295,14 +2319,14 @@ You encounter a traveling merchant on the road. He offers you various goods.
 &lt;&lt;/link&gt;&gt;&lt;br&gt;
 &lt;&lt;link &quot;Continue your journey&quot;&gt;&gt;
     &lt;&lt;goto TravelProgress&gt;&gt;
-&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="99" name="ObstacleEncounter" tags="nobr" position="1950,200" size="100,100">&lt;br&gt;&lt;br&gt;
+&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="100" name="ObstacleEncounter" tags="nobr" position="1950,200" size="100,100">&lt;br&gt;&lt;br&gt;
 &lt;div style=&quot;text-align: center;&quot;&gt;
 A fallen tree blocks your path. You need to find a way around it.
 &lt;/div&gt;
 &lt;br&gt;&lt;br&gt;
 &lt;&lt;link &quot;Find another route&quot;&gt;&gt;
     &lt;&lt;goto FindRoute&gt;&gt;
-&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="100" name="FindRoute" tags="nobr" position="1950,300" size="100,100">&lt;br&gt;&lt;br&gt;
+&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="101" name="FindRoute" tags="nobr" position="1950,300" size="100,100">&lt;br&gt;&lt;br&gt;
 &lt;div style=&quot;text-align: center;&quot;&gt;
 You manage to find a detour, but it takes some extra time.
 &lt;/div&gt;
@@ -2310,7 +2334,7 @@ You manage to find a detour, but it takes some extra time.
 &lt;&lt;set $currentStats.energy -= 5&gt;&gt; &lt;!-- extra energy cost --&gt;
 &lt;&lt;link &quot;Continue your journey&quot;&gt;&gt;
     &lt;&lt;goto TravelProgress&gt;&gt;
-&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="101" name="MainMenu" tags="menu" position="800,0" size="100,100">&lt;&lt;set $inMenu = 1&gt;&gt;
+&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="102" name="MainMenu" tags="menu" position="800,0" size="100,100">&lt;&lt;set $inMenu = 1&gt;&gt;
 &lt;&lt;link &quot;Character Stats&quot;&gt;&gt;
     &lt;&lt;goto &quot;StatsMenu&quot;&gt;&gt;
 &lt;&lt;/link&gt;&gt;
@@ -2320,7 +2344,7 @@ You manage to find a detour, but it takes some extra time.
 &lt;&lt;link &quot;Back&quot;&gt;&gt;
     &lt;&lt;set $inMenu = 0&gt;&gt;
     &lt;&lt;goto $returnPassage&gt;&gt;
-&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="102" name="StoryMenu" tags="menu" position="700,0" size="100,100">&lt;&lt;link &quot;Stats&quot;&gt;&gt;
+&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="103" name="StoryMenu" tags="menu" position="700,0" size="100,100">&lt;&lt;link &quot;Stats&quot;&gt;&gt;
     &lt;&lt;if $inMenu is 0&gt;&gt;
         &lt;&lt;set $returnPassage = passage()&gt;&gt;
     &lt;&lt;/if&gt;&gt;    
@@ -2343,7 +2367,7 @@ You manage to find a detour, but it takes some extra time.
         &lt;&lt;set $returnPassage = passage()&gt;&gt;
     &lt;&lt;/if&gt;&gt;
     &lt;&lt;goto &quot;Journal&quot;&gt;&gt;
-&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="103" name="StatsMenu" tags="menu" position="800,100" size="100,100">&lt;&lt;set $inMenu = 1&gt;&gt;
+&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="104" name="StatsMenu" tags="menu" position="800,100" size="100,100">&lt;&lt;set $inMenu = 1&gt;&gt;
 EXP: &lt;&lt;print $playerEXP&gt;&gt;&lt;br&gt;
 &#39;&#39;Equipment&#39;&#39;
 Mainhand: &lt;&lt;print $equipmentSlots.mainhand&gt;&gt;
@@ -2393,7 +2417,7 @@ Back: &lt;&lt;print $equipmentSlots.back&gt;&gt;
 &lt;&lt;link &quot;Back&quot;&gt;&gt;
     &lt;&lt;set $inMenu = 0&gt;&gt;
     &lt;&lt;goto $returnPassage&gt;&gt;
-&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="104" name="Inventory" tags="menu" position="700,100" size="100,100">&lt;&lt;set $inMenu = 1&gt;&gt;
+&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="105" name="Inventory" tags="menu" position="700,100" size="100,100">&lt;&lt;set $inMenu = 1&gt;&gt;
 
 Gold: $playerGold
 
@@ -2449,7 +2473,7 @@ Inventory:
 &lt;&lt;link &quot;Back&quot;&gt;&gt;
     &lt;&lt;set $inMenu = 0&gt;&gt;
     &lt;&lt;goto $returnPassage&gt;&gt;
-&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="105" name="SkillsMenu" tags="nobr menu" position="600,1350" size="100,100">&lt;&lt;set $inMenu = 1&gt;&gt;
+&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="106" name="SkillsMenu" tags="nobr menu" position="725,1350" size="100,100">&lt;&lt;set $inMenu = 1&gt;&gt;
 &lt;br&gt;&lt;br&gt;
 Available Skill Points: $playerSkillPoints
 &lt;br&gt;&lt;br&gt;
@@ -2506,7 +2530,7 @@ Available Skill Points: $playerSkillPoints
 &lt;&lt;link &quot;Back&quot;&gt;&gt;
     &lt;&lt;set $inMenu = 0&gt;&gt;
     &lt;&lt;goto $returnPassage&gt;&gt;
-&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="106" name="Journal" tags="nobr menu" position="900,100" size="100,100">&lt;&lt;set $inMenu = 1&gt;&gt;
+&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="107" name="Journal" tags="nobr menu" position="900,100" size="100,100">&lt;&lt;set $inMenu = 1&gt;&gt;
 &lt;br&gt;
 Quest Journal:
 &lt;br&gt;&lt;br&gt;
@@ -2542,7 +2566,7 @@ Quest Journal:
 &lt;&lt;link &quot;Back&quot;&gt;&gt;
     &lt;&lt;set $inMenu = 0&gt;&gt;
     &lt;&lt;goto $returnPassage&gt;&gt;
-&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="107" name="CompletedQuests" tags="nobr menu" position="900,100" size="100,100">&lt;&lt;set $inMenu = 1&gt;&gt;
+&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="108" name="CompletedQuests" tags="nobr menu" position="900,100" size="100,100">&lt;&lt;set $inMenu = 1&gt;&gt;
 &lt;br&gt;
 Completed Quests:
 &lt;br&gt;&lt;br&gt;
@@ -2571,7 +2595,7 @@ Completed Quests:
 &lt;&lt;link &quot;Back&quot;&gt;&gt;
     &lt;&lt;set $inMenu = 0&gt;&gt;
     &lt;&lt;goto $returnPassage&gt;&gt;
-&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="108" name="Items" tags="objects-db" position="1400,0" size="100,100">&lt;&lt;set $weaponTypeModifiers = {
+&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="109" name="Items" tags="objects-db" position="1400,0" size="100,100">&lt;&lt;set $weaponTypeModifiers = {
     &quot;sword&quot;: &quot;strength&quot;,
     &quot;blunt&quot;: &quot;strength&quot;,
     &quot;staff&quot;: &quot;strength&quot;,
@@ -2675,7 +2699,7 @@ Completed Quests:
         &quot;tier&quot;: 1,
         &quot;value&quot;: 3
     }
-}&gt;&gt;</tw-passagedata><tw-passagedata pid="109" name="Enemies" tags="objects-db" position="1200,0" size="100,100">&lt;!-- Enemy Template:
+}&gt;&gt;</tw-passagedata><tw-passagedata pid="110" name="Enemies" tags="objects-db" position="1200,0" size="100,100">&lt;!-- Enemy Template:
 	&quot;Goblin&quot;, (dm: 
 		&quot;name&quot;, &quot;Goblin&quot;,
         &quot;biomes&quot;, (a: &quot;forest&quot;, &quot;grasslands&quot;, &quot;hills&quot;, &quot;swamp&quot;),

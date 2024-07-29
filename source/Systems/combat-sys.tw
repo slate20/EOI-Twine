@@ -154,10 +154,14 @@ You face the $currentEnemy.name, readying yourself for the next move.<br>
 <</if>>
 
 <!-- Determine if the player's attack hits and calculate damage -->
-<<set $attackRoll to random(3, 20) + $modifierValue>>
+<<set $attackRoll to random(5, 20) + $modifierValue>>
 <<if $attackRoll >= $currentEnemy.defense>> 
     <<set $currentEnemy.health to $currentEnemy.health - $playerAttack>>
-    You attack the $currentEnemy.name, dealing $playerAttack damage.<br><br>
+    <<if $equipmentSlots.mainhand>>
+        You attack the $currentEnemy.name with your $equippedWeapon.type, dealing $playerAttack damage.<br><br>
+    <<else>>
+        You attack the $currentEnemy.name with your fists, dealing $playerAttack damage.<br><br>
+    <</if>>
 <<else>> 
     You miss the $currentEnemy.name.<br><br>
 <</if>>
@@ -219,8 +223,8 @@ Available Skills:<br>
             <<link _skill.name>>
                 <<set _skillPassage = "Skill" + _skill.name.replace(" ","")>>
                 <<goto _skillPassage>>
-            <</link>>
-        <</if>><br>
+            <</link>><br>
+        <</if>>
     <</capture>>
 <</for>>
 [[Go Back|CombatTurn]]
