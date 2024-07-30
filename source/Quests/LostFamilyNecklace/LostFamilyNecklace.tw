@@ -73,21 +73,40 @@
 
 :: FamNecklaceSearch [nobr] {"position":"17500,6625"}
 <br><br>
+<<set $lastLocation = passage()>>
 <<set _quest to $playerQuests.find(q => q.title === "Lost Family Necklace")>>
 
-<<if $currentStats.energy > 20>>
-    <div style="text-align: center;">
-    You search around the area for the family necklace. <br>
-    After a couple hours of exploring the forest floor, you manage to find it!
-    </div>
-    <br><br>
-    <<set $currentStats.energy -= 20>>
-    <<set _quest.objectives[0].completed to true>>
+<<if _quest.objectives[0].completed is false>>
+    <<if $currentStats.energy > 20>>
+        <<set $currentEnemy to $enemies.Goblin>>
+        <div style="text-align: center;">
+        You search around the area for the family necklace. <br>
+        After a couple hours of exploring the forest floor, you begin to hear <br>
+        the sound of crunching leaves rapidly approaching you...
+        </div>
+        <br><br>
+        <<set $currentStats.energy -= 20>>
+        <<set _quest.objectives[0].completed to true>>
+        [[Turn towards sound|EnemyEncounter]]
+    <<else>>
+        <div style="text-align: center;">
+        You are too tired to spend time searching for the necklace.
+        </div>
+        <br><br>
+        [[Leave the Forest|Bavenmore]]
+    <</if>>
 <<else>>
     <div style="text-align: center;">
-    You are too tired to spend time searching for the necklace.
+    After defeating the goblin, you notice something shiny hanging from one of it's pockets.<br>
+    You reach in and pull out an amulet adorned with a finely cut emerald.<br>
+    This must be the shopkeepers family necklace!
     </div>
     <br><br>
+
+    [[Take the necklace and return to town|Bavenmore]]
 <</if>>
 
-[[Leave the Forest|Bavenmore]]
+
+:: FamNecklaceAmbush [nobr] {"position":"17500,6625"}
+<br><br>
+<div style="text-align: center;">

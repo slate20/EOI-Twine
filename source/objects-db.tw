@@ -5,7 +5,8 @@
     "staff": "strength",
     "magic": "intelligence",
     "dagger": "dexterity",
-    "bow": "awareness"
+    "bow": "awareness",
+    "pan": "strength"
 }>>
 
 <<set $itemTypeToSlots = {
@@ -15,7 +16,8 @@
     "dagger": ["mainhand"],
     "shield": ["offhand"],
     "staff": ["mainhand", "offhand"],
-    "sword": ["mainhand"]
+    "sword": ["mainhand"],
+    "pan": ["mainhand"]
 }>>
 
 <<set $weapons = {
@@ -32,7 +34,7 @@
     "Frying Pan": {
         "name": "Frying Pan",
         "class": "melee",
-        "type": "blunt",
+        "type": "pan",
         "description": "A cast iron pan. There's still some chicken stuck to the bottom...",
         "damage": "1d4+0",
         "tier": 0,

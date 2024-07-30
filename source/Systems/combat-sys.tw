@@ -1,10 +1,12 @@
 <!-- Combat System -->
 
 :: EnemyEncounter [nobr] {"position":"1200,100","size":"100,100"}
-<!-- Randomly select enemy based on the current biome -->
-<<set $availableEnemies = Object.keys($enemies).filter(e => $enemies[e].biomes.includes($currentBiome))>>
-<<set $randomEnemyKey = $availableEnemies.random()>>
-<<set $currentEnemy = $enemies[$randomEnemyKey]>>
+<<if !$currentEnemy>>
+    <!-- Randomly select enemy based on the current biome -->
+    <<set $availableEnemies = Object.keys($enemies).filter(e => $enemies[e].biomes.includes($currentBiome))>>
+    <<set $randomEnemyKey = $availableEnemies.random()>>
+    <<set $currentEnemy = $enemies[$randomEnemyKey]>>
+<</if>>
 <<set $enemyImgPath = $currentEnemy.img>>
 <br>
 
@@ -376,6 +378,7 @@ Available Skills:<br>
 
 You gained $currentEnemy.gold gold and $currentEnemy.exp EXP!<br><br>
 <<link "Continue">>
+    <<set $currentEnemy = "">>
     <<if $traveling is true>>
         <<goto TravelProgress>>
     <<else>>
