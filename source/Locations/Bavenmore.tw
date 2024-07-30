@@ -91,7 +91,7 @@ The shopkeeper nods at you.
 <<run questCheck("Delivery To Innkeeper")>>
 <<include "DeliveryToInnkeeper_Dialog">>
 
-[["Nevermind."|Bavenmore Shop]]
+[["Nothing for now, thank you."|Bavenmore Shop]]
 
 
 :: Bavenmore Inn [nobr wood-inn] {"position":"17375,6875"}

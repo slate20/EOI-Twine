@@ -2,7 +2,9 @@
 <<set _quest to $playerQuests.find(q => q.title === "Delivery To Innkeeper")>>
 <br><br>
 <<if not _quest>>
-    "I need to get this package to the innkeeper. Can you deliver it for me?"
+    "Well this seems a bit small after what you've done for me, but I need to get this package to the innkeeper. <br>
+    I can't leave the shop unattended, would you consider delivering it for me?
+    You can keep his payment as a reward."
     <br><br>
 
     <<link "Sure, that doesn't sound too hard.">>
@@ -19,7 +21,7 @@
 :: DeliveryToInnkeeperAccept [nobr gen-shop]
 <<set _quest to $playerQuests.find(q => q.title === "Delivery To Innkeeper")>>
 <br><br>
-"Thank you! Please deliver this package to the innkeeper over at the inn. You can keep his payment as a reward."
+"Wonderful! Please take this package to the innkeeper over at the inn. Thank you again traveler!"
 <br><br>
 <<set _quest.objectives[0].completed to true>>
 <<run questCheck("Delivery To Innkeeper")>>
@@ -30,6 +32,7 @@
 :: DeliveryToInnkeeper_Dialog [nobr]
 <<set _quest to $playerQuests.find(q => q.title === "Delivery To Innkeeper")>>
 <<set _completedQuest to $completedQuests.find(q => q.title === "Delivery To Innkeeper")>>
+<<set _reqQuest to $completedQuests.find(q => q.title === "Lost Family Necklace")>>
 <<if _quest>>
     <<switch _quest.status>>
         <<case "complete">>
@@ -41,8 +44,8 @@
             <</if>>
     <</switch>>
 <<else>>
-    <<if passage() == "Bavenmore Shopkeeper" && !_completedQuest>>
-        [[Is there anything I can help you with?|DeliveryToInnkeeper]]<br>
+    <<if passage() == "Bavenmore Shopkeeper" && _reqQuest && !_completedQuest>>
+        [[Is there anything else I can help you with?|DeliveryToInnkeeper]]<br>
     <</if>>
 <</if>>
 
