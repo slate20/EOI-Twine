@@ -14,7 +14,7 @@ You are in the town of <<print passage()>>. What would you like to do?
 [[Leave Shadepond|Shadepond Travel]]
 
 
-:: Shadepond Travel {"position":"17150,5625"}
+:: Shadepond Travel {"position":"17275,5500"}
 <<nobr>>
 <br><br>
 <div style="text-align: center;">
@@ -37,7 +37,7 @@ Which direction would you like to travel in?
 </div>
 
 
-:: Shadepond Inn [nobr wood-inn] {"position":"17150,5875"}
+:: Shadepond Inn [nobr wood-inn] {"position":"17150,5625"}
 <<set $lastLocation = passage()>>
 <br><br>
 You enter the town's inn. It's a cozy place, with a warm atmosphere.<br>
@@ -47,7 +47,7 @@ Wooden tables are scattered around, and the air is filled with the aroma of food
 [[Leave the Inn|Shadepond]]
 
 
-:: Veiled Wardens Sanctuary [nobr] {"position":"17150,5500"}
+:: Veiled Wardens Sanctuary [nobr] {"position":"17025,5625"}
 <<set $lastLocation = passage()>>
 <br><br>
 <<if $playerClass == "Rogue">>
@@ -63,7 +63,7 @@ Wooden tables are scattered around, and the air is filled with the aroma of food
 [[Leave the sanctuary|Shadepond]]
 
 
-:: VeiledWardensMaster [nobr] {"position":"17150,5375"}
+:: VeiledWardensMaster [nobr] {"position":"17025,5750"}
 <br><br>
 <div style="text-align: center;">
 The Master Warden, a figure cloaked in light armor, steps forward and assesses you with a keen gaze.<br>
@@ -75,7 +75,7 @@ The Master Warden, a figure cloaked in light armor, steps forward and assesses y
 [[Nothing, sorry to bother you.|Veiled Wardens Sanctuary]]
 
 
-:: RogueInfo [nobr] {"position":"17150,5500"}
+:: RogueInfo [nobr] {"position":"16900,5625"}
 <br><br>
 "Rogues are masters of stealth and precision. They excel at striking swiftly, avoiding detection, and mastering ranged attacks. To join our numbers is to embrace a life of cunning, agility, and versatility. Are you prepared to dedicate yourself to the way of the Veiled Wardens?"
 <br><br>

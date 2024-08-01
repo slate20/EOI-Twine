@@ -1,4 +1,4 @@
-:: HandleStatusEffects [nobr]
+:: HandleStatusEffects [nobr] {"position":"0,100"}
 
 <!-- Handle enemy status effects -->
 <<for _effectName, _effectData range $currentEnemyStatusEffects>>

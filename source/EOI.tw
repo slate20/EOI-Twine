@@ -1,8 +1,8 @@
-:: StoryTitle
+:: StoryTitle {"position":"0,100"}
 Echoes Of Ismia
 
 
-:: StoryData
+:: StoryData {"position":"0,100"}
 {
 	"ifid": "6E96B523-CDC6-4159-A029-C93DAFF1CA9E",
 	"format": "SugarCube",

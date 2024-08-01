@@ -1,4 +1,4 @@
-:: QuestReward [nobr menu] {"position":"0,0"}
+:: QuestReward [nobr menu] {"position":"600,0"}
 <br><br>
 <<set _quest to $playerQuests.find(q => q.title === $questComplete)>>
 <<if _quest>>

@@ -152,7 +152,7 @@ Inventory:
 <</link>>
 
 
-:: SkillsMenu [nobr menu]
+:: SkillsMenu [nobr menu] {"position":"600,100"}
 <<set $inMenu = 1>>
 <br><br>
 Available Skill Points: $playerSkillPoints

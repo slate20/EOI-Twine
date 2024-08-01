@@ -1,4 +1,4 @@
-:: LostFamilyNecklace [nobr gen-shop] {"position":"17250,7125"}
+:: LostFamilyNecklace [nobr gen-shop] {"position":"17250,7000"}
 <<set _quest to $playerQuests.find(q => q.title === "Lost Family Necklace")>>
 <br><br>
 <<if _quest && _quest.objectives[1].completed is true>>
@@ -31,14 +31,14 @@
 <</if>>
 
 
-:: LostFamNecklaceAccept [nobr gen-shop] {"position":"17250,7250"}
+:: LostFamNecklaceAccept [nobr gen-shop] {"position":"17250,7000"}
 <br><br>
 "You are most kind! If you do happen to find it, please return it to me. I would gladly pay you for your efforts."
 <br><br>
 [["Go Back"|Bavenmore Shop]]
 
 
-:: LostFamilyNecklace_Dialog [nobr]
+:: LostFamilyNecklace_Dialog [nobr] {"position":"17250,7000"}
 <<set _quest to $playerQuests.find(q => q.title === "Lost Family Necklace")>>
 <<set _completedQuest to $completedQuests.find(q => q.title === "Lost Family Necklace")>>
 <<if _quest>>
@@ -59,7 +59,7 @@
 <</if>>
 
 
-:: LostFamilyNecklaceEnd [nobr gen-shop]
+:: LostFamilyNecklaceEnd [nobr gen-shop] {"position":"17250,7000"}
 <<set _quest to $playerQuests.find(q => q.title === "Lost Family Necklace")>>
 <br><br>
 "Well I'll be, I didn't honestly think I would ever see it again! You have done me a great service traveler. Here is your reward, as promised."
@@ -71,7 +71,7 @@
 <</link>>
 
 
-:: FamNecklaceSearch [nobr] {"position":"17500,6625"}
+:: FamNecklaceSearch [nobr] {"position":"17375,6625"}
 <br><br>
 <<set $lastLocation = passage()>>
 <<set _quest to $playerQuests.find(q => q.title === "Lost Family Necklace")>>
@@ -85,9 +85,11 @@
         the sound of crunching leaves rapidly approaching you...
         </div>
         <br><br>
-        <<set $currentStats.energy -= 20>>
-        <<set _quest.objectives[0].completed to true>>
-        [[Turn towards sound|EnemyEncounter]]
+        <<link "Turn towards sound">>
+            <<set $currentStats.energy -= 20>>
+            <<set _quest.objectives[0].completed to true>>
+            <<goto EnemyEncounter>>
+        <</link>>
     <<else>>
         <div style="text-align: center;">
         You are too tired to spend time searching for the necklace.
@@ -105,8 +107,3 @@
 
     [[Take the necklace and return to town|Bavenmore]]
 <</if>>
-
-
-:: FamNecklaceAmbush [nobr] {"position":"17500,6625"}
-<br><br>
-<div style="text-align: center;">

@@ -12,7 +12,7 @@ You are in the town of <<print passage()>>. What would you like to do?
 [[Leave Mightvale|Mightvale Travel]]
 
 
-:: Mightvale Travel {"position":"17500,6750"}
+:: Mightvale Travel {"position":"16925,6500"}
 <<nobr>>
 <br><br>
 <div style="text-align: center;">

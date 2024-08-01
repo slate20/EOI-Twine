@@ -1,7 +1,7 @@
 :: PlayerProgression [System-Logic] {"position":"300,0"}
 
 
-:: RecalcMods [nobr]
+:: RecalcMods [nobr] {"position":"0,125"}
 <<set $modifiers = {
     "strength": Math.floor(($currentStats.strength - 10) / 2),
     "defense": Math.floor(($currentStats.defense - 10) / 2),

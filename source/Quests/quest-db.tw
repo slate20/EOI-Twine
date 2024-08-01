@@ -1,4 +1,4 @@
-:: Quests 
+:: Quests {"position":"525,325"}
 
 <<set $questDB = {
     "LostFamilyNecklace": {

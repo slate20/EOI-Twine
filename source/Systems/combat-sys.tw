@@ -67,7 +67,7 @@ You prepare for battle with the $currentEnemy.name.<br><br>
 <</if>>
 
 
-:: CombatTurn [nobr]
+:: CombatTurn [nobr] {"position":"0,125"}
 <br>
 <<print "<img src='" + $enemyImgPath + "' style='display: block; margin: auto;' width='300' height='300'>">><br>
 <div style="text-align: center;">
@@ -98,7 +98,7 @@ You face the $currentEnemy.name, readying yourself for the next move.<br>
 [[Flee|FleeEncounter]] <!-- Option to flee, regardless of AP -->
 
 
-:: PlayerAttack [nobr]
+:: PlayerAttack [nobr] {"position":"0,125"}
 <br>
 <<print "<img src='" + $enemyImgPath + "' style='display: block; margin: auto;' width='300' height='300'>">><br>
 <div style="text-align: center;">
@@ -127,7 +127,7 @@ You face the $currentEnemy.name, readying yourself for the next move.<br>
 <</if>>
 
 
-:: AttackResults [nobr]
+:: AttackResults [nobr] {"position":"0,100"}
 <br>
 <<print "<img src='" + $enemyImgPath + "' style='display: block; margin: auto;' width='300' height='300'>">><br>
 <div style="text-align: center;">
@@ -179,7 +179,7 @@ You face the $currentEnemy.name, readying yourself for the next move.<br>
 <</if>>
 
 
-:: PlayerMove [nobr]
+:: PlayerMove [nobr] {"position":"0,100"}
 <br>
 <<print "<img src='" + $enemyImgPath + "' style='display: block; margin: auto;' width='300' height='300'>">><br>
 <div style="text-align: center;">
@@ -215,7 +215,7 @@ Where do you want to move?<br><br>
 
 
 
-:: SkillChoice [nobr]
+:: SkillChoice [nobr] {"position":"0,100"}
 <br>
 <<print "<img src='" + $enemyImgPath + "' style='display: block; margin: auto;' width='300' height='300'>">><br>
 <div style="text-align: center;">
@@ -237,7 +237,7 @@ Available Skills:<br>
 
 
 
-:: EnemyTurn [nobr]
+:: EnemyTurn [nobr] {"position":"0,100"}
 <br>
 <<print "<img src='" + $enemyImgPath + "' style='display: block; margin: auto;' width='300' height='300'>">><br>
 <div style="text-align: center;">
@@ -329,7 +329,7 @@ Available Skills:<br>
 
 
 
-:: EnemyAttack [nobr]
+:: EnemyAttack [nobr] {"position":"0,100"}
 <br>
 <<print "<img src='" + $enemyImgPath + "' style='display: block; margin: auto;' width='300' height='300'>">><br>
 <div style="text-align: center;">

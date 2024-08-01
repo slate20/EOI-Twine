@@ -1,4 +1,4 @@
-:: DeliveryToInnkeeper [nobr gen-shop]
+:: DeliveryToInnkeeper [nobr gen-shop] {"position":"17250,7000"}
 <<set _quest to $playerQuests.find(q => q.title === "Delivery To Innkeeper")>>
 <br><br>
 <<if not _quest>>
@@ -18,7 +18,7 @@
 <</if>>
 
 
-:: DeliveryToInnkeeperAccept [nobr gen-shop]
+:: DeliveryToInnkeeperAccept [nobr gen-shop] {"position":"17250,7000"}
 <<set _quest to $playerQuests.find(q => q.title === "Delivery To Innkeeper")>>
 <br><br>
 "Wonderful! Please take this package to the innkeeper over at the inn. Thank you again traveler!"
@@ -29,7 +29,7 @@
 [["Go Back"|Bavenmore Shopkeeper]]
 
 
-:: DeliveryToInnkeeper_Dialog [nobr]
+:: DeliveryToInnkeeper_Dialog [nobr] {"position":"17250,7000"}
 <<set _quest to $playerQuests.find(q => q.title === "Delivery To Innkeeper")>>
 <<set _completedQuest to $completedQuests.find(q => q.title === "Delivery To Innkeeper")>>
 <<set _reqQuest to $completedQuests.find(q => q.title === "Lost Family Necklace")>>
@@ -50,7 +50,7 @@
 <</if>>
 
 
-:: DeliveryToInnkeeperEnd [nobr wood-inn]
+:: DeliveryToInnkeeperEnd [nobr wood-inn] {"position":"17375,7000"}
 <<set _quest to $playerQuests.find(q => q.title === "Delivery To Innkeeper")>>
 <br><br>
 "Ah, I have been waiting for this to arrive! Thank you for delivering it. Here is the payment."
