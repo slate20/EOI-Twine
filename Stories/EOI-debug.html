@@ -1161,7 +1161,7 @@ The shopkeeper nods at you.
 &lt;&lt;run questCheck(&quot;Delivery To Innkeeper&quot;)&gt;&gt;
 &lt;&lt;include &quot;DeliveryToInnkeeper_Dialog&quot;&gt;&gt;
 
-[[&quot;Nevermind.&quot;|Bavenmore Shop]]</tw-passagedata><tw-passagedata pid="26" name="Bavenmore Inn" tags="nobr wood-inn" position="17375,6875" size="100,100">&lt;&lt;set $lastLocation = passage()&gt;&gt;
+[[&quot;Nothing for now, thank you.&quot;|Bavenmore Shop]]</tw-passagedata><tw-passagedata pid="26" name="Bavenmore Inn" tags="nobr wood-inn" position="17375,6875" size="100,100">&lt;&lt;set $lastLocation = passage()&gt;&gt;
 &lt;br&gt;&lt;br&gt;
 You enter the town&#39;s inn. It&#39;s a cozy place, with a warm atmosphere.&lt;br&gt;
 Wooden tables are scattered around, and the air is filled with the aroma of food and ale.&lt;br&gt;&lt;br&gt;
@@ -1414,7 +1414,9 @@ The Master Warden, a figure cloaked in light armor, steps forward and assesses y
 [[Return to town|Shadepond]]</tw-passagedata><tw-passagedata pid="53" name="DeliveryToInnkeeper" tags="nobr gen-shop" position="350,725" size="100,100">&lt;&lt;set _quest to $playerQuests.find(q =&gt; q.title === &quot;Delivery To Innkeeper&quot;)&gt;&gt;
 &lt;br&gt;&lt;br&gt;
 &lt;&lt;if not _quest&gt;&gt;
-    &quot;I need to get this package to the innkeeper. Can you deliver it for me?&quot;
+    &quot;Well this seems a bit small after what you&#39;ve done for me, but I need to get this package to the innkeeper. &lt;br&gt;
+    I can&#39;t leave the shop unattended, would you consider delivering it for me?
+    You can keep his payment as a reward.&quot;
     &lt;br&gt;&lt;br&gt;
 
     &lt;&lt;link &quot;Sure, that doesn&#39;t sound too hard.&quot;&gt;&gt;
@@ -1427,13 +1429,14 @@ The Master Warden, a figure cloaked in light armor, steps forward and assesses y
     [[&quot;Sorry, I can&#39;t help you right now.&quot;|Bavenmore Shop]]
 &lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="54" name="DeliveryToInnkeeperAccept" tags="nobr gen-shop" position="475,725" size="100,100">&lt;&lt;set _quest to $playerQuests.find(q =&gt; q.title === &quot;Delivery To Innkeeper&quot;)&gt;&gt;
 &lt;br&gt;&lt;br&gt;
-&quot;Thank you! Please deliver this package to the innkeeper over at the inn. You can keep his payment as a reward.&quot;
+&quot;Wonderful! Please take this package to the innkeeper over at the inn. Thank you again traveler!&quot;
 &lt;br&gt;&lt;br&gt;
 &lt;&lt;set _quest.objectives[0].completed to true&gt;&gt;
 &lt;&lt;run questCheck(&quot;Delivery To Innkeeper&quot;)&gt;&gt;
 
 [[&quot;Go Back&quot;|Bavenmore Shopkeeper]]</tw-passagedata><tw-passagedata pid="55" name="DeliveryToInnkeeper_Dialog" tags="nobr" position="600,725" size="100,100">&lt;&lt;set _quest to $playerQuests.find(q =&gt; q.title === &quot;Delivery To Innkeeper&quot;)&gt;&gt;
 &lt;&lt;set _completedQuest to $completedQuests.find(q =&gt; q.title === &quot;Delivery To Innkeeper&quot;)&gt;&gt;
+&lt;&lt;set _reqQuest to $completedQuests.find(q =&gt; q.title === &quot;Lost Family Necklace&quot;)&gt;&gt;
 &lt;&lt;if _quest&gt;&gt;
     &lt;&lt;switch _quest.status&gt;&gt;
         &lt;&lt;case &quot;complete&quot;&gt;&gt;
@@ -1445,8 +1448,8 @@ The Master Warden, a figure cloaked in light armor, steps forward and assesses y
             &lt;&lt;/if&gt;&gt;
     &lt;&lt;/switch&gt;&gt;
 &lt;&lt;else&gt;&gt;
-    &lt;&lt;if passage() == &quot;Bavenmore Shopkeeper&quot; &amp;&amp; !_completedQuest&gt;&gt;
-        [[Is there anything I can help you with?|DeliveryToInnkeeper]]&lt;br&gt;
+    &lt;&lt;if passage() == &quot;Bavenmore Shopkeeper&quot; &amp;&amp; _reqQuest &amp;&amp; !_completedQuest&gt;&gt;
+        [[Is there anything else I can help you with?|DeliveryToInnkeeper]]&lt;br&gt;
     &lt;&lt;/if&gt;&gt;
 &lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="56" name="DeliveryToInnkeeperEnd" tags="nobr wood-inn" position="725,725" size="100,100">&lt;&lt;set _quest to $playerQuests.find(q =&gt; q.title === &quot;Delivery To Innkeeper&quot;)&gt;&gt;
 &lt;br&gt;&lt;br&gt;
@@ -1703,9 +1706,13 @@ You prepare for battle with the $currentEnemy.name.&lt;br&gt;&lt;br&gt;
         &lt;div style=&quot;text-align: center;&quot;&gt;
         As you try to flee, the $currentEnemy.name anticipates your move and blocks your path.&lt;br&gt;
         You can&#39;t escape!
+        &lt;/div&gt;
         &lt;br&gt;&lt;br&gt;
-    [[Fight|CombatTurn]]
-    &lt;/div&gt;
+    &lt;&lt;if !$combatTurn || $combatTurn == 0&gt;&gt;
+        [[Fight|EngageEnemy]]
+    &lt;&lt;else&gt;&gt;
+        [[Continue Fight|CombatTurn]]
+    &lt;&lt;/if&gt;&gt;    
 &lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="71" name="CombatTurn" tags="nobr" position="100,975" size="100,100">&lt;br&gt;
 &lt;&lt;print &quot;&lt;img src=&#39;&quot; + $enemyImgPath + &quot;&#39; style=&#39;display: block; margin: auto;&#39; width=&#39;300&#39; height=&#39;300&#39;&gt;&quot;&gt;&gt;&lt;br&gt;
 &lt;div style=&quot;text-align: center;&quot;&gt;

@@ -57,9 +57,13 @@ You prepare for battle with the $currentEnemy.name.<br><br>
         <div style="text-align: center;">
         As you try to flee, the $currentEnemy.name anticipates your move and blocks your path.<br>
         You can't escape!
+        </div>
         <br><br>
-    [[Fight|CombatTurn]]
-    </div>
+    <<if !$combatTurn || $combatTurn == 0>>
+        [[Fight|EngageEnemy]]
+    <<else>>
+        [[Continue Fight|CombatTurn]]
+    <</if>>    
 <</if>>
 
 
