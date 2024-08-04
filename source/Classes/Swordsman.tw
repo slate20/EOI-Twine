@@ -37,8 +37,9 @@ The real test begins as you venture forth, seeking challenges that will forge yo
 <br><br>
 <<link "Complete your training">>
     <<run Dialog.setup("Joined Swordsman Class")>>
-    <<run Dialog.wiki("You have unlock the Swordsman skilltree.")>><br>
-    <<run Dialog.wiki("You have also obtained a Worn Iron Sword and Wooden Shield from your training.")>>
+    <<run Dialog.wiki("You have unlock the Swordsman skilltree.<br>")>>
+    <<run Dialog.wiki("You have also obtained a Worn Iron Sword and Wooden Shield from your training.<br><br>")>>
+    <<run Dialog.wiki("Speak with the Guildmaster for your first assignment.")>>
     <<run Dialog.open()>>
     <<goto RecalcMods>>
 <</link>>

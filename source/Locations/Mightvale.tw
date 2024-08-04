@@ -42,6 +42,7 @@ Which direction would you like to travel in?
 <<if $playerClass == "Swordsman">>
     You're greeted warmly as a fellow Swordsman. The guild is bustling with activity.<br><br>
     [[Talk to a guild member|MVMGuildMember]]<br>
+    [[Talk to the Guildmaster|MVMGuildMaster]]<br>
     [[Check the notice board for work|NoticeBoard]]<br>
     [[Visit the guild shop|MVMGuildShop]]<br>
     [[Rest in the bunkhouse|Bunkhouse]]<br>
@@ -65,14 +66,26 @@ Which direction would you like to travel in?
 
 :: MVMGuildMaster [nobr] {"position":"16600,6750"}
 <br><br>
-<div style="text-align: center;">
-The Guildmaster, a figure of respect and authority, assesses you. <br>
-"What brings you to the Mightvale Mercenaries' Guild?"<br><br>
-</div>
 <<if $playerClass != "Swordsman">>
-    <<link "Ask about becoming a Swordsman">><<goto "SwordsmanInfo">><</link>>
-<</if>><br>
-[[Nothing, sorry to bother you.|MV Merc Guild]]
+    <div style="text-align: center;">
+    The Guildmaster, a figure of respect and authority, assesses you. <br>
+    "What brings you to the Mightvale Mercenaries' Guild?"<br><br>
+    </div>
+    <<if $playerClass == "">>
+        <<link "Ask about becoming a Swordsman">><<goto "SwordsmanInfo">><</link>><br>
+    <</if>>
+    [[Nothing, sorry to bother you.|MV Merc Guild]]
+<<else>>
+    <div style="text-align: center;">
+    "Good day, <<print $playerName>>!", the Guildmaster greets you. "What can I do for you?"<br><br>
+    </div>
+
+    <<run questCheck("The Bandit Menace")>>
+    <<include "BanditMenace_Dialog">><br>
+
+    [[Nothing, thank you sir.|MV Merc Guild]]
+<</if>>
+
 
 
 :: SwordsmanInfo [nobr] {"position":"16600,6875"}
