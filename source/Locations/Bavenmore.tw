@@ -63,8 +63,7 @@ Which direction would you like to travel in?
 :: Bavenmore Shop [gen-shop] {"position":"17250,6875"}
 <<set $lastLocation = passage()>>
 
-You enter the local shop. It's modestly sized, with various items on wooden tables and shelves.
-The shopkeeper nods at you. 
+You enter the local shop. It's modestly sized, with various items on wooden tables and shelves. The shopkeeper nods at you. 
 
 [[Talk to the shopkeeper|Bavenmore Shopkeeper]]
 <<link "Buy Items">>

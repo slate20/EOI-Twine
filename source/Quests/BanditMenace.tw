@@ -1,0 +1,57 @@
+:: BanditMenace [nobr]
+<<set _quest to $playerQuests.find(q => q.title === "The Bandit Menace")>>
+<br><br>
+<<if not _quest>>
+    <div style="text-align: center;">
+    "There have been reports of a bandit harrassing travelers around Mightvale. <br>
+    For your first assignment, I want you to track down this bandit menace and deal with them."
+    <br><br>
+    </div>
+    
+    <<link 'Yes sir, I will get started right away.'>>
+        <<set $questID = "BanditMenace">>
+        <<set _newQuest to clone($questDB[$questID])>>
+        <<set _newQuest.status to "in progress">>
+        <<set $playerQuests.push(_newQuest)>>
+        <<goto BanditMenaceAccept>>
+    <</link>><br>
+    [[I need to take care of something first|MV Merc Guild]]
+<</if>>
+
+:: BanditMenaceAccept [nobr]
+<<set _quest to $playerQuests.find(q => q.title === "The Bandit Menace")>>
+<br><br>
+Very Good. I would recommend starting by talking to some of the folks around town. <br>
+Someone is bound to know where the bandit was last seen.
+<br><br>
+
+[["Thank you for the tip. I will see what I can learn."|MV Merc Guild]]
+
+
+:: BanditMenace_Dialog [nobr]
+<<set _quest to $playerQuests.find(q => q.title === "The Bandit Menace")>>
+<<set _completedQuest to $completedQuests.find(q => q.title === "The Bandit Menace")>>
+<<if _quest>>
+    <<switch _quest.status>>
+        <<case "complete">>
+        <<case "objective2">>
+            <<if passage() == "MVMGuildMaster">>
+                [["I have learned the location of the last attack."|BanditMenace]]
+            <</if>>
+        <<case "objective3">>
+            <<if passage() == "MVMGuildMaster">>
+                [["I investigated the attack site but was ambushed and the bandit got away."|BanditMenaceEnd]]
+            <</if>>
+        <<case "objective4">>
+            <<if passage() == "MVMGuildMaster">>
+                [[I found and dealt with the bandit that was causing trouble.|BanditMenaceEnd]]
+            <</if>>
+    <</switch>>
+<<else>>
+    <<if passage() == "MVMGuildMaster">>
+        [["I'm here to report for my first assingment, sir."|BanditMenace]]
+    <</if>>
+<</if>>
+
+
+:: BanditMenaceEnd [nobr]

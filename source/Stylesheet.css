@@ -1,6 +1,8 @@
 /* Overall background and font styles for a classic fantasy theme */
 body {
     background-color: #1b1b1b; /* faded black background */
+    background-repeat: no-repeat;
+    background-size: cover;
     color: #e4d6a7; /* Parchment-like text color for a classic look */
     font-family: 'Cambria', serif; /* Serif font for a traditional feel */
     font-size: 20px;
@@ -9,6 +11,11 @@ body {
     padding: 20px;
 }
 
+.HUD {
+    justify-content: space-between !important;
+    max-width: 520px !important;
+    margin: auto;
+}
 
 /* Styles for individual passages */
 .passage {

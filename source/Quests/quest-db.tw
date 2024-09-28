@@ -30,5 +30,22 @@
             "items": [] // Add item rewards if any
         },
         "status": "not started"
+    },
+    "BanditMenace": {
+        "title": "The Bandit Menace",
+        "description": "Deal with the bandit that is harrasing travelers on their way to Mightvale.",
+        "objectives": [
+            {"text": "Learn the location of the last attack", "completed": false},
+            {"text": "Investigate the site for clues", "completed": false},
+            {"text": "Confront the bandit", "completed": false},
+            {"text": "Report back to the Guildmaster", "completed": false}
+        ],
+        "location": "Mightvale",
+        "reward": {
+            "gold": 10,
+            "exp": 25,
+            "items": [] // Add item rewards if any
+        },
+        "status": "not started"
     }
 }>>
