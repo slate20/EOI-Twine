@@ -86,17 +86,22 @@ Echoes Of Ismia
 <<set $playerStatusEffects = {}>>
 
 :: PassageHeader [System-Logic nobr] {"position":"900,0","size":"100,100"}
-<<if $globalHUD is not 0>>
-    <div style="display: flex; justify-content: center; align-items: center; gap: 250px;">
-        <div>
-            <<print $playerName>> | Lvl: <<print $playerLvl>>
-            <br> HP: <<print $currentStats.health>> <<if $playerHasMagic == 1>> | MP: <<print $currentStats.mana>> <</if>>
-        </div>
-        <div>
-            <<include "HUDStatDisplay">>
-        </div>
+<<if $globalHUD !== 0>>
+    <div class="HUD" style="display: flex; justify-content: center; align-items: center;">
+        <span>
+            <div>
+                <<print $playerName>> | Lvl: <<print $playerLvl>>
+                <br> HP: <<print $currentStats.health>> <<if $playerHasMagic == 1>> | MP: <<print $currentStats.mana>> <</if>>
+            </div>
+        </span>
+        <span>
+            <div>
+                <<include "HUDStatDisplay">>
+            </div>
+        </span>
     </div>
 <</if>>
+
 <!-- Level up check -->
 <<if $playerEXP >= $expThresh>>
     <<set $playerLvl += 1>>

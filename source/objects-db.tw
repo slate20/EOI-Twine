@@ -45,7 +45,7 @@
         "name": "Oak Shortbow",
         "class": "ranged",
         "type": "bow",
-        "description": "A heavily used sword that has seen better days.",
+        "description": "A basic shortbow carved from a piece of oak.",
         "damage": "1d4+2",
         "tier": 1,
         "value": 10,

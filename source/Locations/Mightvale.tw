@@ -9,6 +9,8 @@ You are in the town of <<print passage()>>. What would you like to do?
 </div>
 
 [[Visit the Mightvale Mercenaries' Guild|MV Merc Guild]]
+[[Visit the Blacksmith|Mightvale Blacksmith]]
+[[Visit the Alehouse|Mightvale Alehouse]]
 [[Leave Mightvale|Mightvale Travel]]
 
 
@@ -35,7 +37,7 @@ Which direction would you like to travel in?
 </div>
 
 
-
+<!-- Mightvale Mercenaries' Guild Passages -->
 :: MV Merc Guild [nobr] {"position":"16700,6625"}
 <<set $lastLocation = passage()>>
 <br><br>
@@ -94,3 +96,28 @@ Which direction would you like to travel in?
 <br><br>
 <<link "Enroll in Swordsman class">><<goto "EnrollSwordsman">><</link>><br>
 [["I'm not sure yet."|MVMGuildMaster]]
+
+
+<!-- Mightvale Blacksmith Passages -->
+:: Mightvale Blacksmith [gen-shop] {"position":"16700,6625"}
+<<set $lastLocation = passage()>>
+<br>
+You arrive at the blacksmiths shop. A slew of weapons and armor are on display and the smell of metal and coal is in the air.
+<br>
+[[Talk to the blacksmith|MV Blacksmith]]
+[[Buy Items]]
+[[Sell Items]]
+[[Leave the blacksmith|Mightvale]]
+
+
+<!-- Mightvale Alehouse Passages -->
+:: Mightvale Alehouse [wood-inn] {"position":"16700,6625"}
+<<set $lastLocation = passage()>>
+<br>
+You enter the alehouse. The majority of the patrons are mercenaries, resulting in a rather rowdy atmosphere.
+<br>
+[[Talk to the barkeep|Mightvale Barkeep]]
+[[Talk to a patron|MVAlehouse Patron]]
+[[Leave the alehouse|Mightvale]]
+
+
