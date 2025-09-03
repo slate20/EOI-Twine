@@ -47,7 +47,7 @@ Which direction would you like to travel in?
     [[Talk to the Guildmaster|MVMGuildMaster]]<br>
     [[Check the notice board for work|NoticeBoard]]<br>
     [[Visit the guild shop|MVMGuildShop]]<br>
-    [[Rest in the bunkhouse|Bunkhouse]]<br>
+    [[Rest in the bunkhouse|GuildBunkhouse]]<br>
 <<else>>
     You enter the guild curiously. Members seem busy, but you are welcomed to look around.<br><br>
     [[Talk to a guild member|MVMGuildMember]]<br>
@@ -89,7 +89,6 @@ Which direction would you like to travel in?
 <</if>>
 
 
-
 :: SwordsmanInfo [nobr] {"position":"16600,6875"}
 <br><br>
 "Swordsmen are masters of melee combat," explains the Guildmaster. "They possess formidable strength and an unwavering defense. With a sword in hand, they are a force to be reckoned with on any battlefield. To join us is to embrace a life of discipline and courage. Will you take up the sword and join our brotherhood of steel?"
@@ -109,6 +108,16 @@ You arrive at the blacksmiths shop. A slew of weapons and armor are on display a
 [[Sell Items]]
 [[Leave the blacksmith|Mightvale]]
 
+
+:: MV Blacksmith [gen-shop nobr] {"position":"16700,6750"}
+<br><br>
+"Make it brief, I've got a large order for the guild to finish."
+<br><br>
+
+<<run questCheck("The Bandit Menace")>>
+<<include "BanditMenace_Dialog">>
+
+[[Nothing, nevermind.|MV Blacksmith]]
 
 <!-- Mightvale Alehouse Passages -->
 :: Mightvale Alehouse [wood-inn] {"position":"16700,6625"}
